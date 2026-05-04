@@ -30,6 +30,20 @@ app.get("/", (req, res) => {
   <!DOCTYPE html>
   <html>
   <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<style>
+html{font-size:18px}
+body{margin:0;padding:0;overflow-x:hidden;font-family:ui-sans-serif,system-ui;background:#0b1220;color:#e5e7eb;}
+section{width:100vw;}
+.hero{width:100vw;min-height:90vh;}
+.container{max-width:100% !important;padding:0 5vw;}
+.max-w-xl,.max-w-4xl{max-width:100% !important;}
+h1{font-size:4rem !important;line-height:1.05}
+h2{font-size:2.4rem !important;line-height:1.2}
+p{font-size:1.15rem;line-height:1.7}
+.animate-scroll{font-size:1.1rem;letter-spacing:0.04em}
+footer{border-top:1px solid #1f2937;padding:4rem 0;}
+</style>
 <style>
 html{font-size:18px}
 body{margin:0;padding:0;overflow-x:hidden;font-family:ui-sans-serif,system-ui;background:#0b1220;color:#e5e7eb;}
