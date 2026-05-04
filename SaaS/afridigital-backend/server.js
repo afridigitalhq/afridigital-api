@@ -32,6 +32,20 @@ app.get("/", (req, res) => {
   <head>
 <style>
 html{font-size:18px}
+body{margin:0;padding:0;overflow-x:hidden;font-family:ui-sans-serif,system-ui;background:#0b1220;color:#e5e7eb;}
+section{width:100%;}
+.hero{width:100%;min-height:85vh;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+h1{font-size:3.5rem !important;line-height:1.1}
+h2{font-size:2rem !important;line-height:1.2}
+p{font-size:1.1rem;line-height:1.6}
+.max-w-xl{max-width:60rem !important}
+.max-w-4xl{max-width:80rem !important}
+.animate-scroll{font-size:1.05rem;letter-spacing:0.03em}
+footer{border-top:1px solid #1f2937;padding:3rem 0;}
+</style>
+<style>
+html{font-size:18px}
 body{margin:0;padding:0;width:100%;overflow-x:hidden;font-family:ui-sans-serif,system-ui;}
 section{width:100%;}
 .container{max-width:1200px;margin:0 auto;padding:0 24px;}
