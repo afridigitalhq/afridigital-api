@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 10000;
 const publicPath = path.resolve(__dirname, "public");
 
 app.use(express.json());
+app.get('/go/:service',(req,res)=>{const map={hfm:'https://hfm.com/?refid=YOUR_ID'};const s=req.params.service;if(map[s]) return res.redirect(map[s]);res.status(404).send('Unknown service')});
 app.use(express.static(publicPath));
 
 app.get("/api/health", (req, res) => {
