@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
+<div class="min-h-screen max-w-6xl mx-auto px-4">
 
     ${load("hero.html")}
     ${load("marquee.html")}
@@ -43,7 +44,7 @@ app.get("/", (req, res) => {
     ${load("footer.html")}
     ${load("chat.html")}
 
-  </body>
+  </div></body>
   </html>
   `;
 
