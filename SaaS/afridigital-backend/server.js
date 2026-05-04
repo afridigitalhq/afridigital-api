@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
     ${load("footer.html")}
     ${load("chat.html")}
 
-  </div></div></body>
+  </div></div></div></body>
   </html>
   `;
 
