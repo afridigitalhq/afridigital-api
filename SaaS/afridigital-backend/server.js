@@ -30,6 +30,21 @@ app.get("/", (req, res) => {
   <!DOCTYPE html>
   <html>
   <head>
+<style>
+html{font-size:18px}
+body{margin:0;padding:0;width:100%;overflow-x:hidden;font-family:ui-sans-serif,system-ui;}
+section{width:100%;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+h1{font-size:3.2rem !important;line-height:1.1}
+h2{font-size:1.9rem !important;line-height:1.2}
+p{font-size:1.05rem;line-height:1.6}
+.hero{width:100%;min-height:80vh}
+.max-w-xl{max-width:42rem !important}
+.max-w-4xl{max-width:72rem !important}
+footer{padding-top:3rem;padding-bottom:3rem;border-top:1px solid #1f2937}
+.animate-scroll{font-size:1.05rem;letter-spacing:0.02em}
+.chat-widget{position:fixed;bottom:20px;right:20px;z-index:9999}
+</style>
     <meta charset="UTF-8" />
     <title>AfriDigital</title>
     <script src="https://cdn.tailwindcss.com"></script>
