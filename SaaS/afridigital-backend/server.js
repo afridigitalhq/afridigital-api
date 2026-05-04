@@ -1,30 +1,55 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 
-// absolute-safe path (Render-proof)
-const publicPath = path.resolve(__dirname, "public");
+const load = (file) =>
+  fs.readFileSync(path.join(__dirname, "views/partials", file), "utf8");
 
-app.use(express.json());
-app.get('/go/:service',(req,res)=>{const map={hfm:'https://hfm.com/?refid=YOUR_ID'};const s=req.params.service;if(map[s]) return res.redirect(map[s]);res.status(404).send('Unknown service')});
-app.use(express.static(publicPath));
+// 🚀 Outbound gateway (your monetization layer)
+app.get("/go/:service", (req, res) => {
+  const map = {
+    hfm: "https://hfmarkets.co.uk/en/?refid=YOUR_ID"
+  };
 
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
+  const s = req.params.service;
+
+  if (map[s]) {
+    console.log("OUTBOUND", s, req.ip, Date.now());
+    return res.redirect(map[s]);
+  }
+
+  return res.status(404).send("Unknown service");
 });
 
-// SPA fallback
-app.get("*", (req, res) => {
-  res.sendFile(path.join(publicPath, "index.html"));
+// 🧩 UI COMPOSER
+app.get("/", (req, res) => {
+  const html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>AfriDigital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+
+    ${load("hero.html")}
+    ${load("marquee.html")}
+    ${load("auth.html")}
+    ${load("services.html")}
+    ${load("footer.html")}
+    ${load("chat.html")}
+
+  </body>
+  </html>
+  `;
+
+  res.send(html);
 });
 
-// crash logs
-process.on("uncaughtException", (err) => console.error("🔥 UNCAUGHT:", err));
-process.on("unhandledRejection", (err) => console.error("🔥 UNHANDLED:", err));
-
-app.get('/go/:service',(req,res)=>{const map={hfm:'https://hfm.com/?refid=YOUR_ID'};const s=req.params.service;if(map[s]){console.log('OUTBOUND',s,req.ip,Date.now());res.redirect(map[s])}else{res.status(404).send('Unknown service')}});
 app.listen(PORT, () => {
-  console.log("🚀 Render UI stable mode on port:", PORT);
+  console.log("AfriDigital UI Engine running on port", PORT);
 });
