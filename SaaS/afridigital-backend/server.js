@@ -49,7 +49,7 @@ p{line-height:1.6}
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-50 text-gray-900 leading-relaxed tracking-tight">
-<div class="min-h-screen max-w-6xl mx-auto px-4">
+
 
     ${load("hero.html")}
     ${load("marquee.html")}
@@ -58,7 +58,7 @@ p{line-height:1.6}
     ${load("footer.html")}
     ${load("chat.html")}
 
-  </div></div></div></body>
+  </div></div></body>
   </html>
   `;
 
