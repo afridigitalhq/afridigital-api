@@ -1,15 +1,32 @@
 const internalAI = require("./internal");
-const externalAI = require("./external");
 const truthLock = require("./truthLock");
 const { enrichWithMemory, storeAIInteraction } = require("./memoryBridge");
+const { injectPersona, buildPersonaContext } = require("./personalityBridge");
 
 async function aiRouter({ message, userId = "anon", channel = "web", from = null }) {
   try {
-    const enriched = await enrichWithMemory({ userId, message });
 
+    // 🧠 PERSONALITY INJECTION (HUMAN-LIKE CONTEXT)
+    const personaPrompt = injectPersona({ userId, message });
+
+    // 🧠 MEMORY ENRICHMENT
+    const enriched = await enrichWithMemory({
+      userId,
+      message: personaPrompt
+    });
+
+    // 🤖 AI CORE
     const raw = await internalAI(enriched);
     const locked = truthLock(raw);
 
+    // 🧠 UPDATE PERSONALITY STATE
+    await buildPersonaContext({
+      userId,
+      message,
+      response: locked
+    });
+
+    // 💾 STORE MEMORY
     await storeAIInteraction({
       userId,
       message,
@@ -18,6 +35,7 @@ async function aiRouter({ message, userId = "anon", channel = "web", from = null
     });
 
     return locked;
+
   } catch (err) {
     console.error("AI Router Error:", err);
     return "⚡ System temporarily unavailable.";
