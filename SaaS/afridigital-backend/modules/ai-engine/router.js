@@ -1,34 +1,54 @@
 const internalAI = require("./internal");
 const externalAI = require("./external");
 const truthLock = require("./truthLock");
-const chatMemory = require("../../services/memory/chatMemory");
+
+let chatMemory;
+try {
+  chatMemory = require("../../services/memory/chatMemory");
+} catch (e) {
+  chatMemory = null;
+}
 
 async function aiRouter({ message, channel = "web", from = null }) {
   try {
-    // 🧠 STEP 1: Load memory context
-    const memoryContext = await chatMemory.getContext(from || channel);
+    let memoryContext = "";
 
-    const enrichedMessage = memoryContext
+    // 🧠 SAFE MEMORY ACCESS (NEVER BREAK FLOW)
+    if (chatMemory?.getContext) {
+      try {
+        memoryContext = await chatMemory.getContext(from || channel);
+      } catch (e) {
+        memoryContext = "";
+      }
+    }
+
+    const finalMessage = memoryContext
       ? `${memoryContext}\n\nUser: ${message}`
       : message;
 
-    // 🌐 STEP 2: Try internal AI first
-    let response = await internalAI(enrichedMessage);
+    // 🧠 INTERNAL AI FIRST
+    let response = await internalAI(finalMessage);
 
-    // 🌍 STEP 3: fallback to external AI if needed
+    // 🌐 EXTERNAL FALLBACK
     if (!response) {
-      response = await externalAI(enrichedMessage);
+      response = await externalAI(finalMessage);
     }
 
-    // 🔒 STEP 4: truth lock (final safety layer)
+    // 🔒 FINAL SAFETY LAYER
     const locked = truthLock(response || "⚡ No response generated.");
 
-    // 💾 STEP 5: store memory
-    await chatMemory.store(from || channel, message, locked);
+    // 💾 SAFE MEMORY STORE
+    if (chatMemory?.store) {
+      try {
+        await chatMemory.store(from || channel, message, locked);
+      } catch (e) {
+        // ignore memory failure (non-blocking)
+      }
+    }
 
     return locked;
   } catch (err) {
-    console.error("AI Router Error:", err);
+    console.error("AI Router Fatal:", err);
     return "⚡ System temporarily unavailable.";
   }
 }

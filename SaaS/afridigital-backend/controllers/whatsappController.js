@@ -29,7 +29,7 @@ exports.receive = async (req, res) => {
     console.log("📩 WhatsApp:", from, text);
 
     // 🔥 Send into existing chat module
-    const aiResponse = await aiRouter({ message: text, channel: "whatsapp", from });
+    const aiResponse = await handleIncomingMessage({ message: text, channel: "whatsapp", from });
 
     // 🔥 Send back to user
     await sendWhatsApp(from, aiResponse || "✅ Processed.");
