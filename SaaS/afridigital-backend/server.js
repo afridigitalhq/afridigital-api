@@ -1,8 +1,11 @@
 const express = require("express");
+const whatsappRoutes = require("./routes/whatsapp");
+const bodyParser = require("express");
 const fs = require("fs");
 const path = require("path");
 
 const app = express();
+app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 const load = (file) =>
@@ -65,6 +68,7 @@ p{line-height:1.6}
   res.send(html);
 });
 
+app.use("/api", whatsappRoutes);
 app.listen(PORT, () => {
   console.log("AfriDigital UI Engine running on port", PORT);
 });
