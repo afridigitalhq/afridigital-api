@@ -1,3 +1,4 @@
+const { getRecentMemory } = require("../services/memory/chatMemory");
 const { truthLock } = require("./truthLock");
 const internalAI = require("./internal");
 
