@@ -1,6 +1,8 @@
+const { injectEmotion, processEmotion } = require("./emotionBridge");
 const internalAI = require("./internal");
 const truthLock = require("./truthLock");
 const { enrichWithMemory, storeAIInteraction } = require("./memoryBridge");
+processEmotion({ userId, message });
 const { injectPersona, buildPersonaContext } = require("./personalityBridge");
 
 async function aiRouter({ message, userId = "anon", channel = "web", from = null }) {
@@ -10,7 +12,8 @@ async function aiRouter({ message, userId = "anon", channel = "web", from = null
     const personaPrompt = injectPersona({ userId, message });
 
     // 🧠 MEMORY ENRICHMENT
-    const enriched = await enrichWithMemory({
+    const emotional = injectEmotion({ userId, message });
+    const enriched = await enrichWithMemory({ userId, message: emotional });({
       userId,
       message: personaPrompt
     });
@@ -28,6 +31,7 @@ async function aiRouter({ message, userId = "anon", channel = "web", from = null
 
     // 💾 STORE MEMORY
     await storeAIInteraction({
+processEmotion({ userId, message });
       userId,
       message,
       response: locked,
