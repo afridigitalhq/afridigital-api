@@ -1,3 +1,4 @@
+const { storeMemory, recallMemory } = require("../vector/vectorMemory");
 const internalAI = require("./internal");
 const externalAI = require("./external");
 const truthLock = require("./truthLock");
