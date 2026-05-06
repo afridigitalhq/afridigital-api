@@ -1,3 +1,4 @@
+// A2 MEMORY ENABLED ROUTER HOOK READY
 const { getRecentMemory } = require("../services/memory/chatMemory");
 const { truthLock } = require("./truthLock");
 const internalAI = require("./internal");

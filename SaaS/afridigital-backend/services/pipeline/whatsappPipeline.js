@@ -1,29 +1,40 @@
 const aiRouter = require("../../modules/ai-engine/router");
 const a2Core = require("../../modules/a2-core");
-const logMessage = require("../logging/logger");
+const { getRecentMemory, saveMemory } = require("../memory/chatMemory");
 
 async function whatsappPipeline(context) {
   try {
     const { message, user, channel } = context;
 
-    // 1. AI RESPONSE
+    // 🧠 LOAD MEMORY CONTEXT
+    const history = await getRecentMemory(user);
+
+    // 🤖 AI CALL (memory-aware input)
     const aiResponse = await aiRouter({
       message,
       user,
-      channel
+      channel,
+      history
     });
 
-    // 2. A2 CORE WRAPPER (logging + future hooks)
+    // 🧱 A2 CORE WRAP (logging layer)
     const finalResponse = await a2Core({
       context,
       aiResponse
     });
 
-    return finalResponse || "⚡ System processed your request.";
+    // 💾 SAVE MEMORY
+    await saveMemory({
+      phone: user,
+      message,
+      response: finalResponse
+    });
+
+    return finalResponse || "⚡ Processed successfully.";
 
   } catch (err) {
-    console.error("WhatsApp Pipeline Error:", err);
-    return "⚡ Temporary system issue. Please try again.";
+    console.error("Pipeline Error:", err);
+    return "⚡ System temporarily unavailable.";
   }
 }
 
