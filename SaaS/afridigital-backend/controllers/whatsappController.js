@@ -1,4 +1,4 @@
-const chatModule = require("../modules/chat");
+
 const sendWhatsApp = require("../modules/chat/whatsappSender");
 
 exports.verify = (req, res) => {
