@@ -4,10 +4,10 @@ const axios = require("axios");
 const whatsappController = require("../controllers/whatsappController");
 
 // Webhook verification (Meta)
-router.get("/webhook/whatsapp", whatsappController.verify);
+router.get("/webhook", whatsappController.verify);
 
 // Incoming messages
-router.post("/webhook/whatsapp", whatsappController.receive);
+router.post("/webhook", whatsappController.receive);
 
 // SEND MESSAGE
 router.post("/whatsapp/send", async (req, res) => {
@@ -15,7 +15,7 @@ router.post("/whatsapp/send", async (req, res) => {
     const { to, message } = req.body;
 
     const response = await axios.post(
-      `https://graph.facebook.com/v19.0/${process.env.PHONE_NUMBER_ID}/messages`,
+      `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_ID}/messages`,
       {
         messaging_product: "whatsapp",
         to: to,
