@@ -1,1 +1,1 @@
-const fs=require("fs");const html=fs.readFileSync("dist/index.html","utf8");if(!html.includes("AfriDigital")){console.error("❌ TRUTH LOCK FAILED: brand");process.exit(1);}if(!html.includes("Get Started")){console.error("❌ TRUTH LOCK FAILED: CTA");process.exit(1);}console.log("🔒 TRUTH LOCK: PASSED (v1 single-layer)");
+module.exports = require("./truth-unified.cjs");

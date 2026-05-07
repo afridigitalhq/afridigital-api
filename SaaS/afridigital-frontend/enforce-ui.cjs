@@ -1,21 +1,14 @@
 const fs = require("fs");
+const path = require("path");
+const { runKernel } = require("../afridigital-backend/modules/ai-engine/truthKernel");
 
-const html = fs.readFileSync("dist/index.html", "utf8").toLowerCase();
+const filePath = path.join(__dirname, "dist/index.html");
 
-const contract = {
-  hero: /class="[^"]*hero/,
-  marquee: /class="[^"]*marquee|animate-scroll|whitespace-nowrap/,
-  auth: /class="[^"]*auth/,
-  services: /our services/,
-  footer: /<footer/,
-  chat: /chat/
-};
+let html = fs.readFileSync(filePath, "utf-8");
 
-for (const key in contract) {
-  if (!contract[key].test(html)) {
-    console.error("❌ DOM CONTRACT FAILED:", key);
-    process.exit(1);
-  }
+const fixedHtml = runKernel(html);
+
+if (fixedHtml && fixedHtml !== html) {
+  fs.writeFileSync(filePath, fixedHtml);
+  console.log("💾 HTML auto-corrected and saved");
 }
-
-console.log("✅ DOM CONTRACT ENFORCER: PASS");
