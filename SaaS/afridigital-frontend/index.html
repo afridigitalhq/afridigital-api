@@ -32,6 +32,23 @@
 </section>
 
 <style>
+.hero { animation: heroFade 1s ease-out forwards; transform: translateY(0); }
+
+@keyframes heroFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-hover { transition: all 0.25s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+.fade-in { animation: fadeIn 0.8s ease forwards; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @keyframes scroll {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
@@ -84,32 +101,32 @@
 
     <div class="grid md:grid-cols-3 gap-6">
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">AI Engine</h3>
         <p class="text-sm text-gray-600">Intelligence layer powering automated decisions.</p>
       </div>
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">Wallet System</h3>
         <p class="text-sm text-gray-600">Digital value flow and transaction layer.</p>
       </div>
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">Marketplace Core</h3>
         <p class="text-sm text-gray-600">Exchange layer for digital commerce operations.</p>
       </div>
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">Messaging Network</h3>
         <p class="text-sm text-gray-600">Communication infrastructure (WhatsApp / Chat).</p>
       </div>
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">Ads Engine</h3>
         <p class="text-sm text-gray-600">Revenue and distribution layer for ecosystem flow.</p>
       </div>
 
-      <div class="p-6 rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
+      <div class="p-6 card-hover fade-in rounded-2xl shadow-lg bg-gray-50 hover:shadow-xl transition">
         <h3 class="font-semibold text-xl mb-2">Developer Layer</h3>
         <p class="text-sm text-gray-600">Integration and system extension interface.</p>
       </div>
