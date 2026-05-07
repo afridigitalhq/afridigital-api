@@ -1,3 +1,4 @@
+const { render } = require("./v8-ui-engine.cjs");
 const https = require("https");
 
 const FRONTEND_SERVICE = "srv-d7st7sugkk3c73dl004g";
@@ -70,3 +71,5 @@ function decide(frontend, backend) {
 
   console.log("\n🔒 AFRIDIGITAL V8 COMPLETE (SERVICE-AWARE MODE)");
 })();
+
+try { render(); } catch(e) {}
