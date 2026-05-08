@@ -42,3 +42,6 @@ mesh.boot();
 server.listen(PORT,"0.0.0.0",()=>{
   console.log("🚀 AFRIDIGITAL V10 ENTITY OS ACTIVE ON",PORT);
 });
+
+const whatsappWebhook = require('./routes/whatsapp-webhook');
+app.use('/webhook/whatsapp', whatsappWebhook);
