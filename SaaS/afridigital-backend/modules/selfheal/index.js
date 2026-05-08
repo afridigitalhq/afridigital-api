@@ -1,1 +1,5 @@
-const pm2=require('pm2');const ops=require('../ops-v7');function restart(name){return new Promise(res=>pm2.restart(name,()=>res(true)));}async function heal(report){const actions=[];if(report.issues?.length){for(const i of report.issues){if(i.status!=='online'){await restart(i.name);actions.push(i.name);}}}ops.log({type:'self_heal',actions});return actions;}module.exports={heal};
+module.exports = {
+  heal: async () => {
+    return { status: "disabled", reason: "pm2 removed for render compatibility" };
+  }
+};
