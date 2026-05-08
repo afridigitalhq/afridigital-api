@@ -1,0 +1,1 @@
+function analyze(nodes){const alerts=[];for(const n of nodes){if(n.memory>500*1024*1024)alerts.push({type:'high_memory',node:n.name});if(n.cpu>80)alerts.push({type:'high_cpu',node:n.name});}return alerts;}module.exports={analyze};

@@ -1,0 +1,1 @@
+function cost(nodes){let totalCpu=0,totalMem=0;for(const n of nodes){totalCpu+=n.cpu||0;totalMem+=n.memory||0;}return {cpu:totalCpu,memory:totalMem,optimization:'reduce_idle_nodes'};}module.exports={cost};

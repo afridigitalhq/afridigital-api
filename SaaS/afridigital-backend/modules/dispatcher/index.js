@@ -1,0 +1,12 @@
+const kernel=require('./modules/entity-kernel');
+const entity=require('./modules/ai-entity-core');
+const llm=require('../llm-gateway');
+const firewall=require('./modules/security/firewall');
+const swapper=require('./modules/swapper-v4/executor');
+const swapper=require('../modules/swapper-v3/executor');
+const swapper=require('../modules/swapper-v2/executor');
+const swapper=require('../modules/swapper');const engines=require('../modules/swapper/engines');
+const contract=require('../modules/contract');
+const reasoning=require('../modules/reasoning');
+const llm=require('../llm');
+const brain=require('../brain');const memory=require('../memory');async function async (p)=>engines.reasoning(contract.normalize({userId:p.userId||'u',message:p.user||p.message||'',channel:p.channel||'web'})(prompt){return '🤖 AI RESPONSE: '+prompt.user;}async function handle({channel,userId,message,send}){memory.saveMessage(channel,userId,message);memory.updateProfile(userId,message);const payload=brain.buildPrompt({channel,userId,message});const response=await async (p)=>engines.reasoning(contract.normalize({userId:p.userId||'u',message:p.user||p.message||'',channel:p.channel||'web'})(payload);memory.saveMessage(channel,userId,response);return send(response);}module.exports={handle};

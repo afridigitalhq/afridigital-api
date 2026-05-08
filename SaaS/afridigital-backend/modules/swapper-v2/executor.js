@@ -1,0 +1,1 @@
+const router=require('../modules/swapper-v2');const engines=require('../modules/swapper-v2/engines');async function execute(input){const ranked=router.rank(input);for(const r of ranked){try{const res=await engines[r.engine](input);if(res)return res;}catch(e){continue;}}return 'Fallback response ⚠️';}module.exports={execute};

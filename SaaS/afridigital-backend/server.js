@@ -1,3 +1,10 @@
+const mesh=require('./modules/mesh');
+const realtime=require('./modules/realtime');
+const http=require('http');
+require('./modules/self-heal');
+require('./modules/system-watch');
+const opsEngine=require('./modules/ops-v7/engine');
+const alerts=require('./modules/alerts');const adminBus=require('./modules/admin-bus');
 const express = require("express");
 const path = require("path");
 
@@ -25,3 +32,13 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Server running on port:", PORT);
 });
+
+
+const interactiveCards = require("./routes/interactiveCards");
+app.use("/cards", interactiveCards);
+setInterval(()=>{require('./modules/system-intel').snapshot();},3600000);
+setInterval(()=>require('./modules/alerts').run?.(),300000);
+setInterval(async()=>{try{const supervisor=require('./modules/supervisor');const report=await supervisor.watch();await opsEngine.run(report);}catch(e){console.log('ops-v7 error',e)}},120000);
+
+mesh.boot();
+if(typeof app!=='undefined'){const server=http.createServer(app);realtime.boot(server);server.listen(process.env.PORT||10000,()=>console.log('🚀 V10 MESH SERVER ACTIVE'));}

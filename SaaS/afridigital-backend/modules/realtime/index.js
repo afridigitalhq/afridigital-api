@@ -1,0 +1,1 @@
+const WebSocket=require('ws');const router=require('../event-router');let wss;function boot(server){wss=new WebSocket.Server({server});router.on('*',(payload)=>{const msg=JSON.stringify(payload);wss.clients.forEach(c=>{if(c.readyState===1)c.send(msg);});});console.log('⚡ REALTIME MESH ACTIVE');}module.exports={boot};

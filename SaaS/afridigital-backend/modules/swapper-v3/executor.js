@@ -1,0 +1,1 @@
+const router=require('../modules/swapper-v3');const engines=require('../modules/swapper-v3/engines');async function execute(input){const engine=router.route(input);try{const res=await engines[engine](input);router.update(engine,true);return res;}catch(e){router.update(engine,false);return engines.fast(input);}}module.exports={execute};

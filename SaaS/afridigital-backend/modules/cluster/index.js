@@ -1,0 +1,1 @@
+const pm2=require('pm2');function list(){return new Promise(res=>pm2.list((_,p)=>res(p||[])));}async function health(){const nodes=await list();return nodes.map(n=>({name:n.name,pm2:n.pm2_env.status,memory:n.monit.memory,cpu:n.monit.cpu}));}module.exports={health};

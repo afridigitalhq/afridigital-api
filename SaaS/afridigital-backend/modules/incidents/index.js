@@ -1,0 +1,1 @@
+const ops=require('../ops-v7');function classify(event){if(event.type==='error')return 'critical';if(event.type==='latency')return 'warning';return 'info';}function create(event){const incident={id:Date.now(),severity:classify(event),event,status:'open'};ops.log({type:'incident',incident});return incident;}module.exports={create};

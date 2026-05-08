@@ -1,0 +1,1 @@
+const registry=require('../node-registry');const router=require('../event-router');function boot(){['memory','reasoning','persona','wallet','supervisor','marketplace'].forEach(n=>registry.register(n));router.emit('mesh.boot',{status:'online',nodes:registry.all()});console.log('🧠 AI MESH ONLINE');}module.exports={boot};

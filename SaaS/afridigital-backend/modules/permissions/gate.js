@@ -1,0 +1,1 @@
+const identity=require('../identity/adminRegistry');const roles=require('./roleResolver');function guard(input){const role=roles.resolveRole(input.userId,identity);if(role!=='admin' && input.action==='system')return {allowed:false,role};return {allowed:true,role};}module.exports={guard};

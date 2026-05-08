@@ -1,3 +1,4 @@
+const marketplace=require("../marketplace/marketplaceBridge");
 const aiRouter = require("../../modules/ai-engine/router");
 const a2Core = require("../../modules/a2-core");
 const { getRecentMemory, saveMemory } = require("../memory/chatMemory");

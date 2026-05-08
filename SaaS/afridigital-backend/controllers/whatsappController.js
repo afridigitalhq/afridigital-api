@@ -1,3 +1,8 @@
+const dispatcher=require('../modules/dispatcher');
+const memory=require('../modules/memory');
+const brain=require('../modules/brain');
+const memory = require('../modules/memory');
+const memory = require('../modules/memory');
 const sendWhatsApp = require("../modules/chat/whatsappSender");
 const { handleIncomingMessage } = require("../modules/chat");
 

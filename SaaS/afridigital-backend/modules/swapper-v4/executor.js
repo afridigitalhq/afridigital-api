@@ -1,0 +1,1 @@
+const engines=require('../swapper-v3/engines');const core=require('../swapper-v3/executor');const system=require('../system-intel');async function execute(input){system.snapshot();return core.execute(input);}module.exports={execute};

@@ -1,8 +1,6 @@
-const { injectEmotion, processEmotion } = require("./emotionBridge");
 const internalAI = require("./internal");
 const truthLock = require("./truthLock");
 const { enrichWithMemory, storeAIInteraction } = require("./memoryBridge");
-processEmotion({ userId, message });
 const { injectPersona, buildPersonaContext } = require("./personalityBridge");
 
 async function aiRouter({ message, userId = "anon", channel = "web", from = null }) {
@@ -31,7 +29,6 @@ async function aiRouter({ message, userId = "anon", channel = "web", from = null
 
     // 💾 STORE MEMORY
     await storeAIInteraction({
-processEmotion({ userId, message });
       userId,
       message,
       response: locked,
