@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { detectIntent } = require("../modules/ai/router");
-const memory = require("../modules/ai/redisMemory");
+const memoryInstance = require("../modules/ai/redisMemory");
 const { runPlugin } = require("../modules/plugins/engine");
 const control = require("../modules/control-plane");
 const whatsapp = require("../modules/whatsapp");

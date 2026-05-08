@@ -1,7 +1,1 @@
-module.exports = {
-  boot: async () => ({ ok: true }),
-  init: async () => ({ ok: true }),
-  start: async () => ({ ok: true }),
-  stop: async () => ({ ok: true }),
-  status: async () => ({ ok: true, mode: "safe" })
-};
+module.exports = { init: async () => ({ ok: true, mode: 'enterprise-safe' }) };

@@ -1,1 +1,1 @@
-const fs=require('fs');const path=require('path');const DB=path.join(__dirname,'storage','ops.json');const load=()=>{try{return JSON.parse(fs.readFileSync(DB));}catch(e){return{events:[],health:{}}}};const save=d=>fs.writeFileSync(DB,JSON.stringify(d,null,2));module.exports={log:(event)=>{const db=load();db.events.push({event,time:Date.now()});db.events=db.events.slice(-500);save(db);},state:load};
+module.exports = { init: async () => ({ ok: true, mode: 'enterprise-safe' }) };

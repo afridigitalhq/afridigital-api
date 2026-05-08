@@ -40,4 +40,4 @@ console.log("🔥 WHATSAPP WEBHOOK HIT");
   } catch (err) {
     console.error("WhatsApp Error:", err);
     return res.sendStatus(500);
-const memory = require('../modules/memory');
+const memoryInstance = require('../modules/memory');
