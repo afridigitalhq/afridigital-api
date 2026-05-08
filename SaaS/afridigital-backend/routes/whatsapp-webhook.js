@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
 
     const result = await runPlugin(intent, {
       message: text,
+      // evolution tracking injected manually in plugins
       phone: from
     });
 
