@@ -1,35 +1,63 @@
-const router = require("../../core/commerce/router");
+const memory = require("../../core/memory/engine");
+const personality = require("../../core/personality/engine");
+const economy = require("../../core/economy/engine");
+const ranking = require("../../core/ranking/engine");
+const recommendation = require("../../core/recommendation/engine");
+
+function classify(text=""){
+
+  text = text.toLowerCase();
+
+  if(text.includes("earn")) return "earning";
+  if(text.includes("sell")) return "commerce";
+  if(text.includes("wallet")) return "wallet";
+  if(text.includes("pay")) return "payment";
+  if(text.includes("help")) return "support";
+
+  return "general";
+}
 
 module.exports = {
 
   async process({ from, message }) {
 
-    console.log("📩 Incoming:", from, message);
+    const intent = classify(message);
 
-    const result = router.route(from, message);
+    let user = memory.get(from);
 
-    let reply = "🧠 AfriDigital AI Assistant";
+    memory.pushActivity(from,intent);
 
-    if(result.intent === "earning") {
-      reply = "Here are earning opportunities for you 👇";
-    }
+    user = memory.get(from);
 
-    if(result.intent === "wallet") {
-      reply = "Wallet tools ready 👇";
-    }
+    user.economy = economy.build(user);
 
-    if(result.intent === "commerce") {
-      reply = "Business tools available 👇";
-    }
+    memory.save(from,user);
 
-    if(result.intent === "payment") {
-      reply = "Payment flow initialized 👇";
-    }
+    const reply =
+      personality.tone(intent);
+
+    const recommendations =
+      recommendation.recommend(intent,user);
+
+    const sponsored =
+      ranking.select(intent,user.economy);
+
+    console.log("🧠 USER:", from);
+    console.log("📊 ECONOMY:", user.economy);
 
     return {
+
+      intent,
+
       reply,
-      actions: result.actions,
-      sponsored: result.sponsored
+
+      profile: user.profile,
+
+      economy: user.economy,
+
+      recommendations,
+
+      sponsored
     };
   }
 };
