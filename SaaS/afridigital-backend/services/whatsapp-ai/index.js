@@ -1,26 +1,7 @@
-const OpenAI = require("openai");
-const memory = require("../modules/memory");
+const { routeMessage } = require("./router");
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-async function handleMessage({ from, text }) {
-  const history = await memory.get(from) || [];
-
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      { role: "system", content: "You are AfriDigital WhatsApp AI assistant." },
-      ...history,
-      { role: "user", content: text }
-    ]
-  });
-
-  const reply = response.choices[0].message.content;
-
-  await memory.push(from, { role: "user", content: text });
-  await memory.push(from, { role: "assistant", content: reply });
-
-  return reply;
+async function handleMessage(payload) {
+  return await routeMessage(payload);
 }
 
 module.exports = { handleMessage };
