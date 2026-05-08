@@ -1,1 +1,1 @@
-const supervisor=require('../supervisor');const bus=require('../admin-bus');async function run(){const report=await supervisor.watch();if(report.issues.length>0){bus.emit({type:'system_alert',data:report});}}setInterval(run,300000);module.exports={run};
+module.exports = {};

@@ -1,1 +1,1 @@
-const selfheal=require('../selfheal');const incidents=require('../incidents');async function run(report){if(report.issues?.length>0){const incident=incidents.create({type:'error',data:report});await selfheal.heal(report);return incident;}return null;}module.exports={run};
+module.exports = {};
