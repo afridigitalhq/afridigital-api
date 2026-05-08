@@ -1,26 +1,25 @@
-const sessions = new Map();
-
 module.exports = {
-  set(user, data = {}) {
-    const old = sessions.get(user) || {};
-    sessions.set(user, { ...old, ...data, updatedAt: Date.now() });
-    return sessions.get(user);
+
+  summarize(history=[]){
+
+    return history
+      .slice(0,5)
+      .map(x => `[${x.type}] ${x.value}`)
+      .join(" | ");
   },
 
-  get(user) {
-    return sessions.get(user) || {};
-  },
+  detectPriority(text=""){
 
-  classify(message = "") {
-    const text = message.toLowerCase();
+    text = text.toLowerCase();
 
-    if(text.includes("earn")) return "earning";
-    if(text.includes("sell")) return "commerce";
-    if(text.includes("transfer")) return "wallet";
-    if(text.includes("pay")) return "payment";
-    if(text.includes("dashboard")) return "upgrade";
-    if(text.includes("help")) return "support";
+    if(
+      text.includes("payment") ||
+      text.includes("failed") ||
+      text.includes("urgent")
+    ){
+      return "high";
+    }
 
-    return "general";
+    return "normal";
   }
 };
