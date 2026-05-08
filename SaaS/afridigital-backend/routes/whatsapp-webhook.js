@@ -3,7 +3,8 @@ const router = express.Router();
 
 const { detectIntent } = require("../modules/ai/router");
 const memory = require("../modules/ai/redisMemory");
-const { dispatchAgent } = require("../modules/ai/agents");
+const { runPlugin } = require("../modules/plugins/engine");
+const { chargeUser } = require("../modules/monetization/billing");
 const whatsapp = require("../modules/whatsapp");
 
 // VERIFY
@@ -19,7 +20,7 @@ router.get("/", (req, res) => {
   res.sendStatus(403);
 });
 
-// RECEIVE MESSAGE
+// WEBHOOK
 router.post("/", async (req, res) => {
   try {
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
@@ -30,16 +31,26 @@ router.post("/", async (req, res) => {
 
     const intent = detectIntent(text);
 
-    const context = await memory.addMessage(from, text);
+    // 💰 monetization gate
+    const billing = await chargeUser(from, 1);
+    if (!billing.ok) {
+      await whatsapp.sendMessage(from, "💳 Please recharge to continue using AI.");
+      return res.sendStatus(200);
+    }
 
-    const result = dispatchAgent(intent, text, context);
+    await memory.addMessage(from, text);
+
+    const result = await runPlugin(intent, {
+      message: text,
+      phone: from
+    });
 
     await whatsapp.sendMessage(from, result.reply);
 
     return res.sendStatus(200);
 
   } catch (err) {
-    console.log("V13 ERROR:", err.message);
+    console.log("V14 ERROR:", err.message);
     return res.sendStatus(200);
   }
 });
