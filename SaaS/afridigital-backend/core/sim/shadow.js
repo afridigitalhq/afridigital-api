@@ -1,6 +1,6 @@
 module.exports = {
-  run: (change) => {
-    console.log("🧪 Simulating change safely:", change);
-    return { success: true, impact: "improved_latency" };
+  test: (plan) => {
+    console.log("🧪 Simulating plan:", plan);
+    return { safe: true, impact: "positive" };
   }
 };
