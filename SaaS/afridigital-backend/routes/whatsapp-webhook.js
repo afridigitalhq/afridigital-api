@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-// VERIFY webhook (Meta handshake)
+const { generateReply } = require("../modules/ai/whatsappAI");
+const memory = require("../modules/ai/memory");
+const whatsapp = require("../modules/whatsapp");
+
+// VERIFY
 router.get("/", (req, res) => {
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
@@ -14,11 +18,35 @@ router.get("/", (req, res) => {
   res.sendStatus(403);
 });
 
-// RECEIVE messages
-router.post("/", (req, res) => {
-  console.log("📩 WhatsApp incoming:", JSON.stringify(req.body, null, 2));
+// RECEIVE + AI RESPONSE
+router.post("/", async (req, res) => {
+  try {
+    const entry = req.body.entry?.[0];
+    const change = entry?.changes?.[0];
+    const message = change?.value?.messages?.[0];
 
-  res.sendStatus(200);
+    if (!message) return res.sendStatus(200);
+
+    const from = message.from;
+    const text = message.text?.body || "";
+
+    // store memory
+    memory.addMessage(from, text);
+
+    const context = memory.getUser(from);
+
+    // AI reply
+    const ai = await generateReply(text, context);
+
+    // send reply
+    await whatsapp.sendMessage(from, ai.reply);
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    console.log("WA ERROR:", err.message);
+    return res.sendStatus(200);
+  }
 });
 
 module.exports = router;
