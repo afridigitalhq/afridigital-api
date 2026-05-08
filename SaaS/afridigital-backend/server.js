@@ -1,3 +1,4 @@
+const safe = require('./core/bootContract');
 const mesh=require('./modules/mesh');
 const realtime=require('./modules/realtime');
 const http=require('http');

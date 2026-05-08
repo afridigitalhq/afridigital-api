@@ -1,7 +1,13 @@
-module.exports = {
-  boot: async () => ({ ok: true }),
-  init: async () => ({ ok: true }),
-  start: async () => ({ ok: true }),
-  stop: async () => ({ ok: true }),
-  status: async () => ({ ok: true, mode: "safe" })
+const safe = require('../../core/bootContract');
+
+const systemWatch = {
+  async boot() {
+    console.log("👀 SYSTEM WATCH ACTIVE");
+    return { ok: true };
+  },
+  async status() {
+    return { ok: true, monitoring: true };
+  }
 };
+
+module.exports = safe(systemWatch);

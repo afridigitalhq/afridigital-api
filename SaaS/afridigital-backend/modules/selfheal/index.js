@@ -1,7 +1,10 @@
-module.exports = {
-  boot: async () => ({ ok: true }),
-  init: async () => ({ ok: true }),
-  start: async () => ({ ok: true }),
-  stop: async () => ({ ok: true }),
-  status: async () => ({ ok: true, mode: "safe" })
+const safe = require('../../core/bootContract');
+
+const selfheal = {
+  async boot() {
+    console.log("🧬 SELF HEAL ENGINE READY");
+    return { ok: true };
+  }
 };
+
+module.exports = safe(selfheal);
