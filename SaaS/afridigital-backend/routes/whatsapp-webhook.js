@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { generateReply } = require("../modules/ai/whatsappAI");
-const memory = require("../modules/ai/memory");
+const { detectIntent } = require("../modules/ai/router");
+const memory = require("../modules/ai/redisMemory");
+const { dispatchAgent } = require("../modules/ai/agents");
 const whatsapp = require("../modules/whatsapp");
 
 // VERIFY
@@ -18,33 +19,27 @@ router.get("/", (req, res) => {
   res.sendStatus(403);
 });
 
-// RECEIVE + AI RESPONSE
+// RECEIVE MESSAGE
 router.post("/", async (req, res) => {
   try {
-    const entry = req.body.entry?.[0];
-    const change = entry?.changes?.[0];
-    const message = change?.value?.messages?.[0];
+    const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+    if (!msg) return res.sendStatus(200);
 
-    if (!message) return res.sendStatus(200);
+    const from = msg.from;
+    const text = msg.text?.body || "";
 
-    const from = message.from;
-    const text = message.text?.body || "";
+    const intent = detectIntent(text);
 
-    // store memory
-    memory.addMessage(from, text);
+    const context = await memory.addMessage(from, text);
 
-    const context = memory.getUser(from);
+    const result = dispatchAgent(intent, text, context);
 
-    // AI reply
-    const ai = await generateReply(text, context);
-
-    // send reply
-    await whatsapp.sendMessage(from, ai.reply);
+    await whatsapp.sendMessage(from, result.reply);
 
     return res.sendStatus(200);
 
   } catch (err) {
-    console.log("WA ERROR:", err.message);
+    console.log("V13 ERROR:", err.message);
     return res.sendStatus(200);
   }
 });
