@@ -1,6 +1,6 @@
 const bus = require('../event-bus/bus');
 
-let memory = [];
+const memory = [];
 
 function stream(event) {
   memory.push(event);

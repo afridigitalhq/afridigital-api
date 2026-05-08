@@ -1,8 +1,8 @@
 const dispatcher=require('../modules/dispatcher');
 const memory=require('../modules/memory');
 const brain=require('../modules/brain');
-let memory = require('../modules/memory');
-let memory = require('../modules/memory');
+const memoryModule = require('../modules/memory');
+const memoryModule = require('../modules/memory');
 const sendWhatsApp = require("../modules/chat/whatsappSender");
 const { handleIncomingMessage } = require("../modules/chat");
 

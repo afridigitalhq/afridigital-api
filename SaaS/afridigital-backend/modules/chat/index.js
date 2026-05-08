@@ -1,7 +1,7 @@
 const dispatcher=require('../modules/dispatcher');
 const brain=require('../modules/brain');
-let memory = require('../modules/memory');
-let memory = require('../memory');
+const memoryModule = require('../modules/memory');
+const memoryModule = require('../memory');
 const { aiRouter } = require("../ai-engine/router");
 const { memoryRecallPipeline } = (() => ({ reply: async () => "memory-disabled" }))();
 const wallet = require("../../services/wallet/africoinWallet");
@@ -12,7 +12,7 @@ async function handleIncomingMessage({ message, channel, from }) {
 
   try {
     // 🧠 MEMORY LAYER
-    let memory = await memoryRecallPipeline({
+    const memory = await memoryRecallPipeline({
       userId: from,
       message
     });
