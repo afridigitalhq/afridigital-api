@@ -11,3 +11,4 @@ function emit(event, data) {
 }
 
 module.exports = { on, emit };
+module.exports = module.exports || {};
