@@ -1,11 +1,18 @@
 module.exports = {
-  decide: (event) => {
-    console.log("🧠 AI analyzing event:", event.type);
+  async think({ user, message, flow }) {
 
-    return {
-      action: "monitor",
-      risk: "low",
-      autoFix: true
-    };
+    if (flow === "wallet.transfer") {
+      return "💸 Transfer detected. Please enter recipient and amount.";
+    }
+
+    if (flow === "marketplace.earn") {
+      return "💼 Opening earning opportunities...";
+    }
+
+    if (flow === "assistant.chat") {
+      return "🧠 AI Assistant online. Ask me anything.";
+    }
+
+    return "👋 Welcome to AfriDigital AI OS.";
   }
 };
