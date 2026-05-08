@@ -1,7 +1,7 @@
 const dispatcher=require('../modules/dispatcher');
 const brain=require('../modules/brain');
-const memoryModule = require('../modules/memory');
-const memoryModule = require('../memory');
+const memory = require('../modules/memory');
+const memory = require('../memory');
 const { aiRouter } = require("../ai-engine/router");
 const { memoryRecallPipeline } = (() => ({ reply: async () => "memory-disabled" }))();
 const wallet = require("../../services/wallet/africoinWallet");

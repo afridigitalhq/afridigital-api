@@ -5,15 +5,12 @@ const whatsappController = require("../controllers/whatsappController");
 
 // Webhook verification (Meta)
 router.get("/webhook", whatsappController.verify);
-
 // Incoming messages
 router.post("/webhook", whatsappController.receive);
-
 // SEND MESSAGE
 router.post("/whatsapp/send", async (req, res) => {
   try {
     const { to, message } = req.body;
-
     const response = await axios.post(
       `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_ID}/messages`,
       {
@@ -22,16 +19,13 @@ router.post("/whatsapp/send", async (req, res) => {
         type: "text",
         text: { body: message }
       },
-      {
         headers: {
           Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
           "Content-Type": "application/json"
         }
       }
     );
-
     res.json({ success: true, data: response.data });
-
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -39,5 +33,4 @@ router.post("/whatsapp/send", async (req, res) => {
     });
   }
 });
-
 module.exports = router;

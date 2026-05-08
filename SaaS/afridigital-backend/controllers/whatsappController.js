@@ -1,19 +1,14 @@
 const dispatcher=require('../modules/dispatcher');
-const memory=require('../modules/memory');
 const brain=require('../modules/brain');
-const memoryModule = require('../modules/memory');
-const memoryModule = require('../modules/memory');
 const sendWhatsApp = require("../modules/chat/whatsappSender");
 const { handleIncomingMessage } = require("../modules/chat");
 
 exports.verify = (req, res) => {
   const VERIFY_TOKEN =
     process.env.WHATSAPP_VERIFY_TOKEN || "afridigital_verify";
-
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
-
   if (mode === "subscribe" && token === VERIFY_TOKEN) {
     console.log("WhatsApp Webhook Verified");
     return res.status(200).send(challenge);
@@ -21,7 +16,6 @@ exports.verify = (req, res) => {
     return res.sendStatus(403);
   }
 };
-
 exports.receive = async (req, res) => {
   try {
     const entry = req.body.entry?.[0];
@@ -29,30 +23,21 @@ exports.receive = async (req, res) => {
     const value = changes?.value;
 console.log("🔥 WHATSAPP WEBHOOK HIT");
     const message = value?.messages?.[0];
-
     if (!message) {
       return res.sendStatus(200);
     }
-
     const from = message.from;
     const text = message.text?.body || "";
-
     console.log("WhatsApp:", from, text);
-
     const aiResponse = await handleIncomingMessage({
       message: text,
       channel: "whatsapp",
       from
     });
-
     console.log("AI Response:", aiResponse);
-
     await sendWhatsApp(from, aiResponse || "Processed.");
-
     return res.sendStatus(200);
-
   } catch (err) {
     console.error("WhatsApp Error:", err);
     return res.sendStatus(500);
-  }
-};
+const memory = require('../modules/memory');
