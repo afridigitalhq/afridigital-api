@@ -14,14 +14,7 @@ app.use("/", whatsappRoutes);
 app.use('/api/paystack', paystackRoutes);
 
 const chatModule = require('./modules/chat');
-const paymentsModule = require('./modules/payments');
-const aiModule = require('./modules/ai-engine');
-const dashboardModule = require('./modules/dashboard');
 
-app.use('/modules/chat', chatModule);
-app.use('/modules/payments', paymentsModule);
-app.use('/modules/ai', aiModule);
-app.use('/modules/dashboard', dashboardModule);
 
 app.get('/go/:service', (req, res) => {
   const map = {
@@ -44,6 +37,6 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log('🚀 Server running on port', PORT);
 });

@@ -1,4 +1,4 @@
-const { storeMemory, recallMemory } = require("../../modules/memory/vectorMemory");
+const { storeMemory, recallMemory } = require("../../services/vector/vectorMemory");
 
 async function neuralMemoryPipeline({ userId, message, response, channel }) {
   await storeMemory({ userId, message, response, channel });

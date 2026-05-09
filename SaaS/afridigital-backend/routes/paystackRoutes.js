@@ -1,6 +1,9 @@
-import express from 'express';
-import { initialize, verify } from '../controllers/paystackController.js';
+const express = require('express');
 const router = express.Router();
-router.post('/initialize', initialize);
-router.get('/verify/:reference', verify);
-export default router;
+
+// Example route
+router.get('/', (req, res) => {
+  res.json({ message: "💳 Paystack route active" });
+});
+
+module.exports = router;

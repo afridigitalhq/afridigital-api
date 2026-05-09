@@ -1,14 +1,8 @@
-const logMessage = require("../../services/logging/logger");
+const express = require('express');
+const router = express.Router();
 
-async function a2Core({ context, aiResponse }) {
-  await logMessage({
-    userPhone: context.user.phone,
-    message: context.message,
-    response: aiResponse,
-    channel: context.channel
-  });
+router.get('/', (req, res) => {
+  res.json({ status: "a2-core online" });
+});
 
-  return aiResponse;
-}
-
-module.exports = a2Core;
+module.exports = router;

@@ -1,23 +1,39 @@
 const fs = require('fs');
 const path = require('path');
 
+function isExpressRouter(mod) {
+  return (
+    mod &&
+    typeof mod === 'function' &&
+    mod.stack &&
+    Array.isArray(mod.stack)
+  );
+}
+
 function loadModules(app) {
   const modulesPath = path.join(__dirname, 'modules');
-
   const folders = fs.readdirSync(modulesPath);
 
   for (const mod of folders) {
-    const modPath = path.join(modulesPath, mod);
-    const stat = fs.statSync(modPath);
+    const entry = path.join(modulesPath, mod, 'index.js');
+    if (mod.startsWith('_')) continue;
 
-    if (stat.isDirectory()) {
-      const entry = path.join(modPath, 'index.js');
+    try {
+      if (!fs.existsSync(entry)) continue;
 
-      if (fs.existsSync(entry)) {
-        const route = require(entry);
-        app.use(`/modules/${mod}`, route);
-        console.log(`✅ Loaded module: ${mod}`);
+      const route = require(entry);
+
+      // ✅ STRICT: only Express routers allowed
+      if (!isExpressRouter(route)) {
+        console.log(`⚠️  Ignored non-router module: ${mod}`);
+        continue;
       }
+
+      app.use(`/modules/${mod}`, route);
+      console.log(`✅ Mounted router: ${mod}`);
+
+    } catch (err) {
+      console.log(`❌ Module failed: ${mod} → ${err.message}`);
     }
   }
 }

@@ -1,7 +1,6 @@
 console.log("🧠 V23 PATCH ENGINE ACTIVE");
 
 require("./core/v23/patchEngine");
-require("./core/v22/reasoningCore");
 require("./core/devops-ai");
 require("./core/guardian");
 
