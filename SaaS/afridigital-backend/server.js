@@ -6,7 +6,7 @@ const { runDevOpsCheck } = require('./core/devops-ai');
 runDevOpsCheck();
 const { bootGuard } = require('./core/guardian');
 bootGuard();
-require('./core/boot');
+require('./core/bootContract');
 
 
 // V33_WHATSAPP_SUPER_OS
