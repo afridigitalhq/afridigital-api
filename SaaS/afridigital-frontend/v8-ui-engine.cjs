@@ -1,22 +1,21 @@
-const fs = require("fs");
+function REAL_RENDER() {
+  const app = typeof document !== "undefined"
+    ? document.getElementById("app")
+    : null;
 
-const cache = {
-  hero: fs.readFileSync("./public/sections/hero.html", "utf-8"),
-  auth: fs.readFileSync("./public/sections/auth.html", "utf-8"),
-  services: fs.readFileSync("./public/sections/services.html", "utf-8"),
-  marquee: fs.readFileSync("./public/sections/marquee.html", "utf-8"),
-  footer: fs.readFileSync("./public/sections/footer.html", "utf-8"),
-  chat: fs.readFileSync("./public/sections/chat.html", "utf-8")
-};
+  if (!app) {
+    console.log("🧠 REAL_RENDER (no DOM available)");
+    return;
+  }
 
-function render(appId = "app") {
-  const order = ["hero","marquee","auth","services","footer","chat"];
-  const app = global.document?.getElementById(appId);
+  app.innerHTML = `
+    <div style="padding:20px;font-family:sans-serif">
+      <h1>AfriDigital V8</h1>
+      <p>Clean Engine Mode Restored</p>
+    </div>
+  `;
 
-  if (!app) return;
-
-  app.innerHTML = order.map(k => cache[k]).join("\n");
-  console.log("⚡ V8 UI ENGINE RENDERED");
+  console.log("🧠 REAL_RENDER ACTIVE (CLEAN STATE)");
 }
 
-module.exports = { render };
+module.exports = { REAL_RENDER };

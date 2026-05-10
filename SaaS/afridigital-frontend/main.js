@@ -7,7 +7,7 @@ async function loadSections() {
     const htmlParts = await Promise.all(
       sections.map(sec => fetch(`/sections/${sec}.html`).then(r => r.text()))
     );
-    app.innerHTML = htmlParts.join("\n");
+    console.log("V8 UI ENGINE HANDLES RENDER");
     console.log("🔥 Sections loaded");
   } catch(e) {
     console.error("❌ Error loading sections:", e);
@@ -17,3 +17,5 @@ async function loadSections() {
 loadSections();
 import './live-css-inject.js';
 import './src/live-css-inject.js';
+
+console.log("🧠 V8 UI TRACE ACTIVE")

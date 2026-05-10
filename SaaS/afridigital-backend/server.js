@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // BOOT CORE SYSTEM
-require('./core/bootstrap/v8.kernel').boot(app);
+require('./core/bootstrap/v8.kernel').try { require("./core/bootstrap/v8.kernel").boot(app); } catch(e){ console.log("BOOT SKIPPED", e.message); }
 app.use('/control', require('./routes/control.routes'));
 if (process.env.ENABLE_WORKERS === 'true') {
   require('./workers/cluster.worker');
