@@ -1,34 +1,29 @@
+process.on('uncaughtException', e => console.error('CRASH SAFE:', e));
+process.on('unhandledRejection', e => console.error('PROMISE SAFE:', e));
+
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-process.on("uncaughtException", console.error);
-process.on("unhandledRejection", console.error);
-
-// HEALTH
-app.get("/health", (req, res) => {
-  res.json({ status: "ok", kernel: "v8-clean" });
-});
-
-// WEBHOOK
-const { webhook } = require("./core/webhooks/whatsapp.webhook");
-app.post("/webhook", webhook);
-
-// CORE BOOT
-const { boot } = require("./core/bootstrap/v8.kernel");
-const { startWorker } = require("./core/workers/message.worker");
-
-boot(app);
-startWorker();
-
-// SINGLE LISTENER ONLY
-const PORT = process.env.PORT || 10000;
-
-if (require.main === module) {
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log("🚀 V8.5 CLEAN KERNEL RUNNING ON PORT", PORT);
-  });
+// BOOT CORE SYSTEM
+require('./core/bootstrap/v8.kernel').boot(app);
+app.use('/control', require('./routes/control.routes'));
+if (process.env.ENABLE_WORKERS === 'true') {
+  require('./workers/cluster.worker');
+}
+if (process.env.ENABLE_WORKERS === 'true') {
+  require('./workers/retry/worker');
 }
 
-module.exports = app;
+// ROUTES
+app.use('/webhook', require('./routes/webhook.routes'));
+app.use('/health', require('./routes/health.routes'));
+
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
+  console.log("🚀 V8.20 CLEAN KERNEL RUNNING", PORT);
+});

@@ -1,23 +1,30 @@
-const { enqueueMessage } = require("../queue/message.queue");
-
-async function webhook(req, res) {
+exports.webhook = async (payload) => {
   try {
-    const msg =
-      req?.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-    if (msg) {
-      enqueueMessage({
-        from: msg.from,
-        text: msg.text?.body || "",
-        ts: Date.now()
-      });
+    console.log('🔥 WEBHOOK CORE START');
+
+    if (!payload) {
+      console.log('⚠️ EMPTY PAYLOAD');
+      return;
     }
 
-    res.sendStatus(200); // ALWAYS FAST RETURN
-  } catch (e) {
-    console.error("Webhook error:", e);
-    res.sendStatus(200);
-  }
-}
+    const messages =
+      payload.entry?.[0]?.changes?.[0]?.value?.messages || [];
 
-module.exports = { webhook };
+    if (!messages.length) {
+      console.log('⚠️ NO MESSAGES FOUND');
+      return;
+    }
+
+    for (const msg of messages) {
+      console.log('📩 MESSAGE FROM:', msg.from);
+      console.log('💬 TEXT:', msg.text?.body);
+    }
+
+    console.log('✅ WEBHOOK CORE COMPLETE');
+
+  } catch (err) {
+    console.error('❌ WEBHOOK CORE ERROR:', err);
+    throw err;
+  }
+};

@@ -1,5 +1,5 @@
 const { emit } =
-require('../../eventbus/engine/event.bus');
+// removed legacy eventbus dependency;
 
 const { orchestrate } =
 require('../../orchestrator/router/router.engine');
