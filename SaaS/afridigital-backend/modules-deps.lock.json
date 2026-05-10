@@ -1,0 +1,12 @@
+{
+  "memory-distributed": ["memory-stream"],
+  "event-sync": ["memory-stream"],
+  "llm-gateway": ["ai-brain"],
+  "ai-entity-core": ["ai-brain"],
+  "entity-kernel": ["memory/core"],
+  "admin-notify": ["notification-bus"],
+  "whatsapp": [],
+  "payments": [],
+  "realtime": ["event-router"],
+  "routing-ai": ["ai-brain"]
+}

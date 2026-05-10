@@ -1,12 +1,15 @@
-console.log("🧠 V23 PATCH ENGINE ACTIVE");
+const express = require('express');
 
-require("./core/v23/patchEngine");
-require("./core/devops-ai");
-require("./core/guardian");
+const app = express();
 
-console.log("💬 WhatsApp Super-App Layer Active");
-console.log("🧠 AI Brain Routing Active");
-console.log("💳 Wallet Engine Active");
-console.log("🛡️ Enterprise Boot Guard Active");
+app.use(express.json());
 
-require("./app");
+const { boot } = require('./core/bootstrap/v8.kernel');
+
+boot(app);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log('🚀 V8 SERVER RUNNING ON PORT', PORT);
+});
