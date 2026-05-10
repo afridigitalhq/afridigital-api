@@ -1,3 +1,4 @@
+const SENT_LOCK=new Set();
 const sent = new Set();
 
 async function bootDelivery() {

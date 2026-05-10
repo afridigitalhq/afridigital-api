@@ -1,28 +1,23 @@
-const express = require('express');
-const router = express.Router();
+const { enqueueMessage } = require("../queue/message.queue");
 
-const { handleIncoming } =
-require('../runtime/runtime.engine');
-
-router.post('/webhook/whatsapp',
-async (req, res) => {
-
+async function webhook(req, res) {
   try {
+    const msg =
+      req?.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-    await handleIncoming(req.body);
+    if (msg) {
+      enqueueMessage({
+        from: msg.from,
+        text: msg.text?.body || "",
+        ts: Date.now()
+      });
+    }
 
-    res.status(200).json({
-      success: true
-    });
-
-  } catch (err) {
-
-    console.error(err);
-
-    res.status(500).json({
-      error: 'runtime_failure'
-    });
+    res.sendStatus(200); // ALWAYS FAST RETURN
+  } catch (e) {
+    console.error("Webhook error:", e);
+    res.sendStatus(200);
   }
-});
+}
 
-module.exports = router;
+module.exports = { webhook };
