@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sendWhatsAppMessage = require('../services/whatsapp.send');
 
 router.get('/', (req, res) => {
   const mode = req.query['hub.mode'];
@@ -30,12 +31,11 @@ router.post('/', async (req, res) => {
       console.log('💬 FROM:', from);
       console.log('🧠 TEXT:', text);
 
-      const reply = `🤖 AfriAI received: ${text}`;
+      const reply = `🤖 AfriAI says: You said "${text}"`;
 
-      console.log('🚀 AI REPLY:', reply);
+      await sendWhatsAppMessage(from, reply);
 
-      // FUTURE:
-      // send WhatsApp reply here using Graph API
+      console.log('🚀 AI REPLIED SUCCESSFULLY');
     }
 
     return res.sendStatus(200);

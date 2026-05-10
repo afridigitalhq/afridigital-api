@@ -1,10 +1,33 @@
-exports.sendMessage = async (to, text) => {
+const axios = require('axios');
 
-  console.log('📤 SENDING MESSAGE');
-  console.log('TO:', to);
-  console.log('TEXT:', text);
+async function sendWhatsAppMessage(to, message) {
+  try {
+    const response = await axios.post(
+      `https://graph.facebook.com/v22.0/${process.env.PHONE_NUMBER_ID}/messages`,
+      {
+        messaging_product: "whatsapp",
+        to,
+        text: {
+          body: message
+        }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
 
-  // META API WILL GO HERE LATER
+    console.log("✅ WHATSAPP MESSAGE SENT");
+    console.log(response.data);
 
-  return true;
-};
+  } catch (err) {
+    console.error(
+      "🔥 WHATSAPP SEND ERROR:",
+      err.response?.data || err.message
+    );
+  }
+}
+
+module.exports = sendWhatsAppMessage;
