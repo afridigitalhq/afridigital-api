@@ -1,19 +1,23 @@
 async function messageBrain({ from, message }) {
-  console.log('📩 MESSAGE RECEIVED:', from, message);
 
-  // 1. Intent detection (simple V1 logic)
-  const isAdmin = from === process.env.AFRI_ADMIN_NUMBER;
+  console.log('🧠 BRAIN INPUT:', from, message);
 
-  if (isAdmin && message.toLowerCase().includes('system health')) {
-    return '🧠 System is fully operational (V6.3)';
+  try {
+
+    // SAFE MOCK RESPONSE (NO CRASH ZONE)
+    return {
+      reply: '👋 Welcome to AfriDigital AI (safe mode active)'
+    };
+
+  } catch (err) {
+
+    console.error('❌ BRAIN ERROR:', err);
+
+    return {
+      reply: '⚠️ Brain temporarily unavailable'
+    };
+
   }
-
-  if (message.toLowerCase().includes('hello')) {
-    return '👋 Welcome to AfriDigital AI';
-  }
-
-  // default response
-  return '🤖 AfriAI received your message. Processing...';
 }
 
 module.exports = { messageBrain };
