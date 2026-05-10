@@ -6,29 +6,26 @@ app.use(express.json());
 process.on("uncaughtException", console.error);
 process.on("unhandledRejection", console.error);
 
-// HEALTH
+// HEALTH CHECK (Render safe)
 app.get("/health", (req, res) => {
-  res.json({ status: "ok", kernel: "v8-clean" });
+  res.json({ status: "ok", kernel: "v8.1-real" });
 });
 
 // WEBHOOK
 const { webhook } = require("./core/webhooks/whatsapp.webhook");
 app.post("/webhook", webhook);
 
-// CORE BOOT
+// BOOT STRAP (EXISTING STABLE KERNEL)
 const { boot } = require("./core/bootstrap/v8.kernel");
 const { startWorker } = require("./core/workers/message.worker");
 
 boot(app);
+startRetryWorker();
 startWorker();
 
-// SINGLE LISTENER ONLY
+// PORT
 const PORT = process.env.PORT || 10000;
 
-if (require.main === module) {
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log("🚀 V8.5 CLEAN KERNEL RUNNING ON PORT", PORT);
-  });
-}
-
-module.exports = app;
+app.listen(PORT, () => {
+  console.log("🚀 V8.1 REAL KERNEL RUNNING ON PORT", PORT);
+});

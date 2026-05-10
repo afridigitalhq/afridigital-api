@@ -1,3 +1,4 @@
+const { generateAIReply } = require('../../core/ai/v8.7.ai.bridge');
 const dispatcher=require('../modules/dispatcher');
 const brain=require('../modules/brain');
 const sendWhatsApp = require("../modules/chat/whatsappSender");
