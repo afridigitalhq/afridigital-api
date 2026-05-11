@@ -1,61 +1,79 @@
+const OpenAI = require('openai');
+
 const sendWhatsAppMessage = require('./whatsapp.send');
 
-// 🧠 SIMPLE MEMORY STORE
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
+// 🧠 MEMORY ENGINE
 const memory = {};
 
 function getMemory(user) {
   if (!memory[user]) {
     memory[user] = {
-      history: [],
-      context: {}
+      history: []
     };
   }
 
   return memory[user];
 }
 
-// 🧠 AI THINKING ENGINE
+// 🚀 REAL AI BRAIN
 async function think(message, userMemory) {
-  const lower = message.toLowerCase();
 
-  if (lower.includes('hello') || lower.includes('hi')) {
-    return '👋 Hello, I am AfriAI. How can I assist you today?';
-  }
+  const messages = [
+    {
+      role: 'system',
+      content: `
+You are AfriAI.
 
-  if (lower.includes('job')) {
-    return '💼 AfriAI Job Engine activated. What kind of job are you looking for?';
-  }
+You are intelligent, conversational, futuristic,
+helpful, emotionally aware, and African-tech focused.
 
-  if (
-    lower.includes('pay') ||
-    lower.includes('money') ||
-    lower.includes('transfer')
-  ) {
-    return '💳 Payment Engine detected. Do you want to send or receive money?';
-  }
+You assist users with:
+- jobs
+- payments
+- business
+- coding
+- media
+- AI tools
+- productivity
+- daily conversations
 
-  if (
-    lower.includes('image') ||
-    lower.includes('photo') ||
-    lower.includes('video')
-  ) {
-    return '🖼️ Media Engine ready. Upload or describe the media you want processed.';
-  }
+Keep replies concise and natural for WhatsApp.
+`
+    },
 
-  return `🤖 AfriAI understands: "${message}"`;
+    // memory history
+    ...userMemory.history.slice(-10),
+
+    // latest message
+    {
+      role: 'user',
+      content: message
+    }
+  ];
+
+  const completion = await client.chat.completions.create({
+    model: 'gpt-4.1-mini',
+    messages,
+    temperature: 0.7
+  });
+
+  return completion.choices[0].message.content;
 }
 
-// 🚀 MAIN AGENT LOOP
+// 🧠 MAIN AGENT LOOP
 async function AfriAIAgent(message, from) {
+
   const userMemory = getMemory(from);
 
   // STORE USER MESSAGE
   userMemory.history.push({
     role: 'user',
-    message
+    content: message
   });
-
-  console.log('🧠 MEMORY STATE:', userMemory.history);
 
   // THINK
   const reply = await think(message, userMemory);
@@ -63,12 +81,13 @@ async function AfriAIAgent(message, from) {
   // STORE AI RESPONSE
   userMemory.history.push({
     role: 'assistant',
-    message: reply
+    content: reply
   });
 
+  console.log('🧠 MEMORY:', userMemory.history);
   console.log('🚀 AI REPLY:', reply);
 
-  // SEND WHATSAPP MESSAGE
+  // SEND TO WHATSAPP
   await sendWhatsAppMessage(from, reply);
 
   return reply;
