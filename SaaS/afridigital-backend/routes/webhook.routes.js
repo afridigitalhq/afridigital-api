@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const sendWhatsAppMessage = require('../services/whatsapp.send');
+
+const AfriAIAgent = require('../services/afriai.agent');
 
 router.get('/', (req, res) => {
   const mode = req.query['hub.mode'];
@@ -19,7 +20,10 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    console.log('📩 WEBHOOK:', JSON.stringify(req.body, null, 2));
+    console.log(
+      '📩 WEBHOOK:',
+      JSON.stringify(req.body, null, 2)
+    );
 
     const message =
       req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
@@ -31,17 +35,15 @@ router.post('/', async (req, res) => {
       console.log('💬 FROM:', from);
       console.log('🧠 TEXT:', text);
 
-      const reply = `🤖 AfriAI says: You said "${text}"`;
-
-      await sendWhatsAppMessage(from, reply);
-
-      console.log('🚀 AI REPLIED SUCCESSFULLY');
+      // 🚀 AI AGENT TAKES CONTROL
+      await AfriAIAgent(text, from);
     }
 
     return res.sendStatus(200);
 
   } catch (err) {
     console.error('🔥 WEBHOOK ERROR:', err);
+
     return res.sendStatus(200);
   }
 });
