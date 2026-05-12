@@ -1,16 +1,4 @@
 const setupWebhook = require('./webhook.fix');
-const messageQueue = [];
-setInterval(async () => {
-  if (messageQueue.length === 0) return;
-  const job = messageQueue.shift();
-  try {
-    const ai = buildAfriAiResponse(job.text);
-    let reply = ai?.content?.value || ai?.content || "AfriAI active 🤖";
-    await sendWhatsAppMessage(job.user, String(reply));
-  } catch (err) {
-    console.log("ENGINE ERROR:", err.message);
-  }
-}, 500);
 console.log("🔐 VERIFY TOKEN:", process.env.WHATSAPP_VERIFY_TOKEN);
 process.on('uncaughtException', e => console.error('CRASH SAFE:', e));
 process.on('unhandledRejection', e => console.error('PROMISE SAFE:', e));
@@ -68,39 +56,7 @@ res.json({success:true,response});
 
 const axios = require("axios");
 
-app.get("/webhook", (req, res) => {
-  try {
-    const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "afri_ai_2026_secure";
-    const mode = req.query["hub.mode"];
-    const token = req.query["hub.verify_token"];
-    const challenge = req.query["hub.challenge"];
-    if (mode === "subscribe" && token === VERIFY_TOKEN) {
-      return res.status(200).send(challenge);
-    }
-    return res.sendStatus(403);
-  } catch (err) {
-    console.log("WEBHOOK GET ERROR:", err.message);
-    return res.sendStatus(500);
-  }
-});
-  try {
-    const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "afri_ai_2026_secure";
-    const mode = req.query["hub.mode"];
-    const token = req.query["hub.verify_token"];
-    const challenge = req.query["hub.challenge"];
-
-    console.log("WEBHOOK VERIFY HIT:", { mode, token, challenge });
-
-    if (mode === "subscribe" && token === VERIFY_TOKEN) {
-      return res.status(200).send(challenge);
-    }
-
-    return res.sendStatus(403);
-  } catch (err) {
-    console.log("WEBHOOK CRASH:", err);
-    return res.sendStatus(500);
-  }
-});
+app.get("/webhook", (req,res)=>{const mode=req.query["hub.mode"];const token=req.query["hub.verify_token"];const challenge=req.query["hub.challenge"];const VERIFY_TOKEN=process.env.WHATSAPP_VERIFY_TOKEN;if(!VERIFY_TOKEN){return res.sendStatus(500);}if(mode==="subscribe" && token===VERIFY_TOKEN){return res.status(200).send(challenge);}return res.sendStatus(403);});
 
 async function sendWhatsAppMessage(to,text){
 try{
@@ -119,19 +75,7 @@ console.log("WhatsApp Send Error",err.response?.data||err.message);
 }
 }
 
-app.post("/webhook", async (req, res) => {
-  res.sendStatus(200);
-  try {
-    const msg = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!msg) return;
-    const from = msg.from;
-    const text = msg.text?.body || "";
-    console.log("[WHATSAPP IN]", from, text);
-    messageQueue.push({ user: from, text });
-  } catch (err) {
-    console.log("WEBHOOK POST ERROR:", err.message);
-  }
-});
+app.post("/webhook",async(req,res)=>{
 try{
 const body=req.body;
 const msg=body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
