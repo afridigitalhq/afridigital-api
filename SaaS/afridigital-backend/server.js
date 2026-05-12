@@ -52,6 +52,55 @@ console.log("[AFRIAI]",message);
 res.json({success:true,response});
 });
 
+const axios = require("axios");
+
+app.get("/webhook",(req,res)=>{
+const mode=req.query["hub.mode"];
+const token=req.query["hub.verify_token"];
+const challenge=req.query["hub.challenge"];
+if(mode==="subscribe"&&token===process.env.VERIFY_TOKEN){
+console.log("✅ WEBHOOK VERIFIED");
+return res.status(200).send(challenge);
+}
+res.sendStatus(403);
+});
+
+async function sendWhatsAppMessage(to,text){
+try{
+await axios.post(`https://graph.facebook.com/v22.0/${process.env.WHATSAPP_PHONE_ID}/messages`,{
+messaging_product:"whatsapp",
+to,
+text:{body:text}
+},{
+headers:{
+Authorization:`Bearer ${process.env.WHATSAPP_TOKEN}`,
+"Content-Type":"application/json"
+}
+});
+}catch(err){
+console.log("WhatsApp Send Error",err.response?.data||err.message);
+}
+}
+
+app.post("/webhook",async(req,res)=>{
+try{
+const body=req.body;
+const msg=body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+if(msg){
+const from=msg.from;
+const text=msg.text?.body||"";
+console.log("[WHATSAPP]",from,text);
+const ai=buildAfriAiResponse(text);
+const reply=ai.content?.value||ai.content||"AfriAi active";
+await sendWhatsAppMessage(from,String(reply));
+}
+res.sendStatus(200);
+}catch(err){
+console.log(err);
+res.sendStatus(500);
+}
+});
+
 app.listen(PORT, () => {
   console.log("🚀 V8.20 CLEAN KERNEL RUNNING", PORT);
 });
