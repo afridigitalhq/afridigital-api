@@ -1,3 +1,5 @@
+process.on("uncaughtException", e => console.log("💥 CRASH GUARD:", e));
+process.on("unhandledRejection", e => console.log("💥 PROMISE ERROR:", e));
 console.log("🔥 SERVER ENTRY ACTIVE")
 console.log("🔥 SERVER ENTRY ACTIVE");
 console.log("🚀 SERVER BOOT LIVE");
@@ -23,8 +25,19 @@ app.use((req, res, next) => {
 // ENGINE (SAFE)
 try {
   const engine = require("./services/whatsapp.engine");
+
+console.log("🧠 ENGINE BOOT PROBE ACTIVE");
+console.log("ENGINE EXISTS:", !!engine);
+console.log("STARTWORKER TYPE:", typeof engine?.startWorker);
+
   if (engine?.startWorker) {
-    engine.startWorker();
+    console.log("🚀 FORCED ENGINE START INITIATED");
+try {
+  engine.startWorker();
+  console.log("🚀 ENGINE START CONFIRMED");
+} catch (e) {
+  console.log("💥 ENGINE START FAILED:", e.message);
+}
     console.log("🚀 ENGINE STARTED");
   }
 } catch (e) {
