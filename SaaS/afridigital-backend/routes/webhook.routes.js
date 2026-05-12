@@ -19,6 +19,7 @@ module.exports = (app, engine) => {
 
   app.post("/webhook", (req, res) => {
 console.log("🔥 WEBHOOK HIT");
+console.log("📩 BODY:", JSON.stringify(req.body));
 
     res.sendStatus(200);
 
