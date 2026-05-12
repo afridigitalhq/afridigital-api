@@ -1,20 +1,8 @@
+const ledger = require("../ledger/wallet.ledger");
 
-// STATE BUILDER (reconstructs system state)
-const { getOrderedEvents } = require('./replay.engine');
-
-function rebuildState(handlers) {
-  const events = getOrderedEvents();
-  const state = {};
-
-  events.forEach(record => {
-    const handler = handlers[record.topic];
-    if (handler) {
-      handler(state, record.event);
-    }
-  });
-
-  return state;
+function rebuildState(reducer) {
+  const events = ledger.getAllEvents();
+  return events.reduce((state, event) => reducer(state, event), {});
 }
 
 module.exports = { rebuildState };
-

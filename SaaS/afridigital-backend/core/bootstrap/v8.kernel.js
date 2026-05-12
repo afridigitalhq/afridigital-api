@@ -1,3 +1,5 @@
+const timeTravel = require("../kernel/time.travel");
+timeTravel.enableTrace(false);
 const kernel = require("../kernel/afri.kernel");
 kernel.boot();
 
