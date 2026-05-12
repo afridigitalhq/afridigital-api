@@ -1,5 +1,5 @@
 const { assertApiVersion } = require("../runtime/safety/api.guard");
-const wallet = require('../wallet/africoinWallet');
+const bus = require('../../core/kernel/events/event.bus');
 
 class EscrowEngine {
   constructor() {
