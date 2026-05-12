@@ -1,3 +1,6 @@
+const { initRuntimeKernel } = require("../runtime/kernel/runtime.state");
+initRuntimeKernel();
+
 const { assertApiVersion } = require("../runtime/safety/api.guard");
 const express = require('express');
 
