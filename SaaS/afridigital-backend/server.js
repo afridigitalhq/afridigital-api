@@ -1,20 +1,17 @@
-const express = require("express");
-const app = express();
-
-app.use(express.json());
-
-// ROUTES + ENGINE SAFE LOAD
+const app = require("./core/app");
 const engine = require("./services/whatsapp.engine");
-require("./routes/webhook.routes")(app, engine);
 
-try {
+// prevent double-start crash
+if (!global.__AFRI_ENGINE_STARTED__) {
+  global.__AFRI_ENGINE_STARTED__ = true;
   engine.startWorker();
   console.log("🚀 WhatsApp Engine Started");
-} catch (err) {
-  console.log("ENGINE BOOT ERROR:", err.message);
+} else {
+  console.log("⚠️ Engine already running (skipped duplicate start)");
 }
 
-// PORT BINDING (CRITICAL FOR RENDER)
+require("./routes/webhook.routes")(app, engine);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

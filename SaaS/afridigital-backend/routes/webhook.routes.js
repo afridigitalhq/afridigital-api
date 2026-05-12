@@ -1,52 +1,22 @@
 module.exports = (app, engine) => {
 
-  // =========================
-  // META WEBHOOK VERIFY
-  // =========================
   app.get("/webhook", (req, res) => {
 
-    try {
+    const VERIFY_TOKEN =
+      process.env.WHATSAPP_VERIFY_TOKEN ||
+      "afri_ai_2026_secure";
 
-      const VERIFY_TOKEN =
-        process.env.WHATSAPP_VERIFY_TOKEN ||
-        "afri_ai_2026_secure";
+    const mode = req.query["hub.mode"];
+    const token = req.query["hub.verify_token"];
+    const challenge = req.query["hub.challenge"];
 
-      const mode =
-        req.query["hub.mode"];
-
-      const token =
-        req.query["hub.verify_token"];
-
-      const challenge =
-        req.query["hub.challenge"];
-
-      if (
-        mode === "subscribe" &&
-        token === VERIFY_TOKEN
-      ) {
-        return res
-          .status(200)
-          .send(String(challenge));
-      }
-
-      return res.sendStatus(403);
-
-    } catch (err) {
-
-      console.log(
-        "[WEBHOOK GET ERROR]",
-        err.message
-      );
-
-      return res.sendStatus(500);
-
+    if (mode === "subscribe" && token === VERIFY_TOKEN) {
+      return res.status(200).send(String(challenge));
     }
 
+    return res.sendStatus(403);
   });
 
-  // =========================
-  // META MESSAGE RECEIVE
-  // =========================
   app.post("/webhook", (req, res) => {
 
     res.sendStatus(200);
@@ -54,25 +24,14 @@ module.exports = (app, engine) => {
     try {
 
       const msg =
-        req.body?.entry?.[0]
-        ?.changes?.[0]
-        ?.value?.messages?.[0];
+        req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-      if (!msg) {
-        console.log("[NO MESSAGE]");
-        return;
-      }
+      if (!msg) return;
 
       const from = msg.from;
+      const text = msg.text?.body || "";
 
-      const text =
-        msg.text?.body || "";
-
-      console.log(
-        "[WHATSAPP IN]",
-        from,
-        text
-      );
+      console.log("[WHATSAPP IN]", from, text);
 
       engine.enqueue({
         from,
@@ -80,14 +39,8 @@ module.exports = (app, engine) => {
       });
 
     } catch (err) {
-
-      console.log(
-        "[WEBHOOK POST ERROR]",
-        err.message
-      );
-
+      console.log("[WEBHOOK ERROR]", err.message);
     }
-
   });
 
 };
