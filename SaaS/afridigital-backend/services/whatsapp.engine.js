@@ -3,7 +3,13 @@ const sendWhatsAppMessage = require("./whatsapp.send");
 const queue = [];
 
 function enqueue(job) {
+  if (!job?.from || !job?.text) {
+    console.log("❌ INVALID JOB REJECTED:", job);
+    return;
+  }
+
   queue.push(job);
+  console.log("📥 QUEUED:", job);
 }
 
 function buildAfriAiResponse(text) {
@@ -14,7 +20,6 @@ function buildAfriAiResponse(text) {
   };
 }
 
-// 🔥 SAFE LOOP (NO setInterval RACE CONDITIONS)
 async function startWorker() {
   console.log("🚀 WhatsApp Engine Started");
 
@@ -31,9 +36,7 @@ async function startWorker() {
 
       const ai = buildAfriAiResponse(job.text);
 
-      const reply =
-        ai?.content?.value ||
-        "AfriAI online 🤖";
+      const reply = ai?.content?.value || "AfriAI online 🤖";
 
       console.log("[SENDING TO WHATSAPP]", job.from);
 
