@@ -1,4 +1,5 @@
 const setupWebhook = require('./webhook.fix');
+console.log("🔐 VERIFY TOKEN:", process.env.WHATSAPP_VERIFY_TOKEN);
 process.on('uncaughtException', e => console.error('CRASH SAFE:', e));
 process.on('unhandledRejection', e => console.error('PROMISE SAFE:', e));
 
