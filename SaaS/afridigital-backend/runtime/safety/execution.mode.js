@@ -1,1 +1,1 @@
-module.exports = require('../core/runtime/safety/execution.mode');
+module.exports = require('../../core/runtime/safety/execution.mode');

@@ -1,1 +1,1 @@
-module.exports = require('../core/runtime/safety/api.guard');
+module.exports = require('../../core/runtime/safety/api.guard');
