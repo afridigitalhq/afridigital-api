@@ -3,11 +3,14 @@ console.log("🚀 SERVER BOOT FILE ACTIVE");
 const express = require("express");
 const app = express();
 
-app.use(express.json());
+// 🔥 FORCE RAW BODY SUPPORT FOR WEBHOOKS
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true }));
 
-// GLOBAL TRACE (PROVES REQUEST REACHES THIS FILE)
+// GLOBAL TRACE
 app.use((req, res, next) => {
   console.log("🌍 HIT:", req.method, req.url);
+  console.log("📦 RAW BODY:", req.body);
   next();
 });
 
