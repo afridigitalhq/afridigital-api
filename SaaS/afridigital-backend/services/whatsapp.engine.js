@@ -8,7 +8,7 @@ function enqueue(job) {
   queue.push(job);
 }
 
-async function startWorker() {
+async function startWorker() { setInterval(() => { if (queue.length > 0) { const job = queue.shift(); console.log("🚀 PROCESSING JOB:", job); } }, 1000); } {
   console.log("🚀 ENGINE LOOP STARTED");
 
   while (true) {
