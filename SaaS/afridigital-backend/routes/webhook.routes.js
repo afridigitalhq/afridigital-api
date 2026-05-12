@@ -33,7 +33,7 @@ module.exports = (app, engine) => {
 
       console.log("[WHATSAPP IN]", from, text);
 
-      engine.enqueue({
+      console.log("ENQUEUE HIT"), engine.enqueue({
         from,
         text: String(text).slice(0, 2000)
       });
