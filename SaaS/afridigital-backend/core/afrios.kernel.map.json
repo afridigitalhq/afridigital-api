@@ -72,7 +72,7 @@
     "conflict_detection": {
       "wallet": [
         "core/economy/wallet.engine.js",
-        "services/wallet/africoinWallet.js"
+        ""
       ],
       "ads": [
         "core/ads/ad.engine.js",
