@@ -1,16 +1,21 @@
-const app = null;
+const express = require("express");
+const bodyParser = require("body-parser");
+
 const engine = require("./services/whatsapp.engine");
 
-// prevent double-start crash
-if (!global.__AFRI_ENGINE_STARTED__) {
-  global.__AFRI_ENGINE_STARTED__ = true;
-  engine.startWorker();
-  console.log("🚀 WhatsApp Engine Started");
-} else {
-  console.log("⚠️ Engine already running (skipped duplicate start)");
-}
+const app = express();
+app.use(bodyParser.json());
 
+// start worker FIRST (important)
+engine.startWorker();
+
+// webhook routes
 require("./routes/webhook.routes")(app, engine);
+
+// health check
+app.get("/", (req, res) => {
+  res.send("AfriAI ONLINE 🤖");
+});
 
 const PORT = process.env.PORT || 3000;
 
