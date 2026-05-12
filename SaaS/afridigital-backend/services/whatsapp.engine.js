@@ -37,7 +37,7 @@ async function startWorker() {
 
       console.log("[SENDING TO WHATSAPP]", job.from);
 
-      job.from await sendWhatsAppMessageawait sendWhatsAppMessage console.log("SEND ATTEMPT", job.from) && await sendWhatsAppMessage(job.from, String(reply));
+      await sendWhatsAppMessage(job.from, String(reply));
 
       console.log("[AFRIAI REPLY SENT]", job.from);
 
