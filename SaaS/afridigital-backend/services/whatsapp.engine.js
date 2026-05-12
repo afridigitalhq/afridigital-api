@@ -1,4 +1,5 @@
 const queue = [];
+const { sendMessage } = require("./meta.sender");
 
 function enqueue(job) {
   queue.push(job);
@@ -8,16 +9,14 @@ function enqueue(job) {
 async function processJob(job) {
   console.log("🤖 PROCESSING:", job.from, job.text);
 
-  // 🧠 SIMPLE AI LOGIC (TEMP BEFORE REAL LLM)
+  // 🧠 REAL AI LOGIC (TEMP)
   const reply = `AfriAI: I received "${job.text}"`;
 
-  console.log("📤 REPLY:", reply);
-
-  // TODO: replace with WhatsApp send API later
-  return reply;
+  // 🚀 SEND BACK TO WHATSAPP
+  await sendMessage(job.from, reply);
 }
 
-async function startWorker() {
+function startWorker() {
   console.log("🚀 AfriAI WORKER STARTED");
 
   setInterval(async () => {
