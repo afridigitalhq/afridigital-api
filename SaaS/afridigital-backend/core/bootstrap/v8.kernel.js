@@ -28,3 +28,4 @@ require("../kernel/workers/wallet.worker");
 require('../kernel/workers/ledger.worker');
 require('../kernel/workers/projection.worker');
 require('../kernel/workers/finality.worker');
+require('../kernel/workers/double.entry.worker');
