@@ -1,31 +1,33 @@
-process.on("uncaughtException", (err) => console.log("💥 CRASH:", err));
-process.on("unhandledRejection", (err) => console.log("💥 PROMISE ERROR:", err));
-console.log("🚀 SERVER BOOT FILE ACTIVE");
-
 const express = require("express");
 const app = express();
 
-// 🔥 FORCE RAW BODY SUPPORT FOR WEBHOOKS
-app.use(express.json({ limit: "2mb" }));
-app.use(express.urlencoded({ extended: true }));
+// CRASH GUARDS
+process.on("uncaughtException", (err) => console.log("💥 CRASH:", err));
+process.on("unhandledRejection", (err) => console.log("💥 PROMISE ERROR:", err));
 
-// GLOBAL TRACE
+app.use(express.json());
+
+// LOG ALL REQUESTS
 app.use((req, res, next) => {
-  console.log("🌍 HIT:", req.method, req.url);
-  console.log("📦 RAW BODY:", req.body);
+  console.log("📡", req.method, req.url);
   next();
 });
 
-// ENGINE
-const engine = require("./services/whatsapp.engine");
-engine.startWorker();
-
 // ROUTES
 const webhookRoutes = require("./routes/webhook.routes");
-app.use("/webhook", webhookRoutes);
+app.use("/", webhookRoutes);
 
-const PORT = process.env.PORT || 3000;
+// ENGINE (SAFE WRAP)
+try {
+  const engine = require("./services/whatsapp.engine");
+  engine.startWorker();
+  console.log("🚀 ENGINE STARTED");
+} catch (e) {
+  console.log("💥 ENGINE FAILED SAFE MODE:", e);
+}
+
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log("🚀 LISTENING ON PORT", PORT);
+  console.log("🚀 SERVER RUNNING ON PORT", PORT);
 });
