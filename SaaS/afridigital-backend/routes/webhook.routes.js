@@ -4,12 +4,8 @@ const engine = require("../services/whatsapp.engine");
 
 console.log("🧩 Webhook router loaded");
 
-// SAFE WEBHOOK (NO CRASH ALLOWED)
 router.post("/", async (req, res) => {
   try {
-    console.log("🔥 WEBHOOK HIT");
-    console.log("📩 BODY:", JSON.stringify(req.body));
-
     const entries = req.body?.entry || [];
 
     for (const e of entries) {
@@ -22,12 +18,7 @@ router.post("/", async (req, res) => {
 
           console.log("📥 MESSAGE:", from, text);
 
-          try {
-            await engine.enqueue({ from, text });
-            console.log("ENQUEUE HIT");
-          } catch (err) {
-            console.log("💥 ENGINE ERROR:", err.message);
-          }
+          engine.enqueue({ from, text });
         }
       }
     }
@@ -35,8 +26,8 @@ router.post("/", async (req, res) => {
     res.sendStatus(200);
 
   } catch (err) {
-    console.log("💥 WEBHOOK CRASH:", err);
-    res.sendStatus(200); // NEVER break webhook
+    console.log("💥 WEBHOOK ERROR:", err.message);
+    res.sendStatus(200);
   }
 });
 
