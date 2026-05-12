@@ -19,7 +19,7 @@ if (process.env.ENABLE_WORKERS === 'true') {
 }
 
 // ROUTES
-app.use('/dashboard', require('./routes/dashboard.routes'));app.use('/webhook', require('./routes/webhook.routes'));
+app.use('/dashboard', require('./routes/dashboard.routes'));// REMOVED WEBHOOK ROUTE FILE CONFLICT
 app.use('/health', require('./routes/health.routes'));
 
 const PORT = process.env.PORT || 10000;
