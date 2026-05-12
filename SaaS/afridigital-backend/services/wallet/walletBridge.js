@@ -4,12 +4,12 @@ const bus = require('../../core/kernel/events/event.bus');
 class WalletBridge {
   deposit(userId, ngn) {
     const coins = wallet.convertNGNToCoin(ngn);
-    wallet.credit(userId, coins);
+    bus.emitEvent('wallet.credit.requested',(userId, coins);
     return { ngn, coins };
   }
 
   withdraw(userId, coins) {
-    wallet.debit(userId, coins);
+    bus.emitEvent('wallet.debit.requested',(userId, coins);
     return wallet.convertCoinToNGN(coins);
   }
 }
