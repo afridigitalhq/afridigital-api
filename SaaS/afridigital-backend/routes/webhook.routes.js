@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const engine = require("../services/whatsapp.engine");
-const { processJob } = engine;
+const { processJob } = require("../services/whatsapp.engine");
 
-console.log("🧩 Webhook router loaded");
+console.log("🧩 WEBHOOK MODULE ACTIVE");
 
-console.log("🔥 WEBHOOK ENTRY TRIGGERED");
-console.log("🔥 WEBHOOK MODULE ACTIVE");
 router.post("/", async (req, res) => {
   try {
+    console.log("🔥 WEBHOOK HIT");
+    console.log("📩 BODY:", JSON.stringify(req.body));
+
     const entries = req.body?.entry || [];
 
     for (const e of entries) {
@@ -17,18 +17,18 @@ router.post("/", async (req, res) => {
 
         for (const m of messages) {
           const from = m.from;
-          const text = m.text?.body || "";
+          const text = m.text?.body;
 
           console.log("📥 MESSAGE:", from, text);
 
-          console.log("📥 ENQUEUE TRACE:", { from, text });
-undefined
+          if (processJob) {
+            await processJob({ from, text });
+          }
         }
       }
     }
 
-    undefined
-
+    res.sendStatus(200);
   } catch (err) {
     console.log("💥 WEBHOOK ERROR:", err.message);
     res.sendStatus(200);
