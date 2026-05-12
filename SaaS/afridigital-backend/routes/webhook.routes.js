@@ -2,15 +2,19 @@ const express = require("express");
 const router = express.Router();
 const engine = require("../services/whatsapp.engine");
 
+console.log("🧩 Webhook router loaded");
+
 router.post("/webhook", (req, res) => {
   console.log("🔥 WEBHOOK HIT");
   console.log("📩 BODY:", JSON.stringify(req.body));
 
-  const entry = req.body?.entry || [];
+  const entries = req.body?.entry || [];
 
-  entry.forEach(e => {
-    (e.changes || []).forEach(c => {
-      (c.value?.messages || []).forEach(m => {
+  for (const e of entries) {
+    for (const c of e.changes || []) {
+      const messages = c.value?.messages || [];
+
+      for (const m of messages) {
         const from = m.from;
         const text = m.text?.body || "";
 
@@ -18,9 +22,9 @@ router.post("/webhook", (req, res) => {
 
         engine.enqueue({ from, text });
         console.log("ENQUEUE HIT");
-      });
-    });
-  });
+      }
+    }
+  }
 
   res.sendStatus(200);
 });

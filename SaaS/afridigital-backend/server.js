@@ -1,19 +1,11 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-
-const engine = require("./services/whatsapp.engine");
-
 const app = express();
-app.use(bodyParser.json());
 
-// start worker FIRST (important)
+app.use(express.json());
+
+// ENGINE START
+const engine = require("./services/whatsapp.engine");
 engine.startWorker();
-
-// webhook routes
-
-app.listen(PORT, () => {
-  console.log("🚀 SERVER RUNNING ON PORT", PORT);
-});
 
 // ROUTES
 const webhookRoutes = require("./routes/webhook.routes");
