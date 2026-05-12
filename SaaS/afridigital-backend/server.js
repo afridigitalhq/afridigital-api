@@ -11,6 +11,7 @@ console.log("🧠 SERVER INIT LOADED");
 
 app.use(express.json());
 app.use("/webhook", require("./routes/webhook.routes"));
+app.use("/webhook", require("./routes/webhook.routes"));
 
 // HEALTH
 app.get("/", (req, res) => {
