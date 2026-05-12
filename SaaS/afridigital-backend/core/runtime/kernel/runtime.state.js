@@ -3,7 +3,7 @@
  * Central safe runtime memory for execution tracking
  */
 
-const runtimeResponse = {
+const kernel = {
   status: "BOOTING",
   success: true,
 
@@ -37,23 +37,23 @@ const runtimeContext = {
 };
 
 function initRuntimeKernel() {
-  global.runtimeResponse = runtimeResponse;
+  global.kernel = kernel;
   global.runtimeFlags = runtimeFlags;
   global.runtimeContext = runtimeContext;
 
-  runtimeResponse.status = "READY";
-  runtimeResponse.metrics.startTime = Date.now();
+  kernel.status = "READY";
+  kernel.metrics.startTime = Date.now();
 }
 
 function updateRuntime(partial = {}) {
-  global.runtimeResponse = {
-    ...global.runtimeResponse,
+  global.kernel = {
+    ...global.kernel,
     ...partial,
   };
 }
 
 module.exports = {
-  runtimeResponse,
+  kernel,
   runtimeFlags,
   runtimeContext,
   initRuntimeKernel,

@@ -1,3 +1,6 @@
+const kernel = require("../kernel/afri.kernel");
+kernel.boot();
+
 const { initRuntimeKernel } = require("../runtime/kernel/runtime.state");
 initRuntimeKernel();
 

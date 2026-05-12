@@ -23,4 +23,4 @@ async function messageBrain({ from, message }) {
 }
 
 module.exports = { messageBrain };
-assertNoSimulation(runtimeResponse, 'brain.message.runtime');
+assertNoSimulation(kernel, 'brain.message.runtime');
