@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 async function getSystemHealth() {
   return {
     backend: 'ONLINE',

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 
 class InteractiveCardEngine {
@@ -11,7 +12,7 @@ class InteractiveCardEngine {
       process.env.WHATSAPP_PHONE_NUMBER_ID;
 
     const url =
-      `https://graph.facebook.com/v23.0/${phoneId}/messages`;
+      `graph("")${phoneId}/messages`;
 
     try {
 

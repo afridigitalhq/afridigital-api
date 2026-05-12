@@ -1,0 +1,120 @@
+{
+  "version": "v1.1",
+  "system": "AfriOS",
+  "description": "Live architecture intelligence map with auto-sync awareness",
+
+  "core_principles": [
+    "ONE DOMAIN = ONE OWNER",
+    "ORCHESTRATOR IS SINGLE ENTRY POINT",
+    "SERVICES ARE EXTENSIONS ONLY",
+    "NO PARALLEL BRAIN SYSTEMS",
+    "CORE ALWAYS OVERRIDES SERVICES"
+  ],
+
+  "layers": {
+
+    "core_kernel": {
+      "orchestrator": "core/orchestrator/message.orchestrator.js",
+      "router": "core/unified/router/unified.router.js",
+      "runtime": "core/runtime/runtime.engine.js",
+      "session": "core/session/session.engine.js",
+      "context": "core/context/context.engine.js"
+    },
+
+    "ai_brain": {
+      "primary_agent": "services/afriai.agent.js",
+      "dispatcher": "services/afriai.dispatcher.js",
+      "whatsapp_ai": "services/whatsapp-ai/router.js",
+      "fallback_brain": "core/orchestrator/message.orchestrator.js"
+    },
+
+    "finance_core": {
+      "wallet": "core/economy/wallet.engine.js",
+      "ledger": "core/ledger.engine.js",
+      "escrow": "core/escrow.engine.js",
+      "treasury": "core/treasury.engine.js",
+      "withdrawal": "core/withdrawal.engine.js",
+      "fraud": "core/fraud.engine.js",
+      "trust": "core/trust.engine.js"
+    },
+
+    "monetization": {
+      "ads_engine": "core/ads/ad.engine.js",
+      "ads_tracker": "core/ads/tracker/ad.tracker.js",
+      "revenue_engine": "core/revenue/revenue.engine.js",
+      "ad_market": "core/ad.market.engine.js",
+      "ad_injector": "core/monetization/ads/ad.injector.js"
+    },
+
+    "messaging_pipeline": {
+      "webhook": "core/whatsapp/routes/whatsapp.webhook.js",
+      "sender": "core/runtime/whatsapp/sender/whatsapp.sender.js",
+      "delivery": "core/runtime/whatsapp/delivery.js",
+      "queue": "core/queue/message.queue.js",
+      "workers": "core/workers/message.worker.js",
+      "retry": "core/workers/retry.worker.js"
+    }
+  },
+
+  "auto_sync_engine": {
+
+    "enabled": true,
+
+    "rules": [
+      "scan filesystem on startup",
+      "compare against kernel map",
+      "detect duplicate ownership",
+      "flag orphan modules",
+      "warn on multi-brain conflicts",
+      "recommend merge strategy"
+    ],
+
+    "conflict_detection": {
+      "wallet": [
+        "core/economy/wallet.engine.js",
+        "services/wallet/africoinWallet.js"
+      ],
+      "ads": [
+        "core/ads/ad.engine.js",
+        "core/monetization/engine/ad.engine.js",
+        "services/ad.engine.js"
+      ],
+      "ai": [
+        "services/afriai.agent.js",
+        "services/whatsapp-ai/brain.js",
+        "core/orchestrator/message.orchestrator.js"
+      ]
+    },
+
+    "auto_heal_suggestions": {
+      "wallet": "Migrate all wallet logic into core/economy/wallet.engine.js",
+      "ads": "Merge all ad engines into core/monetization/ad.engine.js",
+      "ai": "Force single AI brain entry via afriai.agent.js"
+    }
+  },
+
+  "runtime_monitoring": {
+
+    "watch_targets": [
+      "core/",
+      "services/",
+      "workers/",
+      "routes/"
+    ],
+
+    "alerts": {
+      "duplicate_engine_detected": true,
+      "orphan_module_detected": true,
+      "multi_webhook_entry": true,
+      "ai_brain_conflict": true
+    }
+  },
+
+  "system_status": {
+    "wallet": "STABLE",
+    "ai": "CONFLICT_DETECTED",
+    "ads": "FRAGMENTED",
+    "webhook": "NEEDS_SINGLE_ENTRY",
+    "architecture": "PARTIALLY_STABLE"
+  }
+}

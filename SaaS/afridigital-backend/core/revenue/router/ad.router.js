@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function routeAd(user, context) {
 
   // VERY SIMPLE VERSION (AI logic comes later)

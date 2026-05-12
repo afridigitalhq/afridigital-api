@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 /**
  * Lightweight pseudo-embedding engine (no external API dependency)
  * Converts text → numeric vector for similarity matching

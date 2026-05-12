@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 exports.webhook = async (payload) => {
   try {
 

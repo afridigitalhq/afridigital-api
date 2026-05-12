@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const users = new Map();
 
 function registerUser(phone) {

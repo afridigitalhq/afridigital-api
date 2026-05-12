@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const fs = require("fs");
 const path = require("path");
 

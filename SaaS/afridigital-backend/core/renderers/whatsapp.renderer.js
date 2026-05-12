@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function renderHealth(data) {
   return `
 🟢 BACKEND: ${data.backend}

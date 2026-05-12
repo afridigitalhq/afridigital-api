@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { handleMessage } = require('./engine');
 const { sendWhatsAppMessage } = require('./delivery');
 

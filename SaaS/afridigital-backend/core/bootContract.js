@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 module.exports = function safeModule(module) {
   if (!module) return {
     boot: async () => ({ ok: false, skipped: true }),

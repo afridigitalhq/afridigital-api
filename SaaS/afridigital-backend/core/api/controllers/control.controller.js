@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { toggleFeature, getFlags } = require('../services/control.service');
 
 function updateControl(req, res) {

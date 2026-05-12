@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { load, save } = require("../storage/message.store");
 
 let queue = load();

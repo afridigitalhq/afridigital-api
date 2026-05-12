@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const memory = require("../../core/memory/engine");
 const personality = require("../../core/personality/engine");
 const economy = require("../../core/economy/engine");

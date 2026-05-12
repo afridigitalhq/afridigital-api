@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const db = require('../database/db');
 
 function remember(phone, key, value) {

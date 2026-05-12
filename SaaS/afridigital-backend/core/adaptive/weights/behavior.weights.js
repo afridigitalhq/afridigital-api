@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const weights = {
   monetization: 0.5,
   engagement: 0.5,

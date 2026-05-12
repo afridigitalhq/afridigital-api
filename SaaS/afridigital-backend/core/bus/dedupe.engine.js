@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const seen = new Map();
 
 // keep memory window lightweight

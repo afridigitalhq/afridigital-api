@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 module.exports = {
   propose: (systemState) => {
     console.log("🧠 AI proposing system evolution...");

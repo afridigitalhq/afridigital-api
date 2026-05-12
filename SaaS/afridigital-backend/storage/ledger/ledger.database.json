@@ -1,0 +1,22 @@
+[
+  {
+    "id": "tx_1778490638854",
+    "user": "2347060553158",
+    "type": "EARN",
+    "amount": 500,
+    "currency": "Africoin",
+    "status": "completed",
+    "meta": {},
+    "createdAt": "2026-05-11T09:10:38.854Z"
+  },
+  {
+    "id": "tx_1778490858974",
+    "user": "2347060553158",
+    "type": "ESCROW_LOCK",
+    "amount": 200,
+    "currency": "Africoin",
+    "status": "completed",
+    "meta": {},
+    "createdAt": "2026-05-11T09:14:18.974Z"
+  }
+]

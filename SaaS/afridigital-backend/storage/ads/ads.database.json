@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ad001",
+    "title": "TikTok Boost",
+    "url": "https://www.tiktok.com/@ai_verax",
+    "reward": 50,
+    "tracking": {
+      "clickRequired": true,
+      "minDwellTime": 10
+    },
+    "active": true
+  }
+]

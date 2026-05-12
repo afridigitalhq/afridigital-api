@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const memory = require('../../storage/memory.store');
 const router = require('./intelligence.router');
 const { brains } = require('./brains');

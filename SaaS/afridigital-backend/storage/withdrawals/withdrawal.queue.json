@@ -1,0 +1,17 @@
+[
+  {
+    "id": "wd_1778491002070",
+    "user": "2347060553158",
+    "amount": 100,
+    "status": "PENDING",
+    "fraud": {
+      "score": 0,
+      "risk": "LOW"
+    },
+    "cooldown": {
+      "createdAt": "2026-05-11T09:16:42.066Z",
+      "unlockAt": "2026-05-12T09:16:42.066Z"
+    },
+    "createdAt": "2026-05-11T09:16:42.070Z"
+  }
+]

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function boot() {
   console.log('🚀 AFRIDIGITAL V6.3 BOOT STRAP');
 

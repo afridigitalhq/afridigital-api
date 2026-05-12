@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { optimizeKernel } =
 require('../optimizer/kernel.optimizer');
 

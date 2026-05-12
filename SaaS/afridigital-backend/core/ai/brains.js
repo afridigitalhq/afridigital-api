@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 exports.brains = {
   greet: (text) => "Hello 👋 I’m AfriAI. How can I help you today?",
   pricing: () => "💰 Our pricing is flexible based on usage.",

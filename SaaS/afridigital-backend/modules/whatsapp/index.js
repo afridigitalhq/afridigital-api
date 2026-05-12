@@ -5,7 +5,7 @@ const PHONE_ID = process.env.PHONE_NUMBER_ID;
 
 async function sendMessage(to, text) {
   return axios.post(
-    `https://graph.facebook.com/v19.0/${PHONE_ID}/messages`,
+    `https://graph.facebook.com/v23.0/${PHONE_ID}/messages`,
     {
       messaging_product: "whatsapp",
       to,

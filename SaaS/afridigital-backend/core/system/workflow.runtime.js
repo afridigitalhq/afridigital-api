@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function workflowBoot() {
 
 console.log('🚀 AFRICONTROL V4.7 ONLINE');

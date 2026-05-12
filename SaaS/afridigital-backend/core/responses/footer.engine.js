@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const platforms = require('../../config/platforms');
 
 function injectFooter(message) {

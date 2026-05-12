@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const db = require('../../database/db');
 const { detectThreat } =
 require('../engine/threat.engine');

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function mediaBoot() {
 
 console.log('🚀 AFRICONTROL V4.8 ONLINE');

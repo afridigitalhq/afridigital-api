@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const fs = require("fs");
 const exec = require("child_process").execSync;
 

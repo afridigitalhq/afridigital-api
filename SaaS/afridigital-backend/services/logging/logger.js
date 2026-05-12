@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const Message = require("../../database/schemas/Message");
 
 async function logMessage(data) {

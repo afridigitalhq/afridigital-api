@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 require('dotenv').config();
 
 const { checkEnv } =

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function recoveryBoot() {
 
 console.log('🚀 AFRICONTROL V5.5 ONLINE');

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { generateAIReply } = require('../../core/ai/v8.7.ai.bridge');
 const dispatcher=require('../modules/dispatcher');
 const brain=require('../modules/brain');
@@ -42,3 +43,73 @@ console.log("🔥 WHATSAPP WEBHOOK HIT");
     console.error("WhatsApp Error:", err);
     return res.sendStatus(500);
 const memoryInstance = require('../modules/memory');
+
+const FinanceControl = require("../core/runtime/safety/finance.control");
+
+function handleAdminFinanceCommands(message, isAdmin) {
+  if (!isAdmin) return null;
+
+  const text = message.toLowerCase();
+
+  if (text === "freeze withdrawals") {
+    FinanceControl.freezeWithdrawals();
+    return "🧊 Withdrawals FROZEN";
+  }
+
+  if (text === "unfreeze withdrawals") {
+    FinanceControl.unfreezeWithdrawals();
+    return "🔥 Withdrawals RESTORED";
+  }
+
+  if (text === "withdrawal status") {
+    return `📊 Status: ${FinanceControl.getStatus()}`;
+  }
+
+  return null;
+}
+
+module.exports.handleAdminFinanceCommands = handleAdminFinanceCommands;
+
+// 🚨 FRAUD ALERT HOOK
+function sendFraudAlert(tx, fraud) {
+
+  const message =
+`🚨 FRAUD ALERT DETECTED
+User: ${tx.userId}
+Amount: ${tx.amount}
+Risk Score: ${fraud.riskScore}
+Status: ${fraud.flagged ? "FLAGGED" : "MONITORED"}
+TxID: ${tx.id}`;
+
+  // plug into your WhatsApp sender if available
+  console.log("📲 ADMIN ALERT:", message);
+
+  return message;
+}
+
+module.exports.sendFraudAlert = sendFraudAlert;
+
+
+// 🚨 AUTO-FREEZE ALERT EXTENSION
+function sendFreezeAlert(tx, fraud, freezeStatus) {
+
+  if (freezeStatus !== "AUTO_FROZEN") return;
+
+  const message =
+`🧊 SYSTEM AUTO-FREEZE ACTIVATED
+
+User: ${tx.userId}
+Amount: ${tx.amount}
+Risk Score: ${fraud.riskScore}
+Action: ${freezeStatus}
+TxID: ${tx.id}
+
+⚠️ Manual review required`;
+
+  console.log("📲 ADMIN FREEZE ALERT:", message);
+
+  return message;
+}
+
+module.exports.sendFreezeAlert = sendFreezeAlert;
+

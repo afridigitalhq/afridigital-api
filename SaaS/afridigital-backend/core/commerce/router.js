@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const context = require("../context/engine");
 const sponsor = require("../sponsor/engine");
 const actions = require("./actions");

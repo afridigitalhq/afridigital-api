@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 exports.normalize = (payload) => {
   return {
     id: Date.now() + Math.random(),

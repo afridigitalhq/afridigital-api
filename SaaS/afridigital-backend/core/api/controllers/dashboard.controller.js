@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { getSystemMetrics } = require('../services/metrics.service');
 
 function dashboard(req, res) {

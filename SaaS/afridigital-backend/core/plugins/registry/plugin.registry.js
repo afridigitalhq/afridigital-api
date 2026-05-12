@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const plugins = {};
 
 function registerPlugin(name, plugin) {

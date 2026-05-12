@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 module.exports = {
   build(buttons = []) {
     return buttons.map((btn, i) => ({

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { detectIntent } = require('../intent/intent.engine');
 const { canAccess } = require('../permissions/permissions.engine');
 const { requireRegistration } = require('../middleware/registration.middleware');

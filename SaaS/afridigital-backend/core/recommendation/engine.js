@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 module.exports = {
 
   recommend(intent="general", user={}){

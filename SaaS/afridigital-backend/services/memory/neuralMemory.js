@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { storeMemory, recallMemory } = require("../../services/vector/vectorMemory");
 
 async function neuralMemoryPipeline({ userId, message, response, channel }) {

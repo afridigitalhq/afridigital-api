@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { getProvider } =
 require('../providers/provider.manager');
 

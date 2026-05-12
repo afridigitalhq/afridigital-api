@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const provider =
 require('../providers/whatsapp.provider');
 

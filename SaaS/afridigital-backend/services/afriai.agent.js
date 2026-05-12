@@ -1,194 +1,75 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const sendWhatsAppMessage = require('./whatsapp.send');
+const { handleAdminCommand } = require('../core/admin.engine');
+const adEngine = require('./ad.engine');
 
-let OpenAI = null;
-let client = null;
-
-// OPTIONAL OPENAI LOAD
-try {
-  OpenAI = require('openai');
-
-  if (
-    process.env.OPENAI_API_KEY &&
-    !process.env.OPENAI_API_KEY.includes('your')
-  ) {
-    client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
-
-    console.log('🧠 OpenAI Provider Loaded');
-  } else {
-    console.log('⚠️ OpenAI key missing — using internal brain');
-  }
-
-} catch (err) {
-  console.log('⚠️ OpenAI SDK unavailable');
-}
-
-// 🧠 MEMORY ENGINE
+// MEMORY ENGINE
 const memory = {};
 
 function getMemory(user) {
   if (!memory[user]) {
     memory[user] = {
-      history: [],
-      personality: 'default'
+      history: []
     };
   }
 
   return memory[user];
 }
 
-// 🧠 INTERNAL AI BRAIN
-function internalBrain(message) {
+// SIMPLE INTERNAL AI BRAIN
+async function think(message) {
 
-  const lower = message.toLowerCase();
+  const text = message.toLowerCase();
 
-  // JOB ENGINE
-  if (
-    lower.includes('job') ||
-    lower.includes('work') ||
-    lower.includes('employment')
-  ) {
-    return `
-💼 AfriAI Job Engine
-
-I can help with:
-• Remote jobs
-• Tech jobs
-• CV guidance
-• Freelancing
-• African opportunities
-
-Tell me your skill or profession.
-`;
+  if (text.includes('job')) {
+    return '💼 AfriAI Job Engine activated. What kind of work are you looking for?';
   }
 
-  // PAYMENT ENGINE
   if (
-    lower.includes('pay') ||
-    lower.includes('money') ||
-    lower.includes('transfer')
+    text.includes('money') ||
+    text.includes('earn') ||
+    text.includes('income')
   ) {
-    return `
-💳 AfriAI Payment Engine
-
-Available actions:
-• Send money
-• Receive money
-• Payment tracking
-• Business transactions
-
-What would you like to do?
-`;
+    return '💰 AfriAI Income Engine activated. I can help you discover online earning opportunities.';
   }
 
-  // BUSINESS ENGINE
   if (
-    lower.includes('business') ||
-    lower.includes('startup')
+    text.includes('tiktok') ||
+    text.includes('followers') ||
+    text.includes('viral')
   ) {
-    return `
-🚀 AfriAI Business Engine
-
-I can help with:
-• Startup ideas
-• Branding
-• Growth plans
-• AI business systems
-• Monetization
-
-Describe your business idea.
-`;
+    return '🚀 AfriAI Creator Engine activated. Let us grow your audience.';
   }
 
-  // CODING ENGINE
-  if (
-    lower.includes('code') ||
-    lower.includes('website') ||
-    lower.includes('app')
-  ) {
-    return `
-💻 AfriAI Dev Engine
-
-Supported:
-• Node.js
-• React
-• APIs
-• WhatsApp bots
-• AI systems
-• Full-stack apps
-
-Tell me what you want to build.
-`;
-  }
-
-  // DEFAULT
-  return `
-🤖 AfriAI Internal Brain
-
-I understand your message:
-"${message}"
-
-How can I assist you further?
-`;
+  return `🤖 AfriAI received: ${message}`;
 }
 
-// 🚀 REAL AI THINKING
-async function think(message, userMemory) {
+// SHOULD INJECT ADS?
+function shouldInjectAd(message) {
 
-  // USE OPENAI IF AVAILABLE
-  if (client) {
+  const text = message.toLowerCase();
 
-    try {
-
-      const completion =
-        await client.chat.completions.create({
-          model: 'gpt-4.1-mini',
-
-          messages: [
-            {
-              role: 'system',
-              content: `
-You are AfriAI.
-
-You are futuristic,
-helpful,
-African-tech focused,
-and conversational.
-`
-            },
-
-            ...userMemory.history.slice(-10),
-
-            {
-              role: 'user',
-              content: message
-            }
-          ],
-
-          temperature: 0.7
-        });
-
-      return completion
-        .choices[0]
-        .message.content;
-
-    } catch (err) {
-
-      console.log(
-        '⚠️ OpenAI failed — switching to internal brain'
-      );
-
-      return internalBrain(message);
-    }
-  }
-
-  // INTERNAL BRAIN FALLBACK
-  return internalBrain(message);
+  return (
+    text.includes('money') ||
+    text.includes('earn') ||
+    text.includes('job') ||
+    text.includes('tiktok') ||
+    text.includes('viral') ||
+    text.includes('followers') ||
+    text.includes('income')
+  );
 }
 
-// 🚀 MAIN AGENT
+// MAIN AGENT LOOP
 async function AfriAIAgent(message, from) {
+
+  // 👑 ADMIN LAYER
+  const adminReply = await handleAdminCommand(from, message);
+  if (adminReply) {
+    console.log("👑 ADMIN RESPONSE:", adminReply);
+    await sendWhatsAppMessage(from, adminReply);
+    return adminReply;
+  }
 
   const userMemory = getMemory(from);
 
@@ -198,9 +79,8 @@ async function AfriAIAgent(message, from) {
     content: message
   });
 
-  // THINK
-  const reply =
-    await think(message, userMemory);
+  // AI THINK
+  const reply = await think(message);
 
   // STORE AI REPLY
   userMemory.history.push({
@@ -211,8 +91,23 @@ async function AfriAIAgent(message, from) {
   console.log('🧠 MEMORY:', userMemory.history);
   console.log('🚀 AI REPLY:', reply);
 
-  // SEND TO WHATSAPP
+  // SEND MAIN REPLY
   await sendWhatsAppMessage(from, reply);
+
+  // OPTIONAL AD INJECTION
+  if (shouldInjectAd(message)) {
+
+    const ad = adEngine.getRandomAd();
+
+    if (ad) {
+
+      const adCard = adEngine.buildAdCard(ad);
+
+      console.log('📢 INJECTING AD:', ad.title);
+
+      await sendWhatsAppMessage(from, adCard);
+    }
+  }
 
   return reply;
 }

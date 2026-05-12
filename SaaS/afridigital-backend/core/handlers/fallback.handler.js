@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function fallbackResponse() {
   return `
 🤖 AfriAI could not understand your request.

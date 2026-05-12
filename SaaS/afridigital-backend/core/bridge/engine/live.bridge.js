@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { executeMessage } =
 require('../../execution/execution.engine');
 

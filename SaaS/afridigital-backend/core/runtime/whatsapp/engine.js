@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { messageBrain } = require('../brain/message.brain');
 
 async function handleMessage({ from, message }) {

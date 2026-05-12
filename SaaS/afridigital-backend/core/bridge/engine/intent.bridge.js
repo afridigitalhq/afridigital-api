@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const api = require('../services/api.client');
 
 async function resolveIntent(message) {

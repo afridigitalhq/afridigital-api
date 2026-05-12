@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function whatsappBoot() {
 
 console.log('🚀 AFRICONTROL V6.2 ONLINE');

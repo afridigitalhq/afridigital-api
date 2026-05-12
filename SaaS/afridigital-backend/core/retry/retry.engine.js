@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const Redis = require("ioredis");
 
 // SAFE INIT (prevents crash if REDIS_URL missing)

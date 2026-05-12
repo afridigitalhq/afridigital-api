@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { executeAdminCommand } =
 require('./admin/admin.commands');
 

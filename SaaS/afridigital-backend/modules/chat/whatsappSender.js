@@ -8,7 +8,7 @@ const axios = require("axios");
  */
 async function sendWhatsApp(to, message) {
   try {
-    const url = `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+    const url = `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
     const payload = {
       messaging_product: "whatsapp",

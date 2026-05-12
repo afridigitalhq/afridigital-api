@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 let systemFlags = {
   ads: true,
   premium: true,

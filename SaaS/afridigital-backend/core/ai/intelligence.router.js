@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 exports.routeIntent = (text = "") => {
   const t = text.toLowerCase();
 

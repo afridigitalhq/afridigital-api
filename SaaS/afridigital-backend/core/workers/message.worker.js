@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { dequeueMessage, hasMessages } = require("../queue/message.queue");
 const { messageBrain } = require("../runtime/brain/message.brain");
 const { sendWhatsAppMessage } = require("../runtime/whatsapp/delivery");

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 let flags = {
   ads: true,
   forex: true,

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const wallet = require('../wallet/africoinWallet');
 
 class EscrowEngine {

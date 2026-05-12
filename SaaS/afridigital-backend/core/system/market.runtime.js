@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function marketBoot() {
 
 console.log('🚀 AFRICONTROL V5.9 ONLINE');

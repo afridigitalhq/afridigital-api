@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 module.exports = {
   optimize: (metrics) => {
     console.log("🧠 Optimizing system load...");

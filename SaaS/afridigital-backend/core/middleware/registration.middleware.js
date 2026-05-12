@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { getUser } = require('../users/user.engine');
 
 function requireRegistration(phone) {

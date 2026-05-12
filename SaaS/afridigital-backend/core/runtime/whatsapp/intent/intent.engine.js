@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function detectIntent(message, adminNumber, sender) {
 
   const text = message.toLowerCase();

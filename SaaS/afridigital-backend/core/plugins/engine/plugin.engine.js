@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { loadPlugin } =
 require('../loader/plugin.loader');
 

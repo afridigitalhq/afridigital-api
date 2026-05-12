@@ -1,10 +1,12 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
+const { assertNoSimulation } = require("../runtime/safety/execution.mode");
 async function messageBrain({ from, message }) {
 
   console.log('🧠 BRAIN INPUT:', from, message);
 
   try {
 
-    // SAFE MOCK RESPONSE (NO CRASH ZONE)
+    const { assertNoSimulation } = require("../safety/execution.mode"); assertNoSimulation("brain.message", "runtime"); // SAFE FALLBACK PROTECTED
     return {
       reply: '👋 Welcome to AfriDigital AI (safe mode active)'
     };
@@ -21,3 +23,4 @@ async function messageBrain({ from, message }) {
 }
 
 module.exports = { messageBrain };
+assertNoSimulation(runtimeResponse, 'brain.message.runtime');

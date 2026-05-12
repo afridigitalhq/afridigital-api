@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const SEND_LOCK = new Set();
 const { sendWhatsAppMessage } = require('../sender/whatsapp.sender');
 const { messageBrain } = require('../../brain/message.brain');

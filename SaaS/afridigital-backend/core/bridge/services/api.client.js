@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 
 const BASE = 'http://localhost:3000/api';

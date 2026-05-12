@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { detectIntent } = require('../intent/intent.engine');
 const { getSystemHealth } = require('../system/system.health');
 const { renderHealth } = require('../renderers/whatsapp.renderer');

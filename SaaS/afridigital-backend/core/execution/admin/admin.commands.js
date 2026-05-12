@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { getDashboard } = require('../../dashboard/dashboard.engine');
 const { getFlags, toggleFeature } = require('../../api/services/control.service');
 

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function providerStatus() {
 
 console.log('🟢 Provider Manager Online');

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function runtimeStatus() {
 
 console.log('🟢 WhatsApp Runtime Connected');

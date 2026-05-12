@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function adaptResponse(response, channel) {
 
   if (channel === 'whatsapp') {

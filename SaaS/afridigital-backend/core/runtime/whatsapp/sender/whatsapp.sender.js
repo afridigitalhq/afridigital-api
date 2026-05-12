@@ -1,8 +1,9 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 
 async function sendWhatsAppMessage(to, text) {
   try {
-    const url = `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+    const url = `graph("")${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
     const response = await axios.post(
       url,

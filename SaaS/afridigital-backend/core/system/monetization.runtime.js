@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function monetizationBoot() {
 
 console.log('🚀 AFRICONTROL V4.9 ONLINE');

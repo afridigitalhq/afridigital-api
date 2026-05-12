@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { resolveIntent } = require('./intent.bridge');
 
 async function generateResponse(message) {

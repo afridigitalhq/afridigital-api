@@ -1,10 +1,11 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 require('dotenv').config();
 
 async function sendWhatsAppMessage(to, message) {
 
   const url =
-`https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+`graph("")${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
 
   try {
 

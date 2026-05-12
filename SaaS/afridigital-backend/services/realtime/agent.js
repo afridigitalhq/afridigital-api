@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const session = require("../../core/session/engine");
 const context = require("../../core/context/engine");
 

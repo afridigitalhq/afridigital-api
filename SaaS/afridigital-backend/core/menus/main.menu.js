@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function getMainMenu() {
 return `
 📋 AfriAI Main Menu

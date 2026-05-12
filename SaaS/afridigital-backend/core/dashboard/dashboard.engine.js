@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { getMetrics } = require('./metrics/system.metrics');
 const { renderDashboard } = require('./render/dashboard.renderer');
 

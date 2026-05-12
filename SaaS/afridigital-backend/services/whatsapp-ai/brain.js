@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const OpenAI = require("openai");
 const memory = require("../../modules/memory");
 

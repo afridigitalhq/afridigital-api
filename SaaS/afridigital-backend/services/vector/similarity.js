@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 function cosineSimilarity(a, b) {
   let dot = 0, magA = 0, magB = 0;
 

@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { normalize } = require('./job.contract');
 const fs = require('fs');
 

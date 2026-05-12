@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { popQueue } = require('../runtime/whatsapp/store');
 const { sendWhatsAppMessage } = require('../runtime/whatsapp/delivery');
 

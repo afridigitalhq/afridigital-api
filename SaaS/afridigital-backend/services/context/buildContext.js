@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const User = require("../../database/models/User");
 
 async function buildContext(phone, message, channel) {

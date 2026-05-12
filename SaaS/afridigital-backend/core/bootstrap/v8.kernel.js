@@ -1,3 +1,4 @@
+const { assertApiVersion } = require("../runtime/safety/api.guard");
 const express = require('express');
 
 const { handleIngress } = require('../runtime/whatsapp/ingress');

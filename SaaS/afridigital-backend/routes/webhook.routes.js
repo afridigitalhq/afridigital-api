@@ -1,49 +1,28 @@
 const router = require('express').Router();
-
-const AfriAIAgent = require('../services/afriai.agent');
-
-router.get('/', (req, res) => {
-  const mode = req.query['hub.mode'];
-  const token = req.query['hub.verify_token'];
-  const challenge = req.query['hub.challenge'];
-
-  if (
-    mode === 'subscribe' &&
-    token === (process.env.VERIFY_TOKEN || 'afri_verify_123')
-  ) {
-    console.log('✅ WEBHOOK VERIFIED');
-    return res.status(200).send(challenge);
-  }
-
-  return res.sendStatus(403);
-});
+const AfriOS = require('../core/afrios.orchestrator');
+const sendWhatsAppMessage = require('../services/whatsapp.send');
 
 router.post('/', async (req, res) => {
   try {
-    console.log(
-      '📩 WEBHOOK:',
-      JSON.stringify(req.body, null, 2)
-    );
 
-    const message =
-      req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+    const message = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-    if (message) {
-      const from = message.from;
-      const text = message.text?.body || '';
+    if (!message) return res.sendStatus(200);
 
-      console.log('💬 FROM:', from);
-      console.log('🧠 TEXT:', text);
+    const from = message.from;
+    const text = message.text?.body || '';
 
-      // 🚀 AI AGENT TAKES CONTROL
-      await AfriAIAgent(text, from);
-    }
+    const result = await AfriOS(text, from);
+
+    // 💬 AI OR CARD RESPONSE
+    await sendWhatsAppMessage(from, result.reply);
+
+    console.log("🚀 AFRIOS RESPONSE TYPE:", result.type);
 
     return res.sendStatus(200);
 
   } catch (err) {
-    console.error('🔥 WEBHOOK ERROR:', err);
-
+    console.error("🔥 AFRIOS ERROR:", err);
     return res.sendStatus(200);
   }
 });
