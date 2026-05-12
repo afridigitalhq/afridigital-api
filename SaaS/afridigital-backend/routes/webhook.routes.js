@@ -18,6 +18,7 @@ module.exports = (app, engine) => {
   });
 
   app.post("/webhook", (req, res) => {
+console.log("🔥 WEBHOOK HIT");
 
     res.sendStatus(200);
 
