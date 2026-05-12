@@ -1,19 +1,42 @@
-module.exports = (app, engine) => {
+const express = require("express");
+const router = express.Router();
+const engine = require("../services/whatsapp.engine");
 
-  app.get("/webhook", (req, res) => {
+// 🔥 WEBHOOK ENTRY
+router.post("/webhook", (req, res) => {
+  console.log("🔥 WEBHOOK HIT");
+  console.log("📩 BODY:", JSON.stringify(req.body));
 
-    const VERIFY_TOKEN =
-      process.env.WHATSAPP_VERIFY_TOKEN ||
-      "afri_ai_2026_secure";
+  try {
+    const entry = req.body?.entry || [];
 
-    const mode = req.query["hub.mode"];
-    const token = req.query["hub.verify_token"];
-    const challenge = req.query["hub.challenge"];
+    entry.forEach(e => {
+      const changes = e.changes || [];
 
-    if (mode === "subscribe" && token === VERIFY_TOKEN) {
-      return res.status(200).send(String(challenge));
-    }
+      changes.forEach(c => {
+        const messages = c.value?.messages || [];
 
-    return res.sendStatus(403);
-  });
+        messages.forEach(m => {
+          const from = m.from;
+          const text = m.text?.body || "";
 
+          console.log("📥 MESSAGE RECEIVED:", from, text);
+
+          engine.enqueue({
+            from,
+            text
+          });
+
+          console.log("ENQUEUE HIT");
+        });
+      });
+    });
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.error("WEBHOOK ERROR:", err.message);
+    res.sendStatus(500);
+  }
+});
+
+module.exports = router;
