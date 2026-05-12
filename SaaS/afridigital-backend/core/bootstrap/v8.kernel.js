@@ -25,3 +25,4 @@ function boot(app) {
 
 module.exports = { boot };
 require("../kernel/workers/wallet.worker");
+require('../kernel/workers/ledger.worker');
