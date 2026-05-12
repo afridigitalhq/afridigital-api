@@ -10,12 +10,14 @@ app.use(bodyParser.json());
 engine.startWorker();
 
 // webhook routes
-require("./routes/webhook.routes")(app, engine);
 
-// health check
-app.get("/", (req, res) => {
-  res.send("AfriAI ONLINE 🤖");
+app.listen(PORT, () => {
+  console.log("🚀 SERVER RUNNING ON PORT", PORT);
 });
+
+// ROUTES
+const webhookRoutes = require("./routes/webhook.routes");
+app.use(webhookRoutes);
 
 const PORT = process.env.PORT || 3000;
 
