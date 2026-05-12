@@ -1,33 +1,23 @@
-const { assertApiVersion } = require("../runtime/safety/api.guard");
-const config = require('../../config/africoinConfig');
+const bus = require("../../core/kernel/events/event.bus");
 
-class AfriCoinWallet {
-  constructor() {
-    this.balances = new Map();
-  }
-
-  getBalance(userId) {
-    return this.balances.get(userId) || 0;
-  }
-
-  credit(userId, amount) {
-    const current = this.getBalance(userId);
-    this.balances.set(userId, current + amount);
-  }
-
-  debit(userId, amount) {
-    const current = this.getBalance(userId);
-    if (current < amount) throw new Error("Insufficient AfriCoin");
-    this.balances.set(userId, current - amount);
-  }
-
-  convertNGNToCoin(ngn) {
-    return ngn * config.NGN_TO_AFRICOIN;
-  }
-
-  convertCoinToNGN(coin) {
-    return coin * config.AFRICOIN_TO_NGN;
-  }
+function creditWallet(userId, amount) {
+  bus.emitEvent("wallet.credit.requested", { userId, amount });
+  return { status: "queued" };
 }
 
-module.exports = new AfriCoinWallet();
+  return { status: "queued" };
+}
+
+function debitWallet(userId, amount) {
+  bus.emitEvent("wallet.debit.requested", { userId, amount });
+  return { status: "queued" };
+}
+
+  return { status: "queued" };
+}
+
+module.exports = {
+  creditWallet,
+  debitWallet
+};
+
