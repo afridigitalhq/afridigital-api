@@ -1,39 +1,32 @@
-const sendWhatsAppMessage = require("./whatsapp.send");
-
 const queue = [];
 
-console.log("⚙️ ENGINE ACTIVE - QUEUE SIZE:", queue.length);
 function enqueue(job) {
-  console.log("📦 QUEUE RECEIVED:", job);
   queue.push(job);
+  console.log("📥 QUEUED:", job.from, job.text);
 }
 
-async function startWorker() { setInterval(() => { if (queue.length > 0) { const job = queue.shift(); console.log("🚀 PROCESSING JOB:", job); } }, 1000); } {
-  console.log("🚀 ENGINE LOOP STARTED");
+async function processJob(job) {
+  console.log("🤖 PROCESSING:", job.from, job.text);
 
-  while (true) {
-    try {
-      if (queue.length === 0) {
-        await new Promise(r => setTimeout(r, 300));
-        continue;
-      }
+  // 🧠 SIMPLE AI LOGIC (TEMP BEFORE REAL LLM)
+  const reply = `AfriAI: I received "${job.text}"`;
 
-      const job = queue.shift();
+  console.log("📤 REPLY:", reply);
 
-      console.log("⚙️ PROCESSING JOB:", job);
+  // TODO: replace with WhatsApp send API later
+  return reply;
+}
 
-      const reply = `🤖 AfriAI: ${job.text}`;
+async function startWorker() {
+  console.log("🚀 AfriAI WORKER STARTED");
 
-      console.log("📤 SENDING:", job.from, reply);
+  setInterval(async () => {
+    if (queue.length === 0) return;
 
-      await sendWhatsAppMessage(job.from, reply);
+    const job = queue.shift();
+    await processJob(job);
 
-      console.log("✅ SENT SUCCESSFULLY:", job.from);
-
-    } catch (err) {
-      console.error("❌ ENGINE ERROR:", err.message);
-    }
-  }
+  }, 1000);
 }
 
 module.exports = {
