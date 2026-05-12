@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
           console.log("📥 MESSAGE:", from, text);
 
           console.log("📥 ENQUEUE TRACE:", { from, text });
-engine.enqueue({ from, text });
+undefined
         }
       }
     }
