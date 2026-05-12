@@ -56,7 +56,25 @@ res.json({success:true,response});
 
 const axios = require("axios");
 
-app.get("/webhook", (req,res)=>{const mode=req.query["hub.mode"];const token=req.query["hub.verify_token"];const challenge=req.query["hub.challenge"];const VERIFY_TOKEN=process.env.WHATSAPP_VERIFY_TOKEN;if(!VERIFY_TOKEN){return res.sendStatus(500);}if(mode==="subscribe" && token===VERIFY_TOKEN){return res.status(200).send(challenge);}return res.sendStatus(403);});
+app.get("/webhook", (req, res) => {
+  try {
+    const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "afri_ai_2026_secure";
+    const mode = req.query["hub.mode"];
+    const token = req.query["hub.verify_token"];
+    const challenge = req.query["hub.challenge"];
+
+    console.log("WEBHOOK VERIFY HIT:", { mode, token, challenge });
+
+    if (mode === "subscribe" && token === VERIFY_TOKEN) {
+      return res.status(200).send(challenge);
+    }
+
+    return res.sendStatus(403);
+  } catch (err) {
+    console.log("WEBHOOK CRASH:", err);
+    return res.sendStatus(500);
+  }
+});
 
 async function sendWhatsAppMessage(to,text){
 try{
