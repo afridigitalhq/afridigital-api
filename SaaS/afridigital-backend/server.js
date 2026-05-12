@@ -1,3 +1,4 @@
+const setupWebhook = require('./webhook.fix');
 process.on('uncaughtException', e => console.error('CRASH SAFE:', e));
 process.on('unhandledRejection', e => console.error('PROMISE SAFE:', e));
 
@@ -117,3 +118,4 @@ app.get('/webhook', (req, res) => {
 
   return res.sendStatus(403);
 });
+setupWebhook(app, sendWhatsAppMessage, buildAfriAiResponse);
