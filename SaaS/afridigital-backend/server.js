@@ -1,3 +1,5 @@
+process.on("uncaughtException", (err) => console.log("💥 CRASH:", err));
+process.on("unhandledRejection", (err) => console.log("💥 PROMISE ERROR:", err));
 console.log("🚀 SERVER BOOT FILE ACTIVE");
 
 const express = require("express");
