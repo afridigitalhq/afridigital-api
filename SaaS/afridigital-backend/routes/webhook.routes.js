@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const engine = require("../services/whatsapp.engine");
+const { processJob } = engine;
 
 console.log("🧩 Webhook router loaded");
 
@@ -26,7 +27,7 @@ undefined
       }
     }
 
-    res.sendStatus(200);
+    undefined
 
   } catch (err) {
     console.log("💥 WEBHOOK ERROR:", err.message);
