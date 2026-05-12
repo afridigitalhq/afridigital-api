@@ -1,34 +1,52 @@
 const express = require("express");
 const app = express();
 
-// BODY PARSER (CRITICAL)
 app.use(express.json());
 
-// GLOBAL LOGGER
+// HEALTH
+app.get("/", (req, res) => {
+  res.json({ status: "OK", service: "AfriDigital API" });
+});
+
+// LOG ALL REQUESTS
 app.use((req, res, next) => {
   console.log("📡", req.method, req.url);
   next();
 });
 
-// HEALTH CHECK
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "ok", service: "afridigital-api" });
-});
-
-// ENGINE (safe boot)
-const engine = require("./services/whatsapp.engine");
+// ENGINE (SAFE)
 try {
-  engine.startWorker();
+  const engine = require("./services/whatsapp.engine");
+  if (engine?.startWorker) {
+    engine.startWorker();
+    console.log("🚀 ENGINE STARTED");
+  }
 } catch (e) {
-  console.log("💥 ENGINE CRASH:", e);
+  console.log("💥 ENGINE ERROR:", e.message);
 }
 
-// ROUTES (IMPORTANT FIX)
-const webhookRoutes = require("./routes/webhook.routes");
-app.use("/", webhookRoutes);
+// WEBHOOK (DIRECT - NO ROUTER)
+app.post("/webhook", (req, res) => {
+  console.log("🔥 WEBHOOK HIT");
+  console.log("📩", JSON.stringify(req.body));
 
-// START SERVER
+  const entries = req.body?.entry || [];
+
+  for (const e of entries) {
+    for (const c of e.changes || []) {
+      const messages = c.value?.messages || [];
+
+      for (const m of messages) {
+        console.log("📥 MESSAGE:", m.from, m.text?.body);
+      }
+    }
+  }
+
+  res.sendStatus(200);
+});
+
+// START
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-  console.log("🚀 SERVER RUNNING ON PORT", PORT);
+  console.log("🚀 RUNNING ON PORT", PORT);
 });
