@@ -1,4 +1,4 @@
-const { assertApiVersion } = require("../runtime/safety/api.guard");
+const { assertApiVersion } = require("../core/runtime/safety/api.guard");
 const fs = require('fs');
 const fraud = require('./afrios.fraud');
 
