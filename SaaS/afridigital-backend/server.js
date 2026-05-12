@@ -20,7 +20,7 @@ engine.startWorker();
 
 // ROUTES
 const webhookRoutes = require("./routes/webhook.routes");
-app.use("/", webhookRoutes);
+app.use("/webhook", webhookRoutes);
 
 const PORT = process.env.PORT || 3000;
 
