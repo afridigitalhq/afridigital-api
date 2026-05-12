@@ -29,3 +29,4 @@ require('../kernel/workers/ledger.worker');
 require('../kernel/workers/projection.worker');
 require('../kernel/workers/finality.worker');
 require('../kernel/workers/double.entry.worker');
+require('../cluster/ledger.node');
