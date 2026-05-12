@@ -1,4 +1,4 @@
-const app = require("./core/app");
+const app = null;
 const engine = require("./services/whatsapp.engine");
 
 // prevent double-start crash
