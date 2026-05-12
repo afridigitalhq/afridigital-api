@@ -23,6 +23,7 @@ router.all("/webhook", (req, res) => {
         console.log("📥 MESSAGE:", from, text);
 
         engine.enqueue({ from, text });
+console.log("🧠 JOB QUEUED:", job);
         console.log("ENQUEUE HIT");
       }
     }

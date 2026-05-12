@@ -2,6 +2,7 @@ const sendWhatsAppMessage = require("./whatsapp.send");
 
 const queue = [];
 
+console.log("⚙️ ENGINE ACTIVE - QUEUE SIZE:", queue.length);
 function enqueue(job) {
   console.log("📦 QUEUE RECEIVED:", job);
   queue.push(job);
