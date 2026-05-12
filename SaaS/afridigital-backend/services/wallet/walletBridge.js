@@ -1,5 +1,5 @@
 const { assertApiVersion } = require("../runtime/safety/api.guard");
-const wallet = require('./africoinWallet');
+const bus = require('../../core/kernel/events/event.bus');
 
 class WalletBridge {
   deposit(userId, ngn) {
