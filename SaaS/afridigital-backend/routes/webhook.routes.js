@@ -4,6 +4,8 @@ const engine = require("../services/whatsapp.engine");
 
 console.log("🧩 Webhook router loaded");
 
+console.log("🔥 WEBHOOK ENTRY TRIGGERED");
+console.log("🔥 WEBHOOK MODULE ACTIVE");
 router.post("/", async (req, res) => {
   try {
     const entries = req.body?.entry || [];
@@ -18,7 +20,8 @@ router.post("/", async (req, res) => {
 
           console.log("📥 MESSAGE:", from, text);
 
-          engine.enqueue({ from, text });
+          console.log("📥 ENQUEUE TRACE:", { from, text });
+engine.enqueue({ from, text });
         }
       }
     }

@@ -1,5 +1,11 @@
+console.log("🔥 SERVER ENTRY ACTIVE")
+console.log("🔥 SERVER ENTRY ACTIVE");
+console.log("🚀 SERVER BOOT LIVE");
+process.on("uncaughtException", e => console.log("💥 CRASH", e));
+process.on("unhandledRejection", e => console.log("💥 PROMISE", e));
 const express = require("express");
 const app = express();
+console.log("🧠 SERVER INIT LOADED");
 
 app.use(express.json());
 
@@ -50,3 +56,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log("🚀 RUNNING ON PORT", PORT);
 });
+console.log("🚀 ENGINE START CALLED")
