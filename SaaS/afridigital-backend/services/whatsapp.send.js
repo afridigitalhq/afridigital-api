@@ -1,6 +1,7 @@
 const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 
+console.log("📡 SENDER CALLED");
 async function sendWhatsAppMessage(to, message) {
   console.log("📤 SEND CALLED ->", to, message);
   try {

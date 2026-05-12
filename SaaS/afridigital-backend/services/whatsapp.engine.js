@@ -3,25 +3,12 @@ const sendWhatsAppMessage = require("./whatsapp.send");
 const queue = [];
 
 function enqueue(job) {
-  if (!job?.from || !job?.text) {
-    console.log("❌ INVALID JOB REJECTED:", job);
-    return;
-  }
-
+  console.log("📦 QUEUE RECEIVED:", job);
   queue.push(job);
-  console.log("📥 QUEUED:", job);
-}
-
-function buildAfriAiResponse(text) {
-  return {
-    content: {
-      value: `🤖 AfriAI: ${text}`
-    }
-  };
 }
 
 async function startWorker() {
-  console.log("🚀 WhatsApp Engine Started");
+  console.log("🚀 ENGINE LOOP STARTED");
 
   while (true) {
     try {
@@ -32,20 +19,18 @@ async function startWorker() {
 
       const job = queue.shift();
 
-      console.log("[QUEUE JOB]", job);
+      console.log("⚙️ PROCESSING JOB:", job);
 
-      const ai = buildAfriAiResponse(job.text);
+      const reply = `🤖 AfriAI: ${job.text}`;
 
-      const reply = ai?.content?.value || "AfriAI online 🤖";
+      console.log("📤 SENDING:", job.from, reply);
 
-      console.log("[SENDING TO WHATSAPP]", job.from);
+      await sendWhatsAppMessage(job.from, reply);
 
-      await sendWhatsAppMessage(job.from, String(reply));
-
-      console.log("[AFRIAI REPLY SENT]", job.from);
+      console.log("✅ SENT SUCCESSFULLY:", job.from);
 
     } catch (err) {
-      console.error("[ENGINE ERROR]", err.message);
+      console.error("❌ ENGINE ERROR:", err.message);
     }
   }
 }
