@@ -1,30 +1,21 @@
-const router = require('express').Router();
-const AfriOS = require('../core/afrios.orchestrator');
-const sendWhatsAppMessage = require('../services/whatsapp.send');
+module.exports = (app) => {
 
-router.post('/', async (req, res) => {
-  try {
+  app.get("/webhook", (req, res) => {
+    try {
+      const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || "afri_ai_2026_secure";
+      const mode = req.query["hub.mode"];
+      const token = req.query["hub.verify_token"];
+      const challenge = req.query["hub.challenge"];
 
-    const message = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+      if (mode === "subscribe" && token === VERIFY_TOKEN) {
+        return res.status(200).send(challenge);
+      }
 
-    if (!message) return res.sendStatus(200);
+      return res.sendStatus(403);
+    } catch (err) {
+      console.log("WEBHOOK ERROR:", err.message);
+      return res.sendStatus(500);
+    }
+  });
 
-    const from = message.from;
-    const text = message.text?.body || '';
-
-    const result = await AfriOS(text, from);
-
-    // 💬 AI OR CARD RESPONSE
-    await sendWhatsAppMessage(from, result.reply);
-
-    console.log("🚀 AFRIOS RESPONSE TYPE:", result.type);
-
-    return res.sendStatus(200);
-
-  } catch (err) {
-    console.error("🔥 AFRIOS ERROR:", err);
-    return res.sendStatus(200);
-  }
-});
-
-module.exports = router;
+};
