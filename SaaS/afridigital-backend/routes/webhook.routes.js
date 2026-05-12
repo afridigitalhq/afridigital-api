@@ -4,9 +4,11 @@ const engine = require("../services/whatsapp.engine");
 
 console.log("🧩 Webhook router loaded");
 
-router.post("/webhook", (req, res) => {
+// ACCEPT ALL METHODS FOR DEBUG
+router.all("/webhook", (req, res) => {
   console.log("🔥 WEBHOOK HIT");
-  console.log("📩 BODY:", JSON.stringify(req.body));
+  console.log("📩 METHOD:", req.method);
+  console.log("📩 BODY:", req.body);
 
   const entries = req.body?.entry || [];
 
