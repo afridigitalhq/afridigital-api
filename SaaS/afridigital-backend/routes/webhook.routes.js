@@ -2,12 +2,11 @@ const express = require("express");
 const router = express.Router();
 const engine = require("../services/whatsapp.engine");
 
-console.log("🧩 WEBHOOK MODULE ACTIVE");
+console.log("🧩 WEBHOOK MODULE (ATOMIC TRACE)");
 
 router.post("/", async (req, res) => {
   try {
-    console.log("🔥 WEBHOOK HIT");
-    console.log("📩 BODY:", JSON.stringify(req.body));
+    console.log("⚛️ TRACE:WEBHOOK_HIT");
 
     const entries = req.body?.entry || [];
 
@@ -17,25 +16,21 @@ router.post("/", async (req, res) => {
         const messages = c.value?.messages || [];
 
         for (const m of messages) {
-
           const from = m.from;
           const text = m.text?.body || m.text || "";
 
-          console.log("📥 INCOMING:", { from, text });
+          console.log("⚛️ TRACE:INCOMING", { from, text });
 
-          if (!engine || typeof engine.processJob !== "function") {
-            console.log("⚠️ PROCESSJOB NOT AVAILABLE");
+          if (!engine?.processJob) {
+            console.log("⚠️ TRACE:ENGINE_MISSING");
             continue;
           }
 
-          console.log("🚀 CALLING PROCESSJOB");
+          console.log("⚛️ TRACE:CALL_PROCESSJOB");
 
-          await engine.processJob({
-            from,
-            text
-          });
+          await engine.processJob({ from, text });
 
-          console.log("✅ PROCESSJOB COMPLETED");
+          console.log("⚛️ TRACE:PROCESS_DONE");
         }
       }
     }
@@ -43,8 +38,7 @@ router.post("/", async (req, res) => {
     res.sendStatus(200);
 
   } catch (err) {
-
-    console.log("💥 WEBHOOK ERROR:", err?.stack || err.message);
+    console.log("💥 TRACE:WEBHOOK_ERROR", err?.stack || err.message);
     res.sendStatus(200);
   }
 });

@@ -1,31 +1,33 @@
-console.log("🧠 AFRAI ENGINE BOOT ACTIVE");
+console.log("🧠 AFRAI ENGINE BOOT (ATOMIC TRACE)");
 
 const { sendMessage } = require("./meta.sender");
 
 async function processJob(job) {
   try {
+    console.log("⚛️ TRACE:PROCESS_START", {
+      from: job.from,
+      text: job.text
+    });
 
-    console.log("🤖 PROCESSING:", job.from, job.text);
+    const reply = `AfriAI: ${job.text}`;
 
-    const reply = `AfriAI: I received "${job.text}"`;
+    console.log("⚛️ TRACE:META_SEND_INIT");
 
-    const result = await sendMessage(job.from, reply);
+    const res = await sendMessage(job.from, reply);
 
-    console.log("📤 META RESPONSE:", result);
+    console.log("⚛️ TRACE:META_SEND_OK", {
+      id: res?.messages?.[0]?.id || null
+    });
 
-    return result;
+    return res;
 
   } catch (err) {
-
-    console.log(
-      "💥 PROCESS ERROR:",
-      err?.response?.data || err.message
-    );
+    console.log("⚠️ TRACE:PROCESS_ERROR", {
+      error: err?.response?.data || err.message
+    });
   }
 }
 
-module.exports = {
-  processJob
-};
+module.exports = { processJob };
 
-console.log("🚀 ENGINE MODULE LOADED CLEAN");
+console.log("🚀 ENGINE READY (ATOMIC MODE)");

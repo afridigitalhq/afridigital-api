@@ -1,0 +1,52 @@
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+// MUST ALWAYS WORK (health)
+app.get("/", (req, res) => {
+  res.json({ ok: true });
+});
+
+// LOG ALL REQUESTS
+app.use((req, res, next) => {
+  console.log("📡", req.method, req.url);
+  next();
+});
+
+// SAFE ENGINE LOAD (NO CRASH BLOCKING SERVER)
+try {
+  const engine = require("./services/whatsapp.engine");
+  if (engine?.startWorker) {
+    engine.startWorker();
+    console.log("🚀 ENGINE STARTED");
+  }
+} catch (e) {
+  console.log("💥 ENGINE FAILED BUT SERVER CONTINUES:", e.message);
+}
+
+// WEBHOOK ROUTE (DIRECT INLINE — REMOVES ROUTER RISK COMPLETELY)
+app.post("/webhook", (req, res) => {
+  console.log("🔥 WEBHOOK HIT");
+  console.log("📩 BODY:", JSON.stringify(req.body));
+
+  const entries = req.body?.entry || [];
+
+  for (const e of entries) {
+    for (const c of e.changes || []) {
+      const messages = c.value?.messages || [];
+
+      for (const m of messages) {
+        console.log("📥 MESSAGE:", m.from, m.text?.body);
+      }
+    }
+  }
+
+  res.sendStatus(200);
+});
+
+// START
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+  console.log("🚀 RUNNING ON", PORT);
+});
