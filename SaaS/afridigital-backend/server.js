@@ -1,3 +1,5 @@
+const heartbeat = require('./core/cluster/health/heartbeat.monitor');
+setInterval(() => heartbeat.check(), 5000);
 const PartitionRouter = require('./core/cluster/partition.router');
 const ClusterManager = require('./core/cluster/cluster.manager');
 const RealtimeBridge = require('./core/gateway/realtime.bridge');
