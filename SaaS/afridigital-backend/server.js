@@ -1,3 +1,7 @@
+const JournalWSServer = require("./core/gateway/journal.ws.gateway");
+const journalWS = new JournalWSServer();
+const http = require('http');
+const RealtimeGateway = require('./core/realtime/ws.gateway');
 const express = require("express");
 
 console.log("🔥 SERVER ENTRY ACTIVE");
@@ -14,9 +18,11 @@ process.on("unhandledRejection", e => {
 });
 
 app.use(express.json());
+app.use('/api/replay', require('./routes/replay/replay.routes'));
 
 console.log("🧩 MOUNTING WEBHOOK ROUTE");
 app.use("/webhook", require("./routes/webhook.routes"));
+app.use('/api/replay', require('./routes/replay/replay.routes'));
 
 app.get("/", (req, res) => {
   res.json({
@@ -26,5 +32,19 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+journalWS.attachServer(server);
   console.log("🚀 SERVER RUNNING ON PORT", PORT);
+});
+
+// --- REALTIME LAYER INIT ---
+const server = http.createServer(app);
+const realtime = new RealtimeGateway(server);
+
+// expose globally for event bus
+global.realtime = realtime;
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log("🚀 AfriOS API + Realtime running on", PORT);
 });
