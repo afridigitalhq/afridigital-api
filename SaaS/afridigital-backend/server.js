@@ -15,6 +15,16 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(express.json());
 
+// GLOBAL CLUSTER MODE CORE (v1)
+app.get("/health", (req,res)=>res.json({status:"OK",cluster:"AFRIBANK-CLUSTER-V1"}));
+
+app.post("/events",(req,res)=>{
+  const hub = require("./core/realtime/event.hub");
+  const event = req.body;
+  if(event) hub.emitEvent(event);
+  res.json({ok:true,forwarded:true});
+});
+
 app.get("/", (req, res) => {
   res.json({
     status: "OK",
