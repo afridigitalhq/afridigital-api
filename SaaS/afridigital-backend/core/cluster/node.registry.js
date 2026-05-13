@@ -1,19 +1,21 @@
-const { assertApiVersion } = require("../runtime/safety/api.guard");
 class NodeRegistry {
   constructor() {
-    this.nodes = new Set();
+    this.nodes = new Map(); // nodeId -> metadata
   }
 
-  register(nodeId) {
-    this.nodes.add(nodeId);
+  register(node) {
+    this.nodes.set(node.id, {
+      ...node,
+      lastSeen: Date.now()
+    });
   }
 
-  all() {
-    return Array.from(this.nodes);
+  list() {
+    return Array.from(this.nodes.values());
   }
 
-  size() {
-    return this.nodes.size;
+  getHealthyNodes() {
+    return this.list().filter(n => n.status === "healthy");
   }
 }
 

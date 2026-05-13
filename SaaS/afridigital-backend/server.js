@@ -1,3 +1,5 @@
+const PartitionRouter = require('./core/cluster/partition.router');
+const ClusterManager = require('./core/cluster/cluster.manager');
 const RealtimeBridge = require('./core/gateway/realtime.bridge');
 const JournalWSServer = require("./core/gateway/journal.ws.gateway");
 const journalWS = new JournalWSServer();
