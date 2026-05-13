@@ -1,3 +1,4 @@
+const RealtimeBridge = require('./core/gateway/realtime.bridge');
 const JournalWSServer = require("./core/gateway/journal.ws.gateway");
 const journalWS = new JournalWSServer();
 const http = require('http');
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
 journalWS.attachServer(server);
+realtimeBridge = new RealtimeBridge(journalWS.io);
   console.log("🚀 SERVER RUNNING ON PORT", PORT);
 });
 
