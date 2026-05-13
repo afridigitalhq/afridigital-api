@@ -1,3 +1,5 @@
+const hub = require("./core/realtime/event.hub");
+const { attachSSE } = require("./core/gateway/realtime.sse");
 const JournalWSServer = require("./core/gateway/journal.ws.gateway");
 const journalWS = new JournalWSServer();
 const heartbeat = require('./core/cluster/health/heartbeat.monitor');
@@ -39,6 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+attachSSE(app);
 journalWS.attachServer(server);
 journalWS.attachServer(server);
 realtimeBridge = new RealtimeBridge(journalWS.io);
