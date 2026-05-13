@@ -1,3 +1,5 @@
+const JournalWSServer = require("./core/gateway/journal.ws.gateway");
+const journalWS = new JournalWSServer();
 const heartbeat = require('./core/cluster/health/heartbeat.monitor');
 setInterval(() => heartbeat.check(), 5000);
 const PartitionRouter = require('./core/cluster/partition.router');
@@ -37,6 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
+journalWS.attachServer(server);
 journalWS.attachServer(server);
 realtimeBridge = new RealtimeBridge(journalWS.io);
   console.log("🚀 SERVER RUNNING ON PORT", PORT);
