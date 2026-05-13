@@ -19,9 +19,10 @@ app.use(express.json());
 app.get("/health", (req,res)=>res.json({status:"OK",cluster:"AFRIBANK-CLUSTER-V1"}));
 
 app.post("/events",(req,res)=>{
+const clusterV2 = require("./core/cluster/cluster.v2");
   const hub = require("./core/realtime/event.hub");
   const event = req.body;
-  if(event) hub.emitEvent(event);
+  if(event) clusterV2.emit(event);
   res.json({ok:true,forwarded:true});
 });
 
@@ -52,4 +53,10 @@ server.listen(PORT, () => {
       }
     });
   }, 5000);
+});
+
+app.get('/cluster/replay',(req,res)=>{
+  const clusterV2 = require('./core/cluster/cluster.v2');
+  const limit = parseInt(req.query.limit || '50');
+  res.json(clusterV2.replay(limit));
 });
