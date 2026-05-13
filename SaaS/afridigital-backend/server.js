@@ -1,5 +1,5 @@
-const startAfriBankV2 = require('./core/bootstrap/v2.bootstrap');
-startAfriBankV2();
+// v2 disabled until implemented (clean bootstrap state)
+
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
@@ -24,8 +24,7 @@ app.get("/", (req, res) => {
 
 attachSSE(app);
 
-const journalWS = new JournalWSServer();
-journalWS.attachServer(server);
+const journalWS = new JournalWSServer(server);
 
 const realtimeBridge = new RealtimeBridge(journalWS.io);
 
