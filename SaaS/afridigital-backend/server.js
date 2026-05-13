@@ -18,6 +18,12 @@ app.use(express.json());
 // GLOBAL CLUSTER MODE CORE (v1)
 app.get("/health", (req,res)=>res.json({status:"OK",cluster:"AFRIBANK-CLUSTER-V1"}));
 
+
+
+function isValidEvent(e){
+  return e && typeof e === 'object' && e.type && e.category;
+}
+
 app.post("/events",(req,res)=>{
 const clusterV2 = require("./core/cluster/cluster.v2");
   const hub = require("./core/realtime/event.hub");
