@@ -1,37 +1,17 @@
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+
 const hub = require("./core/realtime/event.hub");
 const { attachSSE } = require("./core/gateway/realtime.sse");
 const JournalWSServer = require("./core/gateway/journal.ws.gateway");
-const journalWS = new JournalWSServer();
-const heartbeat = require('./core/cluster/health/heartbeat.monitor');
-setInterval(() => heartbeat.check(), 5000);
-const PartitionRouter = require('./core/cluster/partition.router');
-const ClusterManager = require('./core/cluster/cluster.manager');
-const RealtimeBridge = require('./core/gateway/realtime.bridge');
-const JournalWSServer = require("./core/gateway/journal.ws.gateway");
-const journalWS = new JournalWSServer();
-const http = require('http');
-const RealtimeGateway = require('./core/realtime/ws.gateway');
-const express = require("express");
-
-console.log("🔥 SERVER ENTRY ACTIVE");
+const RealtimeBridge = require("./core/gateway/realtime.bridge");
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const server = http.createServer(app);
 
-process.on("uncaughtException", e => {
-  console.log("💥 UNCAUGHT EXCEPTION:", e);
-});
-
-process.on("unhandledRejection", e => {
-  console.log("💥 UNHANDLED REJECTION:", e);
-});
-
+app.use(cors());
 app.use(express.json());
-app.use('/api/replay', require('./routes/replay/replay.routes'));
-
-console.log("🧩 MOUNTING WEBHOOK ROUTE");
-app.use("/webhook", require("./routes/webhook.routes"));
-app.use('/api/replay', require('./routes/replay/replay.routes'));
 
 app.get("/", (req, res) => {
   res.json({
@@ -40,23 +20,25 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
 attachSSE(app);
+
+const journalWS = new JournalWSServer();
 journalWS.attachServer(server);
-journalWS.attachServer(server);
-realtimeBridge = new RealtimeBridge(journalWS.io);
-  console.log("🚀 SERVER RUNNING ON PORT", PORT);
-});
 
-// --- REALTIME LAYER INIT ---
-const server = http.createServer(app);
-const realtime = new RealtimeGateway(server);
+const realtimeBridge = new RealtimeBridge(journalWS.io);
 
-// expose globally for event bus
-global.realtime = realtime;
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 server.listen(PORT, () => {
-  console.log("🚀 AfriOS API + Realtime running on", PORT);
+  console.log("🚀 AfriDigital API LIVE:", PORT);
+
+  setInterval(() => {
+    hub.emitEvent({
+      type: "system.heartbeat",
+      ts: Date.now(),
+      payload: {
+        cluster: "AFRIBANK-CORE"
+      }
+    });
+  }, 5000);
 });
