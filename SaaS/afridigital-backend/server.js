@@ -1,3 +1,5 @@
+const startAfriBankV2 = require('./core/bootstrap/v2.bootstrap');
+startAfriBankV2();
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
