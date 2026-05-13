@@ -1,0 +1,1 @@
+const RecoveryEngine = require("../../recovery/recovery.engine"); const recovery = new RecoveryEngine(); function registerRecovery(bus, handler){ bus.onEvent("*", (event)=> recovery.push(event)); setInterval(()=> recovery.process(handler), 3000); } module.exports = { registerRecovery };
