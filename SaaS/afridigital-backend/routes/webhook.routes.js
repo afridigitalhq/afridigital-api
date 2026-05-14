@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const engine = require("../services/whatsapp.engine");
+const { createTrace, log } = require("../utils/trace");
 
-console.log("🧩 WEBHOOK MODULE (ATOMIC TRACE)");
+console.log("🧩 WEBHOOK OBSERVABILITY ACTIVE");
 
 router.post("/", async (req, res) => {
+  const traceId = createTrace();
+
   try {
-    console.log("⚛️ TRACE:WEBHOOK_HIT");
+    log(traceId, "WEBHOOK_RECEIVED", { body: req.body });
 
     const entries = req.body?.entry || [];
 
@@ -19,18 +22,15 @@ router.post("/", async (req, res) => {
           const from = m.from;
           const text = m.text?.body || m.text || "";
 
-          console.log("⚛️ TRACE:INCOMING", { from, text });
+          log(traceId, "MESSAGE_PARSED", { from, text });
 
-          if (!engine?.processJob) {
-            console.log("⚠️ TRACE:ENGINE_MISSING");
-            continue;
-          }
+          await engine.processJob({
+            traceId,
+            from,
+            text
+          });
 
-          console.log("⚛️ TRACE:CALL_PROCESSJOB");
-
-          await engine.processJob({ from, text });
-
-          console.log("⚛️ TRACE:PROCESS_DONE");
+          log(traceId, "JOB_COMPLETED", { from });
         }
       }
     }
@@ -38,7 +38,10 @@ router.post("/", async (req, res) => {
     res.sendStatus(200);
 
   } catch (err) {
-    console.log("💥 TRACE:WEBHOOK_ERROR", err?.stack || err.message);
+    log(traceId, "WEBHOOK_ERROR", {
+      error: err.message
+    });
+
     res.sendStatus(200);
   }
 });

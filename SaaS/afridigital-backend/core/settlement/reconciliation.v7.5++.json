@@ -1,0 +1,16 @@
+{
+  "reserves": {
+    "AFRICOIN": 100000
+  },
+  "liabilities": {
+    "userSettlementA": 1500
+  },
+  "settlements": [
+    {
+      "userId": "userSettlementA",
+      "amount": 1000,
+      "ts": 1778734067789
+    }
+  ],
+  "lastReconciledAt": 1778734067789
+}

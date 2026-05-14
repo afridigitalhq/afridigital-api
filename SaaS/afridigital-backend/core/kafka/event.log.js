@@ -1,33 +1,27 @@
+class EventLog {
+  constructor() {
+    this.events = [];
+    this.offset = 0;
+  }
 
-// EVENT LOG (Kafka-style append-only stream)
-const fs = require('fs');
-const path = require('path');
+  append(event) {
+    const record = {
+      offset: this.offset++,
+      ...event,
+      ts: Date.now()
+    };
 
-const LOG_FILE = path.join(__dirname, 'event.log.json');
+    this.events.push(record);
+    return record;
+  }
 
-function append(topic, event) {
-  const log = fs.existsSync(LOG_FILE)
-    ? JSON.parse(fs.readFileSync(LOG_FILE))
-    : [];
+  readFrom(offset = 0) {
+    return this.events.filter(e => e.offset >= offset);
+  }
 
-  const record = {
-    id: Date.now() + '-' + Math.random(),
-    topic,
-    event,
-    timestamp: new Date().toISOString()
-  };
-
-  log.push(record);
-  fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2));
-
-  return record;
+  tail(limit = 100) {
+    return this.events.slice(-limit);
+  }
 }
 
-function read(topic) {
-  if (!fs.existsSync(LOG_FILE)) return [];
-  return JSON.parse(fs.readFileSync(LOG_FILE))
-    .filter(r => r.topic === topic);
-}
-
-module.exports = { append, read };
-
+module.exports = new EventLog();

@@ -1,28 +1,52 @@
+const crypto = require("crypto");
+
 const hub = require("../realtime/event.hub");
+const durableJournal = require("../journal/durable.journal");
 
 class ClusterV2 {
   constructor() {
-    this.buffer = [];
+    this.buffer = durableJournal.readAll();
+    this.seq = this.buffer.length;
   }
 
   emit(event) {
+
     const normalized = {
-      ...event,
-      cluster: "AFRIBANK-CLUSTER-V2",
-      ts: Date.now()
+      id: crypto.randomUUID(),
+      traceId: crypto.randomUUID(),
+      seq: ++this.seq,
+
+      type: event.type,
+      category: event.category,
+
+      ts: Date.now(),
+
+      cluster: "AFRIBANK-CLUSTER-V6",
+      source: event.source || "api",
+
+      payload: event.payload || {}
     };
+
+    normalized.hash = crypto
+      .createHash("sha256")
+      .update(JSON.stringify(normalized))
+      .digest("hex");
 
     this.buffer.push(normalized);
 
-    if (this.buffer.length > 500) {
+    if (this.buffer.length > 1000) {
       this.buffer.shift();
     }
+
+    durableJournal.append(normalized);
 
     hub.emitEvent(normalized);
 
     return {
       ok: true,
-      cluster: "v2",
+      cluster: "v6",
+      seq: normalized.seq,
+      traceId: normalized.traceId,
       stored: this.buffer.length
     };
   }
@@ -30,21 +54,11 @@ class ClusterV2 {
   replay(limit = 50) {
     return {
       ok: true,
-      cluster: "v2",
+      cluster: "v6",
+      total: this.buffer.length,
       events: this.buffer.slice(-limit)
     };
   }
 }
 
 module.exports = new ClusterV2();
-
-// V4 VALIDATION HOOK
-function isValidEvent(e){
-  return e && typeof e === 'object' && e.type && e.category;
-}
-
-const _emit = ClusterV2.prototype.emit;
-ClusterV2.prototype.emit = function(event){
-  if(!isValidEvent(event)) return { ok:false, error:'invalid_event' };
-  return _emit.call(this,event);
-};

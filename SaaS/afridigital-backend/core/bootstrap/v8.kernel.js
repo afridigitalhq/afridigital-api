@@ -1,3 +1,10 @@
+const registry = require('../cluster/node.registry');
+const broker = require('../cluster/distributed.broker');
+global.broker = broker;
+const { attachKafkaBridge } = require('../kernel/events/kafka.bridge');
+attachKafkaBridge();
+const { attachRealtime } = require('../kernel/events/realtime.bridge');
+attachRealtime(require('../kernel/events/event.bus'));
 const timeTravel = require("../kernel/time.travel");
 timeTravel.enableTrace(false);
 const kernel = require("../kernel/afri.kernel");
@@ -32,3 +39,11 @@ require('../kernel/workers/projection.worker');
 require('../kernel/workers/finality.worker');
 require('../kernel/workers/double.entry.worker');
 require('../cluster/ledger.node');
+
+// --- CLUSTER SELF REGISTRATION ---
+registry.register({
+  id: process.env.NODE_ID || "node-1",
+  role: "api",
+  status: "healthy",
+  region: "afri-west"
+});
