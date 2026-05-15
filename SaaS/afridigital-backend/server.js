@@ -1,44 +1,39 @@
 /**
- * 🚀 A3.18.29 UNIFIED WHATSAPP ENTRYPOINT
+ * 🚀 A3.18.31 SINGLE ENTRY EXPRESS SERVER (CLEAN FIX)
  */
 
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const { ingestWebhook } = require("./core/runtime/server/live.bridge");
-const { startLiveBrain } = require("./core/runtime/server/live.bridge");
+const { ingestWebhook, startLiveBrain } = require("./core/runtime/server/live.bridge");
 
 const app = express();
-app.use(bodyParser.json({ verify: (req, res, buf) => { req.rawBody = buf.toString(); }}));
+app.use(bodyParser.json());
 
 /**
- * 💡 START AI CORE
+ * START AI CORE
  */
 startLiveBrain();
 
 /**
- * 📡 WHATSAPP WEBHOOK (META)
+ * WHATSAPP WEBHOOK (ONLY ONE)
  */
 app.post("/webhook/whatsapp", (req, res) => {
   return ingestWebhook(req, res);
 });
 
 /**
- * ❤️ HEALTH CHECK
+ * HEALTH CHECK
  */
 app.get("/health", (req, res) => {
   res.json({
-    status: "A3.18.29 WHATSAPP PIPELINE LIVE"
+    status: "OK",
+    service: "AFRIDIGITAL WHATSAPP PIPELINE A3.18.31"
   });
 });
 
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log("🚀 AFRIDIGITAL WHATSAPP AI FULL BRAIN STARTED ON", PORT);
+  console.log("🚀 AFRIDIGITAL LIVE ON PORT", PORT);
 });
-
-app.get("/debug/webhook-test", (req,res)=>{
-  res.json({ok:true, time:Date.now()})
-});
-
