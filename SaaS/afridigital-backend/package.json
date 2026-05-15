@@ -1,7 +1,7 @@
 {
   "name": "afridigital-backend",
   "version": "1.0.0",
-  "main": "core/runtime/server/webhook.server.js",
+  "main": "server.js",
   "scripts": {
     "start": "node core/runtime/server/webhook.server.js"
   },
