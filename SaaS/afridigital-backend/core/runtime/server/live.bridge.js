@@ -42,7 +42,7 @@ function attachAI() {
 
   bus.subscribe("WHATSAPP_INBOUND", async (event) => {
 
-    const aiReply = generateReply(event);
+    undefined
 
     bus.publish(aiReply);
   });
@@ -55,7 +55,7 @@ function attachDelivery() {
 
   bus.subscribe("AI_REPLY", async (event) => {
 
-    const to = event.payload?.sourceEvent?.payload?.userId;
+    undefined
     const message = event.payload?.reply;
 
     if (!to || !message) return;
