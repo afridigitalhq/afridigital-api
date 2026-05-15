@@ -67,7 +67,7 @@ function attachDeliveryPipeline() {
 /**
  * START SYSTEM
  */
-function DISABLED_startWhatsAppRuntime() {
+function DISABLED_DISABLED {
 
   attachAIPipeline();
   attachDeliveryPipeline();

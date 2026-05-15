@@ -3,7 +3,7 @@
  * Tracks monetization signals from system events
  */
 
-const { getHistory } = require("../event/bus");
+const { getHistory } = require("../runtime/bus/event.bus");
 
 function revenueSignals() {
   const events = getHistory();

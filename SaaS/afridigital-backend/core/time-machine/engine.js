@@ -3,7 +3,7 @@
  * Replay + timeline + AI event reconstruction
  */
 
-const { getHistory } = require("../event/bus");
+const { getHistory } = require("../runtime/bus/event.bus");
 
 function replay({ limit = 50 } = {}) {
   const history = getHistory();

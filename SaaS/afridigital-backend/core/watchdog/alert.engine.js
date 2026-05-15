@@ -2,7 +2,7 @@
  * 🚨 ALERT ENGINE (A3.10)
  */
 
-const { publish } = require("../event/bus");
+const { publish } = require("../runtime/bus/event.bus");
 const { createEvent } = require("../event/types");
 
 function triggerAlert(decision) {

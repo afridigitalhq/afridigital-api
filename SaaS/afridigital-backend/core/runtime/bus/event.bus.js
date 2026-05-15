@@ -1,31 +1,24 @@
 /**
- * 🧠 A3.18.18 EVENT BUS CORE
- * Real runtime backbone for AfriAI
+ * 🧠 A3.18.28 MASTER EVENT BUS (SINGLE SOURCE OF TRUTH)
  */
 
-const { EventEmitter } = require("events");
-
-class EventBus extends EventEmitter {
-
+class EventBus {
   constructor() {
-    super();
-    this.setMaxListeners(100);
-    this.history = [];
+    this.listeners = {};
+  }
+
+  subscribe(event, fn) {
+    if (!this.listeners[event]) this.listeners[event] = [];
+    this.listeners[event].push(fn);
   }
 
   publish(event) {
-    this.history.push(event);
-    this.emit(event.type, event);
-    this.emit("*", event); // global tap
-    return event;
-  }
+    const type = event.type;
+    const list = this.listeners[type] || [];
 
-  subscribe(type, handler) {
-    this.on(type, handler);
-  }
-
-  getHistory() {
-    return this.history;
+    for (const fn of list) {
+      fn(event);
+    }
   }
 }
 

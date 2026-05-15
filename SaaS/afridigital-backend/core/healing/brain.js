@@ -3,7 +3,7 @@
  * Detect → Diagnose → Repair → Recover
  */
 
-const { getHistory, publish } = require("../event/bus");
+const { getHistory, publish } = require("../runtime/bus/event.bus");
 const { createEvent } = require("../event/types");
 const { detectFailure } = require("./analyzer");
 const { recoverSystem } = require("./recovery.engine");

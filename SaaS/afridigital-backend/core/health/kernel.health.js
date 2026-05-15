@@ -3,7 +3,7 @@
  * System-wide CPU-like observability layer
  */
 
-const { getHistory } = require("../event/bus");
+const { getHistory } = require("../runtime/bus/event.bus");
 const { inspect } = require("../watchdog/engine");
 
 function computeMetrics() {

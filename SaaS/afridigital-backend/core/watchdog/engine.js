@@ -3,7 +3,7 @@
  * Real-time anomaly detection + system guardian layer
  */
 
-const { publish } = require("../event/bus");
+const { publish } = require("../runtime/bus/event.bus");
 const { createEvent } = require("../event/types");
 
 /**

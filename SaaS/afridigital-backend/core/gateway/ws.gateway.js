@@ -1,5 +1,5 @@
 const WebSocket = require("ws");
-const { publish, subscribe } = require("../event/bus");
+const { publish, subscribe } = require("../runtime/bus/event.bus");
 
 /**
  * A3.3 WS GATEWAY (REAL EVENT PIPE)

@@ -45,7 +45,7 @@ function attachAIReplies() {
 /**
  * BOOT SYSTEM
  */
-function DISABLED_startRuntime() {
+function DISABLED_DISABLED {
 
   attachAIRuntime();
   attachAIReplies();

@@ -3,7 +3,7 @@
  * Predictive anomaly detection system
  */
 
-const { getHistory, publish } = require("../event/bus");
+const { getHistory, publish } = require("../runtime/bus/event.bus");
 const { createEvent } = require("../event/types");
 const { scoreAnomaly } = require("./anomaly.scorer");
 const { predictRisk } = require("./predictor.engine");

@@ -4,7 +4,7 @@
  */
 
 const { systemHealthCheck } = require("../health/kernel.health");
-const { publish } = require("../event/bus");
+const { publish } = require("../runtime/bus/event.bus");
 const { createEvent } = require("../event/types");
 
 function pushMetrics() {

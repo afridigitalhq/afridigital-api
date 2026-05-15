@@ -3,7 +3,7 @@
  * Converts alerts into dashboard-ready stream events
  */
 
-const { getHistory } = require("../event/bus");
+const { getHistory } = require("../runtime/bus/event.bus");
 
 function getAlerts() {
   return getHistory()
