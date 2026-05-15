@@ -37,3 +37,8 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log("🚀 AFRIDIGITAL WHATSAPP AI FULL BRAIN STARTED ON", PORT);
 });
+
+app.get("/debug/webhook-test", (req,res)=>{
+  res.json({ok:true, time:Date.now()})
+});
+
