@@ -1,4 +1,3 @@
-const trace = require('../../v10_5/observability/trace.bus.v10.5');
 class AfriAIIntentV10_4 {
 
   detect(text="") {

@@ -1,4 +1,3 @@
-const trace = require('../../v10_5/observability/trace.bus.v10.5');
 const intent =
 require('./afriai.intent.v10.4');
 

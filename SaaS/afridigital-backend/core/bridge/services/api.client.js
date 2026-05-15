@@ -1,7 +1,7 @@
 const { assertApiVersion } = require("../runtime/safety/api.guard");
 const axios = require('axios');
 
-const BASE = 'http://localhost:3000/api';
+const BASE = 'https://afridigital-api.onrender.com/api';
 
 async function getSystem() {
   const res = await axios.get(`${BASE}/system`);

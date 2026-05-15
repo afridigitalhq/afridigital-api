@@ -1,4 +1,3 @@
-const trace = require('../../v10_5/observability/trace.bus.v10.5');
 const reports =
 require('../reporting/report.generator.v10.1');
 
