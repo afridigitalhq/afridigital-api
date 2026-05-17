@@ -1,3 +1,4 @@
+process.on("uncaughtException",e=>console.error("🔥",e));process.on("unhandledRejection",e=>console.error("🔥",e));
 const express=require('express');
 const app=express();
 
