@@ -1,5 +1,5 @@
-const liveBrainV5=require('./v5/liveBrainV5');
+const core/brain/v2/afriBrainV2=require('./v5/core/brain/v2/afriBrainV2');
 
 module.exports={
-  processMessage:(req,res)=>liveBrainV5(req.body)
+  processMessage:(req,res)=>core/brain/v2/afriBrainV2(req.body)
 };
