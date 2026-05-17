@@ -15,7 +15,7 @@ module.exports=async (req,res)=>{
 
     const to=msg.from;
 
-    const {reply}=await brain.processMessage(msg);
+    const {reply}=await require('./core/brain').processMessage(msg);
 
     await delivery.deliver(to,reply);
 
