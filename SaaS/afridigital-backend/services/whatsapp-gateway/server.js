@@ -1,3 +1,4 @@
+const debugEnv=require('./tools/debugEnv');
 const express=require('express');
 const validateWebhook=require('./middleware/validateWebhook');
 const engine=require('./core/engine');
@@ -34,5 +35,7 @@ router.post('/incoming',validateWebhook,async(req,res)=>{
     return res.status(500).json({error:'afriAI crash'});
   }
 });
+
+router.use('/tools',debugEnv);
 
 module.exports=router;
