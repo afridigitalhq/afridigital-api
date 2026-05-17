@@ -1,22 +1,14 @@
 const sleep = (ms)=>new Promise(r=>setTimeout(r,ms));
-const sendWhatsApp = require('../sender/sendWhatsApp');
 
-module.exports = async function streamWhatsAppReply(to, text){
+module.exports = async function streamWhatsAppReply(to, text, send){
+  const chunks = text.match(/.{1,40}/g) || [text];
 
-  const safe = (text || '').toString();
-  const chunks = safe.match(/.{1,60}/g) || [safe];
+  for(const c of chunks){
+    await sleep(400 + Math.random()*700);
+    console.log("📡 TYPING:", c);
 
-  let buffer = '';
-
-  for(const chunk of chunks){
-    await sleep(400 + Math.random()*600);
-    buffer += chunk;
-
-    // optional: simulate typing by partial sends
+    if(send) await send(c);
   }
-
-  // FINAL SEND (WhatsApp Cloud API sends full message once)
-  await sendWhatsApp(to, buffer);
 
   return true;
 };
