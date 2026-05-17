@@ -1,3 +1,4 @@
+console.log("🔥 WHATSAPP DEPLOY HASH:", process.env.RENDER_GIT_COMMIT || "local");
 console.log("🔥 ENTRY SERVER LOADED:", __filename);
 console.log("🔥 SERVER VERSION: WHATSAPP FIX ACTIVE");
 const express = require("express");
