@@ -1,23 +1,14 @@
-console.log("🔥 WHATSAPP DEPLOY HASH:", process.env.RENDER_GIT_COMMIT || "local");
-console.log("🔥 ENTRY SERVER LOADED:", __filename);
-console.log("🔥 SERVER VERSION: WHATSAPP FIX ACTIVE");
-const express = require("express");
-const whatsappGateway = require("./services/whatsapp-gateway");
+const express=require('express');
+const app=express();
 
-const app = express();
 app.use(express.json());
-console.log("🧭 WHATSAPP ROUTE REGISTERED OK")
-console.log("🧭 WHATSAPP ROUTE ACTIVE");
-console.log("🧭 WHATSAPP ROUTER MOUNTED");
 
-// mount gateway
-app.use("/whatsapp", whatsappGateway);
-console.log("🧭 WHATSAPP ROUTE REGISTERED OK")
-console.log("🧭 WHATSAPP ROUTE ACTIVE");
-console.log("🧭 WHATSAPP ROUTER MOUNTED");
+app.get('/health',(req,res)=>res.json({ok:true}));
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log("🚀 AFRIAI RUNNING ON RENDER PORT", PORT);
+app.listen(PORT,'0.0.0.0',()=>{
+  console.log('🚀 AFRIAI API RUNNING ON PORT',PORT);
 });
+
+module.exports = app;
