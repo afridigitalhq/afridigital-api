@@ -1,4 +1,4 @@
-console.log('🧠 BRAIN EXPORT:',require('./services/whatsapp-gateway/core/brain'));
+console.log('🧠 BRAIN EXPORT:',require('./core/brain'));
 const brain=require('./core/brain/liveBrainV5');
 const delivery=require('./core/delivery/deliveryEngine');
 
