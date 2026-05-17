@@ -1,4 +1,5 @@
 const debugEnv=require('./tools/debugEnv');
+const debugEnv=require('./tools/debugEnv');
 const express=require('express');
 const validateWebhook=require('./middleware/validateWebhook');
 const engine=require('./core/engine');
