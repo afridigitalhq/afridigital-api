@@ -48,6 +48,7 @@ module.exports=async(req,res)=>{
     }
 
     const result=await sendWhatsApp(from,reply);
+    console.log("📡 RAW WHATSAPP RESPONSE:",result);
 
     const delivered=!!result?.ok;
 
