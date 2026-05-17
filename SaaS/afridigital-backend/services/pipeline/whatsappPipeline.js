@@ -1,43 +1,25 @@
-const { assertApiVersion } = require("../runtime/safety/api.guard");
-const marketplace=require("../marketplace/marketplaceBridge");
-const aiRouter = require("../../modules/ai-engine/router");
-const a2Core = require("../../modules/a2-core");
-const { getRecentMemory, saveMemory } = require("../memory/chatMemory");
+const afriaiAgent = require("../afriai.agent");
+const sendWhatsAppMessage = require("../whatsapp.unified");
 
-async function whatsappPipeline(context) {
-  try {
-    const { message, user, channel } = context;
+async function whatsappPipeline({ message, from }) {
 
-    // 🧠 LOAD MEMORY CONTEXT
-    const history = await getRecentMemory(user);
+  console.log("📡 PIPELINE (RENDER):", message, from);
 
-    // 🤖 AI CALL (memory-aware input)
-    const aiResponse = await aiRouter({
-      message,
-      user,
-      channel,
-      history
-    });
+  const aiReply = await afriaiAgent({
+    input: message,
+    user: from
+  });
 
-    // 🧱 A2 CORE WRAP (logging layer)
-    const finalResponse = await a2Core({
-      context,
-      aiResponse
-    });
+  await sendWhatsAppMessage({
+    to: from,
+    message: aiReply.text
+  });
 
-    // 💾 SAVE MEMORY
-    await saveMemory({
-      phone: user,
-      message,
-      response: finalResponse
-    });
-
-    return finalResponse || "⚡ Processed successfully.";
-
-  } catch (err) {
-    console.error("Pipeline Error:", err);
-    return "⚡ System temporarily unavailable.";
-  }
+  return {
+    ok: true,
+    delivered: true,
+    ai: aiReply.text
+  };
 }
 
 module.exports = whatsappPipeline;

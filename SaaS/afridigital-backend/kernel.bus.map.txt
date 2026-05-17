@@ -1,0 +1,6 @@
+core/kernel/workers/wallet.worker.js:1:const bus = require("../events/event.bus");
+core/kernel/workers/ledger.worker.js:3:const bus = require('../events/event.bus');
+core/kernel/workers/projection.worker.js:3:const bus = require('../events/event.bus');
+core/kernel/workers/finality.worker.js:3:const bus = require('../events/event.bus');
+core/kernel/workers/double.entry.worker.js:3:const bus = require('../events/event.bus');
+core/kernel/bus/kafka.bus.bridge.js:2:// KAFKA BUS BRIDGE (replaces event.bus)

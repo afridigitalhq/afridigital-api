@@ -2,7 +2,7 @@ const { assertApiVersion } = require("../runtime/safety/api.guard");
 const { generateAIReply } = require('../../core/ai/v8.7.ai.bridge');
 const dispatcher=require('../modules/dispatcher');
 const brain=require('../modules/brain');
-const sendWhatsApp = require("../modules/chat/whatsappSender");
+const sendWhatsApp = require("../services/whatsapp.unified");
 const { handleIncomingMessage } = require("../modules/chat");
 
 exports.verify = (req, res) => {
@@ -31,7 +31,7 @@ console.log("🔥 WHATSAPP WEBHOOK HIT");
     const from = message.from;
     const text = message.text?.body || "";
     console.log("WhatsApp:", from, text);
-    const aiResponse = await handleIncomingMessage({
+    const aiResponse = await handleIncomingMessage({ trace: true,
       message: text,
       channel: "whatsapp",
       from
@@ -42,18 +42,6 @@ console.log("🔥 WHATSAPP WEBHOOK HIT");
   } catch (err) {
     console.error("WhatsApp Error:", err);
     return res.sendStatus(500);
-const memoryInstance = require('../modules/memory');
-
-const FinanceControl = require("../core/runtime/safety/finance.control");
-
-function handleAdminFinanceCommands(message, isAdmin) {
-  if (!isAdmin) return null;
-
-  const text = message.toLowerCase();
-
-  if (text === "freeze withdrawals") {
-    FinanceControl.freezeWithdrawals();
-    return "🧊 Withdrawals FROZEN";
   }
 
   if (text === "unfreeze withdrawals") {

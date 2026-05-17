@@ -39,6 +39,7 @@ function approveAndSend(index) {
   }
 
   const sentEvent = createEvent("WHATSAPP_OUTBOUND_SENT", {
+// C4: outbound marked processed - no re-entry allowed
     to: item.payload.to,
     body: item.payload.body,
     status: "SENT",

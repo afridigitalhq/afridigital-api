@@ -1,0 +1,9 @@
+core/ai/evolution/inbox/evolution.inbox.js:6:const { publish } = require("../../event/bus");
+core/ai/whatsapp/governor/send.governor.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/rewards/reward.engine.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/scheduler/reminder.scheduler.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/sender/whatsapp.sender.js:6:const { publish } = require("../../../event/bus");
+core/ai/learning/inbox/evolution.inbox.js:6:const { publish } = require("../../../event/bus");
+core/ai/realtime/reply.engine.js:6:const { getHistory } = require("../../event/bus");
+core/ai/realtime/reply.engine.js:8:const { publish } = require("../../event/bus");
+core/ai/router/event.router.js:3: * Connects event bus → orchestrator

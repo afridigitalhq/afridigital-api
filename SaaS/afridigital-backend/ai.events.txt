@@ -1,0 +1,20 @@
+core/ai/evolution/inbox/evolution.inbox.js:6:const { publish } = require("../../event/bus");
+core/ai/evolution/inbox/evolution.inbox.js:16:  publish(event);
+core/ai/whatsapp/governor/send.governor.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/governor/send.governor.js:51:  publish(event);
+core/ai/whatsapp/jobs/scheduler.worker.js:25:  bus.subscribe("LEGACY_EVENT_BLOCKED", (event) => {
+core/ai/whatsapp/rewards/reward.engine.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/rewards/reward.engine.js:46:  publish(event);
+core/ai/whatsapp/scheduler/reminder.scheduler.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/scheduler/reminder.scheduler.js:30:  publish(createEvent("WHATSAPP_SCHEDULE_CREATED", job));
+core/ai/whatsapp/scheduler/reminder.scheduler.js:48:    publish(createEvent("WHATSAPP_SCHEDULE_TRIGGERED", {
+core/ai/whatsapp/sender/whatsapp.sender.js:6:const { publish } = require("../../../event/bus");
+core/ai/whatsapp/sender/whatsapp.sender.js:26:  publish(event);
+core/ai/whatsapp/sender/whatsapp.sender.js:48:  publish(sentEvent);
+core/ai/learning/inbox/evolution.inbox.js:6:const { publish } = require("../../../event/bus");
+core/ai/learning/inbox/evolution.inbox.js:16:  publish(event);
+core/ai/realtime/reply.engine.js:8:const { publish } = require("../../event/bus");
+core/ai/realtime/reply.engine.js:25:  publish(responseEvent);
+core/ai/router/attach.realtime.js:10:  bus.subscribe("LEGACY_EVENT_BLOCKED", (event) => {
+core/ai/router/event.router.js:10:  bus.subscribe("LEGACY_EVENT_BLOCKED", (event) => {
+core/ai/stream/realtime.stream.js:10:  bus.subscribe("LEGACY_EVENT_BLOCKED", (event) => {

@@ -1,0 +1,2 @@
+core/kernel/events/kafka.bridge.js:4:  broker.subscribe("wallet.credit.requested", (event) => {
+core/kernel/events/kafka.bridge.js:8:  broker.subscribe("wallet.debit.requested", (event) => {

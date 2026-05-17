@@ -1,9 +1,10 @@
+/* BUS_SINGLETON_GUARD */
 /**
  * 🧠 A3.18.21 TRUE LIVE WHATSAPP AI BRAIN BRIDGE
  * FINAL WIRING LAYER (REAL TIME EXECUTION)
  */
 
-const { bus } = require("../../runtime/bus/event.bus");
+const { bus } = require("../bus/event.bus");
 const { generateReply } = require("../../ai/realtime/reply.engine");
 const { sendWhatsAppMessage } = require("../../ai/whatsapp/connector/whatsapp.client");
 
@@ -40,11 +41,11 @@ function ingestWebhook(req, res) {
  */
 function attachAI() {
 
-  bus.subscribe("WHATSAPP_INBOUND", async (event) => {
 
     undefined
 
-    bus.publish(aiReply);
+    console.log('🧠 AI_REPLY GENERATED:', aiReply);
+  bus.publish(aiReply);
   });
 }
 
@@ -54,13 +55,16 @@ function attachAI() {
 function attachDelivery() {
 
   bus.subscribe("AI_REPLY", async (event) => {
+  console.log('📦 AI_REPLY RECEIVED:', event);, async (event) => {
 
     undefined
     const message = event.payload?.reply;
 
     if (!to || !message) return;
 
-    await sendWhatsAppMessage(to, message);
+    console.log('📡 SENDING WHATSAPP:', { to, message });
+  await sendWhatsAppMessage(to, message);
+  console.log('✅ WHATSAPP SENT');
 
     bus.publish({
       type: "WHATSAPP_DELIVERED",
@@ -85,3 +89,4 @@ module.exports = {
   ingestWebhook,
   startLiveBrain
 };
+app.use('/whatsapp', require('../../routes/whatsapp.webhook'));

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,12 @@ const API_URL = "https://afridigital-api.onrender.com";
 export default function TimeMachineDashboard() {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
+
+  const events = useEffect(() => {
+    fetch('https://afridigital-api.onrender.com/api/replay/events')
+      .then(r => r.json())
+      .then(setEvents);
+  }, []);
 
   const events = useMemo(() => [
     { t: 1, type: "wallet.credit", payload: { user: "U1", amount: 50 } },
@@ -96,3 +103,16 @@ export default function TimeMachineDashboard() {
     </div>
   );
 }
+
+// LIVE STREAM HOOK (add inside component)
+useEffect(() => {
+  const ws = new WebSocket("wss://afridigital-api.onrender.com");
+
+  ws.onmessage = (msg) => {
+    const event = JSON.parse(msg.data);
+
+    setEvents(prev => [...prev, event]);
+  };
+
+  return () => ws.close();
+}, []);

@@ -6,11 +6,13 @@ const whatsappGateway = require("./services/whatsapp-gateway");
 
 const app = express();
 app.use(express.json());
+console.log("🧭 WHATSAPP ROUTE REGISTERED OK")
 console.log("🧭 WHATSAPP ROUTE ACTIVE");
 console.log("🧭 WHATSAPP ROUTER MOUNTED");
 
 // mount gateway
 app.use("/whatsapp", whatsappGateway);
+console.log("🧭 WHATSAPP ROUTE REGISTERED OK")
 console.log("🧭 WHATSAPP ROUTE ACTIVE");
 console.log("🧭 WHATSAPP ROUTER MOUNTED");
 

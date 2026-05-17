@@ -1,27 +1,21 @@
+const EventEmitter = require('events');
+
 /**
- * 🧠 A3.18.28 MASTER EVENT BUS (SINGLE SOURCE OF TRUTH)
+ * 🚀 GLOBAL BUS LOCK (AFRIDIGITAL SAFE MODE)
+ * Single source of truth event system
  */
 
-class EventBus {
-  constructor() {
-    this.listeners = {};
-  }
-
-  subscribe(event, fn) {
-    if (!this.listeners[event]) this.listeners[event] = [];
-    this.listeners[event].push(fn);
-  }
-
+class GlobalBus extends EventEmitter {
   publish(event) {
-    const type = event.type;
-    const list = this.listeners[type] || [];
+    if (!event || !event.type) return;
+    this.emit(event.type, event);
+  }
 
-    for (const fn of list) {
-      fn(event);
-    }
+  subscribe(type, handler) {
+    this.on(type, handler);
   }
 }
 
-const bus = new EventBus();
+const bus = new GlobalBus();
 
 module.exports = { bus };

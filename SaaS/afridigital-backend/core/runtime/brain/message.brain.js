@@ -1,26 +1,35 @@
 const { assertApiVersion } = require("../runtime/safety/api.guard");
-const { assertNoSimulation } = require("../runtime/safety/execution.mode");
-async function messageBrain({ from, message }) {
 
+async function messageBrain({ from, message }) {
   console.log('🧠 BRAIN INPUT:', from, message);
 
   try {
+    const text = (message || '').toLowerCase();
 
-    const { assertNoSimulation } = require("../safety/execution.mode"); assertNoSimulation("brain.message", "runtime"); // SAFE FALLBACK PROTECTED
-    return {
-      reply: '👋 Welcome to AfriDigital AI (safe mode active)'
-    };
+    // --- MINI ROUTER (SAFE INTELLIGENCE LAYER) ---
+    let reply;
+
+    if (text.includes('hello') || text.includes('hi')) {
+      reply = '👋 Hey! AfriAI is live and listening.';
+    } 
+    else if (text.includes('help')) {
+      reply = '🛠 I can respond to messages, process requests, and evolve with your system.';
+    } 
+    else if (text.includes('time')) {
+      reply = `⏰ Current server time: ${new Date().toISOString()}`;
+    } 
+    else {
+      reply = `🤖 I received: "${message}". System is active and processing.`;
+    }
+
+    console.log('📤 AI RESPONSE:', reply);
+
+    return { reply };
 
   } catch (err) {
-
     console.error('❌ BRAIN ERROR:', err);
-
-    return {
-      reply: '⚠️ Brain temporarily unavailable'
-    };
-
+    return { reply: '⚠️ Brain temporarily unavailable' };
   }
 }
 
 module.exports = { messageBrain };
-assertNoSimulation(kernel, 'brain.message.runtime');

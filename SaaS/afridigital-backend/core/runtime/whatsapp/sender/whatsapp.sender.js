@@ -1,4 +1,4 @@
-const { assertApiVersion } = require("../runtime/safety/api.guard");
+const { assertApiVersion } = require("../../safety/api.guard");
 const axios = require('axios');
 
 async function sendWhatsAppMessage(to, text) {
