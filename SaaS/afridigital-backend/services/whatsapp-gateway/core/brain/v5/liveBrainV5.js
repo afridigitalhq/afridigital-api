@@ -1,4 +1,4 @@
-const sendWhatsApp=require('../../sender/sendWhatsApp');
+const sendWhatsApp=require('../sender/sendWhatsApp');
 const traceId=require('../../utils/traceId');
 
 const sessions=new Map();
@@ -7,7 +7,8 @@ function safeMsg(body){
   return body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0] || null;
 }
 
-module.exports=async(req,res)=>{
+const brain = require('../../contract/afriBrainContract');
+module.exports = brain;
   const id=traceId();
 
   try{
@@ -64,6 +65,6 @@ module.exports=async(req,res)=>{
 
   }catch(e){
     console.error('🔥 V5 CRASH',{id,error:e.message});
-    return res.status(500).json({ok:false,id,error:e.message});
+    return {ok:false,id,error:e.message};
   }
 };

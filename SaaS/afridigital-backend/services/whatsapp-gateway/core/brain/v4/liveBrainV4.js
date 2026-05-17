@@ -1,4 +1,4 @@
-const sendWhatsApp=require('../core/sender/sendWhatsApp');
+const sendWhatsApp=require('../sender/sendWhatsApp');
 const traceId=require('../utils/traceId');
 
 const memory=new Map();
@@ -52,6 +52,6 @@ module.exports=async(req,res)=>{
 
   }catch(e){
     console.error('🔥 V4 FAILURE',{id,error:e.message});
-    return res.status(500).json({ok:false,id,error:e.message});
+    return {ok:false,id,error:e.message};
   }
 };

@@ -1,5 +1,5 @@
 const express=require('express');
-const sendWhatsApp=require('../core/sender/sendWhatsApp');
+const sendWhatsApp=require('../sender/sendWhatsApp');
 const traceId=require('../utils/traceId');
 
 module.exports=async(req,res)=>{
@@ -36,6 +36,6 @@ module.exports=async(req,res)=>{
 
   }catch(e){
     console.error('🔥 BRAIN FAILURE',{id,error:e.message});
-    return res.status(500).json({ok:false,id,error:e.message});
+    return {ok:false,id,error:e.message};
   }
 };

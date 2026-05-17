@@ -1,4 +1,4 @@
-const sendWhatsApp=require('../core/sender/sendWhatsApp');
+const sendWhatsApp=require('../sender/sendWhatsApp');
 const traceId=require('../utils/traceId');
 
 const sessions=new Map();
@@ -64,6 +64,6 @@ module.exports=async(req,res)=>{
 
   }catch(e){
     console.error('🔥 V5 CRASH',{id,error:e.message});
-    return res.status(500).json({ok:false,id,error:e.message});
+    return return {ok:false,error:e.message};
   }
 };
