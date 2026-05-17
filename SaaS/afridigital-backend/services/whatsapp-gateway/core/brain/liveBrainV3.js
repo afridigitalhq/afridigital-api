@@ -1,4 +1,4 @@
-const traceId=require('../utils/traceId');
+const traceId=require('../../utils/traceId');
 
 async function processMessage(msg){
   const id=traceId();
