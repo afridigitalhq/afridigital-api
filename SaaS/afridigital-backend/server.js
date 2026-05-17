@@ -1,39 +1,15 @@
-/**
- * 🚀 A3.18.31 SINGLE ENTRY EXPRESS SERVER (CLEAN FIX)
- */
-
+console.log("🔥 SERVER VERSION: WHATSAPP FIX ACTIVE");
 const express = require("express");
-const bodyParser = require("body-parser");
-
-const { ingestWebhook, startLiveBrain } = require("./core/runtime/server/live.bridge");
+const whatsappGateway = require("./services/whatsapp-gateway/server");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
-/**
- * START AI CORE
- */
-startLiveBrain();
+// mount gateway
+app.use("/whatsapp", whatsappGateway);
 
-/**
- * WHATSAPP WEBHOOK (ONLY ONE)
- */
-app.post("/webhook/whatsapp", (req, res) => {
-  return ingestWebhook(req, res);
-});
-
-/**
- * HEALTH CHECK
- */
-app.get("/health", (req, res) => {
-  res.json({
-    status: "OK",
-    service: "AFRIDIGITAL WHATSAPP PIPELINE A3.18.31"
-  });
-});
-
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("🚀 AFRIDIGITAL LIVE ON PORT", PORT);
+  console.log("🚀 AFRIAI RUNNING ON RENDER PORT", PORT);
 });
