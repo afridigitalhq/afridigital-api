@@ -1,7 +1,7 @@
 console.log("🔥 ENTRY SERVER LOADED:", __filename);
 console.log("🔥 SERVER VERSION: WHATSAPP FIX ACTIVE");
 const express = require("express");
-const whatsappGateway = require("./services/whatsapp-gateway/server");
+const whatsappGateway = require("./services/whatsapp-gateway");
 
 const app = express();
 app.use(express.json());
