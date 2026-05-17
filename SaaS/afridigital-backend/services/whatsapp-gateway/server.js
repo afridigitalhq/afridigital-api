@@ -40,3 +40,6 @@ router.post('/incoming',validateWebhook,async(req,res)=>{
 });
 
 module.exports=router;
+
+const envDebug=require('./tools/env-debug');
+router.get('/tools/env-debug', envDebug);
