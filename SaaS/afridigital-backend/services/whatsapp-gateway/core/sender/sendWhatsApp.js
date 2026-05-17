@@ -1,5 +1,5 @@
 const crypto=require('crypto');
-const traceId=require('../utils/traceId');
+const traceId=require('../../utils/traceId');
 
 const TOKEN=process.env.WHATSAPP_TOKEN;
 const PHONE_ID=process.env.WHATSAPP_PHONE_ID;
