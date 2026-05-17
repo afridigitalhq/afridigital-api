@@ -5,7 +5,7 @@ module.exports = {
     if(!memory.has(userId)){
       memory.set(userId,{
         history: [],
-        created: Date.now()
+        lastActive: Date.now()
       });
     }
     return memory.get(userId);
@@ -13,6 +13,7 @@ module.exports = {
 
   push(userId, role, text){
     const s = this.get(userId);
-    s.history.push({ role, text, ts:Date.now() });
+    s.history.push({ role, text, ts: Date.now() });
+    s.lastActive = Date.now();
   }
 };

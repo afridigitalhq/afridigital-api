@@ -1,16 +1,11 @@
-const debugEnv=require('./tools/debugEnv');
-const debugEnv=require('./tools/debugEnv');
 const express=require('express');
 const validateWebhook=require('./middleware/validateWebhook');
 const engine=require('./core/engine');
 const sendWhatsApp=require('./core/sender/sendWhatsApp');
-const testRoute=require('./tools/testRoute');
 
 const router=express.Router();
 
 router.get('/health',(req,res)=>res.json({ok:true}));
-
-router.use('/tools',testRoute);
 
 router.post('/incoming',validateWebhook,async(req,res)=>{
   try{
@@ -27,7 +22,9 @@ router.post('/incoming',validateWebhook,async(req,res)=>{
       text:result.message
     });
 
-    await sendWhatsApp(userId,result.message);
+    const resp = await sendWhatsApp(userId,result.message);
+
+    console.log('📡 WHATSAPP API RESPONSE:', resp);
 
     return res.json({ok:true,mode:'delivered'});
 
@@ -36,7 +33,5 @@ router.post('/incoming',validateWebhook,async(req,res)=>{
     return res.status(500).json({error:'afriAI crash'});
   }
 });
-
-router.use('/tools',debugEnv);
 
 module.exports=router;

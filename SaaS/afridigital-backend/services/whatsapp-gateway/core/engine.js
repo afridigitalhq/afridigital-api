@@ -1,25 +1,20 @@
-const memory = require('../human/memory');
-const think = require('../human/think');
+const memory = require('./human/memory');
+const think = require('./human/think');
 
-module.exports = async function engine(userId, text){
+module.exports = async function engine(userId,text){
 
-  // store user input
-  memory.push(userId,'user',text);
+  await (think?.() || new Promise(r=>setTimeout(r,1000)));
 
-  // simulate thinking
-  await think();
+  const session = memory.get(userId);
+  session.history.push({ role:'user', text });
 
-  // simple intelligence layer (LLM will replace later)
-  if(text.toLowerCase().includes('hello')){
-    return { type:'text', message:'👋 Hey! I am AfriAI. I am alive now.' };
-  }
+  let reply;
 
-  if(text.toLowerCase().includes('time')){
-    return { type:'text', message:'⏱ I am thinking... time module not fully wired yet.' };
-  }
+  if(!text) reply = 'Send a message';
+  else if(text.toLowerCase().includes('time')) reply = '⏱ AfriAI is alive';
+  else reply = '🤖 AfriAI: ' + text;
 
-  return {
-    type:'text',
-    message:'🤖 AfriAI active: ' + text
-  };
+  session.history.push({ role:'assistant', text: reply });
+
+  return { type:'text', message: reply };
 };
