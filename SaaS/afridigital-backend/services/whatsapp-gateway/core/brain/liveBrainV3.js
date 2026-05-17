@@ -1,18 +1,41 @@
-const traceId=require('../../utils/traceId');
+const express=require('express');
+const sendWhatsApp=require('../sender/sendWhatsApp');
+const traceId=require('../utils/traceId');
 
-async function processMessage(msg){
+module.exports=async(req,res)=>{
   const id=traceId();
+  try{
+    const body=req.body;
 
-  console.log('🧠 BRAIN v3 START:',{id,msg});
+    console.log('📩 INCOMING V3:',{id,body});
 
-  const text=msg?.text?.body || '';
+    const message=body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-  // SIMPLE deterministic reply engine (expand later)
-  let reply='I received: '+text;
+    if(!message){
+      console.log('⚠️ NO MESSAGE FOUND',{id});
+      return res.json({ok:false,id,error:'no_message'});
+    }
 
-  console.log('🧠 BRAIN v3 OUTPUT:',{id,reply});
+    const from=message.from;
+    const text=message?.text?.body||'';
 
-  return {id,reply};
-}
+    console.log('🧠 PARSED MESSAGE',{id,from,text});
 
-module.exports={processMessage};
+    const reply='AfriAI received: '+text;
+
+    const result=await sendWhatsApp(from,reply);
+
+    console.log('📤 DELIVERY RESULT',{id,result});
+
+    return res.json({
+      ok:true,
+      id,
+      mode:'live_brain_v3',
+      delivered:result.ok
+    });
+
+  }catch(e){
+    console.error('🔥 BRAIN FAILURE',{id,error:e.message});
+    return res.status(500).json({ok:false,id,error:e.message});
+  }
+};
