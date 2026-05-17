@@ -1,5 +1,5 @@
 const express=require('express');
-const sendWhatsApp=require('../sender/sendWhatsApp');
+const sendWhatsApp=require('../core/sender/sendWhatsApp');
 const traceId=require('../utils/traceId');
 
 module.exports=async(req,res)=>{
