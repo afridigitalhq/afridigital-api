@@ -3,14 +3,16 @@ const app=express();
 
 app.use(express.json());
 
-// CORE HEALTH
 app.get('/health',(req,res)=>res.json({ok:true}));
 
-// MOUNT WHATSAPP GATEWAY
+// WHATSAPP GATEWAY
 const whatsappGateway=require('./services/whatsapp-gateway/server');
 app.use('/whatsapp',whatsappGateway);
 
-// START
+// TOOLS FIX (GLOBAL MOUNT INSIDE GATEWAY)
+const envCheck=require('./services/whatsapp-gateway/tools/envCheck');
+app.use('/whatsapp/tools',envCheck);
+
 const PORT=process.env.PORT||3000;
 app.listen(PORT,'0.0.0.0',()=>{
   console.log('🚀 AFRIAI RUNNING ON PORT',PORT);
