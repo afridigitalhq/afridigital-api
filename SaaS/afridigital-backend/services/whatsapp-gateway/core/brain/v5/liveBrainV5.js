@@ -1,4 +1,4 @@
-const sendWhatsApp=require('../../../co../core/sender/sendWhatsApp');
+const sendWhatsApp=require('../../../co../co../sender');
 const traceId=require('../../utils/traceId');
 
 const sessions=new Map();
