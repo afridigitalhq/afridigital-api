@@ -1,45 +1,28 @@
-const express=require('express');
-const validateWebhook=require('./middleware/validateWebhook');
-const engine=require('./core/engine');
-const sendWhatsApp=require('./core/sender/sendWhatsApp');
-const humanThink=require('./core/human/think');
+const brain=require('./core/brain/liveBrainV3');
+const delivery=require('./core/delivery/deliveryEngine');
 
-const router=express.Router();
+module.exports=async (req,res)=>{
 
-router.get('/health',(req,res)=>res.json({ok:true}));
-
-router.post('/incoming',validateWebhook,async(req,res)=>{
-  console.log('📩 WEBHOOK RAW:',JSON.stringify(req.body));
-  console.log("📩 INCOMING WEBHOOK HIT:", JSON.stringify(req.body));
   try{
 
     const msg=req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    const text=msg?.text?.body || '';
-    const userId=msg?.from;
 
-    if(!userId) return res.json({ok:false});
+    console.log('📩 INCOMING WEBHOOK HIT:',JSON.stringify(msg));
 
-    await humanThink();
+    if(!msg){
+      return res.json({ok:false,error:'no_message'});
+    }
 
-    const result=await engine(userId,text);
+    const to=msg.from;
 
-    console.log('🧠 AFRAI OUTBOUND:',{
-      to:userId,
-      text:result.message,
-      intent:result.intent
-    });
+    const {reply}=await brain.processMessage(msg);
 
-    await sendWhatsApp(userId,result.message);
+    await delivery.deliver(to,reply);
 
-    return res.json({ok:true,mode:'live_brain_v2'});
+    return res.json({ok:true,delivered:true});
 
   }catch(e){
-    console.error(e);
-    return res.status(500).json({error:'afriAI crash'});
+    console.error('🔥 DELIVERY BRAIN ERROR:',e);
+    return res.status(500).json({ok:false,error:e.message});
   }
-});
-
-module.exports=router;
-
-const envDebug=require('./tools/env-debug');
-router.get('/tools/env-debug', envDebug);
+};
