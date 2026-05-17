@@ -1,4 +1,4 @@
-const fetch=require('node-fetch');
+const crypto=require('crypto');
 const traceId=require('../utils/traceId');
 
 const TOKEN=process.env.WHATSAPP_TOKEN;
@@ -26,7 +26,7 @@ module.exports=async function sendWhatsApp(to,message){
 
   try{
 
-    const res=await fetch(url,{ 
+    const res=await fetch(url,{
       method:'POST',
       headers:{
         'Authorization':`Bearer ${TOKEN}`,
@@ -39,12 +39,7 @@ module.exports=async function sendWhatsApp(to,message){
 
     console.log('📡 WHATSAPP RESPONSE:',{id,data});
 
-    if(!res.ok){
-      console.error('❌ SEND FAILED:',{id,data});
-      return {ok:false,id,error:data};
-    }
-
-    return {ok:true,id,data};
+    return {ok:res.ok,id,data};
 
   }catch(e){
     console.error('🔥 SEND ERROR:',{id,error:e.message});
