@@ -1,38 +1,53 @@
-const TOKEN = process.env.WHATSAPP_TOKEN;
-const PHONE_ID = process.env.WHATSAPP_PHONE_ID;
+const fetch=require('node-fetch');
+const traceId=require('../utils/traceId');
 
-module.exports = async function sendWhatsApp(to, message){
+const TOKEN=process.env.WHATSAPP_TOKEN;
+const PHONE_ID=process.env.WHATSAPP_PHONE_ID;
 
-  console.log('🔥 WHATSAPP OUTBOUND:', { to, message });
+module.exports=async function sendWhatsApp(to,message){
 
-  if(!TOKEN || !PHONE_ID){
-    console.warn('⚠️ WhatsApp env missing');
-    return { ok:false, error:'missing_env' };
+  const id=traceId();
+
+  console.log('🚀 OUTBOUND INIT:',{id,to,message});
+
+  if(!TOKEN||!PHONE_ID){
+    console.warn('⚠️ MISSING ENV');
+    return {ok:false,id,error:'missing_env'};
   }
 
-  const url = `https://graph.facebook.com/v19.0/${PHONE_ID}/messages`;
+  const url=`https://graph.facebook.com/v19.0/${PHONE_ID}/messages`;
 
-  const payload = {
-    messaging_product: 'whatsapp',
+  const payload={
+    messaging_product:'whatsapp',
     to,
-    type: 'text',
-    text: { body: message }
+    type:'text',
+    text:{body:message}
   };
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + TOKEN,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
+  try{
 
-  const data = await res.json().catch(()=>({}));
+    const res=await fetch(url,{ 
+      method:'POST',
+      headers:{
+        'Authorization':`Bearer ${TOKEN}`,
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(payload)
+    });
 
-  if(!res.ok){
-    console.error('WHATSAPP_API_ERROR', data);
+    const data=await res.json();
+
+    console.log('📡 WHATSAPP RESPONSE:',{id,data});
+
+    if(!res.ok){
+      console.error('❌ SEND FAILED:',{id,data});
+      return {ok:false,id,error:data};
+    }
+
+    return {ok:true,id,data};
+
+  }catch(e){
+    console.error('🔥 SEND ERROR:',{id,error:e.message});
+    return {ok:false,id,error:e.message};
   }
-
-  return data;
 };
