@@ -9,6 +9,7 @@ const router=express.Router();
 router.get('/health',(req,res)=>res.json({ok:true}));
 
 router.post('/incoming',validateWebhook,async(req,res)=>{
+  console.log("📩 INCOMING WEBHOOK HIT:", JSON.stringify(req.body));
   try{
 
     const msg=req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
