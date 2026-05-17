@@ -1,5 +1,8 @@
-const core/brain/v2/afriBrainV2=require('./v5/core/brain/v2/afriBrainV2');
+const path = require('path');
+const v3 = require(path.resolve(__dirname, '../../../../core/brain/v3'));
 
-module.exports={
-  processMessage:(req,res)=>core/brain/v2/afriBrainV2(req.body)
+module.exports = {
+  processMessage: async (req, res) => {
+    return await v3.processMessage(req, res);
+  }
 };

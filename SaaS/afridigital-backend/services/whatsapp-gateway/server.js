@@ -1,29 +1,44 @@
-console.log('🧠 BRAIN EXPORT:',require('./core/brain'));
-const brain=require('./core/brain/liveBrainV5');
-const delivery=require('./core/delivery/deliveryEngine');
+const brain = require('./core/brain');
+const delivery = require('./core/delivery/deliveryEngine');
+const { lock, unlock } = require('../../../core/brain/v3/responseLock');
 
-module.exports=async (req,res)=>{
+function extractMessage(body) {
+  return body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+}
 
-  try{
+module.exports = async (req, res) => {
+  try {
+    const msg = extractMessage(req.body);
 
-    const msg=req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-
-    console.log('📩 INCOMING WEBHOOK HIT:',JSON.stringify(msg));
-
-    if(!msg){
-      return res.json({ok:false,error:'no_message'});
+    if (!msg || !msg.from) {
+      return res.status(400).json({ ok: false, error: "INVALID_PAYLOAD" });
     }
 
-    const to=msg.from;
+    const messageId = msg.id || msg.timestamp;
+    const to = msg.from;
 
-    const {reply}=await require('./core/brain/index').processMessage(msg);
+    if (!lock(messageId)) {
+      return res.json({ ok: true, skipped: "duplicate_message" });
+    }
 
-    await delivery.deliver(to,reply);
+    const { reply } = await brain.processMessage(
+      { body: { message: msg.text?.body, from: to } },
+      res
+    );
 
-    return res.json({ok:true,delivered:true});
+    if (reply) {
+      await delivery.deliver(to, reply);
+    }
 
-  }catch(e){
-    console.error('🔥 DELIVERY BRAIN ERROR:',e);
-    return res.status(500).json({ok:false,error:e.message});
+    unlock(messageId);
+
+    return res.json({
+      ok: true,
+      delivered: true
+    });
+
+  } catch (e) {
+    console.error("🔥 WEBHOOK_ERROR:", e);
+    return res.status(500).json({ ok: false, error: e.message });
   }
 };
