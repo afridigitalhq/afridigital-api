@@ -26,7 +26,7 @@ app.post('/webhook', async (req, res) => {
     }
 
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!msg) return res.sendStatus(200);
+    console.log("⚠️ MSG PARSE:", msg);
 
     const from = msg.from;
     const text = msg.text?.body;
