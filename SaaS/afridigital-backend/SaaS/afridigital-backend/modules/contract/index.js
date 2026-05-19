@@ -1,1 +1,0 @@
-function normalize(input){return{userId:input.userId||input.from||'anon',message:input.message||input.text||input.body||'',channel:input.channel||'web',timestamp:Date.now()};}module.exports={normalize};

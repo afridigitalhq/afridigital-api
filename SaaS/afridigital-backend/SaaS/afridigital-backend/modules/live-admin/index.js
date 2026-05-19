@@ -1,1 +1,0 @@
-const os=require('os');const registry=require('../node-registry');function stats(){return{time:Date.now(),memory:process.memoryUsage(),uptime:process.uptime(),cpu:os.loadavg(),nodes:registry.all()};}module.exports={stats};

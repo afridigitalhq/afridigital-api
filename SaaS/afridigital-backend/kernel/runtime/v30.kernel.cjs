@@ -1,3 +1,4 @@
+require("dotenv").config({ path: require("path").resolve(__dirname, "../../../../.env"), override: true });
 require("dotenv").config();
 
 console.log("\n🚀 AFRIDIGITAL V30 GLOBAL AI CLOUD BOOT\n");

@@ -1,1 +1,26 @@
 node_modules/
+
+# secrets
+.vault/
+*.vault
+.env
+
+# SECURITY
+.env
+*.env
+.vault/
+*.vault
+**/.vault/**
+
+# FINAL SECURITY LOCK
+.env
+*.env
+.vault/
+**/vault.js
+
+# HARD CLEAN
+**/.vault/
+*.vault
+.env
+**/node_modules
+

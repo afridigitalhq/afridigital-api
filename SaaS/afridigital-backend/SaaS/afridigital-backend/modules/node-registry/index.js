@@ -1,1 +1,0 @@
-const nodes={};function register(name,data={}){nodes[name]={name,status:'online',time:Date.now(),...data};}function get(name){return nodes[name];}function all(){return nodes;}module.exports={register,get,all};

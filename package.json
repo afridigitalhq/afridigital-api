@@ -1,0 +1,11 @@
+{
+  "name": "afridigital-hub",
+  "version": "1.0.0",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
