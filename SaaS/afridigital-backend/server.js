@@ -9,8 +9,6 @@ console.log('🔍 ENV DEBUG:', {
   META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID
 });
 
-const whatsappGateway = require('./services/whatsapp-gateway');
-
 // STATUS HANDLER
 const { handleWhatsAppStatus } = require('./core/whatsapp-status-handler');
 
@@ -35,7 +33,7 @@ app.post('/webhook', async (req, res) => {
 
     console.log("📩 INCOMING:", from, text);
 
-    const brain = require('./core/brain');
+    const afriEngine = require('./core/runtime/afri-whatsapp-engine');
     const delivery = require('./services/whatsapp-gateway/core/delivery/deliveryEngine');
 
     const { reply } = await brain.processMessage(
