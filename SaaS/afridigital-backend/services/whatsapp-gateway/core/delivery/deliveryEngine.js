@@ -1,4 +1,4 @@
-const sendWhatsApp=require('../core/sender/sendWhatsApp');
+const sendWhatsApp=require('../sender/sendWhatsApp');
 
 async function deliver(to,reply){
   console.log('📦 DELIVERY INIT:',{to,reply});
