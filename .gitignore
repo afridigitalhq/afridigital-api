@@ -24,3 +24,13 @@ node_modules/
 .env
 **/node_modules
 
+Build/
+Checking/
+Cloning/
+Deploying...
+Running/
+Uploading/
+Downloaded/
+Downloading/
+Uploaded/
+Exited/
