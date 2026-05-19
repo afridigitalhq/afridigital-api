@@ -9,25 +9,20 @@ console.log('🔍 ENV DEBUG:', {
   META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID
 });
 
-const whatsappGateway = require('./services/whatsapp-gateway/server');
+const whatsappGateway = require('./services/whatsapp-gateway');
 
-// ✅ STATUS HANDLER (FIXED IMPORT)
+// STATUS HANDLER
 const { handleWhatsAppStatus } = require('./core/whatsapp-status-handler');
-
-app.use(express.json());
 
 app.get('/health', (req, res) => {
   return res.json({ ok: true, trace: true });
 });
 
-app.use('/whatsapp', whatsappGateway);
-
-// ================= WEBHOOK =================
+// WEBHOOK
 app.post('/webhook', async (req, res) => {
   console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
 
   try {
-    // ✅ HANDLE STATUS UPDATES FIRST
     if (req.body?.entry) {
       handleWhatsAppStatus(req.body.entry);
     }
