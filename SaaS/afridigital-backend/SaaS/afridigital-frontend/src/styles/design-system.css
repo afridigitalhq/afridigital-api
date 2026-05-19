@@ -1,0 +1,106 @@
+/* =========================
+   AFRIDIGITAL DESIGN SYSTEM v1
+   SOURCE OF TRUTH (VITE)
+========================= */
+
+:root {
+  --bg: #0b1020;
+  --panel: rgba(255,255,255,0.06);
+  --stroke: rgba(255,255,255,0.12);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --brand: #4f46e5;
+  --brand2: #06b6d4;
+}
+
+/* GLOBAL RESET */
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui;
+  background: radial-gradient(circle at top, #0b1020, #050712);
+  color: var(--text);
+}
+
+/* HERO SYSTEM (LOCKED) */
+.hero {
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(79,70,229,0.35), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(6,182,212,0.25), transparent 40%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CARD SYSTEM */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(79,70,229,0.4);
+}
+
+/* BUTTON SYSTEM */
+.btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* GLOBAL MARQUEE */
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  border-top: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+  padding: 10px;
+  color: var(--brand2);
+}
+
+/* CHAT WIDGET (LOCKED GLOBAL) */
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--brand);
+  padding: 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}

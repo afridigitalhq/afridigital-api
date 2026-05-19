@@ -1,6 +1,15 @@
-module.exports = {
-  debit: async () => true,
-  credit: async () => true,
-  getBalance: async () => 0,
-  record: async () => true
-};
+const fs = require("fs");
+
+const LEDGER = "./logs/wallet-ledger.log";
+
+function record(entry) {
+  fs.appendFileSync(
+    LEDGER,
+    JSON.stringify({
+      ...entry,
+      timestamp: new Date().toISOString()
+    }) + "\n"
+  );
+}
+
+module.exports = { record };

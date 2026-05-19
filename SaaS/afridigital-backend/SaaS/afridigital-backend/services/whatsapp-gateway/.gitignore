@@ -1,0 +1,9 @@
+
+# system / backup contamination
+server*.backup.js
+server*.broken*.js
+server*.corrupt*.js
+*.log
+core/journal/
+core/realtime/
+.backup_contract_v1/
