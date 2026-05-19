@@ -1,3 +1,6 @@
+require("./core/pipeline/consumers/logger.consumer");
+require("./core/pipeline/consumers/brain.consumer");
+require("./core/pipeline/consumers/delivery.consumer");
 require("./core/consumers/brain.consumer");
 require("./core/consumers/delivery.consumer");
 require("./core/consumers/logger.consumer");
@@ -33,6 +36,16 @@ app.post('/webhook', async (req, res) => {
     }
 
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+const bus = require("./core/pipeline/bus/eventBus");
+const EVENTS = require("./core/pipeline/events/eventTypes");
+
+if (msg?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
+  const m = msg.entry[0].changes[0].value.messages[0];
+  bus.emit(EVENTS.WHATSAPP_MESSAGE_RECEIVED, {
+    from: m.from,
+    text: m.text?.body
+  });
+}
 const eventBus = require("./core/event-bus/eventBus");
 const EVENTS = require("./core/event-bus/eventTypes");
 
