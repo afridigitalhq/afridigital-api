@@ -1,6 +1,6 @@
 const brain = require('./core/brain');
 const delivery = require('./core/delivery/deliveryEngine');
-const { lock, unlock } = require('../../../core/brain/v3/responseLock');
+const { lock, unlock } = require('../../../../core/brain/v3/responseLock');
 
 function extractMessage(body) {
   return body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
