@@ -24,7 +24,7 @@ app.get('/health', (req, res) => {
 
 // WEBHOOK
 app.post('/webhook', async (req, res) => {
-  console.log("🔥 WEBHOOK ENTRY HIT AT NODE LEVEL");
+  console.log("🔥 WEBHOOK ENTRY HIT AT NODE LEVEL - LIVE CONFIRMED");
   console.log("🔥 WEBHOOK HIT CONFIRMED"); console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
 
   try {

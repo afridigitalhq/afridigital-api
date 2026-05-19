@@ -2,6 +2,8 @@ const EventEmitter = require("events");
 const bus = new EventEmitter();
 
 function emit(event, payload) {
+  console.log("📡 DISPATCH EVENT:", event, payload);
+
   console.log("📡 EVENT:", event);
   bus.emit(event, payload);
 }
