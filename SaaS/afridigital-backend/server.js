@@ -1,3 +1,9 @@
+require("./core/consumers/brain.consumer");
+require("./core/consumers/delivery.consumer");
+require("./core/consumers/logger.consumer");
+
+require("./core/consumers/logger.consumer");
+
 require("dotenv").config();
 
 const express = require("express");
@@ -27,6 +33,15 @@ app.post('/webhook', async (req, res) => {
     }
 
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+const eventBus = require("./core/event-bus/eventBus");
+const EVENTS = require("./core/event-bus/eventTypes");
+
+if (msg) {
+  eventBus.emit(EVENTS.WHATSAPP_MESSAGE_RECEIVED, {
+    from: msg.from,
+    text: msg.text?.body
+  });
+}
     console.log("⚠️ MSG PARSE:", msg);
 
     const from = msg.from;
