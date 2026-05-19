@@ -18,7 +18,7 @@ app.get('/health', (req, res) => {
 
 // WEBHOOK
 app.post('/webhook', async (req, res) => {
-  console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
+  console.log("🔥 WEBHOOK HIT CONFIRMED"); console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
 
   try {
     if (req.body?.entry) {
