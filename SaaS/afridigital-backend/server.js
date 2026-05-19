@@ -1,10 +1,18 @@
-console.log('🔍 ENV DEBUG:', { META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN, META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID });
 require("dotenv").config();
-const express = require("express");
-const app = express(); app.use(express.json());
 
+const express = require("express");
+const app = express();
+app.use(express.json());
+
+console.log('🔍 ENV DEBUG:', {
+  META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN,
+  META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID
+});
 
 const whatsappGateway = require('./services/whatsapp-gateway/server');
+
+// ✅ STATUS HANDLER (FIXED IMPORT)
+const { handleWhatsAppStatus } = require('./core/whatsapp-status-handler');
 
 app.use(express.json());
 
@@ -14,15 +22,16 @@ app.get('/health', (req, res) => {
 
 app.use('/whatsapp', whatsappGateway);
 
-const PORT = process.env.PORT || 3000;
-
-
-
-
+// ================= WEBHOOK =================
 app.post('/webhook', async (req, res) => {
   console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
 
   try {
+    // ✅ HANDLE STATUS UPDATES FIRST
+    if (req.body?.entry) {
+      handleWhatsAppStatus(req.body.entry);
+    }
+
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
     if (!msg) return res.sendStatus(200);
 
@@ -53,3 +62,8 @@ app.post('/webhook', async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("🚀 SERVER RUNNING ON PORT", PORT);
+});
