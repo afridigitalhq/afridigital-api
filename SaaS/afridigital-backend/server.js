@@ -30,6 +30,7 @@ app.get('/health', (req, res) => {
 
 // WEBHOOK
 app.post('/webhook', async (req, res) => {
+console.log("🔥 WEBHOOK HIT CONFIRMED - ENTERED SERVER LOGIC");
 const traceId = "wa_" + Date.now();
 console.log("🧾 TRACE START:", traceId);
 
