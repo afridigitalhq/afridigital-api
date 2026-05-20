@@ -1,5 +1,5 @@
 const bus = require("../core/context.cjs");
-const EVENTS = require("../event-bus/registry.cjs");
+const EVENTS = require("../../afridigital-core/kernel/event-bus/registry.cjs");
 
 function onMessage(msg) {
   bus.emit(EVENTS.MESSAGE_RECEIVED, msg);

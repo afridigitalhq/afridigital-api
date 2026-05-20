@@ -1,7 +1,7 @@
 console.log("\n🚀 AFRIDIGITAL V11 EVENT MESH BOOT\n");
 
-const bus = require("../event-bus/bus.cjs");
-const store = require("../event-bus/store.cjs");
+const bus = require("../../afridigital-core/kernel/event-bus/bus.cjs");
+const store = require("../../afridigital-core/kernel/event-bus/store.cjs");
 const node = require("../mesh/node.cjs");
 
 require("../reactors/ai.reactor.cjs");

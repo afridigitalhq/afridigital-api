@@ -1,4 +1,4 @@
-const bus = require("../event-bus/event.bus.cjs");
+const bus = require("../../afridigital-core/kern../../afridigital-core/kernel/events/event.bus.cjs.cjs");
 
 const state = {
   flow: "init",

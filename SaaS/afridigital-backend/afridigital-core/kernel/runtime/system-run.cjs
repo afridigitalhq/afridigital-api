@@ -1,4 +1,4 @@
-const bus = require("../event-bus/bus.cjs");
+const bus = require("../../afridigital-core/kernel/event-bus/bus.cjs");
 require("../dispatcher/dispatcher.cjs");
 const replay = require("../replay/replay.cjs");
 

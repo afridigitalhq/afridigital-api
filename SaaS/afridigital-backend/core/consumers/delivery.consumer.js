@@ -1,5 +1,5 @@
-const bus = require("../event-bus/eventBus");
-const EVENTS = require("../event-bus/eventTypes");
+const bus = require("../../afridigital-core/kern../../afridigital-core/kern../../afridigital-core/kernel/events/event.bus.cjs.cjs");
+const EVENTS = require("../../afridigital-core/kernel/event-bus/eventTypes");
 
 const delivery = require("../../services/whatsapp-gateway/core/delivery/deliveryEngine");
 
