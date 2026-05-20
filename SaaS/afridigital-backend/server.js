@@ -30,6 +30,9 @@ app.get('/health', (req, res) => {
 
 // WEBHOOK
 app.post('/webhook', async (req, res) => {
+console.log("🔥 WEBHOOK ENTRY CONFIRMED");
+console.log("📦 BODY:", JSON.stringify(req.body));
+console.log("📍 PIPELINE STARTING...");
 console.log("🔥 WEBHOOK HIT CONFIRMED - ENTERED SERVER LOGIC");
 const traceId = "wa_" + Date.now();
 console.log("🧾 TRACE START:", traceId);
@@ -51,6 +54,7 @@ console.log("🧾 TRACE START:", traceId);
 
 if (msg?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
   const m = msg.entry[0].changes[0].value.messages[0];
+console.log("📨 MESSAGE EXTRACTED:", m);
   bus.emit(EVENTS.WHATSAPP_MESSAGE_RECEIVED, {
     from: m.from, traceId,
     text: m.text?.body
