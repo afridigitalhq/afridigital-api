@@ -10,6 +10,9 @@ require("./core/consumers/logger.consumer");
 require("dotenv").config();
 
 const express = require("express");
+const bus = require("./core/pipeline/bus/eventBus");
+const EVENTS = require("./core/pipeline/events/eventTypes");
+
 const app = express();
 app.use(express.json());
 
@@ -27,6 +30,14 @@ app.get('/health', (req, res) => {
 
 // WEBHOOK
 app.post('/webhook', async (req, res) => {
+const traceId = "wa_" + Date.now();
+console.log("🧾 TRACE START:", traceId);
+
+console.log("🧾 TRACE START:", traceId);
+
+console.log("🧾 WEBHOOK TRACE START:", traceId);
+
+console.log("🧾 TRACE START:", traceId);
   console.log("🔥 WEBHOOK ENTRY HIT AT NODE LEVEL - LIVE CONFIRMED");
   console.log("🔥 WEBHOOK HIT CONFIRMED"); console.log("🚀 CLEAN WEBHOOK HIT:", JSON.stringify(req.body));
 
@@ -36,18 +47,15 @@ app.post('/webhook', async (req, res) => {
     }
 
     const msg = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-const bus = require("./core/pipeline/bus/eventBus");
-const EVENTS = require("./core/pipeline/events/eventTypes");
 
 if (msg?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]) {
   const m = msg.entry[0].changes[0].value.messages[0];
   bus.emit(EVENTS.WHATSAPP_MESSAGE_RECEIVED, {
-    from: m.from,
+    from: m.from, traceId,
     text: m.text?.body
   });
 }
-const eventBus = require("./core/event-bus/eventBus");
-const EVENTS = require("./core/event-bus/eventTypes");
+const eventBus = require("./core/pipeline/eventBus");
 
 if (msg) {
   eventBus.emit(EVENTS.WHATSAPP_MESSAGE_RECEIVED, {
@@ -89,3 +97,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("🚀 SERVER RUNNING ON PORT", PORT);
 });
+// trace ping

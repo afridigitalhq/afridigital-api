@@ -5,6 +5,7 @@ bus.on(EVENTS.WHATSAPP_MESSAGE_RECEIVED, (event) => {
   const text = event.payload.text;
 
   console.log("🧠 BRAIN processing:", text);
+console.log("📦 RUNTIME TRACE ACTIVE");
 
   const aiResponse = `Echo: ${text}`;
 
