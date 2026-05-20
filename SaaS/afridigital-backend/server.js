@@ -1,3 +1,5 @@
+try { require("./core/runtime/afri-whatsapp-engine"); } catch (e) { console.log("⚠️ runtime engine disabled (safe mode)"); }
+
 require("./core/pipeline/consumers/logger.consumer");
 require("./core/pipeline/consumers/brain.consumer");
 require("./core/pipeline/consumers/delivery.consumer");
@@ -75,7 +77,6 @@ if (msg) {
 
     console.log("📩 INCOMING:", from, text);
 
-    const afriEngine = require('./core/runtime/afri-whatsapp-engine');
     const delivery = require('./services/whatsapp-gateway/core/delivery/deliveryEngine');
 
     const { reply } = await brain.processMessage(
