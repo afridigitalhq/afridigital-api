@@ -1,4 +1,4 @@
-const bus = require("../../spi../../afridigital-core/kernel/event-bus");
+const bus = require("../../spi../../afridigital-core/kern../../afridigital-core/kernel/events");
 const EVENTS = require("../../contracts/events");
 
 const balances = {};

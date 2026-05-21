@@ -1,4 +1,4 @@
-const bus = require("../../afridigital-core/kernel/event-bus/bus.cjs");
+const bus = require("../../afridigital-core/kern../../afridigital-core/kernel/events/bus.cjs");
 
 bus.onEvent("render.health_fail", (s) => {
   console.log("🚨 SERVICE DOWN:", s);

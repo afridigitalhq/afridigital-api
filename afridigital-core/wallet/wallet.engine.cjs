@@ -1,4 +1,4 @@
-const bus = require("../spine/event.bus.cjs");
+const bus = require("../afridigital-core/kernel/events/event.bus.cjs");
 
 let balance = {};
 

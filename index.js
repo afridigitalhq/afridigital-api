@@ -1,2 +1,10 @@
+require("./bootstrap/freeze.guard.cjs");
+require("./bootstrap/freeze.guard.cjs");
+require("./bootstrap/freeze.guard.cjs");
+/**
+ * CANONICAL RENDER ENTRY POINT
+ */
 
-require('./SaaS/afridigital-backend/SaaS/afridigital-backend/server.js');
+require("./bootstrap/entry.lock.cjs");
+
+module.exports = require("./server.js");

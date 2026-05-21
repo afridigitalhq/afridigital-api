@@ -1,0 +1,8 @@
+afridigital-core/
+core/
+kernel/
+services/
+workers/
+index.js
+server.js
+bootstrap/

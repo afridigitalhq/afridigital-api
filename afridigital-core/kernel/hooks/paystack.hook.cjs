@@ -1,5 +1,5 @@
 const bus = require("../core/context.cjs");
-const EVENTS = require("../../afridigital-core/kernel/event-bus/registry.cjs");
+const EVENTS = require("../../afridigital-core/kern../../afridigital-core/kernel/events/registry.cjs");
 
 function onPayment(status, data) {
   if (status === "success") {

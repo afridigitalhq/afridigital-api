@@ -1,4 +1,4 @@
-const bus = require("../spine/event.bus.cjs");
+const bus = require("../afridigital-core/kernel/events/event.bus.cjs");
 
 function handleMessage(msg) {
   bus.emitEvent("MESSAGE_RECEIVED", msg);

@@ -1,4 +1,4 @@
-const bus = require("../spine/event.bus.cjs");
+const bus = require("../afridigital-core/kernel/events/event.bus.cjs");
 
 function postJob(job) {
   bus.emitEvent("JOB_POSTED", job);

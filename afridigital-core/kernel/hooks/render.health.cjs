@@ -1,5 +1,5 @@
 const bus = require("../core/context.cjs");
-const EVENTS = require("../../afridigital-core/kernel/event-bus/registry.cjs");
+const EVENTS = require("../../afridigital-core/kern../../afridigital-core/kernel/events/registry.cjs");
 
 function sync(status) {
   if (status === "ok") {

@@ -1,6 +1,6 @@
 console.log("\n🚀 AFRIDIGITAL V12 GOVERNED EVENT OS START\n");
 
-const bus = require("../../afridigital-core/kernel/event-bus/bus.cjs");
+const bus = require("../../afridigital-core/kern../../afridigital-core/kernel/events/bus.cjs");
 
 // reactors
 require("../reactors/ai.reactor.cjs");

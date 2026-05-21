@@ -2,7 +2,7 @@
 
 APP="/storage/emulated/0/AfriDevOpsDB"
 SNAP="/storage/emulated/0/AfriDevOpsDB-Backup/.snapshots"
-BUS="$APP/ui/engine/event-bus.json"
+BUS="$APP/ui/engine/events.lock.json"
 
 write_event() {
   local msg="$1"

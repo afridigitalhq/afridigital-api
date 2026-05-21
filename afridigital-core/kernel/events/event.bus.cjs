@@ -1,10 +1,26 @@
-const Redis = require("ioredis");
-const bus = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
+/**
+ * AfriDigital Event Bus - SINGLE SOURCE OF TRUTH
+ * All services MUST use this only.
+ */
 
-console.log("🔴 V19 EVENT SPINE ACTIVE");
+class EventBus {
+  constructor() {
+    this.handlers = new Map();
+  }
 
-function emit(event, payload) {
-  bus.publish("afridigital-events", JSON.stringify({ event, payload, ts: Date.now() }));
+  on(event, fn) {
+    if (!this.handlers.has(event)) {
+      this.handlers.set(event, []);
+    }
+    this.handlers.get(event).push(fn);
+  }
+
+  emit(event, data) {
+    const handlers = this.handlers.get(event) || [];
+    for (const fn of handlers) {
+      try { fn(data); } catch (e) { console.error(e); }
+    }
+  }
 }
 
-module.exports = { bus, emit };
+module.exports = new EventBus();
