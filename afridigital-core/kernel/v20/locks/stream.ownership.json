@@ -1,0 +1,11 @@
+{
+  "wa:inbox": "webhook.bridge",
+  "wa:outbox": "whatsapp.mesh",
+  "fraud:stream": "fraud.engine",
+  "wa:dead": "whatsapp.mesh",
+  "rules": {
+    "allow_multiple_writers": false,
+    "strict_mode": true,
+    "enforce_pipeline": true
+  }
+}

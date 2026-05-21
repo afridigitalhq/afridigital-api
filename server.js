@@ -1,3 +1,5 @@
+global.__V20__ = require("./afridigital-core/kernel/v20/v20.runtime.cjs");
+const WebhookBridge = require('./afridigital-core/kernel/v20/webhook.bridge.cjs');
 require('./afridigital-core/kernel/fraud/fraud.observer.wire.cjs')();
 require('./afridigital-core/kernel/fraud/fraud.pipeline.wire.cjs')();
 const fraudControl=require("./afridigital-core/kernel/fraud/fraud.control.cjs");
@@ -62,3 +64,40 @@ console.log('🔐 ADMIN CONFIG:', {
 console.log('🟢 AFRI BOOT OK - SERVER STARTING');
 
 fraudControl.start();
+
+
+new WebhookBridge().start(3000);
+
+// ===============================
+// 🚀 V20 MESH WIRING (AUTO-ATTACH)
+// ===============================
+
+const WhatsAppMesh = require('./afridigital-core/kernel/v20/whatsapp-mesh.cjs');
+const WhatsAppSenderLoop = require('./afridigital-core/kernel/v20/sender.loop.cjs');
+
+// create shared runtime instances
+const mesh = new WhatsAppMesh(require('./afridigital-core/kernel/fraud/fraud.engine.cjs'));
+const sender = new WhatsAppSenderLoop();
+
+// START V20 PIPELINE
+(async () => {
+  try {
+    await mesh.connect();
+    console.log("🧠 V20 Mesh Connected");
+
+    // start worker (non-blocking)
+    mesh.startWorker().catch(err =>
+      console.log("❌ Mesh Worker Error:", err.message)
+    );
+
+    // start sender loop (non-blocking)
+    sender.start().catch(err =>
+      console.log("❌ Sender Loop Error:", err.message)
+    );
+
+    console.log("🚀 V20 FULL PIPELINE ACTIVE");
+  } catch (e) {
+    console.log("❌ V20 INIT FAILED:", e.message);
+  }
+})();
+
