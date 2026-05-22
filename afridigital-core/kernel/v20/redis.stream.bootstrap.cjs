@@ -1,15 +1,22 @@
 async function initRedisStreams(redis) {
-  try {
-    await redis.xGroupCreate(
-      "wa:inbox",
-      "workers",
-      "$",
-      { MKSTREAM: true }
-    );
-    console.log("🟢 Redis stream wa:inbox initialized");
-  } catch (e) {
-    if (!String(e.message).includes("BUSYGROUP")) {
-      console.log("❌ Redis stream init error:", e.message);
+  const streams = [
+    { key: "wa:inbox", group: "workers" },
+    { key: "wa:outbox", group: "senders" }
+  ];
+
+  for (const s of streams) {
+    try {
+      await redis.xGroupCreate(
+        s.key,
+        s.group,
+        "$",
+        { MKSTREAM: true }
+      );
+      console.log(`🟢 Stream ready: ${s.key}`);
+    } catch (e) {
+      if (!String(e.message).includes("BUSYGROUP")) {
+        console.log(`❌ Stream init error (${s.key}):`, e.message);
+      }
     }
   }
 }

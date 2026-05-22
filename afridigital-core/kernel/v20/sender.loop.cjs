@@ -41,6 +41,8 @@ class WhatsAppSenderLoop {
 
     return new Promise((resolve, reject) => {
       const req = https.request(options, res => {
+    const dup = await isDuplicate(this.redis, payload.message_id || payload.id || Date.now()); 
+    if (dup) { console.log("🟡 Duplicate blocked:", payload.message_id); return; }
         let data = "";
         res.on("data", chunk => data += chunk);
         res.on("end", () => resolve(data));
