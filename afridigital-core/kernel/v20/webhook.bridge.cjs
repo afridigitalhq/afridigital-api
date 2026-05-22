@@ -12,90 +12,49 @@ class WebhookBridge {
       url: process.env.REDIS_URL || "redis://localhost:6379"
     });
 
-    await this.redis.connect().catch(() => {});
+    await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
     console.log("🌉 V20 Webhook Bridge Connected");
   }
 
   async push(message) {
-    try {
-      await this.redis.xAdd(this.streamIn, "*", {
-        data: JSON.stringify({
-          ...message,
-          ts: Date.now()
-        })
-      });
-    } catch (err) {
-      console.log("❌ Redis push failed:", err.message);
-    }
+    const payload = {
+      ...message,
+      ts: Date.now()
+    };
+
+    this.redis?.xAdd(this.streamIn, "*", {
+      data: JSON.stringify(payload)
+    });
+
+    return { ok: true };
   }
 
-  async start(port = 3000) {
+  async start(port = process.env.PORT || 3000) {
     await this.connect();
 
-    const server = http.createServer((req, res) => {
-      if (req.method === "GET" && req.url.startsWith("/webhook")) {
-
-        const url = new URL(req.url, "http://localhost");
-
-        const mode = url.searchParams.get("hub.mode");
-
-        const token = url.searchParams.get("hub.verify_token");
-
-        const challenge = url.searchParams.get("hub.challenge");
-
-
-
-        if (mode === "subscribe" && token === process.env.WHATSAPP_VERIFY_TOKEN) {
-
-          res.writeHead(200);
-
-          res.end(challenge);
-
-        } else {
-
-          res.writeHead(403);
-
-          res.end("Forbidden");
-
-        }
-
-        return;
-
-      }
-
+    const server = http.createServer(async (req, res) => {
       if (req.method === "POST" && req.url === "/webhook") {
-
         let body = "";
 
-        req.on("data", chunk => {
-          body += chunk;
-        });
-
-        req.on("end", () => {
-
-          let data = {};
-
+        req.on("data", chunk => body += chunk);
+        req.on("end", async () => {
           try {
-            data = JSON.parse(body || "{}");
+            const data = JSON.parse(body || "{}");
+
+            const result = await this.push({
+              user: data.user || data.from || "unknown",
+              text: data.text || data.message || "",
+              source: "whatsapp_webhook"
+            });
+
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(result));
+
+            console.log("📩 Webhook received:", data);
           } catch (err) {
-            console.log("❌ JSON parse error");
+            res.writeHead(500);
+            res.end("error");
           }
-
-          this.push({
-            user: data.user || data.from || "unknown",
-            text: data.text || data.message || "",
-            source: "whatsapp_webhook"
-          });
-
-          console.log("📩 Webhook received:", data);
-
-          res.writeHead(200, {
-            "Content-Type": "application/json"
-          });
-
-          res.end(JSON.stringify({
-            ok: true
-          }));
         });
 
         return;

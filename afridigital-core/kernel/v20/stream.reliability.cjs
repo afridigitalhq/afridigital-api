@@ -14,7 +14,7 @@ class StreamReliability {
 
   async connect() {
     this.redis = createClient({ url: process.env.REDIS_URL });
-    await this.redis.connect();
+    await this.redis.connect().catch(e => console.log("Redis retry"));
 
     // Create consumer group safely (ignore errors if exists)
     try {

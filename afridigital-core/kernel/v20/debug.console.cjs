@@ -11,7 +11,7 @@ class DebugConsole {
       url: process.env.REDIS_URL || "redis://localhost:6379"
     });
 
-    await this.redis.connect().catch(() => {});
+    await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
     console.log("🧪 V20 Debug Console Connected");
   }
 
@@ -20,7 +20,7 @@ class DebugConsole {
 
     console.log("📡 DEBUG STREAM ACTIVE...");
 
-    while (true) {
+    while (true) { await new Promise(r => setTimeout(r, 200)) {
       for (const stream of this.streams) {
         try {
           const res = await this.redis.xRead(

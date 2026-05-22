@@ -10,7 +10,7 @@ class RedisConsumerSetup {
 
   async connect() {
     this.redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
-    await this.redis.connect().catch(() => {});
+    await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
   }
 
   async initGroup() {

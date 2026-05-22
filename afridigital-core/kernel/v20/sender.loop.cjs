@@ -25,7 +25,7 @@ class WhatsAppSenderLoop {
       to: message.user,
       type: "text",
       text: {
-        body: `AI: ${message.text || "Processed"} | Action: ${message.action}`
+        body: `AI: ${message.text || "Processed"} | Action: ${message.action || "none"}`
       }
     });
 
@@ -42,7 +42,7 @@ class WhatsAppSenderLoop {
     return new Promise((resolve, reject) => {
       const req = https.request(options, res => {
         let data = "";
-        res.on("data", c => data += c);
+        res.on("data", chunk => data += chunk);
         res.on("end", () => resolve(data));
       });
 
@@ -54,12 +54,13 @@ class WhatsAppSenderLoop {
 
   async start() {
     await this.connect();
+
     console.log("🚀 V20 Sender Loop Running...");
 
     while (true) {
       try {
         const res = await this.redis.xRead(
-          [{ key: this.streamOut, id: "$" }],
+          [{ key: this.streamOut, id: ">" }],
           { COUNT: 1, BLOCK: 5000 }
         );
 
@@ -70,14 +71,16 @@ class WhatsAppSenderLoop {
             const data = JSON.parse(msg.message.data);
 
             console.log("📤 Sending WhatsApp:", data);
+
             await this.sendWhatsApp(data);
 
-            console.log("✅ Sent to user:", data.user);
+            console.log("✅ Sent:", data.user);
           }
         }
 
       } catch (err) {
         console.log("❌ Sender error:", err.message);
+        await new Promise(r => setTimeout(r, 1000));
       }
     }
   }

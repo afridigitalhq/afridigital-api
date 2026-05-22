@@ -12,7 +12,7 @@ class ReplayEngine {
       url: process.env.REDIS_URL || "redis://localhost:6379"
     });
 
-    await this.redis.connect().catch(() => {});
+    await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
     console.log("♻️ V20 Replay Engine Connected");
   }
 
