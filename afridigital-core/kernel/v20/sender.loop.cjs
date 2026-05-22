@@ -16,43 +16,51 @@ class WhatsAppSenderLoop {
     console.log("📤 V20 Sender Loop Connected");
   }
 
-  async sendWhatsApp(message) {
-    const token = process.env.WHATSAPP_TOKEN;
-    const phoneId = process.env.WHATSAPP_PHONE_ID;
+async sendWhatsApp(message) {
+  const { isDuplicate } = require("./message.dedup.cjs");
+  const token = process.env.WHATSAPP_TOKEN;
+  const phoneId = process.env.WHATSAPP_PHONE_ID;
 
-    const payload = JSON.stringify({
-      messaging_product: "whatsapp",
-      to: message.user,
-      type: "text",
-      text: {
-        body: `AI: ${message.text || "Processed"} | Action: ${message.action || "none"}`
-      }
-    });
+  const dedupId = `${message.user}:${message.text || "msg"}`;
+  const dup = await isDuplicate(this.redis, dedupId);
 
-    const options = {
-      hostname: "graph.facebook.com",
-      path: `/v19.0/${phoneId}/messages`,
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    };
-
-    return new Promise((resolve, reject) => {
-      const req = https.request(options, res => {
-    const dup = await isDuplicate(this.redis, this.redis, payload.message_id || payload.id || Date.now()); 
-    if (dup) { console.log("🟡 Duplicate blocked:", payload.message_id); return; }
-        let data = "";
-        res.on("data", chunk => data += chunk);
-        res.on("end", () => resolve(data));
-      });
-
-      req.on("error", reject);
-      req.write(payload);
-      req.end();
-    });
+  if (dup) {
+    console.log("🟡 Duplicate blocked:", dedupId);
+    return;
   }
+
+  const payload = JSON.stringify({
+    messaging_product: "whatsapp",
+    to: message.user,
+    type: "text",
+    text: {
+      body: `AI: ${message.text || "Processed"} | Action: ${message.action || "none"}`
+    }
+  });
+
+  const options = {
+    hostname: "graph.facebook.com",
+    path: `/v19.0/${phoneId}/messages`,
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  };
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, res => {
+      let data = "";
+      res.on("data", chunk => data += chunk);
+      res.on("end", () => resolve(data));
+    });
+
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
 
   async start() {
     await this.connect();
