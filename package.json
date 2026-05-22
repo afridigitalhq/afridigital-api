@@ -1,15 +1,16 @@
 {
   "name": "afridigital-hub",
   "version": "1.0.0",
-  "main": "start.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node start.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "openai": "^6.38.0",
     "redis": "^5.12.1",
     "ws": "^8.20.1"
