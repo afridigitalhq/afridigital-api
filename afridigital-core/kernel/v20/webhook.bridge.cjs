@@ -13,6 +13,7 @@ class WebhookBridge {
     });
 
     await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
+const { ensureStreams } = require("./redis.stream.guard.cjs"); await ensureStreams(this.redis);
     console.log("🌉 V20 Webhook Bridge Connected");
   }
 

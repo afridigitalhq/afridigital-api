@@ -1,24 +1,19 @@
-async function initRedisStreams(redis) {
-  const streams = [
-    { key: "wa:inbox", group: "workers" },
-    { key: "wa:outbox", group: "senders" }
-  ];
+const { STREAMS } = require("./stream.core.cjs");
 
-  for (const s of streams) {
+async function initRedisStreams(redis) {
+  for (const key of Object.values(STREAMS)) {
+    if (!key.startsWith("wa:")) continue;
+
     try {
-      await redis.xGroupCreate(
-        s.key,
-        s.group,
-        "$",
-        { MKSTREAM: true }
-      );
-      console.log(`🟢 Stream ready: ${s.key}`);
-    } catch (e) {
-      if (!String(e.message).includes("BUSYGROUP")) {
-        console.log(`❌ Stream init error (${s.key}):`, e.message);
+      await redis.xGroupCreate(key, STREAMS.GROUP, "$", { MKSTREAM: true });
+    } catch (err) {
+      if (!String(err.message).includes("BUSYGROUP")) {
+        console.log("Stream init error:", key, err.message);
       }
     }
   }
+
+  console.log("🟢 AfriAI Streams Hardened");
 }
 
 module.exports = { initRedisStreams };

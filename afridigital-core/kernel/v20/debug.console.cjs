@@ -12,6 +12,7 @@ class DebugConsole {
     });
 
     await this.redis.connect().catch(e => console.log("Redis retry")).catch(() => {});
+const { ensureStreams } = require("./redis.stream.guard.cjs"); await ensureStreams(this.redis);
     console.log("🧪 V20 Debug Console Connected");
   }
 
@@ -24,7 +25,7 @@ class DebugConsole {
       for (const stream of this.streams) {
         try {
           const res = await this.redis.xRead(
-            [{ key: stream, id: ">" }],
+            [{ key: stream, id: "$"}],
             { COUNT: 1, BLOCK: 2000 }
           );
 

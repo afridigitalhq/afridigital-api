@@ -16,6 +16,7 @@ class WhatsAppMesh {
   async connect() {
     this.redis = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
     await this.redis.connect().catch(() => {});
+const { ensureStreams } = require("./redis.stream.guard.cjs"); await ensureStreams(this.redis);
     console.log("📡 Mesh Connected");
   }
 
@@ -27,7 +28,7 @@ class WhatsAppMesh {
         const res = await this.redis.xReadGroup(
           this.group,
           this.consumer,
-          [{ key: this.stream, id: ">" }],
+          [{ key: this.stream, id: "$"}],
           { COUNT: 1, BLOCK: 5000 }
         );
 
