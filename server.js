@@ -1,23 +1,23 @@
+const webhookService = require('./services/webhook.service');
+webhookService(app);
+const webhook = require('./services/webhook.service');
+const streamGuard = require("./africore/runtime/stream.guard");
 require("dotenv").config();
+const swarmConsumer = require("./africore/runtime/swarm.consumer"); swarmConsumer.start();
+const telemetryObserver = require("./africore/telemetry/telemetry.observer"); telemetryObserver.start();
+require("./africore/runtime/agent.bridge");
+const liveStream = require("./africore/runtime/live.stream"); liveStream.startLiveStream();
+const sync = require("./africore/runtime/brain.v14.sync");
+const federation = require("./africore/runtime/federation.mesh"); federation.start(()=>{});
+const cluster = require("./africore/runtime/cluster.mesh"); cluster.start(() => {});
+const { startBrainLoop } = require("./africore/runtime/brain.v5.loop"); startBrainLoop();
+const { startReflection } = require("./africore/runtime/brain.v4.reflector"); startReflection();
+const { startMemorySwarm } = require("./africore/runtime/swarm.memory.worker"); startMemorySwarm();
+const { startQueueDrain } = require("./africore/runtime/queue.worker.drain"); startQueueDrain();
+const { startSwarmV2 } = require("./africore/runtime/swarm.v2.worker"); startSwarmV2("agent-v2-main");
+const { startWorker } = require("./africore/runtime/swarm.worker"); startWorker("agent-main");
+require("./africore/runtime/queue.worker");
+const { acquireLock } = require("./africore/runtime/process.lock"); acquireLock();
+const start = require("./africore/runtime/server.boot");
 
-const express = require("express");
-const http = require("http");
-
-const { registerWebhook } = require("./services/webhook.service");
-
-console.log("🚀 AfriCore Modular Server Booting...");
-
-const app = express();
-const server = http.createServer(app);
-
-app.get("/", (req, res) => {
-  res.json({ status: "OK", system: "AfriCore Modular" });
-});
-
-registerWebhook(app);
-
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => {
-  console.log("✅ Server running on port", PORT);
-});
+start();

@@ -15,7 +15,7 @@ function registerWebhook(app) {
       return res.status(200).send(challenge);
     }
 
-    return res.sendStatus(403);
+    
   });
 
   app.post("/webhook", async (req, res) => {
