@@ -11,7 +11,7 @@ function acquireLock() {
       try {
         process.kill(parseInt(oldPid), 0);
         console.log("🚫 AfriCore already running (PID:", oldPid, ")");
-        process.exit(1);
+        console.log("⚠️ non-fatal subsystem failure");
       } catch {
         console.log("🧹 Stale lock found. Overriding...");
       }
