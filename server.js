@@ -1,3 +1,4 @@
+const { execSync } = require("child_process"); try { execSync("redis-cli XGROUP CREATE afri:memory:stream memory-group $ MKSTREAM"); } catch(e) {} try { execSync("redis-cli XGROUP CREATE afri:swarm:stream afri-group $ MKSTREAM"); } catch(e) {}
 const express = require("express"); const app = express();
 const webhookService = require('./services/webhook.service');
 const webhook = require('./services/webhook.service');
