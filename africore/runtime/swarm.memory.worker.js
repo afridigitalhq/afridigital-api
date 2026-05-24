@@ -1,4 +1,4 @@
-const swarm = require("./memory.swarm");
+const swarm = ;
 const memory = require("./memory.brain");
 
 async function startMemorySwarm() {

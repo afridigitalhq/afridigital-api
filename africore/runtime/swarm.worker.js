@@ -1,4 +1,4 @@
-const swarm = require("./swarm.stream");
+const swarm = ;
 const fraud = require("../engine/fraud.engine");
 const messenger = require("../messenger/whatsapp.client");
 

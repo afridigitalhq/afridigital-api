@@ -1,5 +1,5 @@
 const EventEmitter = require("events");
-const swarm = require("./swarm.stream");
+const swarm = ;
 
 class AfriEventBus extends EventEmitter {
 
