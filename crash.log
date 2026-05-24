@@ -1,0 +1,58 @@
+🔐 ADMIN ENV LOADED
+🚀 AfriDigital Server Booting...
+🌊 STREAM BRIDGE ACTIVE
+🌊 EVENT STREAM ACTIVE
+🌊 WS ATTACHED TO SERVER
+📊 Admin Event API mounted
+🌊 STREAM BRIDGE ACTIVE
+🔐 ADMIN CONFIG: { whatsapp: '+2347060553158', email: 'afridigitalhq@gmail.com' }
+🟢 AFRI BOOT OK - SERVER STARTING
+🛡️ FRAUD CONTROL PLANE ACTIVE
+✅ Server running on port 10000
+Redis retry
+🌉 V20 Webhook Bridge Connected
+🔥 Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at WebhookBridge.start (/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/afridigital-core/kernel/v20/webhook.bridge.cjs:67:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/server.js:6:51 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+🔥 CRASH: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at WebhookBridge.start (/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/afridigital-core/kernel/v20/webhook.bridge.cjs:67:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/server.js:6:51 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+🛑 UNCUGHT: Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at WebhookBridge.start (/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/afridigital-core/kernel/v20/webhook.bridge.cjs:67:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/server.js:6:51 {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+📡 Mesh Connected
+🧠 V20 Mesh Connected
+⚙️ Consumer Worker Running
+🚀 V20 FULL PIPELINE ACTIVE
+📤 V20 Sender Loop Connected
+🚀 V20 Sender Loop Running...

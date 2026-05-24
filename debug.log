@@ -1,0 +1,112 @@
+NET 8623: createConnection [
+  {
+    host: 'localhost',
+    tls: false,
+    port: 6379,
+    noDelay: true,
+    keepAlive: true,
+    keepAliveInitialDelay: 5000,
+    timeout: undefined,
+    onread: undefined,
+    readable: true,
+    writable: true
+  },
+  null,
+  Symbol(normalizedArgs): true
+]
+NET 8623: pipe false undefined
+NET 8623: connect: find host localhost
+NET 8623: connect: dns options { family: undefined, hints: 1024 }
+NET 8623: connect: autodetecting
+🔐 ADMIN ENV LOADED
+🚀 AfriDigital Server Booting...
+NET 8623: setupListenHandle null 10000 4 0 undefined
+NET 8623: setupListenHandle: create a handle
+NET 8623: bind to ::
+🌊 STREAM BRIDGE ACTIVE
+NET 8623: setupListenHandle null 0 4 0 undefined
+NET 8623: setupListenHandle: create a handle
+NET 8623: bind to ::
+🌊 EVENT STREAM ACTIVE
+🌊 WS ATTACHED TO SERVER
+📊 Admin Event API mounted
+🌊 STREAM BRIDGE ACTIVE
+🔐 ADMIN CONFIG: { whatsapp: '+2347060553158', email: 'afridigitalhq@gmail.com' }
+🟢 AFRI BOOT OK - SERVER STARTING
+🛡️ FRAUD CONTROL PLANE ACTIVE
+NET 8623: createConnection [
+  {
+    host: 'localhost',
+    tls: false,
+    port: 6379,
+    noDelay: true,
+    keepAlive: true,
+    keepAliveInitialDelay: 5000,
+    timeout: undefined,
+    onread: undefined,
+    readable: true,
+    writable: true
+  },
+  null,
+  Symbol(normalizedArgs): true
+]
+NET 8623: pipe false undefined
+NET 8623: connect: find host localhost
+NET 8623: connect: dns options { family: undefined, hints: 1024 }
+NET 8623: connect: autodetecting
+✅ Server running on port 10000
+NET 8623: connect/multiple: only one address found, switching back to single connection
+NET 8623: connect: attempting to connect to 127.0.0.1:6379 (addressType: 4)
+NET 8623: connect/multiple: only one address found, switching back to single connection
+NET 8623: connect: attempting to connect to 127.0.0.1:6379 (addressType: 4)
+NET 8623: afterConnect
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+NET 8623: Socket._handle.readStart
+NET 8623: afterConnect
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+NET 8623: Socket._handle.readStart
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+🌉 V20 Webhook Bridge Connected
+NET 8623: setupListenHandle null 3000 4 0 undefined
+NET 8623: setupListenHandle: create a handle
+NET 8623: bind to ::
+🚀 Webhook Bridge running on port 3000
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+📡 Mesh Connected
+🧠 V20 Mesh Connected
+⚙️ Consumer Worker Running
+NET 8623: createConnection [
+  {
+    host: 'localhost',
+    tls: false,
+    port: 6379,
+    noDelay: true,
+    keepAlive: true,
+    keepAliveInitialDelay: 5000,
+    timeout: undefined,
+    onread: undefined,
+    readable: true,
+    writable: true
+  },
+  null,
+  Symbol(normalizedArgs): true
+]
+NET 8623: pipe false undefined
+NET 8623: connect: find host localhost
+NET 8623: connect: dns options { family: undefined, hints: 1024 }
+NET 8623: connect: autodetecting
+🚀 V20 FULL PIPELINE ACTIVE
+NET 8623: connect/multiple: only one address found, switching back to single connection
+NET 8623: connect: attempting to connect to 127.0.0.1:6379 (addressType: 4)
+NET 8623: afterConnect
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+NET 8623: Socket._handle.readStart
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+📤 V20 Sender Loop Connected
+🚀 V20 Sender Loop Running...
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+❌ Sender error: ERR The > ID can be specified only when calling XREADGROUP using the GROUP <group> <consumer> option.
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+❌ Sender error: ERR The > ID can be specified only when calling XREADGROUP using the GROUP <group> <consumer> option.
+NET 8623: _read - n 65536 isConnecting? false hasHandle? true
+❌ Sender error: ERR The > ID can be specified only when calling XREADGROUP using the GROUP <group> <consumer> option.

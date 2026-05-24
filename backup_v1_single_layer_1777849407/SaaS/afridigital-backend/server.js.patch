@@ -1,0 +1,8 @@
+const path = require("path");
+const { frontendDist } = require("./config.paths");
+
+app.use(express.static(path.join(__dirname, frontendDist)));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, frontendDist, "index.html"));
+});

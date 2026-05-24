@@ -1,0 +1,6 @@
+{
+  "status": "FROZEN",
+  "kernel": "afridigital-core/kernel/events/event.bus.cjs",
+  "blocked": ["event-bus", "event.spine", "spine legacy"],
+  "mode": "STRICT"
+}

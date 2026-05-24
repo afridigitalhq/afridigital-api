@@ -1,0 +1,91 @@
+const Redis = require("redis");
+
+const client = Redis.createClient({
+  url: process.env.REDIS_URL || "redis://127.0.0.1:6379"
+});
+
+client.connect()
+  .then(() => console.log("🌍 Swarm Consumer ACTIVE"))
+  .catch(console.error);
+
+const STREAM = "afri:swarm:stream";
+const GROUP = "afri-group-v2";
+const CONSUMER = "consumer-main";
+
+async function ensureGroup() {
+
+  try {
+
+    await client.xGroupCreate(
+      STREAM,
+      GROUP,
+      "$",
+      {
+        MKSTREAM: true
+      }
+    );
+
+    console.log("🧬 Swarm group created");
+
+  } catch (e) {
+
+    if (!e.message.includes("BUSYGROUP")) {
+      console.log("GROUP ERROR:", e.message);
+    }
+
+  }
+
+}
+
+async function start() {
+
+  await ensureGroup();
+
+  while (true) {
+
+    try {
+
+      const data = await client.xReadGroup(
+        GROUP,
+        CONSUMER,
+        [
+          {
+            key: STREAM,
+            id: ">"
+          }
+        ],
+        {
+          COUNT: 10,
+          BLOCK: 5000
+        }
+      );
+
+      if (!data) continue;
+
+      for (const stream of data) {
+
+        for (const msg of stream.messages) {
+
+          console.log("🧠 SWARM EVENT:", msg.message);
+
+          await client.xAck(
+            STREAM,
+            GROUP,
+            msg.id
+          );
+
+        }
+
+      }
+
+    } catch (e) {
+
+      console.log("SWARM CONSUMER ERROR:", e.message);
+
+    }
+
+  }
+
+}
+
+module.exports = { start };

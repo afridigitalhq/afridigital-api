@@ -1,0 +1,1 @@
+../../../../afridigital-os/core/kernel/api/admin.events.api.cjs

@@ -1,0 +1,22 @@
+{
+  "name": "afridigital-hub",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "worker": "node africore/workers/swarm.worker.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-cron": "^4.2.1",
+    "openai": "^6.39.0",
+    "redis": "^5.12.1",
+    "tiktoken": "^1.0.22",
+    "undici": "^8.3.0",
+    "ws": "^8.20.1"
+  }
+}

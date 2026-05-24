@@ -1,0 +1,17 @@
+/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/afridigital-core/kernel/v20/webhook.bridge.cjs:74
+res.writeHead(200, {"Content-Type":"application/json"}); res.end(JSON.stringify({ok:true}));
+^
+
+ReferenceError: res is not defined
+    at Object.<anonymous> (/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/afridigital-core/kernel/v20/webhook.bridge.cjs:74:1)
+    at Module._compile (node:internal/modules/cjs/loader:1856:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1996:10)
+    at Module.load (node:internal/modules/cjs/loader:1579:32)
+    at Module._load (node:internal/modules/cjs/loader:1381:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1602:12)
+    at require (node:internal/modules/helpers:191:16)
+    at Object.<anonymous> (/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/server.js:1:23)
+    at Module._compile (node:internal/modules/cjs/loader:1856:14)
+
+Node.js v26.1.0
