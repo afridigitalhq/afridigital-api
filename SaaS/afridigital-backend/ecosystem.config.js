@@ -12,3 +12,7 @@ module.exports = {
     restart_delay: 3000
   }]
 };
+
+
+// AFRI V7 AUTO BOOT
+

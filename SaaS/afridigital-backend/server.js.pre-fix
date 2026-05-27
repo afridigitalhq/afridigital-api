@@ -32,10 +32,3 @@ app.post("/afriagent/test", async (req,res)=>{
 app.listen(PORT, () => {
   console.log("🚀 AfriOS running on port", PORT);
 });
-
-
-const adminRoutes = require("./routes/admin.routes");
-app.use("/admin/control-plane", adminRoutes);
-
-// AFRI WEBHOOK
-app.use("/webhook", require("./routes/webhook"));
