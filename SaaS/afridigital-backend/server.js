@@ -1,20 +1,30 @@
 const express = require("express");
-require("dotenv").config({ override: true });
-
 const app = express();
+
 app.use(express.json());
 
+// HEALTH CHECK
 app.get("/health", (req, res) => {
-  res.json({ ok: true, service: "afrios-backend" });
+  res.json({ ok: true, service: "afrios" });
 });
 
-app.post("/webhook/whatsapp", (req, res) => {
-  console.log("WEBHOOK:", req.body);
-  res.json({ ok: true });
+// TEST ROUTE
+app.post("/afriagent/test", async (req, res) => {
+  try {
+    res.json({
+      ok: true,
+      status: "afriagent alive"
+    });
+  } catch (e) {
+    res.json({ ok: false, error: e.message });
+  }
 });
 
-const PORT = process.env.PORT || 3000;
+// ROOT
+app.get("/", (req, res) => {
+  res.send("AfriOS running");
+});
+
 app.listen(PORT, () => {
   console.log("🚀 AfriOS running on port", PORT);
 });
-console.log('🔥 AFRIOS RENDER BUILD ACTIVE')
