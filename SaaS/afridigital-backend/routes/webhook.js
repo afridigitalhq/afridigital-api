@@ -1,23 +1,12 @@
-const { push } = require("../core/queue/eventQueue");
-const { afriaiMiddleware } = require("../core/middleware/afriaiMiddleware");
-
 module.exports = async function(req, res) {
   try {
+    console.log("📩 WEBHOOK RECEIVED:", req.body);
 
-    const event = {
-      type: "whatsapp_message",
-      payload: req.body
-    };
-
-    // AfriAI sits BEFORE queue ingestion
-    await afriaiMiddleware(event, null, async () => {
-      push(event);
-    });
-
-    res.sendStatus(200);
+    // SAFE MODE: just acknowledge
+    return res.sendStatus(200);
 
   } catch (e) {
-    console.log("webhook error", e.message);
-    res.sendStatus(500);
+    console.log("webhook error:", e.message);
+    return res.sendStatus(500);
   }
 };
