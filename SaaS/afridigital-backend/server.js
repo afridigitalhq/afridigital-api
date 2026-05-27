@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+app.get("/render-health",(req,res)=>res.json({ok:true,source:"render"}));
+app.get("/health",(req,res)=>res.json({ok:true,service:"afridigital-api"}));
 
 app.use(express.json());
 
