@@ -3,3 +3,11 @@ dist/
 *.log
 *.bak
 .env
+
+../../*
+../*
+*.backup
+backup_v1_single_layer_*
+apps/
+afridigital-frontend/
+afridigital-os/
