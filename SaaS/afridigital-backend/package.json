@@ -6,8 +6,20 @@
     "start": "node core/bootstrap.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2"
+    "ajv": "^8.20.0",
+    "axios": "^1.16.1",
+    "bcryptjs": "^3.0.3",
+    "bullmq": "^5.77.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "helmet": "^8.2.0",
+    "ioredis": "^5.11.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "node-fetch": "^3.3.2",
+    "openai": "^6.39.1",
+    "redis": "^6.0.0",
+    "uuid": "^14.0.0"
   },
   "main": "server.js"
 }

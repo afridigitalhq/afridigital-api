@@ -22,7 +22,6 @@ app.use("/admin/control-plane", adminRoutes);
 app.use("/webhook", require("./routes/webhook"));
 app.use("/api", runtimeRoutes);
 app.use("/api/ai", aiRoutes);
-app.use("/whatsapp", require("./core/africore/whatsapp/webhook"));
 
 // Safe startup
 app.listen(PORT, "0.0.0.0", () => {
