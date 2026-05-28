@@ -1,4 +1,4 @@
 require("./server");
-require("./core/africore/mesh/worker");
+undefined
 
 console.log("🧠 WhatsApp Gateway v2 ONLINE");
