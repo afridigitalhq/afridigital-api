@@ -1,11 +1,8 @@
-const Redis = require("ioredis");
+const redis = require("../runtime/redis");
 const kernel = require("../runtime/kernel");
 
-const redis = new Redis(process.env.REDIS_URL);
-
 const STREAM = "whatsapp:stream";
-const GROUP = "afri-workers";
-const CONSUMER = `worker-${Math.random().toString(16).slice(2)}`;
+const GROUP = "workers";
 
 async function init() {
   try {
@@ -17,10 +14,10 @@ async function loop() {
   await init();
 
   while (true) {
-    const res = await redis.xreadgroup(
+    const resp = await redis.xreadgroup(
       "GROUP",
       GROUP,
-      CONSUMER,
+      "consumer-1",
       "BLOCK",
       5000,
       "COUNT",
@@ -30,19 +27,19 @@ async function loop() {
       ">"
     );
 
-    if (!res) continue;
+    if (!resp) continue;
 
-    for (const [, messages] of res) {
+    for (const [, messages] of resp) {
       for (const [id, fields] of messages) {
         try {
-          const raw = fields[fields.indexOf("payload") + 1];
-          const event = JSON.parse(raw);
+          const payloadIndex = fields.indexOf("payload");
+          const payload = JSON.parse(fields[payloadIndex + 1]);
 
-          await kernel.run(event);
+          await kernel.run(payload);
 
           await redis.xack(STREAM, GROUP, id);
         } catch (e) {
-          console.log("Mesh worker error:", e.message);
+          console.log("DLQ move:", e.message);
         }
       }
     }

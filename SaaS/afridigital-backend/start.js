@@ -1,6 +1,4 @@
-require('./server');
+require("./server");
+require("./core/africore/mesh/worker");
 
-// SINGLE PROCESS KERNEL MODE
-// WhatsApp + Kernel run in same runtime (Render-safe)
-
-console.log('🧠 Kernel boot: single-process mode active');
+console.log("🧠 WhatsApp Gateway v2 ONLINE");
