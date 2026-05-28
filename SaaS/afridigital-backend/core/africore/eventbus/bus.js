@@ -2,7 +2,8 @@ const { EventEmitter } = require("events");
 
 class EventBus extends EventEmitter {
   publish(event) {
-    this.emit(event.type, event);
+    // async safe emit
+    setImmediate(() => this.emit(event.type, event));
   }
 
   subscribe(type, handler) {

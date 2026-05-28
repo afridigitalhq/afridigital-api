@@ -7,6 +7,6 @@ console.log("🚀 V8 FULL WIRE-IN BOOT");
 recover();
 startWatchdog();
 
-loop();
+undefined
 
 console.log("🧠 V8 SYSTEM ONLINE (DETACHED MODE)");
