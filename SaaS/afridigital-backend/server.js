@@ -1,36 +1,23 @@
 const express = require('express');
+require('./services/ai-worker'); // start worker
+
+const { ingestMessage } = require('./services/whatsapp');
+
 const app = express();
-
-const PORT = process.env.PORT || 3000;
-
 app.use(express.json());
 
-function safeUse(path, mod) {
-  const router = mod?.router || mod;
-
-  if (!router || (typeof router !== 'function' && typeof router !== 'object')) {
-    throw new Error(`Invalid middleware at ${path}`);
-  }
-
-  app.use(path, router);
-}
-
-// ROUTES (SAFE MOUNT)
-safeUse('/admin/control-plane', require('./routes/admin.routes'));
-safeUse('/webhook', require('./routes/webhook'));
-safeUse('/api', require('./routes/runtime'));
-
-// HEALTH CHECK
 app.get('/health', (req, res) => {
+  res.json({ ok: true, service: 'api-cluster' });
+});
+
+// webhook entry point
+app.post('/webhook', (req, res) => {
+  ingestMessage(req.body);
   res.json({ ok: true });
 });
 
-// GLOBAL ERROR HANDLER
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ ok: false, error: err.message });
-});
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 server running on ${PORT}`);
+  console.log("🚀 API CLUSTER running on", PORT);
 });
