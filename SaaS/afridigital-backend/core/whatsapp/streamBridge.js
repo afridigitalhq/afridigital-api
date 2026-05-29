@@ -1,3 +1,4 @@
+const bus = require("../redis/streamBus");
 const redis = require("../redis/client");
 const { sendWhatsAppMessage } = require("./gateway");
 
