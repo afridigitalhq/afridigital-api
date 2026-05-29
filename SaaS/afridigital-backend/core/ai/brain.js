@@ -1,6 +1,9 @@
 const memory = require('../memory/store');
 const { pushEvent } = require('../stream/sse');
-const { safeExecute } = require('../tools/safeExecutor');
+
+const { plan } = require('../agents/planner');
+const { work } = require('../agents/worker');
+const { review } = require('../agents/reviewer');
 
 async function callLLM(prompt) {
   try {
@@ -23,7 +26,7 @@ async function stream(text, traceId) {
   const tokens = text.split(" ");
 
   for (const t of tokens) {
-    await new Promise(r => setTimeout(r, 60));
+    await new Promise(r => setTimeout(r, 50));
     pushEvent(traceId, { type: "token", value: t + " " });
   }
 }
@@ -35,52 +38,63 @@ async function runBrain(payload = {}, traceId) {
   const ctx = memory.getContext(userId);
   memory.pushMessage(userId, { text });
 
-  const prompt = `
-User: ${text}
-Context: ${JSON.stringify(ctx)}
-Return either:
-1) plain response
-2) tool call JSON {tool, input}
-`;
+  pushEvent(traceId, { type: "start", stage: "planner" });
 
-  const llm = await callLLM(prompt);
+  const planResult = plan(payload);
 
-  // TOOL CALL PARSE (safe fallback)
-  let toolCall = null;
+  pushEvent(traceId, {
+    type: "plan",
+    data: planResult
+  });
 
-  try {
-    toolCall = llm ? JSON.parse(llm) : null;
-  } catch {}
+  let finalOutput = null;
 
-  pushEvent(traceId, { type: "start" });
+  // TOOL PATH
+  if (planResult.intent === "tool_required") {
 
-  // TOOL EXECUTION PATH
-  if (toolCall?.tool) {
-    pushEvent(traceId, { type: "tool_call", tool: toolCall.tool });
+    pushEvent(traceId, { type: "stage", value: "worker" });
 
-    const result = await safeExecute(traceId, toolCall.tool, toolCall.input);
+    const toolCall = {
+      tool: "echo",
+      input: text
+    };
+
+    const toolResult = await work(traceId, toolCall);
 
     pushEvent(traceId, {
       type: "tool_result",
-      result
+      data: toolResult
     });
 
-    await stream(JSON.stringify(result), traceId);
+    const reviewed = review(toolResult);
 
-    pushEvent(traceId, { type: "done", mode: "tool" });
-
-    return;
+    finalOutput = reviewed.text;
   }
 
-  // NORMAL RESPONSE PATH
-  const reply = llm || `Echo: ${text}`;
+  // CHAT PATH
+  else {
+    pushEvent(traceId, { type: "stage", value: "llm" });
 
-  await stream(reply, traceId);
+    const llm = await callLLM(text);
+
+    finalOutput = llm || `Echo: ${text}`;
+  }
+
+  pushEvent(traceId, { type: "stage", value: "reviewer" });
+
+  const reviewed = review({
+    ok: true,
+    result: finalOutput
+  });
+
+  await stream(reviewed.text, traceId);
 
   pushEvent(traceId, {
     type: "done",
-    mode: llm ? "llm" : "fallback"
+    mode: planResult.intent
   });
+
+  return { ok: true };
 }
 
 module.exports = { runBrain };
