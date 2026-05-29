@@ -1,32 +1,25 @@
-const { safeRequire } = require("./core/africore/runtime/zeroCrashLoader");
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
+const express = require('express');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Health check
-app.get("/health", (req,res)=>{
-  res.json({ ok:true, service:"afrios" });
+// HEALTH CHECK
+app.get('/health', (req,res) => {
+  res.json({ ok: true, service: 'afrios' });
 });
 
-// Core routes
-const runtimeRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/runtime","runtime")");
-let kernel; function getKernel(){ if(!kernel){ try { kernel = getKernel(); } catch(e){ console.log("⚠️ kernel fallback:", e.message); kernel = { connect:()=>{}, status:()=>({ok:false}) }; } } return kernel; }
-const aiRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/ai","ai")");
-const adminRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/admin.routes","admin")");
+// ROUTES (clean baseline only)
+app.use('/admin/control-plane', require('./routes/admin.routes'));
+app.use('/webhook', require('./routes/webhook'));
+app.use('/api', require('./routes/runtime'));
+app.use('/api/ai', require('./routes/ai'));
+app.use('/whatsapp', require('./core/africore/whatsapp/webhook'));
 
-// Mount points
-app.use("/admin/control-plane", adminRoutes);
-app.use("/webhook", require("./routes/webhook"));
-app.use("/api", runtimeRoutes);
-app.use("/api/ai", aiRoutes);
-app.use("/whatsapp", require("./core/africore/whatsapp/webhook"));
-
-// Safe startup
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 AfriOS running on port", PORT);
+// START SERVER
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('🚀 AfriOS running on port', PORT);
 });
