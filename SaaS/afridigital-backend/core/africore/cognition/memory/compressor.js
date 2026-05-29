@@ -12,8 +12,8 @@ function compress(events = []) {
 
   for (const e of events) {
     if (e.payload?.text) {
-      if (e.payload.text.includes("whatsapp")) summary.topics.push("whatsapp");
-      if (e.payload.text.includes("deploy")) summary.topics.push("devops");
+      if (e.payload.text?.includes("whatsapp")) summary.topics.push("whatsapp");
+      if (e.payload.text?.includes("deploy")) summary.topics.push("devops");
     }
 
     if (e.payload?.type) summary.intents.add(e.payload.type);

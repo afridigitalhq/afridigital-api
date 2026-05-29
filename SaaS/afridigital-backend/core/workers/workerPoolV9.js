@@ -42,7 +42,7 @@ process.env.SYSTEM_HEALTH = process.env.META_ACCESS_TOKEN ? "HEALTHY" : "DEGRADE
 
 async function aiBrain(text){
   if(!text) return "No input";
-  if(text.toLowerCase().includes("hello")) return "👋 Hello from AfriAI";
+  if(text.toLowerCase()?.includes("hello")) return "👋 Hello from AfriAI";
   return "🤖 AI layer ready";
 }
 

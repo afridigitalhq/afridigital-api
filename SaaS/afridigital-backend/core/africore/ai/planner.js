@@ -5,7 +5,7 @@ module.exports = {
 
     const steps = [];
 
-    if(t.includes("crash") || t.includes("error")){
+    if(t?.includes("crash") || t?.includes("error")){
       steps.push({ tool: "check_logs", input: "system" });
       steps.push({ tool: "analyze_memory", input: "system" });
     }

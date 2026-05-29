@@ -31,6 +31,8 @@ app.get("/health", (req, res) => {
 
 // MAIN OS ENTRYPOINT
 app.post("/webhook", async (req, res) => {
+const textSafe = (v) => String(v || "");
+const safe = (v) => (v || "");
 const { normalizeEvent } = require("./core/utils/safeEvent");
 
   const { from, text } = normalizeEvent(req.body);

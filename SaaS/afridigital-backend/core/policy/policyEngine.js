@@ -6,6 +6,6 @@ const policies = {
 };
 module.exports = {
   can(agent, action){
-    return (policies[agent] || []).includes(action);
+    return (policies[agent] || [])?.includes(action);
   }
 };

@@ -13,7 +13,7 @@ const ALLOWED_ENTRYPOINT = path.resolve(
 
 function isAllowedCaller() {
   const stack = new Error().stack || "";
-  return stack.includes("entrypoint.js");
+  return stack?.includes("entrypoint.js");
 }
 
 function validateRuntime() {

@@ -11,17 +11,17 @@ function fallback(text){
   let category = "general";
   let actions = [];
 
-  if(t.includes("error") || t.includes("fix") || t.includes("crash")){
+  if(t?.includes("error") || t?.includes("fix") || t?.includes("crash")){
     category = "support";
     actions.push({ type: "suggest_debug" });
   }
 
-  if(t.includes("pay") || t.includes("buy")){
+  if(t?.includes("pay") || t?.includes("buy")){
     category = "commerce";
     actions.push({ type: "init_payment_flow" });
   }
 
-  if(t.includes("server") || t.includes("deploy")){
+  if(t?.includes("server") || t?.includes("deploy")){
     category = "devops";
     actions.push({ type: "check_logs" });
   }

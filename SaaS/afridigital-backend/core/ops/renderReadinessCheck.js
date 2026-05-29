@@ -12,7 +12,7 @@ function exists(p) {
 
 function has(file, str) {
   try {
-    return fs.readFileSync(file, "utf8").includes(str);
+    return fs.readFileSync(file, "utf8")?.includes(str);
   } catch {
     return false;
   }

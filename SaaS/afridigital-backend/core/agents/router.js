@@ -3,7 +3,7 @@ const { callTool } = require('../tools/call');
 async function agentRouter(message) {
 
   // SIMPLE MULTI-AGENT ROUTING LOGIC
-  if (message.includes("echo")) {
+  if (message?.includes("echo")) {
     return {
       agent: "echo-agent",
       tool: "echo",

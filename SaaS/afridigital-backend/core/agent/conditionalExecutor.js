@@ -14,11 +14,11 @@ function evaluateCondition(condition, context) {
     }
 
     if (condition === "contains_pricing") {
-      return (userMessage || "").includes("price");
+      return (userMessage || "")?.includes("price");
     }
 
     if (condition === "contains_support") {
-      return (userMessage || "").includes("help");
+      return (userMessage || "")?.includes("help");
     }
 
     return false;

@@ -24,9 +24,9 @@ function buildPersona(messages = [], lastIntent) {
   const text = messages.map(m => m.text.toLowerCase()).join(" ");
 
   return {
-    isGreetingUser: text.includes("hello") || text.includes("hi"),
-    isSupportSeeker: text.includes("help"),
-    isPriceFocused: text.includes("price") || text.includes("cost"),
+    isGreetingUser: text?.includes("hello") || text?.includes("hi"),
+    isSupportSeeker: text?.includes("help"),
+    isPriceFocused: text?.includes("price") || text?.includes("cost"),
     lastIntent: lastIntent || "unknown"
   };
 }

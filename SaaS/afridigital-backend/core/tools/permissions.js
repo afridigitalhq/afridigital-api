@@ -12,7 +12,7 @@ function getUserRole(userId = '') {
     process.env.ADMIN_USERS || ''
   ).split(',');
 
-  if (admins.includes(userId)) {
+  if (admins?.includes(userId)) {
     return 'admin';
   }
 
@@ -25,7 +25,7 @@ function canExecute(userId, toolName) {
   const allowed =
     TOOL_PERMISSIONS[toolName] || [];
 
-  return allowed.includes(role);
+  return allowed?.includes(role);
 }
 
 module.exports = {

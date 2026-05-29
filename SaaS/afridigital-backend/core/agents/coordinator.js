@@ -13,15 +13,15 @@ async function coordinate(payload, context = {}) {
   // 1. SIMPLE ROUTING LOGIC (v1 heuristic)
   let assignedAgent = "general";
 
-  if (text.includes("plan") || text.includes("steps")) {
+  if (text?.includes("plan") || text?.includes("steps")) {
     assignedAgent = "planner";
   }
 
-  if (text.includes("run") || text.includes("execute")) {
+  if (text?.includes("run") || text?.includes("execute")) {
     assignedAgent = "executor";
   }
 
-  if (text.includes("check") || text.includes("verify")) {
+  if (text?.includes("check") || text?.includes("verify")) {
     assignedAgent = "critic";
   }
 

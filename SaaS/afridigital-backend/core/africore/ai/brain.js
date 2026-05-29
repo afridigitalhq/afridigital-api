@@ -3,9 +3,9 @@ module.exports = {
     const text = (event.text || "").toLowerCase();
 
     const category =
-      text.includes("crash") ? "devops" :
-      text.includes("error") ? "support" :
-      text.includes("buy") ? "commerce" :
+      text?.includes("crash") ? "devops" :
+      text?.includes("error") ? "support" :
+      text?.includes("buy") ? "commerce" :
       "general";
 
     return {
