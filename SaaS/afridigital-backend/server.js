@@ -1,37 +1,56 @@
 const express = require('express');
 
-const app = express();
-app.use(express.json());
+const logger = require('./core/middleware/logger');
+const validator = require('./core/middleware/validator');
+const errorHandler = require('./core/middleware/errorHandler');
 
-// HEALTH
+const app = express();
+
+// CORE PIPELINE
+app.use(express.json({ limit: '2mb' }));
+app.use(logger);
+app.use(validator);
+
+// HEALTH (KEEP SIMPLE)
 app.get('/health', (req, res) => {
-  res.json({ ok: true, service: 'afridigital-backend' });
+  res.json({
+    ok: true,
+    service: 'afridigital-backend',
+    status: 'stable'
+  });
 });
 
-// WEBHOOK (ALL LOGIC HERE)
-app.post('/webhook', async (req, res) => {
+// WEBHOOK (SAFE AI-READY LAYER)
+app.post('/webhook', async (req, res, next) => {
   try {
     const payload = req.body;
 
-    console.log("📩 INCOMING:", payload);
+    console.log(`📩 [${req.traceId}] incoming:`, payload);
 
-    // simple inline processing (no external worker)
+    // AI-READY EXECUTION LAYER (safe placeholder)
     const reply = {
-      to: payload.from,
-      text: `Echo: ${payload.text || ''}`
+      to: payload.from || 'unknown',
+      text: `Echo: ${payload.text || ''}`,
+      traceId: req.traceId
     };
 
-    console.log("📤 RESPONSE:", reply);
+    console.log(`📤 [${req.traceId}] reply:`, reply);
 
-    res.json({ ok: true, reply });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ ok: false });
+    res.json({
+      ok: true,
+      result: reply
+    });
+
+  } catch (err) {
+    next(err);
   }
 });
+
+// ERROR PIPELINE (LAST LAYER)
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("🚀 BACKEND running on", PORT);
+  console.log(`🚀 Hardened backend running on ${PORT}`);
 });
