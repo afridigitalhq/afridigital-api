@@ -1,9 +1,9 @@
 /**
- * STREAM EMITTER v1
- * Simple event-driven streaming layer (SSE compatible)
+ * STREAM EVENT EMITTER v1
  */
 
 function createStream(res) {
+
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
@@ -13,13 +13,11 @@ function createStream(res) {
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   }
 
-  function end() {
+  function close() {
     res.end();
   }
 
-  return { send, end };
+  return { send, close };
 }
 
-module.exports = {
-  createStream
-};
+module.exports = { createStream };
