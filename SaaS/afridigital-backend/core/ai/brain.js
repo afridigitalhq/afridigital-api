@@ -1,3 +1,5 @@
+const sse = require("../stream/sse");
+const pushEvent = (id, evt) => sse.send(id, evt);
 const memory = require('../memory/store');
 const { pushEvent } = require('../stream/sse');
 
