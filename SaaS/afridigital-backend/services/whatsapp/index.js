@@ -1,12 +1,14 @@
-const bus = require('../../core/events/bus');
-const { normalizeMessage } = require('../../core/schema/message');
+const { sendEvent } = require('../../core/bridge/client');
 
-function ingestMessage(payload) {
-  const msg = normalizeMessage(payload);
+async function ingestMessage(payload) {
+  console.log("📩 WHATSAPP IN:", payload);
 
-  console.log("📩 WHATSAPP IN:", msg);
+  const AI_WORKER_URL = process.env.AI_WORKER_URL || "http://localhost:4001/event";
 
-  bus.emit("message.incoming", msg);
+  await sendEvent(AI_WORKER_URL, {
+    type: "message.incoming",
+    data: payload
+  });
 }
 
 module.exports = { ingestMessage };
