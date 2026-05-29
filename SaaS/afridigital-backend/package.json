@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "start": "node core/bootstrap.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "ajv": "^8.20.0",

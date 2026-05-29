@@ -4,7 +4,9 @@ const logger = require('./core/middleware/logger');
 const validator = require('./core/middleware/validator');
 const errorHandler = require('./core/middleware/errorHandler');
 
-const { runBrain } = require('./core/ai/brain');
+const { traceDispatch } = require('./core/runtime/traceDispatcher');
+const { streamDispatch } = require('./core/runtime/streamDispatcher');
+const { createStream } = require('./core/stream/emitter');
 
 const app = express();
 
@@ -12,35 +14,27 @@ app.use(express.json({ limit: '2mb' }));
 app.use(logger);
 app.use(validator);
 
+/**
+ * HEALTH
+ */
 app.get('/health', (req, res) => {
   res.json({
     ok: true,
     service: 'afridigital-ai-backend',
-    mode: 'ai-brain-with-memory'
+    mode: 'streaming-v1'
   });
 });
 
+/**
+ * NORMAL MODE (JSON)
+ */
 app.post('/webhook', async (req, res, next) => {
   try {
-    const payload = req.body;
-
-    console.log(`📩 [${req.traceId}] incoming:`, payload);
-
-    const result = runBrain(payload);
-
-    const response = {
-      to: payload.from || 'unknown',
-      intent: result.intent,
-      text: result.reply,
-      memorySize: result.memorySize,
-      traceId: req.traceId
-    };
-
-    console.log(`🧠 [${req.traceId}] AI RESPONSE:`, response);
+    const result = await traceDispatch(req.body);
 
     res.json({
       ok: true,
-      result: response
+      ...result
     });
 
   } catch (err) {
@@ -48,10 +42,28 @@ app.post('/webhook', async (req, res, next) => {
   }
 });
 
+/**
+ * STREAMING MODE (REAL TIME AI)
+ */
+app.post('/stream', async (req, res, next) => {
+  try {
+
+    const stream = createStream(res);
+
+    await streamDispatch(req.body, stream);
+
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * ERROR HANDLER
+ */
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 AI BRAIN + MEMORY running on ${PORT}`);
+  console.log("🚀 STREAMING AI ENGINE running on", PORT);
 });

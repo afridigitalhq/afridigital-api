@@ -1,50 +1,139 @@
-const memoryStore = require('../memory/store');
+const memory = require('../memory/store');
 
-function detectIntent(text = "") {
-  const t = text.toLowerCase();
+const { buildContext } =
+  require('../context/engine');
 
-  if (t.includes("hello") || t.includes("hi")) return "greeting";
-  if (t.includes("price") || t.includes("cost")) return "pricing";
-  if (t.includes("help")) return "support";
+const {
+  callLLM
+} = require('../llm/client');
 
-  return "general";
-}
+const toolDefinitions =
+  require('../tools/definitions');
 
-function generateResponse(intent, payload, context) {
-  const text = payload.text || "";
+const {
+  safeExecute
+} = require('../tools/safeExecutor');
 
-  switch (intent) {
-    case "greeting":
-      return `Hello 👋 again ${payload.from}. How can I help today?`;
+const {
+  buildGraphFromLLM
+} = require('../graph/builder');
 
-    case "pricing":
-      return `Pricing request noted. Last chat had ${context.messages.length} messages.`;
+const {
+  createGraph,
+  createExecution
+} = require('../graph/store');
 
-    case "support":
-      return `Support is active. We saw you previously said: "${context.messages.at(-1)?.text || 'nothing yet'}"`;
+const {
+  runGraph
+} = require('../graph/executor');
 
-    default:
-      return `Echo: ${text}`;
+function buildPrompt(payload, context) {
+  return `
+You are an AI backend agent.
+
+AVAILABLE TOOLS:
+${JSON.stringify(toolDefinitions, null, 2)}
+
+USER MESSAGE:
+${payload.text}
+
+CONTEXT:
+${JSON.stringify(context, null, 2)}
+
+RULES:
+
+You may respond in ONE of these formats:
+
+1) Normal response
+2) Tool call
+3) GRAPH MODE (advanced execution flow):
+
+GRAPH FORMAT:
+\`\`\`json
+{
+  "graphId": "g1",
+  "nodes": {
+    "start": {
+      "type": "tool",
+      "tool": "pricingTool",
+      "next": "end"
+    },
+    "end": {
+      "type": "end"
+    }
   }
 }
+\`\`\`
 
-function runBrain(payload) {
-  const userId = payload.from || "anonymous";
+Use GRAPH MODE for multi-step workflows with branching.
+`;
+}
 
-  const context = memoryStore.getContext(userId);
+async function runBrain(payload) {
 
-  const intent = detectIntent(payload.text);
+  const userId =
+    payload.from || 'anonymous';
 
-  memoryStore.pushMessage(userId, payload);
-  memoryStore.setIntent(userId, intent);
+  const context =
+    buildContext(userId);
 
-  const reply = generateResponse(intent, payload, context);
+  const prompt =
+    buildPrompt(payload, context);
+
+  const llmResponse =
+    await callLLM(prompt);
+
+  /**
+   * STEP 1 — GRAPH MODE
+   */
+  const graph =
+    buildGraphFromLLM(llmResponse);
+
+  let graphResult = null;
+
+  if (graph) {
+
+    createGraph(graph.graphId, graph);
+
+    const execId =
+      `${graph.graphId}-${Date.now()}`;
+
+    createExecution(execId, graph.graphId, {
+      startedAt: Date.now()
+    });
+
+    graphResult =
+      await runGraph(execId, userId);
+  }
+
+  /**
+   * STEP 2 — FINAL RESPONSE
+   */
+  const finalPrompt = `
+USER MESSAGE:
+${payload.text}
+
+GRAPH RESULT:
+${JSON.stringify(graphResult, null, 2)}
+
+INSTRUCTIONS:
+- Summarize graph execution clearly
+- If graph failed, explain safely
+- Keep response concise
+`;
+
+  const finalReply =
+    await callLLM(finalPrompt);
+
+  memory.pushMessage(userId, payload);
 
   return {
-    intent,
-    reply,
-    memorySize: context.messages.length
+    reply: finalReply,
+    graph,
+    graphResult
   };
 }
 
-module.exports = { runBrain };
+module.exports = {
+  runBrain
+};
