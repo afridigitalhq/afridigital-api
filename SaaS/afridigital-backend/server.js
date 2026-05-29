@@ -4,41 +4,45 @@ const logger = require('./core/middleware/logger');
 const validator = require('./core/middleware/validator');
 const errorHandler = require('./core/middleware/errorHandler');
 
+const { runBrain } = require('./core/ai/brain');
+
 const app = express();
 
-// CORE PIPELINE
+// PIPELINE
 app.use(express.json({ limit: '2mb' }));
 app.use(logger);
 app.use(validator);
 
-// HEALTH (KEEP SIMPLE)
+// HEALTH
 app.get('/health', (req, res) => {
   res.json({
     ok: true,
-    service: 'afridigital-backend',
-    status: 'stable'
+    service: 'afridigital-ai-backend',
+    mode: 'ai-brain-v1'
   });
 });
 
-// WEBHOOK (SAFE AI-READY LAYER)
+// WEBHOOK → AI BRAIN EXECUTION
 app.post('/webhook', async (req, res, next) => {
   try {
     const payload = req.body;
 
     console.log(`📩 [${req.traceId}] incoming:`, payload);
 
-    // AI-READY EXECUTION LAYER (safe placeholder)
-    const reply = {
+    const result = runBrain(payload);
+
+    const response = {
       to: payload.from || 'unknown',
-      text: `Echo: ${payload.text || ''}`,
+      intent: result.intent,
+      text: result.reply,
       traceId: req.traceId
     };
 
-    console.log(`📤 [${req.traceId}] reply:`, reply);
+    console.log(`🧠 [${req.traceId}] AI RESPONSE:`, response);
 
     res.json({
       ok: true,
-      result: reply
+      result: response
     });
 
   } catch (err) {
@@ -46,11 +50,11 @@ app.post('/webhook', async (req, res, next) => {
   }
 });
 
-// ERROR PIPELINE (LAST LAYER)
+// ERROR HANDLER
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Hardened backend running on ${PORT}`);
+  console.log(`🚀 AI BRAIN BACKEND running on ${PORT}`);
 });
