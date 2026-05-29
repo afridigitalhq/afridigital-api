@@ -7,7 +7,7 @@ const { startTypingBridge } = require("./core/whatsapp/typingBridge");
 
 const app = express();
 app.use(express.json());
-app.get("/stream", require("./core/stream/streamCore").handler);
+app.get("/stream", (req,res)=>res.json({ok:true,stream:"not implemented"}));
 
 // 🚀 BOOT OS SUBSYSTEMS
 startWhatsAppStreamBridge();
