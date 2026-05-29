@@ -14,6 +14,7 @@ app.get("/health", (req,res)=>{
 
 // Core routes
 const runtimeRoutes = require("./routes/runtime");
+let kernel; function getKernel(){ if(!kernel){ try { kernel = getKernel(); } catch(e){ console.log("⚠️ kernel fallback:", e.message); kernel = { connect:()=>{}, status:()=>({ok:false}) }; } } return kernel; }
 const aiRoutes = require("./routes/ai");
 const adminRoutes = require("./routes/admin.routes");
 
