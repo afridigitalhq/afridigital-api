@@ -31,8 +31,9 @@ app.get("/health", (req, res) => {
 
 // MAIN OS ENTRYPOINT
 app.post("/webhook", async (req, res) => {
+const { normalizeEvent } = require("./core/utils/safeEvent");
 
-  const { from, text } = req.body;
+  const { from, text } = normalizeEvent(req.body);
 
 
 
