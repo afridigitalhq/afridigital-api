@@ -1,26 +1,36 @@
 const express = require('express');
-const path = require('path');
-const { loadRoute } = require('./core/loader');
-
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json());
 
-app.use('/admin/control-plane', loadRoute(path.join(__dirname, 'routes/admin.routes')));
-app.use('/webhook', loadRoute(path.join(__dirname, 'routes/webhook')));
-app.use('/paystack', loadRoute(path.join(__dirname, 'routes/paystackRoutes')));
-app.use('/api', loadRoute(path.join(__dirname, 'routes/runtime')));
+function safeUse(path, mod) {
+  const router = mod?.router || mod;
 
-app.get('/health', (_, res) => {
-  res.json({ ok: true, service: 'afridigital-api' });
+  if (!router || (typeof router !== 'function' && typeof router !== 'object')) {
+    throw new Error(`Invalid middleware at ${path}`);
+  }
+
+  app.use(path, router);
+}
+
+// ROUTES (SAFE MOUNT)
+safeUse('/admin/control-plane', require('./routes/admin.routes'));
+safeUse('/webhook', require('./routes/webhook'));
+safeUse('/api', require('./routes/runtime'));
+
+// HEALTH CHECK
+app.get('/health', (req, res) => {
+  res.json({ ok: true });
 });
 
+// GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
-  console.error('🔥 ERROR:', err);
+  console.error(err);
   res.status(500).json({ ok: false, error: err.message });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 server running on ${PORT}`);
 });
