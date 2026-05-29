@@ -1,25 +1,26 @@
-require('dotenv').config();
-
 const express = require('express');
-const app = express();
+const path = require('path');
+const { loadRoute } = require('./core/loader');
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 
-// HEALTH CHECK
-app.get('/health', (req,res) => {
-  res.json({ ok: true, service: 'afrios' });
+app.use('/admin/control-plane', loadRoute(path.join(__dirname, 'routes/admin.routes')));
+app.use('/webhook', loadRoute(path.join(__dirname, 'routes/webhook')));
+app.use('/paystack', loadRoute(path.join(__dirname, 'routes/paystackRoutes')));
+app.use('/api', loadRoute(path.join(__dirname, 'routes/runtime')));
+
+app.get('/health', (_, res) => {
+  res.json({ ok: true, service: 'afridigital-api' });
 });
 
-// ROUTES (clean baseline only)
-app.use('/admin/control-plane', require('./routes/admin.routes'));
-app.use('/webhook', require('./routes/webhook'));
-app.use('/api', require('./routes/runtime'));
-app.use('/api/ai', require('./routes/ai'));
-app.use('/whatsapp', require('./core/africore/whatsapp/webhook'));
+app.use((err, req, res, next) => {
+  console.error('🔥 ERROR:', err);
+  res.status(500).json({ ok: false, error: err.message });
+});
 
-// START SERVER
-app.listen(PORT, '0.0.0.0', () => {
-  console.log('🚀 AfriOS running on port', PORT);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
