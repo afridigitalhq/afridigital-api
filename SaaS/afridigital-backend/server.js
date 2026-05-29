@@ -1,47 +1,57 @@
 const express = require('express');
-const { runOrchestrator } = require('./core/runtime/orchestrator');
-const { sseHeaders, send, done } = require('./core/stream/sse');
+const { runAI } = require('./core/runtime/entry');
 
 const app = express();
 app.use(express.json());
 
 // HEALTH
 app.get('/health', (req, res) => {
-  res.json({ ok: true, mode: "llm-orchestrator-v1" });
+  res.json({
+    ok: true,
+    mode: "production-safe-ai-v1"
+  });
 });
 
-// WEBHOOK (NON-STREAM)
+// WHATSAPP ENTRYPOINT (ONLY ONE PATH)
 app.post('/webhook', async (req, res) => {
+  const payload = req.body;
 
-  const result = await runOrchestrator({
-    userId: req.body.from || "anon",
-    text: req.body.text
+  const result = await runAI({
+    userId: payload.from || "anon",
+    text: payload.text || ""
   });
 
-  res.json({ ok: true, result });
+  res.json({
+    ok: true,
+    reply: result.reply,
+    mode: result.mode || "ai"
+  });
 });
 
-// STREAMING (REAL LLM PIPELINE)
-app.get('/stream', async (req, res) => {
+// STREAM SAFE ENDPOINT (OPTIONAL)
+app.get('/stream', (req, res) => {
 
-  sseHeaders(res);
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Connection", "keep-alive");
 
-  const userId = req.query.from || "anon";
   const text = req.query.text || "";
 
-  const result = await runOrchestrator({ userId, text });
+  const words = ("STREAM: " + text).split(" ");
 
-  const words = (result.reply || "").split(" ");
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i >= words.length) {
+      res.write("data: [DONE]\n\n");
+      clearInterval(interval);
+      return res.end();
+    }
 
-  for (const w of words) {
-    send(res, w + " ");
-    await new Promise(r => setTimeout(r, 60));
-  }
-
-  done(res, result);
+    res.write(`data: ${words[i]}\n\n`);
+    i++;
+  }, 80);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("🚀 LLM ORCHESTRATION ENGINE RUNNING ON", PORT);
+  console.log("🚀 CONTROL PLANE v1.5 RUNNING ON", PORT);
 });
