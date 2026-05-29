@@ -1,53 +1,31 @@
-const { getTool } = require('./registry');
-const { validateToolAccess } = require('./policy');
+const tools = require('./registry');
+const { isAllowed } = require('./policy');
 
-/**
- * SAFE TOOL EXECUTION LAYER v1
- * All tool execution MUST pass through here
- */
-
-async function safeExecute(userId, toolName, args = {}) {
-
-  // 1. POLICY CHECK
-  const policy = validateToolAccess(userId, toolName, args);
-
-  if (!policy.ok) {
-    console.log("⛔ TOOL BLOCKED:", toolName, policy.reason);
-
-    return {
-      ok: false,
-      error: policy.reason
-    };
+async function safeExecute(traceId, tool, input) {
+  if (!isAllowed(tool)) {
+    return { error: "tool_not_allowed", tool };
   }
 
-  // 2. TOOL RESOLUTION
-  const tool = getTool(toolName);
+  const fn = tools[tool];
 
-  if (!tool) {
-    return {
-      ok: false,
-      error: `Tool not found: ${toolName}`
-    };
+  if (!fn) {
+    return { error: "tool_not_found", tool };
   }
 
-  // 3. EXECUTION
   try {
-    console.log("🔧 EXECUTING TOOL:", toolName);
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("tool_timeout")), 2000)
+    );
 
-    const result = await tool.execute(args);
+    const result = await Promise.race([
+      fn(input),
+      timeout
+    ]);
 
-    return result;
-
-  } catch (err) {
-    console.log("🔥 TOOL ERROR:", toolName, err.message);
-
-    return {
-      ok: false,
-      error: err.message
-    };
+    return { ok: true, result };
+  } catch (e) {
+    return { ok: false, error: e.message };
   }
 }
 
-module.exports = {
-  safeExecute
-};
+module.exports = { safeExecute };

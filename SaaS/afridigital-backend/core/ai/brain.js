@@ -1,11 +1,6 @@
 const memory = require('../memory/store');
 const { pushEvent } = require('../stream/sse');
-
-/**
- * STREAM PIPELINE V2 BRAIN
- * - bound execution to SSE
- * - deterministic + optional LLM hook
- */
+const { safeExecute } = require('../tools/safeExecutor');
 
 async function callLLM(prompt) {
   try {
@@ -24,16 +19,12 @@ async function callLLM(prompt) {
   }
 }
 
-async function streamTokens(text, traceId) {
-  const tokens = (text || "").split(" ");
+async function stream(text, traceId) {
+  const tokens = text.split(" ");
 
   for (const t of tokens) {
-    await new Promise(r => setTimeout(r, 80));
-
-    pushEvent(traceId, {
-      type: "token",
-      value: t + " "
-    });
+    await new Promise(r => setTimeout(r, 60));
+    pushEvent(traceId, { type: "token", value: t + " " });
   }
 }
 
@@ -44,26 +35,52 @@ async function runBrain(payload = {}, traceId) {
   const ctx = memory.getContext(userId);
   memory.pushMessage(userId, { text });
 
-  const prompt = `User: ${text}\nContext: ${JSON.stringify(ctx)}`;
+  const prompt = `
+User: ${text}
+Context: ${JSON.stringify(ctx)}
+Return either:
+1) plain response
+2) tool call JSON {tool, input}
+`;
 
   const llm = await callLLM(prompt);
 
-  const reply = llm || `Echo: ${text}`;
+  // TOOL CALL PARSE (safe fallback)
+  let toolCall = null;
 
-  // STREAM START
+  try {
+    toolCall = llm ? JSON.parse(llm) : null;
+  } catch {}
+
   pushEvent(traceId, { type: "start" });
 
-  // TOKEN STREAM
-  await streamTokens(reply, traceId);
+  // TOOL EXECUTION PATH
+  if (toolCall?.tool) {
+    pushEvent(traceId, { type: "tool_call", tool: toolCall.tool });
 
-  // FINAL EVENT
+    const result = await safeExecute(traceId, toolCall.tool, toolCall.input);
+
+    pushEvent(traceId, {
+      type: "tool_result",
+      result
+    });
+
+    await stream(JSON.stringify(result), traceId);
+
+    pushEvent(traceId, { type: "done", mode: "tool" });
+
+    return;
+  }
+
+  // NORMAL RESPONSE PATH
+  const reply = llm || `Echo: ${text}`;
+
+  await stream(reply, traceId);
+
   pushEvent(traceId, {
     type: "done",
-    memorySize: ctx.messages?.length || 0,
     mode: llm ? "llm" : "fallback"
   });
-
-  return { ok: true };
 }
 
 module.exports = { runBrain };
