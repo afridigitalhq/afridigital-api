@@ -1,5 +1,5 @@
 const bus = require("./bus");
-const brain = require("../ai/brain");
+const brain = require('../ai/brain');
 const memory = require("../memory/db");
 const tools = require("../tools/init");
 
@@ -9,7 +9,7 @@ bus.subscribe("whatsapp.inbound", async (event) => {
 
   const mem = memory.get(userId);
 
-  const ai = await brain.think({
+  const ai = await brain.runBrain({
     text: event.text,
     user: userId,
     memory: mem

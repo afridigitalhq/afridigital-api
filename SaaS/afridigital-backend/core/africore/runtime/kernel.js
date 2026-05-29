@@ -1,5 +1,5 @@
 const memory = require("../memory/db");
-const brain = require("../ai/brain");
+const brain = require('../ai/brain');
 const router = require("../router");
 const tools = require("../tools/init");
 const trace = require("./trace");
@@ -19,7 +19,7 @@ module.exports = {
 
     const mem = memory.get(userId);
 
-    const ai = await brain.think({
+    const ai = await brain.runBrain({
       text: event.text,
       memory: mem
     });

@@ -1,4 +1,8 @@
+const fs = require('fs');
 
+const file = 'core/stream/sse.js';
+
+const code = `
 const clients = new Map();
 
 function add(id, res) {
@@ -14,7 +18,7 @@ function send(id, evt) {
     data: evt?.data ?? evt
   };
 
-  res.write("data: " + JSON.stringify(payload) + "\n\n");
+  res.write("data: " + JSON.stringify(payload) + "\\n\\n");
 }
 
 function pushEvent(id, evt) {
@@ -28,3 +32,7 @@ function close(id) {
 }
 
 module.exports = { add, send, pushEvent, close };
+`;
+
+fs.writeFileSync(file, code);
+console.log("✔ SSE FIX APPLIED");

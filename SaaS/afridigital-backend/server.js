@@ -1,3 +1,4 @@
+console.log("🚀 RENDER BOOT");console.log("REDIS_URL:",process.env.REDIS_URL?"LOADED":"MISSING");
 const express = require("express");
 
 const { runKernel } = require("./core/kernel/runtime");

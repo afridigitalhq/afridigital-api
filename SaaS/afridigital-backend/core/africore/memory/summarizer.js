@@ -18,7 +18,7 @@ async function summarize(history = []){
 
   try {
 
-    const result = await brain.think({
+    const result = await brain.runBrain({
       text: `
 Summarize this user conversation into JSON:
 
