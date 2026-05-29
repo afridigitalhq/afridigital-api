@@ -1,57 +1,68 @@
-const express = require('express');
-const { runAI } = require('./core/runtime/entry');
+const express = require("express");
+
+const { runKernel } = require("./core/kernel/runtime");
+const { validateRequest } = require("./core/policy/guard");
+const { startWhatsAppStreamBridge } = require("./core/whatsapp/streamBridge");
+const { startTypingBridge } = require("./core/whatsapp/typingBridge");
 
 const app = express();
 app.use(express.json());
 
-// HEALTH
-app.get('/health', (req, res) => {
+// 🚀 BOOT OS SUBSYSTEMS
+startWhatsAppStreamBridge();
+startTypingBridge();
+
+// HEALTH (OS STATUS)
+app.get("/health", (req, res) => {
   res.json({
     ok: true,
-    mode: "production-safe-ai-v1"
+    mode: "LLM-OS-v1",
+    subsystems: [
+      "kernel",
+      "orchestrator",
+      "memory",
+      "stream",
+      "policy",
+      "agents"
+    ]
   });
 });
 
-// WHATSAPP ENTRYPOINT (ONLY ONE PATH)
-app.post('/webhook', async (req, res) => {
-  const payload = req.body;
+// MAIN OS ENTRYPOINT
+app.post("/webhook", async (req, res) => {
 
-  const result = await runAI({
-    userId: payload.from || "anon",
-    text: payload.text || ""
-  });
+  const { from, text } = req.body;
 
-  res.json({
-    ok: true,
-    reply: result.reply,
-    mode: result.mode || "ai"
-  });
+
+
+  try {
+
+    const { handleStreamRequest } = require("./core/kernel/streamGateway");
+
+
+
+    await handleStreamRequest({
+
+      user: from,
+
+      text
+
+    });
+
+
+
+    return res.json({ ok: true });
+
+  } catch (e) {
+
+    return res.json({ ok: false, error: "stream_error" });
+
+  }
+
 });
 
-// STREAM SAFE ENDPOINT (OPTIONAL)
-app.get('/stream', (req, res) => {
+const PORT = process.env.PORT || 10000;
 
-  res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Connection", "keep-alive");
-
-  const text = req.query.text || "";
-
-  const words = ("STREAM: " + text).split(" ");
-
-  let i = 0;
-  const interval = setInterval(() => {
-    if (i >= words.length) {
-      res.write("data: [DONE]\n\n");
-      clearInterval(interval);
-      return res.end();
-    }
-
-    res.write(`data: ${words[i]}\n\n`);
-    i++;
-  }, 80);
-});
-
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("🚀 CONTROL PLANE v1.5 RUNNING ON", PORT);
+  console.log("🚀 LLM ORCHESTRATION OS RUNNING ON", PORT);
 });

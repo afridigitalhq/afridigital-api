@@ -1,15 +1,37 @@
-function plan(input) {
-  const text = input.text || "";
+const { callLLM } = require("../llm/provider");
 
-  const needsTool =
-    text.includes("time") ||
-    text.includes("calculate") ||
-    text.includes("echo");
+/**
+ * PLANNER AGENT
+ * - breaks request into strategy
+ * - defines response shape
+ */
+async function planner(input) {
 
-  return {
-    steps: ["interpret", needsTool ? "tool" : "respond"],
-    intent: needsTool ? "tool_required" : "chat"
-  };
+  const prompt = `
+You are a planner agent.
+
+User request:
+${input}
+
+Return JSON:
+{
+  "goal": "...",
+  "steps": ["..."],
+  "tone": "..."
+}
+`;
+
+  const res = await callLLM(prompt);
+
+  try {
+    return JSON.parse(res);
+  } catch {
+    return {
+      goal: input,
+      steps: [],
+      tone: "neutral"
+    };
+  }
 }
 
-module.exports = { plan };
+module.exports = { planner };

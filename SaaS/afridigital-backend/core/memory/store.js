@@ -1,43 +1,25 @@
-const memory = new Map();
+const redis = require("./redisClient");
 
-function getUser(id) {
-  if (!memory.has(id)) {
-    memory.set(id, {
-      messages: [],
-      createdAt: Date.now()
-    });
+const TTL = 60 * 60 * 24 * 7;
+
+const key = (id) => `afriai:mem:${id}`;
+
+async function getUser(userId) {
+  const data = await redis.get(key(userId));
+  return data ? JSON.parse(data) : { messages: [] };
+}
+
+async function pushMessage(userId, msg) {
+  const user = await getUser(userId);
+
+  user.messages.push({ text: msg.text, ts: Date.now() });
+
+  if (user.messages.length > 20) {
+    user.messages = user.messages.slice(-20);
   }
-  return memory.get(id);
+
+  await redis.set(key(userId), JSON.stringify(user), "EX", TTL);
+  return user;
 }
 
-function pushMessage(userId, payload) {
-  try {
-    const user = getUser(userId);
-
-    user.messages.push({
-      text: payload.text,
-      ts: Date.now()
-    });
-
-    // keep last 10 only
-    if (user.messages.length > 10) {
-      user.messages = user.messages.slice(-10);
-    }
-
-    memory.set(userId, user);
-
-    return user;
-  } catch (err) {
-    console.log("🟡 memory error:", err.message);
-    return null;
-  }
-}
-
-function getContext(userId) {
-  return getUser(userId);
-}
-
-module.exports = {
-  pushMessage,
-  getContext
-};
+module.exports = { getUser, pushMessage };

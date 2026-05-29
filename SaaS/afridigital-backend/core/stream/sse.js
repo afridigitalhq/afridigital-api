@@ -1,17 +1,20 @@
-function sseHeaders(res) {
-  res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Cache-Control", "no-cache");
-  res.setHeader("Connection", "keep-alive");
-  res.flushHeaders?.();
+const clients = new Map();
+
+function add(id, res) {
+  clients.set(id, res);
 }
 
-function send(res, token) {
+function send(id, token) {
+  const res = clients.get(id);
+  if (!res) return;
+
   res.write(`data: ${JSON.stringify({ token })}\n\n`);
 }
 
-function done(res, payload) {
-  res.write(`data: ${JSON.stringify({ done: true, payload })}\n\n`);
-  res.end();
+function close(id) {
+  const res = clients.get(id);
+  if (res) res.end();
+  clients.delete(id);
 }
 
-module.exports = { sseHeaders, send, done };
+module.exports = { add, send, close };
