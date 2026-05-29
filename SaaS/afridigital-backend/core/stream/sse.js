@@ -9,7 +9,7 @@ function registerClient(id, res) {
     Connection: "keep-alive"
   });
 
-  res.write(`data: connected\n\n`);
+  res.write(`data: {"type":"connected"}\n\n`);
 }
 
 function pushEvent(id, event) {
@@ -23,8 +23,4 @@ function removeClient(id) {
   clients.delete(id);
 }
 
-module.exports = {
-  registerClient,
-  pushEvent,
-  removeClient
-};
+module.exports = { registerClient, pushEvent, removeClient };

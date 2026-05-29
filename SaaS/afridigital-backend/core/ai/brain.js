@@ -1,20 +1,11 @@
 const memory = require('../memory/store');
 const { pushEvent } = require('../stream/sse');
 
-async function fakeStream(text, userId) {
-  const tokens = text.split(" ");
-
-  for (const t of tokens) {
-    await new Promise(r => setTimeout(r, 120));
-
-    pushEvent(userId, {
-      type: "token",
-      value: t + " "
-    });
-  }
-
-  pushEvent(userId, { type: "done" });
-}
+/**
+ * STREAM PIPELINE V2 BRAIN
+ * - bound execution to SSE
+ * - deterministic + optional LLM hook
+ */
 
 async function callLLM(prompt) {
   try {
@@ -33,11 +24,20 @@ async function callLLM(prompt) {
   }
 }
 
-function fallback(text) {
-  return `Echo: ${text}`;
+async function streamTokens(text, traceId) {
+  const tokens = (text || "").split(" ");
+
+  for (const t of tokens) {
+    await new Promise(r => setTimeout(r, 80));
+
+    pushEvent(traceId, {
+      type: "token",
+      value: t + " "
+    });
+  }
 }
 
-async function runBrain(payload = {}) {
+async function runBrain(payload = {}, traceId) {
   const userId = payload.from || "anon";
   const text = payload.text || "";
 
@@ -48,15 +48,22 @@ async function runBrain(payload = {}) {
 
   const llm = await callLLM(prompt);
 
-  const reply = llm || fallback(text);
+  const reply = llm || `Echo: ${text}`;
 
-  // STREAMING OUTPUT
-  fakeStream(reply, userId);
+  // STREAM START
+  pushEvent(traceId, { type: "start" });
 
-  return {
-    mode: llm ? "llm-stream" : "fallback-stream",
-    memorySize: ctx.messages?.length || 0
-  };
+  // TOKEN STREAM
+  await streamTokens(reply, traceId);
+
+  // FINAL EVENT
+  pushEvent(traceId, {
+    type: "done",
+    memorySize: ctx.messages?.length || 0,
+    mode: llm ? "llm" : "fallback"
+  });
+
+  return { ok: true };
 }
 
 module.exports = { runBrain };

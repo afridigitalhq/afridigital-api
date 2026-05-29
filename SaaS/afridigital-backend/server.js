@@ -9,22 +9,11 @@ const {
 const app = express();
 app.use(express.json({ limit: "2mb" }));
 
+// HEALTH
 app.get('/health', (req, res) => {
   res.json({
     ok: true,
-    mode: "stream-tokens-v1"
-  });
-});
-
-// WEBHOOK (returns immediately, streams async)
-app.post('/webhook', async (req, res) => {
-  const id = req.body.from || "anon";
-
-  const result = await runBrain(req.body);
-
-  res.json({
-    ok: true,
-    result
+    mode: "stream-pipeline-v2"
   });
 });
 
@@ -39,8 +28,21 @@ app.get('/stream', (req, res) => {
   });
 });
 
+// WEBHOOK (BOUND TO STREAM)
+app.post('/webhook', async (req, res) => {
+  const traceId = req.body.from || "anon";
+
+  runBrain(req.body, traceId); // async fire, stream handles output
+
+  res.json({
+    ok: true,
+    traceId,
+    mode: "stream-bound-v2"
+  });
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("🚀 STREAM TOKENS ENGINE RUNNING ON", PORT);
+  console.log("🚀 STREAM PIPELINE V2 RUNNING ON", PORT);
 });
