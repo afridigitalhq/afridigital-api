@@ -1,3 +1,5 @@
+const memoryStore = require('../memory/store');
+
 function detectIntent(text = "") {
   const t = text.toLowerCase();
 
@@ -8,18 +10,18 @@ function detectIntent(text = "") {
   return "general";
 }
 
-function generateResponse(intent, payload) {
+function generateResponse(intent, payload, context) {
   const text = payload.text || "";
 
   switch (intent) {
     case "greeting":
-      return "Hello 👋 welcome to AfriDigital AI.";
+      return `Hello 👋 again ${payload.from}. How can I help today?`;
 
     case "pricing":
-      return "Pricing info is being processed. Please check dashboard.";
+      return `Pricing request noted. Last chat had ${context.messages.length} messages.`;
 
     case "support":
-      return "Support team will respond shortly.";
+      return `Support is active. We saw you previously said: "${context.messages.at(-1)?.text || 'nothing yet'}"`;
 
     default:
       return `Echo: ${text}`;
@@ -27,12 +29,21 @@ function generateResponse(intent, payload) {
 }
 
 function runBrain(payload) {
+  const userId = payload.from || "anonymous";
+
+  const context = memoryStore.getContext(userId);
+
   const intent = detectIntent(payload.text);
-  const reply = generateResponse(intent, payload);
+
+  memoryStore.pushMessage(userId, payload);
+  memoryStore.setIntent(userId, intent);
+
+  const reply = generateResponse(intent, payload, context);
 
   return {
     intent,
-    reply
+    reply,
+    memorySize: context.messages.length
   };
 }
 

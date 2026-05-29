@@ -8,21 +8,18 @@ const { runBrain } = require('./core/ai/brain');
 
 const app = express();
 
-// PIPELINE
 app.use(express.json({ limit: '2mb' }));
 app.use(logger);
 app.use(validator);
 
-// HEALTH
 app.get('/health', (req, res) => {
   res.json({
     ok: true,
     service: 'afridigital-ai-backend',
-    mode: 'ai-brain-v1'
+    mode: 'ai-brain-with-memory'
   });
 });
 
-// WEBHOOK → AI BRAIN EXECUTION
 app.post('/webhook', async (req, res, next) => {
   try {
     const payload = req.body;
@@ -35,6 +32,7 @@ app.post('/webhook', async (req, res, next) => {
       to: payload.from || 'unknown',
       intent: result.intent,
       text: result.reply,
+      memorySize: result.memorySize,
       traceId: req.traceId
     };
 
@@ -50,11 +48,10 @@ app.post('/webhook', async (req, res, next) => {
   }
 });
 
-// ERROR HANDLER
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 AI BRAIN BACKEND running on ${PORT}`);
+  console.log(`🚀 AI BRAIN + MEMORY running on ${PORT}`);
 });
