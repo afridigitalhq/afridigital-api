@@ -1,17 +1,17 @@
 function sseHeaders(res) {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
   res.flushHeaders?.();
 }
 
-function sendToken(res, token) {
+function send(res, token) {
   res.write(`data: ${JSON.stringify({ token })}\n\n`);
 }
 
-function endStream(res, data) {
-  res.write(`data: ${JSON.stringify({ done: true, data })}\n\n`);
+function done(res, payload) {
+  res.write(`data: ${JSON.stringify({ done: true, payload })}\n\n`);
   res.end();
 }
 
-module.exports = { sseHeaders, sendToken, endStream };
+module.exports = { sseHeaders, send, done };

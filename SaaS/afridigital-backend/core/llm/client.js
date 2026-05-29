@@ -1,39 +1,32 @@
-const https = require('https');
+async function callLLM(prompt) {
+  /**
+   * REAL LLM ADAPTER (SAFE FALLBACK)
+   * If OPENAI_KEY exists → use real model
+   * else → fallback deterministic engine
+   */
 
-function callLLM(prompt) {
-  return new Promise((resolve, reject) => {
-    const payload = JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You are AfriDigital AI agent. Be concise and structured." },
-        { role: "user", content: prompt }
-      ]
-    });
+  if (process.env.OPENAI_API_KEY) {
+    const fetch = require("node-fetch");
 
-    const req = https.request(process.env.LLM_URL, {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.LLM_KEY}`
-      }
-    }, (res) => {
-      let data = "";
-
-      res.on("data", chunk => data += chunk);
-      res.on("end", () => {
-        try {
-          const json = JSON.parse(data);
-          resolve(json?.choices?.[0]?.message?.content || "No response");
-        } catch (e) {
-          reject(e);
-        }
-      });
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        stream: false
+      })
     });
 
-    req.on("error", reject);
-    req.write(payload);
-    req.end();
-  });
+    const data = await res.json();
+    return data?.choices?.[0]?.message?.content || "LLM_ERROR";
+  }
+
+  // fallback engine (no external cost)
+  return "FALLBACK: " + prompt.slice(0, 120);
 }
 
 module.exports = { callLLM };
