@@ -25,7 +25,7 @@ function scheduleFlush(user) {
 
     const text = data.buffer.join("");
 
-    if (text.trim().length > 0) {
+    if ( (text || "").trim().length > 0) {
       await sendWhatsAppMessage(user, text);
     }
 

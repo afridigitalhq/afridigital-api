@@ -7,7 +7,7 @@ const orchestrator = require("../os/orchestratorOS");
  */
 async function routeRequest({ user, text, stream }) {
 
-  const isComplex = text.length > 40 || text.includes("agent") || text.includes("tool");
+  const isComplex = (text || "").length > 40 || text.includes("agent") || text.includes("tool");
 
   // SIMPLE PATH → brain
   if (!isComplex) {
