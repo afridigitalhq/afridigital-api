@@ -1,56 +1,54 @@
 const express = require('express');
 
-const logger = require('./core/middleware/logger');
-const validator = require('./core/middleware/validator');
-const errorHandler = require('./core/middleware/errorHandler');
-
-const { runBrain } = require('./core/ai/brain');
-
 const app = express();
+app.use(express.json());
 
-app.use(express.json({ limit: '2mb' }));
-app.use(logger);
-app.use(validator);
+console.log("🧪 BOOT STARTED");
+
+// isolate crash source
+let memory;
+
+try {
+  memory = require('./core/memory/store');
+  console.log("✔ MEMORY LOADED");
+} catch (e) {
+  console.error("❌ MEMORY LOAD FAILED:", e);
+}
 
 app.get('/health', (req, res) => {
-  res.json({
-    ok: true,
-    service: 'afridigital-ai-backend',
-    mode: 'stable-safe-v1'
-  });
+  res.json({ ok: true, mode: "isolation-test" });
 });
 
-app.post('/webhook', async (req, res, next) => {
+app.post('/webhook', (req, res) => {
   try {
-    const payload = req.body || {};
+    console.log("📩 REQUEST:", req.body);
 
-    console.log(`📩 incoming:`, payload);
+    if (!memory) {
+      throw new Error("Memory module not loaded");
+    }
 
-    const result = await runBrain(payload);
+    if (typeof memory.pushMessage !== "function") {
+      throw new Error("Memory API broken");
+    }
+
+    memory.pushMessage(req.body.from, req.body);
 
     res.json({
       ok: true,
-      result: {
-        to: payload.from || "unknown",
-        text: result?.reply || "no-response",
-        graph: result?.graph || null
-      }
+      reply: `Echo: ${req.body.text}`
     });
 
   } catch (err) {
     console.error("🔥 WEBHOOK ERROR:", err);
-    res.status(200).json({
+    res.json({
       ok: false,
-      error: "internal_error",
-      trace: err.message
+      error: err.message,
+      stack: err.stack
     });
   }
 });
 
-app.use(errorHandler);
-
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-  console.log(`🚀 SAFE BACKEND running on ${PORT}`);
+  console.log("🚀 ISOLATION SERVER RUNNING ON", PORT);
 });
