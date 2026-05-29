@@ -37,3 +37,12 @@ async function handle(event){
 }
 
 module.exports = { handle };
+
+process.env.SYSTEM_HEALTH = process.env.META_ACCESS_TOKEN ? "HEALTHY" : "DEGRADED";
+
+async function aiBrain(text){
+  if(!text) return "No input";
+  if(text.toLowerCase().includes("hello")) return "👋 Hello from AfriAI";
+  return "🤖 AI layer ready";
+}
+
