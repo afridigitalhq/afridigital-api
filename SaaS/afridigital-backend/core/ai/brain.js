@@ -1,139 +1,105 @@
 const memory = require('../memory/store');
 
-const { buildContext } =
-  require('../context/engine');
+/**
+ * SAFE AI BRAIN v1
+ * - no graph engine
+ * - no tool execution
+ * - safe LLM wrapper (optional)
+ */
 
-const {
-  callLLM
-} = require('../llm/client');
+let callLLM = null;
 
-const toolDefinitions =
-  require('../tools/definitions');
+// optional injection (if you later add LLM client)
+try {
+  callLLM = require('../llm/client').callLLM;
+} catch (e) {
+  console.log("🟡 LLM not loaded (safe fallback mode)");
+}
 
-const {
-  safeExecute
-} = require('../tools/safeExecutor');
+/**
+ * SIMPLE INTENT DETECTOR (cheap + safe)
+ */
+function detectIntent(text = "") {
+  const t = text.toLowerCase();
 
-const {
-  buildGraphFromLLM
-} = require('../graph/builder');
+  if (t.includes("hello") || t.includes("hi")) return "greeting";
+  if (t.includes("price") || t.includes("cost")) return "pricing";
+  if (t.includes("help")) return "support";
 
-const {
-  createGraph,
-  createExecution
-} = require('../graph/store');
+  return "general";
+}
 
-const {
-  runGraph
-} = require('../graph/executor');
+/**
+ * SAFE MEMORY UPDATE
+ */
+function updateMemory(userId, payload) {
+  try {
+    if (memory?.pushMessage) {
+      memory.pushMessage(userId, payload);
+    }
+  } catch (err) {
+    console.log("🟡 memory update skipped:", err.message);
+  }
+}
 
-function buildPrompt(payload, context) {
-  return `
-You are an AI backend agent.
+/**
+ * SAFE LLM CALL
+ */
+async function safeLLM(prompt) {
+  try {
+    if (!callLLM) return null;
+    return await callLLM(prompt);
+  } catch (err) {
+    console.log("🟡 LLM failed, fallback mode");
+    return null;
+  }
+}
 
-AVAILABLE TOOLS:
-${JSON.stringify(toolDefinitions, null, 2)}
+/**
+ * CORE BRAIN FUNCTION
+ */
+async function runBrain(payload) {
+  const userId = payload.from || "anonymous";
+  const text = payload.text || "";
 
-USER MESSAGE:
-${payload.text}
+  const intent = detectIntent(text);
 
-CONTEXT:
-${JSON.stringify(context, null, 2)}
+  // store memory safely
+  updateMemory(userId, payload);
 
-RULES:
+  // optional AI enhancement
+  const llmResponse = await safeLLM(text);
 
-You may respond in ONE of these formats:
+  let reply;
 
-1) Normal response
-2) Tool call
-3) GRAPH MODE (advanced execution flow):
+  if (llmResponse) {
+    reply = llmResponse;
+  } else {
+    // deterministic fallback brain
+    switch (intent) {
+      case "greeting":
+        reply = "Hello 👋 how can I help you today?";
+        break;
 
-GRAPH FORMAT:
-\`\`\`json
-{
-  "graphId": "g1",
-  "nodes": {
-    "start": {
-      "type": "tool",
-      "tool": "pricingTool",
-      "next": "end"
-    },
-    "end": {
-      "type": "end"
+      case "pricing":
+        reply = "Let me help you with pricing details. What exactly are you looking for?";
+        break;
+
+      case "support":
+        reply = "I’m here to help. Tell me the issue.";
+        break;
+
+      default:
+        reply = `Got it: ${text}`;
     }
   }
-}
-\`\`\`
-
-Use GRAPH MODE for multi-step workflows with branching.
-`;
-}
-
-async function runBrain(payload) {
-
-  const userId =
-    payload.from || 'anonymous';
-
-  const context =
-    buildContext(userId);
-
-  const prompt =
-    buildPrompt(payload, context);
-
-  const llmResponse =
-    await callLLM(prompt);
-
-  /**
-   * STEP 1 — GRAPH MODE
-   */
-  const graph =
-    buildGraphFromLLM(llmResponse);
-
-  let graphResult = null;
-
-  if (graph) {
-
-    createGraph(graph.graphId, graph);
-
-    const execId =
-      `${graph.graphId}-${Date.now()}`;
-
-    createExecution(execId, graph.graphId, {
-      startedAt: Date.now()
-    });
-
-    graphResult =
-      await runGraph(execId, userId);
-  }
-
-  /**
-   * STEP 2 — FINAL RESPONSE
-   */
-  const finalPrompt = `
-USER MESSAGE:
-${payload.text}
-
-GRAPH RESULT:
-${JSON.stringify(graphResult, null, 2)}
-
-INSTRUCTIONS:
-- Summarize graph execution clearly
-- If graph failed, explain safely
-- Keep response concise
-`;
-
-  const finalReply =
-    await callLLM(finalPrompt);
-
-  memory.pushMessage(userId, payload);
 
   return {
-    reply: finalReply,
-    graph,
-    graphResult
+    reply,
+    intent,
+    memoryUpdated: true,
+    llmUsed: !!llmResponse
   };
 }
 
-module.exports = {
-  runBrain
-};
+module.exports = { runBrain };

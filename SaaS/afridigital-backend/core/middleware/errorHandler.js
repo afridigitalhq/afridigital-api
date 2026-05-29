@@ -1,9 +1,9 @@
-module.exports = function errorHandler(err, req, res, next) {
-  console.error(`🔥 [${req.traceId || 'no-trace'}]`, err);
+module.exports = (err, req, res, next) => {
+  console.error("🔥 FULL ERROR:", err);
 
   res.status(500).json({
     ok: false,
-    error: 'internal_error',
-    traceId: req.traceId
+    error: err.message,
+    trace: err.stack
   });
 };
