@@ -1,7 +1,3 @@
-/**
- * SAFE SSE STREAM LAYER (Render-friendly)
- */
-
 const clients = new Map();
 
 function registerClient(id, res) {

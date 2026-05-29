@@ -1,10 +1,20 @@
 const memory = require('../memory/store');
+const { pushEvent } = require('../stream/sse');
 
-/**
- * SAFE AI BRAIN (NO CRASH GUARANTEE)
- * - deterministic fallback
- * - optional LLM hook
- */
+async function fakeStream(text, userId) {
+  const tokens = text.split(" ");
+
+  for (const t of tokens) {
+    await new Promise(r => setTimeout(r, 120));
+
+    pushEvent(userId, {
+      type: "token",
+      value: t + " "
+    });
+  }
+
+  pushEvent(userId, { type: "done" });
+}
 
 async function callLLM(prompt) {
   try {
@@ -18,13 +28,12 @@ async function callLLM(prompt) {
 
     const data = await res.json();
     return data?.text || null;
-  } catch (e) {
-    return null; // never crash
+  } catch {
+    return null;
   }
 }
 
-function fallbackReply(text) {
-  if (!text) return "I didn't understand that.";
+function fallback(text) {
   return `Echo: ${text}`;
 }
 
@@ -32,22 +41,21 @@ async function runBrain(payload = {}) {
   const userId = payload.from || "anon";
   const text = payload.text || "";
 
-  const context = memory.getContext(userId);
+  const ctx = memory.getContext(userId);
   memory.pushMessage(userId, { text });
 
-  const prompt = `
-User: ${text}
-Context: ${JSON.stringify(context)}
-`;
+  const prompt = `User: ${text}\nContext: ${JSON.stringify(ctx)}`;
 
   const llm = await callLLM(prompt);
 
-  const reply = llm || fallbackReply(text);
+  const reply = llm || fallback(text);
+
+  // STREAMING OUTPUT
+  fakeStream(reply, userId);
 
   return {
-    reply,
-    memorySize: context.messages?.length || 0,
-    mode: llm ? "llm" : "fallback"
+    mode: llm ? "llm-stream" : "fallback-stream",
+    memorySize: ctx.messages?.length || 0
   };
 }
 
