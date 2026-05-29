@@ -12,14 +12,35 @@ async function getUser(userId) {
 async function pushMessage(userId, msg) {
   const user = await getUser(userId);
 
-  user.messages.push({ text: msg.text, ts: Date.now() });
+  user.messages.push({
+    text: msg.text,
+    ts: Date.now()
+  });
 
   if (user.messages.length > 20) {
     user.messages = user.messages.slice(-20);
   }
 
-  await redis.set(key(userId), JSON.stringify(user), "EX", TTL);
+  await redis.set(
+    key(userId),
+    JSON.stringify(user),
+    "EX",
+    TTL
+  );
+
   return user;
 }
 
-module.exports = { getUser, pushMessage };
+/**
+ * 🧠 Compatibility adapter
+ * orchestration layer expects getContext()
+ */
+async function getContext(userId) {
+  return await getUser(userId);
+}
+
+module.exports = {
+  getUser,
+  pushMessage,
+  getContext
+};
