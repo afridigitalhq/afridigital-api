@@ -1,26 +1,17 @@
-const clients = new Map();
-
-function registerClient(id, res) {
-  clients.set(id, res);
-
-  res.writeHead(200, {
-    "Content-Type": "text/event-stream",
-    "Cache-Control": "no-cache",
-    Connection: "keep-alive"
-  });
-
-  res.write(`data: {"type":"connected"}\n\n`);
+function sseHeaders(res) {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders?.();
 }
 
-function pushEvent(id, event) {
-  const res = clients.get(id);
-  if (!res) return;
-
-  res.write(`data: ${JSON.stringify(event)}\n\n`);
+function sendToken(res, token) {
+  res.write(`data: ${JSON.stringify({ token })}\n\n`);
 }
 
-function removeClient(id) {
-  clients.delete(id);
+function endStream(res, data) {
+  res.write(`data: ${JSON.stringify({ done: true, data })}\n\n`);
+  res.end();
 }
 
-module.exports = { registerClient, pushEvent, removeClient };
+module.exports = { sseHeaders, sendToken, endStream };

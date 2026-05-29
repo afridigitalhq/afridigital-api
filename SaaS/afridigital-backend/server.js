@@ -1,48 +1,40 @@
 const express = require('express');
-const { runBrain } = require('./core/ai/brain');
 
-const {
-  registerClient,
-  removeClient
-} = require('./core/stream/sse');
+const { runAgent } = require('./core/agents/router');
+const { streamLLM } = require('./core/llm/fakeLLM');
+const { sseHeaders, sendToken, endStream } = require('./core/stream/sse');
 
 const app = express();
-app.use(express.json({ limit: "2mb" }));
+app.use(express.json());
 
 // HEALTH
 app.get('/health', (req, res) => {
-  res.json({
-    ok: true,
-    mode: "stream-pipeline-v2"
-  });
+  res.json({ ok: true, mode: "stream-v2-toolchain" });
 });
 
-// SSE STREAM
-app.get('/stream', (req, res) => {
-  const id = req.query.from || "anon";
-
-  registerClient(id, res);
-
-  req.on("close", () => {
-    removeClient(id);
-  });
-});
-
-// WEBHOOK (BOUND TO STREAM)
+// NORMAL WEBHOOK (NON STREAM)
 app.post('/webhook', async (req, res) => {
-  const traceId = req.body.from || "anon";
+  const result = await runAgent(req.body.text || "");
+  res.json({ ok: true, result });
+});
 
-  runBrain(req.body, traceId); // async fire, stream handles output
+// STREAMING ENDPOINT (SSE)
+app.get('/stream', async (req, res) => {
 
-  res.json({
-    ok: true,
-    traceId,
-    mode: "stream-bound-v2"
+  sseHeaders(res);
+
+  const text = req.query.text || "";
+
+  const agent = await runAgent(text);
+
+  await streamLLM(text, (token) => {
+    sendToken(res, token);
   });
+
+  endStream(res, agent);
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log("🚀 STREAM PIPELINE V2 RUNNING ON", PORT);
 });
