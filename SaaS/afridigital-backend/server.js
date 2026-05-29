@@ -7,6 +7,7 @@ const { startTypingBridge } = require("./core/whatsapp/typingBridge");
 
 const app = express();
 app.use(express.json());
+app.get("/stream", require("./core/stream/streamCore").handler);
 
 // 🚀 BOOT OS SUBSYSTEMS
 startWhatsAppStreamBridge();
@@ -55,7 +56,7 @@ app.post("/webhook", async (req, res) => {
 
   } catch (e) {
 
-    return res.json({ ok: false, error: "stream_error" });
+    return res.json({ ok: false, error: e.message || e.toString() });
 
   }
 

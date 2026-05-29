@@ -1,6 +1,7 @@
+console.log("🌊 streamGateway boot OK")
 const { routeRequest } = require("./controlPlaneRouter");
-const { StreamCore } = require("../stream/streamCore");
-const { WhatsAppStreamBridge } = require("../stream/bridge/whatsappStreamBridge");
+const StreamCore = require("../stream/streamCore");
+const { WhatsAppStreamBridge } = require("../whatsapp/streamBridge");
 
 /**
  * 🌊 STREAM GATEWAY
