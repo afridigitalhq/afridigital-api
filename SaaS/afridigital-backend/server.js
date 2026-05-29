@@ -1,3 +1,4 @@
+const { safeRequire } = require("./core/africore/runtime/zeroCrashLoader");
 require("dotenv").config();
 
 const express = require("express");
@@ -13,10 +14,10 @@ app.get("/health", (req,res)=>{
 });
 
 // Core routes
-const runtimeRoutes = require("./routes/runtime");
+const runtimeRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/runtime","runtime")");
 let kernel; function getKernel(){ if(!kernel){ try { kernel = getKernel(); } catch(e){ console.log("⚠️ kernel fallback:", e.message); kernel = { connect:()=>{}, status:()=>({ok:false}) }; } } return kernel; }
-const aiRoutes = require("./routes/ai");
-const adminRoutes = require("./routes/admin.routes");
+const aiRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/ai","ai")");
+const adminRoutes = require("./core/africore/runtime/safeRequireRouter")("safeRequire("./routes/admin.routes","admin")");
 
 // Mount points
 app.use("/admin/control-plane", adminRoutes);
