@@ -1,1 +1,1 @@
-module.exports = require("../../redisClient");
+module.exports = require("../../co../redis");

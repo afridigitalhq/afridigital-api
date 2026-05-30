@@ -42,3 +42,7 @@ async function runBrain(event = {}) {
 }
 
 module.exports = { runBrain };
+
+
+module.exports.think = runBrain;
+module.exports.runBrain = runBrain;

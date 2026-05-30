@@ -1,60 +1,52 @@
-const Redis = require("redis");
+const EventEmitter = require("events");
 
-const client = Redis.createClient({
-  url: process.env.REDIS_URL
-});
+let redisClient = null;
+const memoryBus = new EventEmitter();
 
-client.connect();
-
-/**
- * 🟣 REDIS STREAM BUS (EVENT CORE)
- */
-class RedisStreamBus {
-
-  async publish(event, payload) {
-    const message = {
-      event,
-      payload,
-      ts: Date.now()
-    };
-
-    await client.xAdd(
-      "ai:stream:events",
-      "*",
-      {
-        data: JSON.stringify(message)
-      }
-    );
-  }
-
-  async subscribe(handler) {
-    const sub = client.duplicate();
-    await sub.connect();
-
-    let lastId = "$";
-
-    while (true) {
-      const resp = await sub.xRead(
-        {
-          key: "ai:stream:events",
-          id: lastId
-        },
-        {
-          BLOCK: 0
-        }
-      );
-
-      if (!resp) continue;
-
-      for (const stream of resp) {
-        for (const msg of stream.messages) {
-          const data = JSON.parse(msg.message.data);
-          lastId = msg.id;
-          handler(data);
-        }
-      }
-    }
-  }
+// try attach redis safely
+try {
+  const redis = require("./index");
+  redisClient = redis?.client || null;
+} catch (e) {
+  redisClient = null;
 }
 
-module.exports = new RedisStreamBus();
+/**
+ * Publish event (dual mode)
+ */
+async function publish(event, payload) {
+  // Redis stream mode
+  if (redisClient && redisClient.xAdd) {
+    try {
+      return await redisClient.xAdd("ai:stream", "*", {
+        event,
+        data: JSON.stringify(payload)
+      });
+    } catch (e) {}
+  }
+
+  // fallback memory event bus
+  memoryBus.emit(event, payload);
+  return true;
+}
+
+/**
+ * Subscribe event (dual mode)
+ */
+function subscribe(event, handler) {
+  // memory mode always works
+  memoryBus.on(event, handler);
+
+  // redis fallback noop (future extension)
+  return () => memoryBus.off(event, handler);
+}
+
+/**
+ * Safe emitter interface
+ */
+module.exports = {
+  publish,
+  subscribe,
+  memoryBus,
+  redisClient
+};

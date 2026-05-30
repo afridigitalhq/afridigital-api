@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const redis = require("../memory/redisClient");
+const redis = require("../redis");
 
 function bootstrap() {
   console.log("🧠 AFRAI BOOTSTRAP STARTING...");

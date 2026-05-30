@@ -3,7 +3,7 @@ const brain = require('../ai/brain');
 const memory = require("../memory/db");
 const tools = require("../tools/init");
 
-bus.subscribe("whatsapp.inbound", async (event) => {
+bus.on("whatsapp.inbound", async (event) => {
 
   const userId = event.from;
 

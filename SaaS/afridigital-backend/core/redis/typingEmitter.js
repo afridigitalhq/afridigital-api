@@ -1,4 +1,4 @@
-const bus = require("./streamBus");
+const bus = require("../events/bus");
 
 /**
  * 🟣 WHATSAPP TYPING SYNC EMITTER

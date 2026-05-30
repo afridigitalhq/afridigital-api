@@ -1,1 +1,1 @@
-const redis = require("../redisClient");
+const redis = require("../redis");

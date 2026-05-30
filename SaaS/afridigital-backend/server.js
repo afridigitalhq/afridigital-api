@@ -1,3 +1,4 @@
+console.log("🚀 SERVER BOOT STARTED");
 console.log("🚀 RENDER BOOT");console.log("REDIS_URL:",process.env.REDIS_URL?"LOADED":"MISSING");
 const express = require("express");
 
@@ -7,7 +8,14 @@ const { startWhatsAppStreamBridge } = require("./core/whatsapp/streamBridge");
 const { startTypingBridge } = require("./core/whatsapp/typingBridge");
 
 const app = express();
-app.use(express.json());
+app.use(express.json())
+
+app.post('/mesh/gossip',(req,res)=>{
+  const mesh=require('./core/mesh/meshNode');
+  mesh.receive(req.body);
+  res.json({ok:true});
+});
+;
 app.get("/stream", (req,res)=>res.json({ok:true,stream:"not implemented"}));
 
 // 🚀 BOOT OS SUBSYSTEMS

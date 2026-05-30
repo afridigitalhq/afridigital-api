@@ -1,45 +1,33 @@
-const redis = require("../redis/client");
-const axios = require("axios");
-
-const CHANNEL = "afriai:typing";
+const redis = require('../redis/client');
 
 /**
- * WhatsApp typing API (provider agnostic)
+ * Typing Bridge (SAFE OFFLINE MODE)
  */
-async function sendTyping(to, on) {
 
-  try {
-    await axios.post(process.env.WHATSAPP_API_URL + "/typing", {
-      to,
-      typing: on
-    }, {
-      headers: {
-        Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-  } catch (e) {
-    console.log("⚠️ typing emit failed:", e.message);
-  }
-}
-
-/**
- * Listen for typing events from Redis
- */
 function startTypingBridge() {
 
-  const sub = redis.duplicate();
-  sub.subscribe(CHANNEL);
+  const sub =
+    redis && typeof redis.duplicate === 'function'
+      ? redis.duplicate()
+      : redis;
 
-  console.log("⌨️ Typing Bridge ACTIVE");
+  if (!sub || typeof sub.on !== 'function') {
+    console.log('⚠️ TypingBridge OFFLINE MODE');
+    return;
+  }
 
-  sub.on("message", async (_, msg) => {
+  console.log('📡 TypingBridge ACTIVE');
 
-    const { sessionId, state } = JSON.parse(msg);
-
-    await sendTyping(sessionId, state === "on");
+  sub.on('message', (msg) => {
+    try {
+      const data = JSON.parse(msg);
+      console.log('⌨️ typing event:', data);
+    } catch (e) {
+      console.log('⚠️ invalid message');
+    }
   });
 }
 
-module.exports = { startTypingBridge };
+module.exports = {
+  startTypingBridge
+};

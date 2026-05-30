@@ -1,106 +1,65 @@
-const bus = require("../redis/streamBus");
-const redis = require("../redis/client");
-const { sendWhatsAppMessage } = require("./gateway");
 
-const CHANNEL = "afriai:tokens";
+/* REDIS_OFFLINE_SAFE STREAM BRIDGE */
 
-/**
- * buffer per session (WhatsApp number)
- */
+const bus = require('../events/bus');
+const redis = require('../redis/client');
+const { sendWhatsAppMessage } = require('./gateway');
+
+const CHANNEL = 'afriai:tokens';
+
 const buffers = new Map();
-
-/**
- * flush delay per user (typing simulation)
- */
 const FLUSH_MS = 800;
 
-function scheduleFlush(user) {
-
-  if (buffers.has(user).timer) return;
+function scheduleFlush(user){
+  if (!buffers.has(user)) return;
 
   const timer = setTimeout(async () => {
-
     const data = buffers.get(user);
     if (!data) return;
 
-    const text = data.buffer.join("");
+    const text = (data.buffer || []).join('');
 
-    if ( (text || "").trim().length > 0) {
+    if (text.trim().length > 0) {
       await sendWhatsAppMessage(user, text);
     }
 
     buffers.delete(user);
-
   }, FLUSH_MS);
 
   buffers.get(user).timer = timer;
 }
 
-/**
- * STREAM LISTENER (REALTIME REDIS CONSUMER)
- */
-function startWhatsAppStreamBridge() {
+function startWhatsAppStreamBridge(){
 
-  const sub = redis.duplicate();
-  sub.subscribe(CHANNEL);
+  const sub =
+    redis && typeof redis.duplicate === 'function'
+      ? redis.duplicate()
+      : redis;
 
-  console.log("📡 WhatsApp Stream Bridge ACTIVE");
+  if (!sub || typeof sub.on !== 'function') {
+    console.log('⚠️ StreamBridge OFFLINE MODE (no Redis)');
+    return;
+  }
 
-  sub.on("message", async (_, msg) => {
+  sub.on('message', async (_, msg) => {
+    try {
+      const { sessionId, token } = JSON.parse(msg);
 
-    const { sessionId, token } = JSON.parse(msg);
+      if (!buffers.has(sessionId)) {
+        buffers.set(sessionId, { buffer: [], timer: null });
+      }
 
-    if (!buffers.has(sessionId)) {
-      buffers.set(sessionId, { buffer: [], timer: null });
+      const entry = buffers.get(sessionId);
+      entry.buffer.push(token);
+
+      scheduleFlush(sessionId);
+
+    } catch (e) {
+      console.log('⚠️ stream parse error:', e.message);
     }
-
-    const entry = buffers.get(sessionId);
-
-    entry.buffer.push(token);
-
-    scheduleFlush(sessionId);
   });
+
+  console.log('📡 WhatsApp Stream Bridge ACTIVE');
 }
-
-
-// 🟣 REDIS STREAM BUS SUBSCRIPTION
-
-// 🟣 AGENT FANOUT STREAM HANDLER
-bus.subscribe(async (event) => {
-  if (event.event === "agent:result") {
-    console.log("🤖 AGENT:", event.payload.agent, event.payload.output);
-  }
-
-  if (event.event === "stream:final") {
-    console.log("📡 FINAL STREAM:", event.payload.text);
-  }
-});
-bus.subscribe(async (event) => {
-
-  try {
-    if (event.event === "token") {
-      // forward token to WhatsApp live stream
-      if (this && this.sendMessage) {
-        await this.sendMessage(event.payload.user, event.payload.token);
-      }
-    }
-
-    if (event.event === "typing:on") {
-      if (this && this.sendTyping) {
-        await this.sendTyping(event.payload.user, true);
-      }
-    }
-
-    if (event.event === "typing:off") {
-      if (this && this.sendTyping) {
-        await this.sendTyping(event.payload.user, false);
-      }
-    }
-
-  } catch (e) {
-    console.log("⚠️ Bus event error:", e.message);
-  }
-
-});
 
 module.exports = { startWhatsAppStreamBridge };

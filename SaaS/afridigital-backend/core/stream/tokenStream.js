@@ -1,4 +1,4 @@
-const bus = require("../redis/streamBus");
+const bus = require("../events/bus");
 const redis = require("../redis/client");
 
 /**

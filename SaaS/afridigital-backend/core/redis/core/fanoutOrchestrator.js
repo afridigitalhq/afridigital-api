@@ -1,4 +1,4 @@
-const bus = require("../streamBus");
+const bus = require("../events/bus");
 const { streamLLM } = require("../../llm/streamingProvider");
 
 /**

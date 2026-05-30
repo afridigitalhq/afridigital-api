@@ -1,4 +1,4 @@
-const redis = require("./redisClient");
+const redis = require("../redis");
 
 const TTL = 60 * 60 * 24 * 7;
 
