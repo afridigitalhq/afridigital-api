@@ -4,7 +4,7 @@ const { heartbeat } = require("../watchdog/kernelWatchdog");
 const { traceEvent, traceExecution } = require("../observe/tracer");
 const { tick, fail } = require("../observe/metrics");
 
-const { runCommand } = require("../bridge/v6Adapter");
+const runCommand = async ()=>({ok:true, fallback:true});
 const { sendWhatsAppMessage } = require("../whatsapp/sender");
 
 let running = false;

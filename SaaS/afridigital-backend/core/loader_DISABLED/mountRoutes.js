@@ -17,7 +17,7 @@ function mountRoutes(app, routesDir) {
       .replace('.routes.js', '')
       .replace('.js', '');
 
-    app.use(routeName, router);
+    app.use('/api'+routeName, router);
 
     console.log(`Mounted → ${routeName}`);
   });

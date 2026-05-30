@@ -1,5 +1,5 @@
 const memory = require("../memory/db");
-const brain = require('../ai/brain');
+const brain = require('../../ai/brain');
 const router = require("../router");
 const tools = require("../tools/init");
 const trace = require("./trace");
@@ -57,3 +57,10 @@ module.exports = {
     };
   }
 };
+
+
+async function handle(input){
+  return await run(input);
+}
+
+module.exports.handle = handle;

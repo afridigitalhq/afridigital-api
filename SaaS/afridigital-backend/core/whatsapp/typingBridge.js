@@ -1,33 +1,30 @@
-const redis = require('../redis/client');
+const redis = require("../redis/client");
 
-/**
- * Typing Bridge (SAFE OFFLINE MODE)
- */
+function getSub() {
+  try {
+    if (!redis) return null;
+    if (typeof redis.duplicate === "function") return redis.duplicate();
+    return redis;
+  } catch (e) {
+    return null;
+  }
+}
 
 function startTypingBridge() {
+  const sub = getSub();
 
-  const sub =
-    redis && typeof redis.duplicate === 'function'
-      ? redis.duplicate()
-      : redis;
-
-  if (!sub || typeof sub.on !== 'function') {
-    console.log('⚠️ TypingBridge OFFLINE MODE');
+  if (!sub || typeof sub.subscribe !== "function") {
+    console.log("⚠️ TypingBridge OFFLINE MODE");
     return;
   }
 
-  console.log('📡 TypingBridge ACTIVE');
+  console.log("⌨️ TypingBridge ACTIVE");
 
-  sub.on('message', (msg) => {
-    try {
-      const data = JSON.parse(msg);
-      console.log('⌨️ typing event:', data);
-    } catch (e) {
-      console.log('⚠️ invalid message');
-    }
-  });
+  try {
+    sub.subscribe?.("typing:events");
+  } catch (e) {
+    console.log("⚠️ typing subscribe skipped:", e.message);
+  }
 }
 
-module.exports = {
-  startTypingBridge
-};
+module.exports = { startTypingBridge };

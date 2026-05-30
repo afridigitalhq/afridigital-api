@@ -1,5 +1,5 @@
 const { createStream } = require('../core/stream/emitter');
-const { runStreamBrain } = require('../core/ai/streamBrain');
+const { runStreamBrain } = require('../core/ai/brain');
 
 module.exports = (app) => {
 
@@ -22,3 +22,5 @@ module.exports = (app) => {
   });
 
 };
+
+// fallback mapping applied

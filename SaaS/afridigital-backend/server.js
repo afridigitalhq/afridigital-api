@@ -10,6 +10,7 @@ const { startTypingBridge } = require("./core/whatsapp/typingBridge");
 const app = express();
 app.use(express.json())
 
+// AUTO-INJECTED ROUTES
 app.post('/mesh/gossip',(req,res)=>{
   const mesh=require('./core/mesh/meshNode');
   mesh.receive(req.body);
@@ -79,3 +80,19 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log("🚀 LLM ORCHESTRATION OS RUNNING ON", PORT);
 });
+
+
+// ===== UNIFIED OS ROUTER v1 =====
+const apiGateway = require('./core/gateway/apiGateway');
+const streamGateway = require('./core/gateway/streamGateway');
+
+
+
+/* ===== UNIFIED API GATEWAY V1 ===== */
+const apiGateway = require('./core/gateway/apiGateway');
+const streamGateway = require('./core/gateway/streamGateway');
+
+app.use('/api', apiGateway);
+app.use('/stream', streamGateway);
+/* ===== END GATEWAY ===== */
+

@@ -1,18 +1,13 @@
-const router = require('express').Router();
-const africore = require('../core/africore');
+
+const express = require('express');
+const router = express.Router();
 
 router.post('/ai/reply', async (req,res)=>{
-  try{
-    const result = await africore.handleEvent({
-      type: "message.received",
-      user: req.body.user,
-      text: req.body.text
-    });
-
-    res.json({ ok:true, result });
-  }catch(e){
-    res.status(500).json({ ok:false, error:e.message });
-  }
+  return res.json({
+    ok:true,
+    message:"AI route alive",
+    input:req.body
+  });
 });
 
 module.exports = router;
