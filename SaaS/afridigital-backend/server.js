@@ -1,4 +1,5 @@
 console.log("🚀 SERVER BOOT STARTED");
+const apiGateway = require("./core/gateway/apiGateway");
 console.log("🚀 RENDER BOOT");console.log("REDIS_URL:",process.env.REDIS_URL?"LOADED":"MISSING");
 const express = require("express");
 
@@ -6,10 +7,8 @@ const { runKernel } = require("./core/kernel/runtime");
 const { validateRequest } = require("./core/policy/guard");
 const { startWhatsAppStreamBridge } = require("./core/whatsapp/streamBridge");
 const { startTypingBridge } = require("./core/whatsapp/typingBridge");
-
 const app = express();
 app.use(express.json())
-
 // AUTO-INJECTED ROUTES
 app.post('/mesh/gossip',(req,res)=>{
   const mesh=require('./core/mesh/meshNode');
@@ -18,11 +17,9 @@ app.post('/mesh/gossip',(req,res)=>{
 });
 ;
 app.get("/stream", (req,res)=>res.json({ok:true,stream:"not implemented"}));
-
 // 🚀 BOOT OS SUBSYSTEMS
 startWhatsAppStreamBridge();
 startTypingBridge();
-
 // HEALTH (OS STATUS)
 app.get("/health", (req, res) => {
   res.json({
@@ -37,62 +34,23 @@ app.get("/health", (req, res) => {
       "agents"
     ]
   });
-});
-
 // MAIN OS ENTRYPOINT
 app.post("/webhook", async (req, res) => {
 const textSafe = (v) => String(v || "");
 const safe = (v) => (v || "");
 const { normalizeEvent } = require("./core/utils/safeEvent");
-
   const { from, text } = normalizeEvent(req.body);
-
-
-
   try {
-
     const { handleStreamRequest } = require("./core/kernel/streamGateway");
-
-
-
     await handleStreamRequest({
-
       user: from,
-
       text
-
     });
-
-
-
     return res.json({ ok: true });
-
   } catch (e) {
-
     return res.json({ ok: false, error: e.message || e.toString() });
-
   }
-
-});
-
 const PORT = process.env.PORT || 10000;
 
+app.use(/api, apiGateway);
 app.listen(PORT, () => {
-  console.log("🚀 LLM ORCHESTRATION OS RUNNING ON", PORT);
-});
-
-
-// ===== UNIFIED OS ROUTER v1 =====
-const apiGateway = require('./core/gateway/apiGateway');
-const streamGateway = require('./core/gateway/streamGateway');
-
-
-
-/* ===== UNIFIED API GATEWAY V1 ===== */
-const apiGateway = require('./core/gateway/apiGateway');
-const streamGateway = require('./core/gateway/streamGateway');
-
-app.use('/api', apiGateway);
-app.use('/stream', streamGateway);
-/* ===== END GATEWAY ===== */
-
