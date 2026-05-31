@@ -1,41 +1,35 @@
-const https = require("https");
+const config = require('../../../../kernel/config');
 
-class WhatsAppCloudAdapter {
-  constructor() {
-    this.token = process.env.WHATSAPP_TOKEN || "";
-    this.phoneId = process.env.WHATSAPP_PHONE_ID || "";
+/**
+ * SINGLE SOURCE CLOUD ADAPTER
+ * DIRECT META GRAPH API EXECUTION
+ */
+
+async function sendText(to, text) {
+  const token = config.meta.token;
+  const phoneId = config.meta.phoneId;
+
+  if (!token || !phoneId) {
+    throw new Error('META CONFIG MISSING IN CLOUD ADAPTER');
   }
 
-  async sendText(to, text) {
-    const payload = JSON.stringify({
-      messaging_product: "whatsapp",
+  const url = `https://graph.facebook.com/v19.0/${phoneId}/messages`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp',
       to,
-      type: "text",
+      type: 'text',
       text: { body: text }
-    });
+    })
+  });
 
-    const options = {
-      hostname: "graph.facebook.com",
-      path: `/v20.0/${this.phoneId}/messages`,
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${this.token}`,
-        "Content-Type": "application/json"
-      }
-    };
-
-    return new Promise((resolve, reject) => {
-      const req = https.request(options, res => {
-        let data = "";
-        res.on("data", chunk => data += chunk);
-        res.on("end", () => resolve({ status: res.statusCode, data }));
-      });
-
-      req.on("error", reject);
-      req.write(payload);
-      req.end();
-    });
-  }
+  return res.json();
 }
 
-module.exports = new WhatsAppCloudAdapter();
+module.exports = { sendText };
