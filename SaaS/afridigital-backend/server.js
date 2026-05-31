@@ -57,3 +57,13 @@ app.listen(PORT,'0.0.0.0',()=>{
 });
 
 module.exports = app;
+
+app.get('/debug/env', (req, res) => {
+  res.json({
+    redis: !!process.env.REDIS_URL,
+    wa_token: !!process.env.WHATSAPP_TOKEN,
+    phone_id: !!process.env.WHATSAPP_PHONE_ID,
+    node_env: process.env.NODE_ENV || 'undefined'
+  });
+});
+
