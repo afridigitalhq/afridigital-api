@@ -1,3 +1,4 @@
+require('./core/kernel/config/loader');
 const express = require('express');
 const app = express();
 
