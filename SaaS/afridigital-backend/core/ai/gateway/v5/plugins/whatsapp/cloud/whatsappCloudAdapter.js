@@ -1,4 +1,4 @@
-const config = require('../../../../core/kernel/config');
+const config = require('../../../../core/kernel/config/index.js');
 
 /**
  * SINGLE SOURCE CLOUD ADAPTER
