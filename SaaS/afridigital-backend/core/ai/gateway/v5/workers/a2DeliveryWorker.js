@@ -1,5 +1,5 @@
 const queue = require("../runtime/queue/a2Queue");
-const transport = require("../plugins/whatsapp/cloud/whatsappCloudTransport");
+const transport = require("../runtime/transport");
 
 const WORKER_ID = "worker-" + Math.random().toString(36).slice(2, 10);
 

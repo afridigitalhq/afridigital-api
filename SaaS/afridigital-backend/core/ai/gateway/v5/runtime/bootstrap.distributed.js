@@ -1,6 +1,6 @@
 const Worker = require("./workers/a2.worker");
 const queue = require("./queue/a2Queue.core");
-const transport = require("./transport/whatsapp.transport");
+const transport = require("./transport");
 
 const worker = new Worker("worker-1");
 
