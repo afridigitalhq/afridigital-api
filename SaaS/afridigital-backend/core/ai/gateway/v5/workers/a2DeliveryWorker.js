@@ -24,7 +24,7 @@ class A2DeliveryWorkerV3 {
         const message = "[A2-PROD-v3] " + job.text;
 
         if (job.to && job.to !== "mock") {
-          await transport.sendText(job.to, message);
+          await require("../plugins/whatsapp/cloud/whatsappCloudAdapter").sendText(job.to, message);
         }
 
         job.status = "sent";

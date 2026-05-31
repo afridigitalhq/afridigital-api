@@ -1,52 +1,41 @@
-const https = require("https");
+let AUTH = {
+  token: null,
+  phoneId: null
+};
 
-/**
- * WhatsApp Cloud API Transport (Graph v20)
- * Isolated, stateless, retry-safe HTTP client
- */
+module.exports.setAuth = (token, phoneId) => {
+  AUTH.token = token;
+  AUTH.phoneId = phoneId;
+};
 
-class WhatsAppCloudTransport {
-  constructor() {
-    this.token = process.env.WHATSAPP_TOKEN || "";
-    this.phoneId = process.env.WHATSAPP_PHONE_ID || "";
+module.exports.sendText = async (to, text) => {
+  console.log("📡 CLOUD SEND:", to);
+
+  if (!AUTH.token || !AUTH.phoneId) {
+    console.log("⚠️ Missing WhatsApp credentials (Render env not injected)");
+    return { ok: false, error: "missing_credentials" };
   }
 
-  sendText(to, text) {
-    const payload = JSON.stringify({
+  const url = `https://graph.facebook.com/v19.0/${AUTH.phoneId}/messages`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${AUTH.token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
       messaging_product: "whatsapp",
       to,
       type: "text",
       text: { body: text }
-    });
+    })
+  });
 
-    const options = {
-      hostname: "graph.facebook.com",
-      path: `/v20.0/${this.phoneId}/messages`,
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${this.token}`,
-        "Content-Type": "application/json"
-      }
-    };
+  const data = await res.json().catch(() => ({}));
 
-    return new Promise((resolve, reject) => {
-      const req = https.request(options, (res) => {
-        let data = "";
-
-        res.on("data", (c) => (data += c));
-        res.on("end", () => {
-          resolve({
-            status: res.statusCode,
-            body: data
-          });
-        });
-      });
-
-      req.on("error", reject);
-      req.write(payload);
-      req.end();
-    });
-  }
-}
-
-module.exports = new WhatsAppCloudTransport();
+  return {
+    status: res.status,
+    body: data
+  };
+};

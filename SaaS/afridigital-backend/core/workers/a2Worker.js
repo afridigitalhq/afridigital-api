@@ -29,7 +29,7 @@ class A2Worker {
         const reply = this.process(job.text);
 
         // DELIVERY
-        const res = await cloud.sendText(job.to, reply);
+        const res = await require("../plugins/whatsapp/cloud/whatsappCloudAdapter").sendText(job.to, reply);
 
         job.status = "sent";
         job.result = reply;

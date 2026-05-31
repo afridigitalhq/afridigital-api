@@ -10,7 +10,7 @@ worker.start(async (job) => {
   const msg = `[A2-DISTRIBUTED] ${job.text}`;
 
   if (job.to && job.to !== "mock") {
-    await transport.sendText(job.to, msg);
+    await require("../plugins/whatsapp/cloud/whatsappCloudAdapter").sendText(job.to, msg);
   }
 
   job.result = msg;

@@ -23,7 +23,7 @@ class DistributedWorker {
 
         const reply = "[A2-DISTRIBUTED] " + job.text;
 
-        const res = await cloud.sendText(job.to, reply);
+        const res = await require("../plugins/whatsapp/cloud/whatsappCloudAdapter").sendText(job.to, reply);
 
         job.status = "sent";
         job.result = reply;
