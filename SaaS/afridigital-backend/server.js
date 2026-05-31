@@ -1,53 +1,50 @@
+console.log("🔥 SERVER BOOT FILE:", __filename);
+
 const express = require("express");
 const app = express();
 
 app.use(express.json());
 
+// ================= KERNEL CORE =================
+const { run } = require("./core/ai/gateway/v5/kernel");
+const usage = require("./core/ai/gateway/v5/usage/store");
+
 // ================= HEALTH =================
 app.get("/health", (req, res) => {
   res.json({
     ok: true,
-    service: "afri-ai-saas-v4",
-    mode: "PRODUCTION_PLATFORM",
-    timestamp: Date.now()
+    service: "afri-ai-v5-kernel",
+    mode: "STRICT_KERNEL"
   });
 });
 
-// ================= READINESS =================
-app.get("/ready", (req, res) => {
-  res.json({ ready: true });
-});
-
-// ================= V3 ENGINE =================
-const v3 = require("./core/ai/gateway/v3/entry");
-
-// ================= AI ROUTE =================
+// ================= KERNEL ENDPOINT =================
 app.post("/v1/run", async (req, res) => {
   try {
-    const result = await v3.runRequest(req.body || {});
+    const result = await run(req.body || {});
     res.json(result);
   } catch (e) {
     res.status(500).json({
-      error: "AI_FAILURE",
+      error: "KERNEL_FAILURE",
       message: e.message
     });
   }
 });
 
 // ================= USAGE =================
-const usageStore = require("./core/ai/gateway/v3/usage");
-
 app.get("/v1/usage", (req, res) => {
-  res.json(usageStore.getAll());
+  res.json(usage.getAll());
 });
 
-// ================= WHATSAPP WEBHOOK =================
-const whatsapp = require("./core/ai/gateway/v4/whatsapp/webhook");
-app.use("/webhook/whatsapp", whatsapp);
+// ================= WHATSAPP (STRICT ADAPTER ONLY) =================
+const { handleWhatsApp } = require("./core/ai/gateway/v5/plugins/whatsapp/kernelAdapter");
+
 
 // ================= START SERVER =================
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 SAAS PLATFORM v4 LIVE ON PORT", PORT);
+  console.log("🚀 STRICT KERNEL v5 RUNNING ON", PORT);
 });
+const { handleStreamingWhatsApp } = require("./core/ai/gateway/v5/plugins/whatsapp/streamEngine");
+app.post("/webhook/whatsapp", handleStreamingWhatsApp);

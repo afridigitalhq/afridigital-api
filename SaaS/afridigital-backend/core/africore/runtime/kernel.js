@@ -1,66 +1,29 @@
-const memory = require("../memory/db");
-const brain = require('../../ai/brain');
-const router = require("../router");
-const tools = require("../tools/init");
-const trace = require("./trace");
-const logger = require("../observability/logger");
-const { guard } = require("../guard/kernelGuard");
 
-module.exports = {
-  async run(event) {
+const guard = require('../guard/kernelGuard');
+const store = require('../../stream/pollStreamStore');
+const llm = require('../../llm/router');
 
-    // 🔒 HARD EXECUTION LOCK
-    guard(event.type);
+async function run(payload) {
+  const check = guard(payload?.event || 'api.ai');
+  if (check.blocked) return check;
 
-    const ctx = trace.create();
-    const userId = event.from || event.user;
+  const streamId = payload.streamId;
+  const prompt = payload.text;
 
-    logger.info({ traceId: ctx.traceId, step: "kernel_start" });
+  if (streamId) store.pushEvent(streamId, { type: 'start' });
 
-    const mem = memory.get(userId);
-
-    const ai = await brain.runBrain({
-      text: event.text,
-      memory: mem
-    });
-
-    const actions = router.route(ai);
-
-    const results = [];
-
-    for (const action of actions) {
-      const res = await tools.run(action, {
-        user: userId,
-        input: event.text,
-        ai
-      }, ctx);
-
-      results.push(res);
+  await llm.stream({
+    model: 'ollama',
+    prompt,
+    streamId,
+    onToken: (t) => {
+      store.pushEvent(streamId, { type: 'token', value: t });
     }
+  });
 
-    memory.append(userId, {
-      text: event.text,
-      role: "user"
-    });
+  if (streamId) store.pushEvent(streamId, { type: 'done' });
 
-    memory.setIntent(userId, ai.category);
-
-    logger.info({ traceId: ctx.traceId, step: "kernel_complete" });
-
-    return {
-      ok: true,
-      traceId: ctx.traceId,
-      ai,
-      memory: mem,
-      actions,
-      result: results
-    };
-  }
-};
-
-
-async function handle(input){
-  return await run(input);
+  return { ok: true };
 }
 
-module.exports.handle = handle;
+module.exports = { run };

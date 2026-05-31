@@ -1,22 +1,20 @@
+const router = require("express").Router();
+const { emit } = require("../queue/jobQueue");
 
-const express = require('express');
-const router = express.Router();
+router.post("/ai", async (req, res) => {
+  const streamId = Date.now().toString();
 
-// AI CORE
-router.post('/ai', async (req,res)=>{
-  const kernel = require('../africore/runtime/kernel');
-  const result = await kernel.run(req.body);
-  res.json(result);
-});
+  emit("api.ai", {
+    user: req.body.user,
+    text: req.body.text,
+    streamId
+  });
 
-// WHATSAPP
-router.post('/whatsapp/send', (req,res)=>{
-  res.json({ ok:true, module:'whatsapp', status:'v1' });
-});
-
-// EVENT SYSTEM
-router.post('/event', (req,res)=>{
-  res.json({ ok:true, received:true });
+  res.json({
+    ok: true,
+    status: "streaming",
+    streamId
+  });
 });
 
 module.exports = router;

@@ -1,36 +1,8 @@
-const EventEmitter = require("events");
+const { onJob } = require('../queue/jobQueue');
+const execute = require('../africore/runtime/execute');
 
-/**
- * 🧠 Unified in-memory event bus (Redis optional)
- * Works in:
- * - Render (no Redis)
- * - Local (Redis enabled)
- */
+onJob('api.ai', async (payload) => {
+  return await execute('api.ai', payload);
+});
 
-class Bus extends EventEmitter {
-  publish(event, data) {
-    this.emit(event, data);
-    return true;
-  }
-
-  subscribe(event, handler) {
-    this.on(event, handler);
-    return () => this.off(event, handler);
-  }
-}
-
-const bus = new Bus();
-
-// optional memory mirror for debugging
-const memoryLog = [];
-
-bus.onAny = function(event, data) {
-  memoryLog.push({ event, data, ts: Date.now() });
-};
-
-module.exports = {
-  publish: bus.publish.bind(bus),
-  subscribe: bus.subscribe.bind(bus),
-  bus,
-  memoryLog
-};
+module.exports = { onJob };

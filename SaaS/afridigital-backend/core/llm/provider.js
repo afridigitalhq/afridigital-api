@@ -1,40 +1,62 @@
-const axios = require("axios");
+const http = require("http");
 
 /**
- * 🧠 LLM PROVIDER (PLUG & PLAY)
- * - OpenAI optional
- * - fallback mock local model
+ * STREAMING OLLAMA ADAPTER
+ * - sends prompt to local Ollama
+ * - streams tokens back via callback
  */
-
-async function callLLM({ role, prompt }) {
-
-  // 🔌 OPENAI HOOK (optional)
-  if (process.env.OPENAI_API_KEY) {
-    try {
-      const res = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "system", content: role },
-            { role: "user", content: prompt }
-          ]
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-          }
+async function streamLLM(prompt, onToken) {
+  return new Promise((resolve, reject) => {
+    const req = http.request(
+      {
+        hostname: "127.0.0.1",
+        port: 11434,
+        path: "/api/generate",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
         }
-      );
+      },
+      (res) => {
+        let buffer = "";
 
-      return res.data.choices[0].message.content;
-    } catch (e) {
-      console.log("⚠️ OpenAI failed, fallback to local model");
-    }
-  }
+        res.on("data", (chunk) => {
+          buffer += chunk.toString();
 
-  // 🧠 LOCAL FALLBACK MODEL (no dependency)
-  return `[${role.toUpperCase()} LOCAL LLM]: ${prompt}`;
+          const lines = buffer.split("\n");
+          buffer = lines.pop();
+
+          for (const line of lines) {
+            if (!line.trim()) continue;
+
+            try {
+              const json = JSON.parse(line);
+              if (json.response) {
+                onToken(json.response);
+              }
+              if (json.done) {
+                resolve();
+              }
+            } catch (e) {}
+          }
+        });
+
+        res.on("end", () => resolve());
+      }
+    );
+
+    req.on("error", reject);
+
+    req.write(
+      JSON.stringify({
+        model: "llama3",
+        prompt,
+        stream: true
+      })
+    );
+
+    req.end();
+  });
 }
 
-module.exports = { callLLM };
+module.exports = { streamLLM };

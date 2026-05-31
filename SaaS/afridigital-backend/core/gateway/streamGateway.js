@@ -1,9 +1,15 @@
+const router = require("express").Router();
+const { subscribe } = require("../stream/streamManager");
 
-const express = require('express');
-const router = express.Router();
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
 
-router.post('/connect', (req,res)=>{
-  res.json({ ok:true, stream:'connected', mode:'v1' });
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+
+  subscribe(id, (event) => {
+    res.write(`data: ${JSON.stringify(event)}\n\n`);
+  });
 });
 
 module.exports = router;
