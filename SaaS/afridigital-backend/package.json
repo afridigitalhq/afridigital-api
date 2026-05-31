@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "prestart": "node scripts/kernel-guard.js",
+    "prebuild": "node scripts/kernel-guard.js"
   },
   "dependencies": {
     "ajv": "^8.20.0",
@@ -15,6 +17,7 @@
     "helmet": "^8.2.0",
     "ioredis": "^5.11.0",
     "jsonwebtoken": "^9.0.3",
+    "module-alias": "^2.3.4",
     "morgan": "^1.10.1",
     "node-fetch": "^3.3.2",
     "openai": "^6.39.1",
@@ -22,5 +25,9 @@
     "uuid": "^14.0.0",
     "zod": "^4.4.3"
   },
-  "main": "server.js"
+  "main": "server.js",
+  "_moduleAliases": {
+    "kernel": "core/kernel",
+    "@kernel": "core/kernel"
+  }
 }

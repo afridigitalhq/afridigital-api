@@ -1,5 +1,5 @@
 
-const config = require('../../../kernel/config');
+const config = require('../../../kernel/_resolveKernel').config;
 
 const TOKEN = config.meta.token;
 const PHONE_ID = config.meta.phoneId;

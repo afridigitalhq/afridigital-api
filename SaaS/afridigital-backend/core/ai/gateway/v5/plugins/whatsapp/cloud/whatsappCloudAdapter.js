@@ -1,4 +1,4 @@
-const config = require(process.cwd() + '/core/kernel/config');
+const config = require('../../../kernel');
 
 /**
  * SINGLE SOURCE CLOUD ADAPTER

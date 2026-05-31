@@ -1,3 +1,5 @@
+require('./core/kernel/hotReloadWatcher');
+require('module-alias/register');
 require('./core/kernel/config/loader');
 const express = require('express');
 const app = express();
