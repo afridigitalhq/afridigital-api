@@ -1,35 +1,33 @@
-const config = require(process.cwd() + '/core/kernel/entry');
+const config = require(process.cwd() + '/core/kernel/entry').config;
 
-/**
- * SINGLE SOURCE CLOUD ADAPTER
- * DIRECT META GRAPH API EXECUTION
- */
+const token =
+  config.get('whatsapp.token') ||
+  process.env.WHATSAPP_TOKEN;
 
-async function sendText(to, text) {
-  const token = config.meta.token;
-  const phoneId = config.meta.phoneId;
+const phoneId =
+  config.get('whatsapp.phoneId') ||
+  process.env.WHATSAPP_PHONE_ID;
 
-  if (!token || !phoneId) {
-    throw new Error('META CONFIG MISSING IN CLOUD ADAPTER');
-  }
-
-  const url = `https://graph.facebook.com/v19.0/${phoneId}/messages`;
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to,
-      type: 'text',
-      text: { body: text }
-    })
-  });
-
-  return res.json();
+if (!token || !phoneId) {
+  console.error("❌ WhatsApp config missing");
 }
 
-module.exports = { sendText };
+module.exports = {
+  sendText: async (to, text) => {
+    const AUTH = {
+      token,
+      phoneId
+    };
+
+    if (!AUTH.token || !AUTH.phoneId) {
+      throw new Error("WhatsApp auth not initialized");
+    }
+
+    return {
+      messaging_product: "whatsapp",
+      to,
+      text,
+      authorization: `Bearer ${AUTH.token}`
+    };
+  }
+};
