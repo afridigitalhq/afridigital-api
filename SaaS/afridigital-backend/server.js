@@ -1,3 +1,7 @@
+
+const config = require('./core/kernel/config/loader');
+global.config = config;
+
 require('./core/kernel/hotReloadWatcher');
 require('module-alias/register');
 require('./core/kernel/config/loader');
