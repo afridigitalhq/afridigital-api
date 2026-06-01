@@ -1,8 +1,12 @@
-
 const config = require(process.cwd() + '/core/kernel/entry').config;
 
-const TOKEN = config.meta.token;
-const PHONE_ID = config.meta.phoneId;
+const TOKEN =
+  config.get('whatsapp.token') ||
+  process.env.WHATSAPP_TOKEN;
+
+const PHONE_ID =
+  config.get('whatsapp.phoneId') ||
+  process.env.WHATSAPP_PHONE_ID;
 
 const cloud = require('../../plugins/whatsapp/cloud/whatsappCloudTransport');
 
