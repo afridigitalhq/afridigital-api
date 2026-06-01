@@ -2,7 +2,7 @@ const axios = require("axios");
 const gateway = require("../entry");
 
 async function sendMessage(to, text) {
-  const TOKEN = process.env.WHATSAPP_TOKEN;
+  const TOKEN = config.get("whatsapp.token");
 
   if (!TOKEN) {
     console.log("[MOCK WHATSAPP SEND]", { to, text });

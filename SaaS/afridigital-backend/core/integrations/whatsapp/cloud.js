@@ -2,8 +2,8 @@ const https = require("https");
 
 class WhatsAppCloud {
   constructor() {
-    this.token = process.env.WHATSAPP_TOKEN || "";
-    this.phoneId = process.env.WHATSAPP_PHONE_ID || "";
+    this.token = config.get("whatsapp.token") || "";
+    this.phoneId = config.get("whatsapp.phoneId") || "";
   }
 
   async sendText(to, text) {

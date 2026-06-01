@@ -1,6 +1,6 @@
-const TOKEN = process.env.META_ACCESS_TOKEN;
-const PHONE_ID = process.env.META_PHONE_NUMBER_ID;
-const VERIFY_TOKEN = process.env.META_VERIFY_TOKEN;
+const TOKEN = config.get("auth.token");
+const PHONE_ID = config.get("whatsapp.phoneId");
+const VERIFY_TOKEN = config.get("whatsapp.verifyToken");
 
 module.exports = {
   TOKEN,

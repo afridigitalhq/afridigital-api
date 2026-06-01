@@ -1,5 +1,5 @@
 module.exports = {
-  mode: process.env.WHATSAPP_MODE || "mock",
-  token: process.env.WHATSAPP_TOKEN || "",
-  phoneId: process.env.WHATSAPP_PHONE_ID || ""
+  mode: config.get("whatsapp.mode") || "mock",
+  token: config.get("whatsapp.token") || "",
+  phoneId: config.get("whatsapp.phoneId") || ""
 };

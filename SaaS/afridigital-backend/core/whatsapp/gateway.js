@@ -7,12 +7,12 @@ const axios = require("axios");
 async function sendWhatsAppMessage(to, text) {
 
   try {
-    await axios.post(process.env.WHATSAPP_API_URL, {
+    await axios.post(config.get("whatsapp.apiUrl"), {
       to,
       text
     }, {
       headers: {
-        Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
+        Authorization: `Bearer ${config.get("whatsapp.token")}`,
         "Content-Type": "application/json"
       }
     });

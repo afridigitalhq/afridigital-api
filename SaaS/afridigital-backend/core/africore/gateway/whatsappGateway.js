@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const redis = require("../runtime/redis"); // expected ioredis instance or adapter
 
-const APP_SECRET = process.env.WHATSAPP_APP_SECRET || "dev_secret";
+const APP_SECRET = config.get("whatsapp.appSecret") || "dev_secret";
 const STREAM = "whatsapp:stream";
 
 function verifySignature(req) {

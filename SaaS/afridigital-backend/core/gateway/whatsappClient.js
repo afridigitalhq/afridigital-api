@@ -5,8 +5,8 @@ const axios = require("axios");
  * (plug in your provider: Twilio / Meta / 360dialog / custom API)
  */
 
-const BASE_URL = process.env.WHATSAPP_GATEWAY_URL;
-const TOKEN = process.env.WHATSAPP_GATEWAY_TOKEN;
+const BASE_URL = config.get("whatsapp.gatewayUrl");
+const TOKEN = config.get("whatsapp.gatewayToken");
 
 /**
  * Send initial message (creates message session)
