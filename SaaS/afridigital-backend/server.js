@@ -58,7 +58,7 @@ const drainer = require('./core/ai/gateway/v5/runtime/a2QueueDrainer');
 if (drainer && drainer.start) drainer.start();
 
 // ================= START SERVER =================
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || process.env.PORT;
 app.listen(PORT,'0.0.0.0',()=>{
   console.log("🚀 A2 PRODUCTION LOCKED SYSTEM RUNNING ON",PORT);
 });
