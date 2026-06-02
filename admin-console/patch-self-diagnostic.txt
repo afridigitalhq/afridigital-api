@@ -1,0 +1,20 @@
+Inside AdminConsole.jsx:
+
+1. import SelfDiagnosticPanel from "./SelfDiagnosticPanel";
+
+2. Extend mode system:
+const [mode, setMode] = useState("inspect");
+// inspect | replay | flow | memory | decision | prompt | diagnose
+
+3. Add button:
+<button onClick={() => setMode("diagnose")}>Diagnose</button>
+
+4. Extend render switch:
+
+{mode === "inspect" && <TraceInspector trace={selectedTrace} />}
+{mode === "replay" && <TraceReplay trace={selectedTrace} />}
+{mode === "flow" && <FlowGraph trace={selectedTrace} />}
+{mode === "memory" && <MemoryInspector trace={selectedTrace} />}
+{mode === "decision" && <DecisionInspector trace={selectedTrace} />}
+{mode === "prompt" && <PromptEvolution trace={selectedTrace} />}
+{mode === "diagnose" && <SelfDiagnosticPanel trace={selectedTrace} />}

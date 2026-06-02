@@ -1,0 +1,18 @@
+Inside AdminConsole.jsx:
+
+1. import FlowGraph from "./FlowGraph";
+
+2. Extend mode state:
+const [mode, setMode] = useState("inspect");
+// inspect | replay | flow
+
+3. Add button:
+<button onClick={() => setMode("flow")}>Flow Graph</button>
+
+4. Replace inspector body:
+
+{mode === "inspect" && <TraceInspector trace={selectedTrace} />}
+
+{mode === "replay" && <TraceReplay trace={selectedTrace} />}
+
+{mode === "flow" && <FlowGraph trace={selectedTrace} />}

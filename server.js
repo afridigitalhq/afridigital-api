@@ -43,3 +43,33 @@ app.listen(PORT, () => {
   console.log("🚀 AFRIAGENT V1 RUNNING:", PORT);
 });
 // deploy trigger 1779876956
+
+const { stream } = require("./realtime/admin-stream");
+
+// SIMPLE SSE ENDPOINT FOR ADMIN DASHBOARD
+app.get("/realtime/admin", (req, res) => {
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+
+  const send = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  const listener = (event) => send(event);
+
+  stream.on("event", listener);
+
+  req.on("close", () => {
+    stream.off("event", listener);
+  });
+});
+
+// ===== AI BRAIN INSTRUMENTATION =====
+const { instrumentRequest } = require("./core/instrumentation/requestHooks");
+
+app.use(instrumentRequest);
+
+
+// CONTROL TOWER HEALTH ROUTE
+app.use('/api/system', require('./routes/system/health'));

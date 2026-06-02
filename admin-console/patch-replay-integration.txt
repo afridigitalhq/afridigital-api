@@ -1,0 +1,21 @@
+Inside AdminConsole.jsx:
+
+1. import TraceReplay from "./TraceReplay";
+
+2. Add toggle:
+const [mode, setMode] = useState("inspect"); // inspect | replay
+
+3. Replace inspector header with:
+
+<div style={{ display: "flex", gap: 10 }}>
+  <button onClick={() => setMode("inspect")}>Inspect</button>
+  <button onClick={() => setMode("replay")}>Replay</button>
+</div>
+
+4. Replace inspector body with:
+
+{mode === "inspect" ? (
+  <TraceInspector trace={selectedTrace} />
+) : (
+  <TraceReplay trace={selectedTrace} />
+)}

@@ -1,0 +1,13 @@
+Inside AdminConsole.jsx:
+
+1. import AutoFixPanel from "./AutoFixPanel";
+
+2. Extend mode system:
+const [mode, setMode] = useState("inspect");
+// inspect | replay | flow | memory | decision | prompt | diagnose | autofix
+
+3. Add button:
+<button onClick={() => setMode("autofix")}>Auto-Fix</button>
+
+4. Render:
+{mode === "autofix" && <AutoFixPanel trace={selectedTrace} />}

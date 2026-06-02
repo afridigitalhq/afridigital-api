@@ -1,19 +1,21 @@
 const EventEmitter = require("events");
-const swarm = ;
 
-class AfriEventBus extends EventEmitter {
+/**
+ * 🧠 CORE EVENT BUS (STABLE BASE LAYER)
+ * This is the single source of truth for all system signals
+ */
 
-  emitEvent(type, payload, swarmMode = true) {
+class Bus extends EventEmitter {
+  emitEvent(type, payload = {}, swarmMode = true) {
     this.emit(type, payload);
 
+    // optional debug stream
     if (swarmMode) {
-      swarm.publish(type, payload);
+      this.emit("DEBUG", { type, payload });
     }
-  }
-
-  subscribe(type, handler) {
-    this.on(type, handler);
   }
 }
 
-module.exports = new AfriEventBus();
+const bus = new Bus();
+
+module.exports = bus;

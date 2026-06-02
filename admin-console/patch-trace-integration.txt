@@ -1,0 +1,34 @@
+Inside AdminConsole.jsx:
+
+1. import useTraceStore from "./useTraceStore";
+2. import TraceInspector from "./TraceInspector";
+
+3. const traces = useTraceStore(events);
+4. const [selectedTrace, setSelectedTrace] = useState(null);
+
+Replace Inspector section with:
+
+<div style={styles.inspector}>
+  <h3 style={styles.sectionTitle}>🔍 Trace Inspector</h3>
+
+  <div style={{ maxHeight: 200, overflowY: "auto" }}>
+    {traces.map((t) => (
+      <div
+        key={t.id}
+        onClick={() => setSelectedTrace(t)}
+        style={{
+          padding: 8,
+          cursor: "pointer",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          color: "#00F5FF"
+        }}
+      >
+        {t.id} ({t.events.length})
+      </div>
+    ))}
+  </div>
+
+  <div style={{ marginTop: 10 }}>
+    <TraceInspector trace={selectedTrace} />
+  </div>
+</div>

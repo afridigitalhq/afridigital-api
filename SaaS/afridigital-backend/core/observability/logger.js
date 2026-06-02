@@ -1,8 +1,9 @@
-module.exports = {
-  info(data){
-    console.log(JSON.stringify({ level:'info', ...data }));
-  },
-  error(data){
-    console.error(JSON.stringify({ level:'error', ...data }));
-  }
-};
+function log(event, data = {}) {
+  console.log(JSON.stringify({
+    ts: new Date().toISOString(),
+    event,
+    ...data
+  }));
+}
+
+module.exports = { log };

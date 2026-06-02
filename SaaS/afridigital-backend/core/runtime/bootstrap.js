@@ -21,6 +21,16 @@ function createApp() {
     });
   });
 
+  
+  app.get('/dashboard', (req, res) => {
+    const html = require('fs').readFileSync(
+      'core/observability/v4/dashboard/index.html',
+      'utf8'
+    );
+    res.setHeader('Content-Type','text/html');
+    res.send(html);
+  });
+
   return app;
 }
 

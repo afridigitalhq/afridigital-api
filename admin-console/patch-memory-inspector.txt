@@ -1,0 +1,17 @@
+Inside AdminConsole.jsx:
+
+1. import MemoryInspector from "./MemoryInspector";
+
+2. Extend mode system:
+const [mode, setMode] = useState("inspect");
+// inspect | replay | flow | memory
+
+3. Add button:
+<button onClick={() => setMode("memory")}>Memory</button>
+
+4. Extend render switch:
+
+{mode === "inspect" && <TraceInspector trace={selectedTrace} />}
+{mode === "replay" && <TraceReplay trace={selectedTrace} />}
+{mode === "flow" && <FlowGraph trace={selectedTrace} />}
+{mode === "memory" && <MemoryInspector trace={selectedTrace} />}

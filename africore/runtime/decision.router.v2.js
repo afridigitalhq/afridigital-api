@@ -1,3 +1,4 @@
+const routingBrain = require('../../core/control-plane/routing/routing.brain');
 const telemetry = require("../telemetry/telemetry.layer");
 const memory = require("./cluster.memory");
 const fraud = require("../engine/fraud.engine");
@@ -185,3 +186,13 @@ module.exports = {
   routeMessage,
   ROUTES
 };
+
+
+// ===== ROUTING BRAIN HOOK (SAFE WRAPPER) =====
+function _routeBrain(eventType, payload, traceId) {
+  try {
+    return routingBrain.routeEvent(eventType, payload, traceId);
+  } catch (e) {
+    return null;
+  }
+}

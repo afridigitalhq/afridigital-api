@@ -25,3 +25,13 @@ function executeRouting(msg, decision) {
 }
 
 module.exports = { executeRouting };
+
+
+// ===== ROUTING BRAIN FEEDBACK SAFE LAYER =====
+const routingBrain = require('../../core/control-plane/routing/routing.brain');
+
+function reportRouting(eventType, target, success, latencyMs = 0) {
+  try {
+    routingBrain.feedback(eventType, target, success, latencyMs);
+  } catch (e) {}
+}

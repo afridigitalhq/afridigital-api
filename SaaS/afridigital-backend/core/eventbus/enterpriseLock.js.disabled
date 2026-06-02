@@ -1,0 +1,56 @@
+/**
+ * AFRIDIGITAL ENTERPRISE EVENT BUS GOVERNANCE
+ * Prevents architectural fragmentation at scale
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const RULES = {
+  canonicalBus: 'core/eventbus',
+  forbidden: [
+    '../bus',
+    '../eventBus',
+    '../../africore/eventbus/bus',
+    '../events/apiEventBus',
+    '../events/bus',
+    '../stream/streamBus',
+    '../redis/streamBus'
+  ]
+};
+
+function scanFile(file) {
+  if (file.includes("enterpriseLock") || file.includes("core/eventbus/lock")) return;
+  if (file.includes("eventbus/lock") || file.includes("enterpriseLock")) return;
+  const content = fs.readFileSync(file, 'utf8');
+
+  for (const bad of RULES.forbidden) {
+    if (content.includes(bad)) {
+      throw new Error(`
+🚨 AFRI EVENT GOVERNANCE VIOLATION
+
+File: ${file}
+Violation: Forbidden event bus import detected
+Pattern: ${bad}
+
+👉 Replace with:
+const bus = require('${RULES.canonicalBus}');
+      `);
+    }
+  }
+}
+
+function walk(dir) {
+  for (const f of fs.readdirSync(dir)) {
+    const p = path.join(dir, f);
+    const stat = fs.statSync(p);
+
+    if (stat.isDirectory()) walk(p);
+    else if (p.endsWith('.js')) scanFile(p);
+  }
+}
+
+// root scan (entire system)
+walk(path.join(__dirname, '..', '..'));
+
+console.log('🏢 ENTERPRISE EVENT LOCK: PASSED');
