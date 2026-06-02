@@ -51,11 +51,9 @@ app.post('/webhook/whatsapp', async (req,res)=>{
 
 // ================= WORKER =================
 const worker = require('./core/workers/a2Worker');
-worker.start();
 
 // ================= QUEUE DRRAINER =================
 const drainer = require('./core/ai/gateway/v5/runtime/a2QueueDrainer');
-if (drainer && drainer.start) drainer.start();
 
 // ================= START SERVER =================
 const PORT = process.env.PORT || process.env.PORT;
@@ -81,3 +79,4 @@ app.get('/debug/env', (req, res) => {
 module.exports = app;
 
 
+process.env.RENDER ? console.log('Render mode active') : null;
