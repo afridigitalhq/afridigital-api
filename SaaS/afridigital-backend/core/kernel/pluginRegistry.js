@@ -1,61 +1,29 @@
-const fs = require('fs');
-const path = require('path');
+const plugins = new Map();
 
-const registry = {
-  cache: {},
-  meta: {}
-};
-
-/**
- * Load plugin fresh (NO require cache)
- */
-function loadPlugin(pluginPath) {
-  const abs = path.resolve(process.cwd(), pluginPath);
-
-  // bust node cache
-  delete require.cache[require.resolve(abs)];
-
-  const mod = require(abs);
-
-  registry.cache[pluginPath] = mod;
-  return mod;
+function loadPlugin(name, plugin) {
+  plugins.set(name, plugin);
+  return true;
 }
 
-/**
- * Get plugin (cached runtime)
- */
-function get(pluginPath) {
-  if (!registry.cache[pluginPath]) {
-    return loadPlugin(pluginPath);
-  }
-  return registry.cache[pluginPath];
+function reload(name) {
+  if (!plugins.has(name)) return false;
+  const p = plugins.get(name);
+  plugins.set(name, p);
+  return true;
 }
 
-/**
- * Hot reload plugin
- */
-function reload(pluginPath) {
-  console.log('♻️ HOT RELOAD:', pluginPath);
-  return loadPlugin(pluginPath);
+function swap(name, plugin) {
+  plugins.set(name, plugin);
+  return true;
 }
 
-/**
- * Swap plugin implementation at runtime
- */
-function swap(pluginPath, newPath) {
-  console.log('🔁 SWAP:', pluginPath, '→', newPath);
-
-  delete registry.cache[pluginPath];
-
-  const mod = loadPlugin(newPath);
-  registry.cache[pluginPath] = mod;
-
-  return mod;
+function get(name) {
+  return plugins.get(name);
 }
 
 module.exports = {
-  get,
   loadPlugin,
   reload,
-  swap
+  swap,
+  get
 };

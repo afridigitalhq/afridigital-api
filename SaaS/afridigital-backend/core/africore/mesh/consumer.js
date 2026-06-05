@@ -1,7 +1,7 @@
 const Redis = require("ioredis");
 const kernel = require("../runtime/kernel");
 
-const redis = new Redis(process.env.REDIS_URL);
+const redis = new (require("../redis/disabledClient"))();
 
 const STREAM = "whatsapp:stream";
 const GROUP = "whatsapp-group";

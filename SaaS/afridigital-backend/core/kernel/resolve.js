@@ -1,9 +1,7 @@
 const path = require('path');
 
-/**
- * GLOBAL ROOT RESOLVER (Render-safe)
- * Ensures all modules resolve from project root reliably
- */
-global.__root = path.resolve(__dirname, '../../..');
+function resolve(p) {
+  return path.join(process.cwd(), p);
+}
 
-module.exports = global.__root;
+module.exports = resolve;

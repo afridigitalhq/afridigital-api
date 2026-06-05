@@ -1,37 +1,30 @@
-const express = require("express");
+const { register } = require('./clusterRegistry');
+const { createClusterRouter } = require('./clusterRouter');
+const { createClusterExecutor } = require('./clusterExecutor');
+const memory = require('./clusterMemory');
 
-class A2Kernel {
-  constructor() {
-    this.app = express();
-    this.plugins = new Map();
-    this.booted = false;
-  }
+function createKernel() {
 
-  usePlugin(name, fn) {
-    if (this.plugins.has(name)) return; // 🔒 idempotent protection
-    this.plugins.set(name, fn);
-    fn(this.app);
-  }
+  // master node (Render in real deployment)
+  register("render-master", { role: "master" });
+  register("termux-edge", { role: "edge" });
 
-  startServer(port = 3000) {
-    if (this.booted) return;
+  const executor = createClusterExecutor({}, memory);
+  const router = createClusterRouter(require('./clusterRegistry'));
 
-    this.app.use(express.json());
+  return {
+    router,
+    memory,
 
-    this.app.get("/health", (_, res) => {
-      res.json({ ok: true, kernel: "A2-KERNEL-V1" });
-    });
+    start() {
+      console.log("🌐 AFRIKERNEL v9 ONLINE (AUTONOMOUS CLUSTER BRAIN)");
+      return this;
+    },
 
-    this.app.listen(port, "0.0.0.0", () => {
-      console.log("🚀 A2 KERNEL v1 RUNNING ON", port);
-    });
-
-    this.booted = true;
-  }
-
-  getApp() {
-    return this.app;
-  }
+    dispatch(job) {
+      return router.route(job, executor.execute);
+    }
+  };
 }
 
-module.exports = new A2Kernel();
+module.exports = { createKernel };

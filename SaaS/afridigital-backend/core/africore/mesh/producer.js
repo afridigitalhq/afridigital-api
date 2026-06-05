@@ -1,15 +1,21 @@
-const Redis = require("ioredis");
-const redis = new Redis(process.env.REDIS_URL);
+const { dispatch } = require('../../afriai/registry/workerRegistry');
+const { setReply } = require('../runtime/promiseStore');
 
-const STREAM = "whatsapp:stream";
+function publish(message) {
+  const payload = {
+    ...message,
+    createdAt: Date.now()
+  };
 
-module.exports = {
-  async publish(event) {
-    await redis.xadd(
-      STREAM,
-      "*",
-      "data",
-      JSON.stringify(event)
-    );
+  console.log("📨 DISPATCH:", payload.traceId);
+
+  const result = dispatch(payload);
+
+  if (result) {
+    setReply(payload.traceId, result);
   }
-};
+
+  return payload.traceId;
+}
+
+module.exports = { publish };

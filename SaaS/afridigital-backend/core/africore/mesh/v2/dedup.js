@@ -1,5 +1,5 @@
 const Redis = require("ioredis");
-const redis = new Redis(process.env.REDIS_URL);
+const redis = new (require("../redis/disabledClient"))();
 
 const SET = "whatsapp:dedup";
 const TTL = 60 * 60 * 24;
