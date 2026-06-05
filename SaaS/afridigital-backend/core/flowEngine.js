@@ -17,4 +17,5 @@ function generateEvent() {
   return event;
 }
 
+const { wrapAIDecision } = require("./core/flow/trace/traceEngine");
 module.exports = { generateEvent };
