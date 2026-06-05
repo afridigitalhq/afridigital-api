@@ -29,7 +29,6 @@ function createApp() {
     const node = nodes[i++ % nodes.length]; 
     res.json({ id:"evt_"+Date.now(), node, action:"execute", status:"running", timestamp:Date.now() }); 
   }); 
-  app.get("/flow/health",(req,res)=> res.json({ ok:true, engine:"flowgraph" })); 
   // FLOWGRAPH ENGINE END
   app.get('/dashboard', (req, res) => {
     const html = require('fs').readFileSync(

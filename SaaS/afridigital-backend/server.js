@@ -1,5 +1,6 @@
 const createApp = require('./core/runtime/bootstrap');
 const app = createApp();
+app.use("/flow", require("./routes/flow.routes"));
 const flow = require('./core/flow/router');
 app.use('/flow', flow);
 
