@@ -1,35 +1,80 @@
-const WebSocket = require("ws");
+const WebSocket = require('ws');
+const bus = require('../../redis/streamBus');
 
-const nodes = ["API", "Kernel", "EventBus", "AI Brain", "Database"];
-let i = 0;
+const STREAM_KEY = 'flowgraph:stream';
 
 function createFlowSocket(server) {
-  const wss = new WebSocket.Server({ server, path: "/flow-stream" });
+  const wss = new WebSocket.Server({ server });
 
-  wss.on("connection", (ws) => {
+  const clients = new Set();
+
+  wss.on('connection', (ws) => {
+    clients.add(ws);
+
     ws.send(JSON.stringify({
-      type: "init",
-      status: "connected",
-      engine: "flowgraph"
+      type: 'system',
+      message: 'FlowSocket connected',
+      timestamp: Date.now()
     }));
 
-    const interval = setInterval(() => {
-      const node = nodes[i++ % nodes.length];
-
-      ws.send(JSON.stringify({
-        type: "flow:event",
-        id: "evt_" + Date.now(),
-        node,
-        action: "execute",
-        status: "running",
-        timestamp: Date.now()
-      }));
-    }, 1500);
-
-    ws.on("close", () => clearInterval(interval));
+    ws.on('close', () => clients.delete(ws));
   });
 
-  console.log("⚡ FlowGraph WS ready at /flow-stream");
+  function broadcast(event) {
+    const payload = JSON.stringify({
+      type: 'flow.event',
+      data: event
+    });
+
+    for (const ws of clients) {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(payload);
+      }
+    }
+  }
+
+  // Redis Stream consumer (fanout bridge)
+  async function startStreamBridge() {
+    if (!bus || !bus.xread) {
+      console.log('[FlowSocket] Redis stream not available, running WS-only mode');
+      return;
+    }
+
+    let lastId = '$';
+
+    setInterval(async () => {
+      try {
+        const result = await bus.xread(
+          'BLOCK',
+          0,
+          'STREAMS',
+          STREAM_KEY,
+          lastId
+        );
+
+        if (!result) return;
+
+        const [stream, messages] = result[0];
+
+        for (const msg of messages) {
+          lastId = msg[0];
+
+          const raw = msg[1][1];
+          const event = JSON.parse(raw);
+
+          broadcast(event);
+        }
+      } catch (e) {
+        console.log('[FlowSocket] stream error:', e.message);
+      }
+    }, 200);
+  }
+
+  startStreamBridge();
+
+  console.log('🔷 Flow WebSocket Gateway ACTIVE');
+
+  return wss;
 }
 
 module.exports = { createFlowSocket };

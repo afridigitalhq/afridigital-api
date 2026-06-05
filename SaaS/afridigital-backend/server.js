@@ -18,6 +18,7 @@ try {
 const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, "0.0.0.0", () => {
+const { createFlowSocket } = require("./core/flow/ws/flowSocket"); createFlowSocket(server);
 const { attachFlowStream } = require("./core/flow/stream/flowStream"); attachFlowStream(app);
 createFlowSocket(server);
 const { createFlowSocket } = require("./core/flow/ws/flowSocket");
