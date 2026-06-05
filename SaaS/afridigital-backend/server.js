@@ -17,6 +17,8 @@ try {
 const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, "0.0.0.0", () => {
+createFlowSocket(server);
+const { createFlowSocket } = require("./core/flow/ws/flowSocket");
   console.log("🚀 AFRI KERNEL v2 RUNNING ON", PORT);
 });
 
