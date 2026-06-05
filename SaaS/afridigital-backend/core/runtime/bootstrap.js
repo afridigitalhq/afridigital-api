@@ -22,6 +22,15 @@ function createApp() {
   });
 
   
+  // FLOWGRAPH ENGINE START 
+  const nodes = ["API","Kernel","EventBus","AI Brain","Database"]; 
+  let i = 0; 
+  app.get("/flow/event",(req,res)=>{ 
+    const node = nodes[i++ % nodes.length]; 
+    res.json({ id:"evt_"+Date.now(), node, action:"execute", status:"running", timestamp:Date.now() }); 
+  }); 
+  app.get("/flow/health",(req,res)=> res.json({ ok:true, engine:"flowgraph" })); 
+  // FLOWGRAPH ENGINE END
   app.get('/dashboard', (req, res) => {
     const html = require('fs').readFileSync(
       'core/observability/v4/dashboard/index.html',
