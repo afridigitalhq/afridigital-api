@@ -1,0 +1,72 @@
+let memoryBus = {
+  channels: {},
+  publish(channel, data) {
+    if (!this.channels[channel]) return;
+    for (const fn of this.channels[channel]) {
+      try { fn(data); } catch (e) {}
+    }
+  },
+  subscribe(channel, fn) {
+    if (!this.channels[channel]) this.channels[channel] = [];
+    this.channels[channel].push(fn);
+  }
+};
+
+let redisBus = null;
+let mode = "memory";
+
+/**
+ * Initializes Redis if available, otherwise fallback to memory mesh
+ */
+function initBus() {
+  try {
+    const Redis = require("ioredis");
+    const pub = new Redis(process.env.REDIS_URL);
+    const sub = new Redis(process.env.REDIS_URL);
+
+    redisBus = {
+      publish(channel, data) {
+        pub.publish(channel, JSON.stringify(data));
+      },
+      subscribe(channel, fn) {
+        sub.subscribe(channel);
+        sub.on("message", (ch, msg) => {
+          if (ch === channel) fn(JSON.parse(msg));
+        });
+      }
+    };
+
+    mode = "redis";
+    return redisBus;
+
+  } catch (e) {
+    mode = "memory";
+    return memoryBus;
+  }
+}
+
+/**
+ * Get active bus (redis or memory fallback)
+ */
+function getBus() {
+  return redisBus || memoryBus;
+}
+
+function publish(channel, data) {
+  getBus().publish(channel, data);
+}
+
+function subscribe(channel, fn) {
+  getBus().subscribe(channel, fn);
+}
+
+function getMode() {
+  return mode;
+}
+
+module.exports = {
+  initBus,
+  publish,
+  subscribe,
+  getMode
+};

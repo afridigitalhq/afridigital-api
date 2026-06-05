@@ -1,0 +1,10 @@
+const { propagateHeat, coolDown } = require("./heatEngine");
+
+function startPhysicsLoop() {
+  setInterval(() => {
+    propagateHeat();
+    coolDown();
+  }, 500);
+}
+
+module.exports = { startPhysicsLoop };

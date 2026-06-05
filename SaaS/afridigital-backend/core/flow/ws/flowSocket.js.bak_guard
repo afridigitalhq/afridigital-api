@@ -3,7 +3,7 @@ const { subscribe } = require("../mesh/eventBus");
 
 function createFlowSocket(server) {
   const wss = new WebSocket.Server({ server });
-const attachSynapseStream = () => console.log("⚠️ synapseStream disabled (fallback mode)");
+const { attachSynapseStream } = require("../ws/synapseStream");
 
   wss.on("connection", (ws) => {
     ws.send(JSON.stringify({ type: "connected", ok: true }));

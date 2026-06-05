@@ -1,0 +1,53 @@
+const edges = new Map();
+
+/**
+ * Build synaptic connection between nodes
+ * based on FlowGraph execution sequence
+ */
+function registerSynapse(from, to) {
+  const key = `${from}->${to}`;
+
+  const existing = edges.get(key) || {
+    from,
+    to,
+    weight: 0,
+    lastActive: Date.now()
+  };
+
+  existing.weight += 1;
+  existing.lastActive = Date.now();
+
+  edges.set(key, existing);
+
+  return existing;
+}
+
+/**
+ * Decay weak synapses over time
+ */
+function decaySynapses() {
+  const now = Date.now();
+
+  for (const [key, edge] of edges.entries()) {
+    const age = now - edge.lastActive;
+
+    edge.weight *= age > 10000 ? 0.95 : 0.99;
+
+    if (edge.weight < 0.2) {
+      edges.delete(key);
+    }
+  }
+}
+
+/**
+ * Export graph snapshot for WebGL renderer
+ */
+function getSynapticGraph() {
+  return Array.from(edges.values());
+}
+
+module.exports = {
+  registerSynapse,
+  decaySynapses,
+  getSynapticGraph
+};

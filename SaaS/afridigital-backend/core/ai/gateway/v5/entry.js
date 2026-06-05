@@ -1,5 +1,5 @@
 const provider = require("../../providers/mockProvider");
-const usage = require("../../saas/usage");
+const usage = require("../../../saas/usage");
 
 async function runRequest(req) {
   const apiKey = req.apiKey || "unknown";

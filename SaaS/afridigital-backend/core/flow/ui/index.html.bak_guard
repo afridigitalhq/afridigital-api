@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>AfriBrain OS</title>
+
+<style>
+body {
+  margin:0;
+  font-family: monospace;
+  background: radial-gradient(circle at top, #0b1220, #05070d);
+  color:#00ffd5;
+  overflow:hidden;
+}
+
+/* glass panel */
+.panel {
+  position: absolute;
+  top:20px;
+  left:20px;
+  width:320px;
+  padding:16px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  border:1px solid rgba(0,255,213,0.2);
+  box-shadow: 0 0 30px rgba(0,255,213,0.15);
+}
+
+/* node stream */
+.node {
+  margin:6px 0;
+  padding:6px;
+  border-left:3px solid #00ffd5;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity:0.6; transform: translateX(0px); }
+  50% { opacity:1; transform: translateX(4px); }
+  100% { opacity:0.6; transform: translateX(0px); }
+}
+
+/* brain pulse core */
+.core {
+  position:absolute;
+  right:80px;
+  top:120px;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background: rgba(0,255,213,0.08);
+  box-shadow: 0 0 60px rgba(0,255,213,0.4);
+  animation: corePulse 2s infinite;
+}
+
+@keyframes corePulse {
+  0% { transform: scale(1); opacity:0.4; }
+  50% { transform: scale(1.15); opacity:0.8; }
+  100% { transform: scale(1); opacity:0.4; }
+}
+
+.health {
+  margin-top:10px;
+  font-size:12px;
+  color:#7afcff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+  <h3>🧠 AfriBrain OS</h3>
+  <div id="status">Connecting...</div>
+  <div class="health" id="health"></div>
+</div>
+
+<div class="core"></div>
+
+<div class="panel" style="left:auto; right:20px;">
+  <h4>Live Execution Graph</h4>
+  <div id="stream"></div>
+</div>
+
+<script>
+const ws = new WebSocket(location.origin.replace("http","ws"));
+
+ws.onmessage = (msg) => {
+  const data = JSON.parse(msg.data);
+
+  if (data.type === "system:init") {
+    document.getElementById("status").innerText =
+      "System: " + data.payload.status;
+
+    document.getElementById("health").innerText =
+      "Redis: " + data.payload.redis;
+  }
+
+  if (data.type === "brain:pulse") {
+    const ev = data.payload.event;
+
+    const div = document.createElement("div");
+    div.className = "node";
+    div.innerText =
+      ev.node + " → " + ev.action + " [" + ev.status + "]";
+
+    document.getElementById("stream").prepend(div);
+  }
+};
+</script>
+
+</body>
+</html>

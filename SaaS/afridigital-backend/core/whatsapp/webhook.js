@@ -1,40 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { runStreaming } = require("./stream/engine");
+const { handleMessage } = require("./controller");
 
 router.get("/", (req, res) => {
-  const mode = req.query["hub.mode"];
-  const token = req.query["hub.verify_token"];
-  const challenge = req.query["hub.challenge"];
-
-  if (mode && token === config.get("whatsapp.verifyToken")) {
-    return res.status(200).send(challenge);
-  }
-
-  res.sendStatus(403);
+  res.status(200).json({
+    ok: true,
+    service: "whatsapp-webhook",
+    status: "active"
+  });
 });
 
 router.post("/", async (req, res) => {
   try {
-    const messages =
-      req.body.entry?.[0]?.changes?.[0]?.value?.messages || [];
-
-    for (const msg of messages) {
-      const text = msg.text?.body || "";
-      const from = msg.from;
-
-      await runStreaming(from, {
-        apiKey: "whatsapp_user",
-        text,
-        streamId: "wa_stream_" + Date.now(),
-        auto: true
-      });
-    }
-
-    res.sendStatus(200);
-  } catch (e) {
-    console.error("STREAM WEBHOOK ERROR:", e);
-    res.sendStatus(500);
+    await handleMessage(req.body);
+    res.status(200).json({ ok: true, received: true });
+  } catch (err) {
+    console.error("WhatsApp webhook error:", err.message);
+    res.status(500).json({ ok: false });
   }
 });
 

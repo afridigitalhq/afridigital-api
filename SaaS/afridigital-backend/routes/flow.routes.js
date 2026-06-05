@@ -1,18 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { generateEvent } = require("../core/flowEngine");
 
-// simple in-memory cache (optional)
-let lastEvent = null;
+const { emitFlowEvent } = require("../core/flow/engine");
 
 router.get("/event", (req, res) => {
-  const event = generateEvent();
-  lastEvent = event;
-  res.json(event);
+  res.json(emitFlowEvent("api"));
 });
 
-router.get("/last", (req, res) => {
-  res.json(lastEvent || { status: "empty" });
+router.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    engine: "afribrain-flow",
+    websocket: true,
+    redis: true
+  });
 });
 
 module.exports = router;

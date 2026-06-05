@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 
 const gateway = require("./entry");
-const auth = require("../../saas/auth");
-const usage = require("../../saas/usage");
+const auth = require("../../../saas/auth");
+const usage = require("../../../saas/usage");
 
 app.use(express.json());
 
@@ -17,7 +17,7 @@ app.get("/health", (req, res) => {
 
 // MAIN AI ROUTE
 
-app.use("/webhook/whatsapp", require("../../whatsapp/webhook"));
+app.use("/webhook/whatsapp", require("../../../routes/a2.webhook"));
 app.post("/v1/run", async (req, res) => {
   try {
     if (!auth.validateKey(req.body.apiKey)) {

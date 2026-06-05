@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>AfriBrain Neural Graph</title>
+
+<style>
+body {
+  margin:0;
+  overflow:hidden;
+  background: radial-gradient(circle at center, #070a12, #000);
+  font-family: monospace;
+  color:#00ffd5;
+}
+
+/* HUD overlay */
+.hud {
+  position:absolute;
+  top:20px;
+  left:20px;
+  padding:12px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border:1px solid rgba(0,255,213,0.25);
+  border-radius:12px;
+  width:260px;
+  z-index:10;
+}
+
+/* pulse indicator */
+.pulse {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#00ffd5;
+  margin-right:8px;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform:scale(1); opacity:0.5; }
+  50% { transform:scale(1.8); opacity:1; }
+  100% { transform:scale(1); opacity:0.5; }
+}
+
+/* SVG graph takes full screen */
+svg {
+  width:100vw;
+  height:100vh;
+}
+
+/* nodes */
+.node circle {
+  stroke:#00ffd5;
+  stroke-width:1.5px;
+  fill:rgba(0,255,213,0.15);
+  filter: drop-shadow(0 0 6px #00ffd5);
+}
+
+.node text {
+  fill:#7afcff;
+  font-size:11px;
+}
+
+/* links */
+.link {
+  stroke:rgba(0,255,213,0.25);
+  stroke-width:1px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hud">
+  <div><span class="pulse"></span>AfriBrain Neural Canvas</div>
+  <div id="status">connecting...</div>
+  <div id="redis">redis: unknown</div>
+</div>
+
+<svg></svg>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script>
+const ws = new WebSocket(location.origin.replace("http","ws"));
+
+let nodes = [];
+let links = [];
+
+const svg = d3.select("svg");
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const simulation = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d => d.id).distance(120))
+  .force("charge", d3.forceManyBody().strength(-260))
+  .force("center", d3.forceCenter(width/2, height/2));
+
+const link = svg.append("g").selectAll("line");
+const node = svg.append("g").selectAll("g");
+
+function update() {
+  const l = svg.selectAll(".link").data(links);
+  l.enter().append("line").attr("class","link");
+  l.exit().remove();
+
+  const n = svg.selectAll(".node").data(nodes, d => d.id);
+
+  const g = n.enter().append("g").attr("class","node");
+
+  g.append("circle")
+    .attr("r", 10)
+    .transition().duration(300)
+    .attr("r", d => 10 + (d.energy || 0));
+
+  g.append("text")
+    .attr("x", 14)
+    .attr("y", 4)
+    .text(d => d.label);
+
+  n.exit().remove();
+
+  simulation.nodes(nodes).on("tick", () => {
+    svg.selectAll("line")
+      .attr("x1", d => d.source.x)
+      .attr("y1", d => d.source.y)
+      .attr("x2", d => d.target.x)
+      .attr("y2", d => d.target.y);
+
+    svg.selectAll("g.node")
+      .attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+
+  simulation.force("link").links(links);
+  simulation.alpha(0.8).restart();
+}
+
+function addEvent(ev) {
+  const n = ev.node;
+
+  let nodeObj = nodes.find(x => x.id === n);
+  if (!nodeObj) {
+    nodeObj = { id: n, label: n, energy: 0 };
+    nodes.push(nodeObj);
+  }
+
+  nodeObj.energy = Math.min((nodeObj.energy || 0) + 2, 20);
+
+  // decay
+  setTimeout(() => nodeObj.energy = Math.max((nodeObj.energy || 0) - 2, 0), 600);
+
+  // simple linking flow chain
+  if (nodes.length > 1) {
+    const prev = nodes[nodes.length - 2];
+    links.push({ source: prev.id, target: nodeObj.id });
+  }
+
+  update();
+}
+
+ws.onmessage = (msg) => {
+  const data = JSON.parse(msg.data);
+
+  if (data.type === "system:init") {
+    document.getElementById("status").innerText = "online";
+    document.getElementById("redis").innerText = "redis: " + data.payload.redis;
+  }
+
+  if (data.type === "brain:pulse") {
+    addEvent(data.payload.event);
+  }
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+const { getHeatState } = require("../physics/heatEngine");
+const { getSynapticGraph } = require("../synapse/edgeEngine");
+
+const nodes = ["API", "Kernel", "EventBus", "AI Brain", "Database"];
+
+/**
+ * Build attention score per node
+ */
+function computeAttention() {
+  const heat = getHeatState();
+  const edges = getSynapticGraph();
+
+  const attention = {};
+
+  // base heat contribution
+  for (const n of nodes) {
+    attention[n] = (heat[n] || 0);
+  }
+
+  // synaptic inflow contribution
+  for (const e of edges) {
+    attention[e.to] =
+      (attention[e.to] || 0) + (e.weight * 0.8);
+  }
+
+  return attention;
+}
+
+/**
+ * Softmax selection (probabilistic routing)
+ */
+function softmaxSelect(scores) {
+  const keys = Object.keys(scores);
+  const values = keys.map(k => scores[k]);
+
+  const max = Math.max(...values);
+
+  const exp = values.map(v => Math.exp(v - max));
+  const sum = exp.reduce((a,b) => a + b, 0);
+
+  const probs = exp.map(v => v / sum);
+
+  let r = Math.random();
+  let acc = 0;
+
+  for (let i = 0; i < keys.length; i++) {
+    acc += probs[i];
+    if (r <= acc) return keys[i];
+  }
+
+  return keys[0];
+}
+
+/**
+ * Decide next execution node
+ */
+function routeNext() {
+  const attention = computeAttention();
+  return softmaxSelect(attention);
+}
+
+module.exports = {
+  computeAttention,
+  routeNext
+};

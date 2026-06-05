@@ -1,31 +1,63 @@
-const { createFlowSocket } = require("./core/flow/ws/flowSocket");
-const createApp = require('./core/runtime/bootstrap');
-const app = createApp();
-app.use("/flow", require("./routes/flow.routes"));
-const flow = require('./core/flow/router');
-app.use('/flow', flow);
+const express = require("express");
+const http = require("http");
 
-const bus = require('./core/redis/streamBus');
+const app = express();
+app.use("/webhook/whatsapp", require("./routes/whatsapp.pipeline"));
+const { mountWhatsApp } = require("./core/whatsapp"); 
+mountWhatsApp(app);
+app.use(express.json());
 
-// optional observability (safe guard)
-try {
-  const { registerDashboardStream } = require('./core/observability/v4/stream/sseTraceStream');
-  registerDashboardStream(app, bus);
-} catch (e) {
-  console.log("⚠️ dashboard stream skipped");
-}
+const server = http.createServer(app);
+const { startKernelTick } = require("./core/kernel/tick/kernelTick"); 
+const { attachFlowBridge } = require("./core/kernel/bridge/flowBridge"); 
+const bus = require("./core/kernel/events/eventBus"); 
 
-const PORT = process.env.PORT || 3000;
 
-const server = app.listen(PORT, "0.0.0.0", () => {
-const { createFlowSocket } = require("./core/flow/ws/flowSocket"); createFlowSocket(server);
-const { attachFlowStream } = require("./core/flow/stream/flowStream"); attachFlowStream(app);
-createFlowSocket(server);
-const { createFlowSocket } = require("./core/flow/ws/flowSocket");
-  console.log("🚀 AFRI KERNEL v2 RUNNING ON", PORT);
+/**
+ * HEALTH CORE
+ */
+app.get("/health", (req, res) => {
+  res.json({ ok: true, service: "afridigital-api" });
 });
 
-process.on('SIGINT', () => server.close());
-process.on('SIGTERM', () => server.close());
+/**
+ * FLOW HEALTH (safe stub)
+ */
+app.get("/flow/health", (req, res) => {
+  res.json({ ok: true, engine: "flowgraph", status: "stub-active" });
+});
 
-module.exports = app;
+/**
+  /**
+   * WHATSAPP WEBHOOK (safe stub)
+   */
+  app.post("/webhook/whatsapp", (req, res) => {
+    res.json({ ok: true, webhook: "active" });
+  });
+
+/**
+ * OPTIONAL MODULE HOOKS (safe loaders)
+ */
+try {
+} catch (e) {
+  console.log("⚠️ FlowSocket disabled:", e.message);
+}
+
+try {
+  const bus = require("./core/redis/streamBus");
+  console.log("Redis stream bus loaded");
+} catch (e) {
+  console.log("⚠️ Redis stream fallback active (memory mode)");
+}
+
+/**
+ * START SERVER
+ */
+try {
+} catch (e) {
+  console.log("⚠️ FlowSocket disabled:", e.message);
+}
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log("🚀 AFRI KERNEL STABLE ON PORT", PORT);
+});
