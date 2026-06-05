@@ -1,3 +1,4 @@
+const { createFlowSocket } = require("./core/flow/ws/flowSocket");
 const createApp = require('./core/runtime/bootstrap');
 const app = createApp();
 app.use("/flow", require("./routes/flow.routes"));
