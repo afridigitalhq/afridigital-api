@@ -1,13 +1,17 @@
 const normalize = require("./normalize");
-const detectIntent = require("./intent");
-const route = require("./router");
+const intentAI = require("./intent.ai");
+const context = require("./context");
+const planner = require("./planner");
+const router = require("./router");
+const formatter = require("./formatter");
 
-function runPipeline(req) {
-  const msg = normalize(req);
-  const intent = detectIntent(msg.text);
-  const flow = route(intent);
-
-  return { message: msg, intent, flow };
+async function run(payload) {
+  const n = normalize(payload);
+  const i = intentAI(n.text);
+  const c = context(n);
+  const p = planner(i);
+  const r = await router(p, c);
+  return formatter(r, i);
 }
 
-module.exports = { runPipeline };
+module.exports = { run };

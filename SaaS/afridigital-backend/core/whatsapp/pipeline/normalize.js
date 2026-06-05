@@ -1,7 +1,7 @@
-module.exports = function normalize(req) {
+module.exports = function normalize(payload = {}) {
   return {
-    text: req.body?.text || "",
-    from: req.body?.from || "unknown",
-    raw: req.body || {}
+    text: payload.text || payload.message || "",
+    from: payload.from || "unknown",
+    raw: payload
   };
 };

@@ -1,3 +1,6 @@
+const { getIO } = require('./core/realtime/socket');
+const { attachSocket } = require('./core/realtime/socket');
+const express = require("express");
 const express = require("express");
 const http = require("http");
 
@@ -58,6 +61,8 @@ try {
   console.log("⚠️ FlowSocket disabled:", e.message);
 }
 const PORT = process.env.PORT || 3000;
+const io = attachSocket(server);
+
 server.listen(PORT, () => {
   console.log("🚀 AFRI KERNEL STABLE ON PORT", PORT);
 });
