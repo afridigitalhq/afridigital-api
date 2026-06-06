@@ -1,16 +1,19 @@
 services:
+  - type: static
+    name: afridigital-hub
+    rootDir: SaaS/afridigital-frontend
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://afridigital-api.onrender.com
+
   - type: web
-    name: afridigital-backend
+    name: afridigital-api
     env: node
-    plan: free
+    rootDir: SaaS/afridigital-backend
     buildCommand: npm install
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
-      - key: REDIS_URL
-        sync: false
-      - key: WHATSAPP_TOKEN
-        sync: false
-      - key: WHATSAPP_PHONE_ID
-        sync: false
