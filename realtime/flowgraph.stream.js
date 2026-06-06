@@ -1,15 +1,11 @@
-const bus = require('../africore/runtime/event.bus');
+const bus = require("./event.stream");
+const { pushTrace } = require("./execution.trace");
 
-function attachFlowStream(wss) {
-  bus.onAny = function(event, payload) {
-    wss.clients.forEach(client => {
-      if (client.readyState === 1) {
-        client.send(JSON.stringify({ event, payload }));
-      }
-    });
-  };
+bus.onAny = function(event, payload) {
+  pushTrace({
+    event,
+    payload
+  });
+};
 
-  console.log("🌐 FLOWGRAPH STREAM BRIDGE ACTIVE");
-}
-
-module.exports = { attachFlowStream };
+module.exports = bus;

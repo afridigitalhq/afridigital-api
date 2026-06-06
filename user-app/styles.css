@@ -1,0 +1,11 @@
+body {
+  margin: 0;
+  background: #0b1020;
+  color: white;
+  font-family: system-ui;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

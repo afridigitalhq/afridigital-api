@@ -1,0 +1,84 @@
+:root {
+  --bg: #050b1a;
+  --panel: rgba(10, 18, 40, 0.6);
+  --cyan: #00e5ff;
+  --purple: #7c4dff;
+  --text: #e6f1ff;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+.app-shell {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* glow effect utility */
+.glow {
+  box-shadow: 0 0 20px rgba(0,229,255,0.2);
+  border: 1px solid rgba(0,229,255,0.2);
+}
+
+.page-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: var(--text);
+}
+
+.page-body {
+  display: grid;
+  gap: 15px;
+}
+
+/* reusable card system */
+.card {
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(0,229,255,0.05);
+}
+
+.card:hover {
+  border-color: rgba(0,229,255,0.3);
+  box-shadow: 0 0 25px rgba(0,229,255,0.15);
+  transition: 0.2s ease;
+}

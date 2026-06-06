@@ -1,0 +1,1 @@
+module.exports=function(bus,io){if(!bus||!io) return; bus.on("GRAPH_NODE_CREATED",n=>io.emit("node",n)); bus.on("GRAPH_EDGE_CREATED",e=>io.emit("edge",e)); bus.on("AI_TRACE",t=>io.emit("trace",t)); console.log("🌐 LIVE FLOWGRAPH STREAM ACTIVE");};

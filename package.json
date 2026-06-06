@@ -14,10 +14,27 @@
     "express": "^5.2.1",
     "node-cron": "^4.2.1",
     "openai": "^6.39.0",
+    "react-router-dom": "^7.16.0",
     "redis": "^5.12.1",
     "three": "^0.184.0",
     "tiktoken": "^1.0.22",
     "undici": "^8.3.0",
-    "ws": "^8.20.1"
-  }
+    "ws": "^8.21.0"
+  },
+  "description": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afridigitalhq/afridigital-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/afridigitalhq/afridigital-api/issues"
+  },
+  "homepage": "https://github.com/afridigitalhq/afridigital-api#readme"
 }

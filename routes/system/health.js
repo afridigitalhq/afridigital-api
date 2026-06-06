@@ -1,15 +1,7 @@
-const express = require("express");
-const router = express.Router();
-
-router.get("/health", (req, res) => {
+module.exports = (req, res) => {
   res.json({
-    backend: "ok",
-    frontend: "ok",
-    observability: "active",
-    flowgraph: "connected",
-    controlPlane: "ready",
+    status: "ok",
+    system: "afridigital",
     timestamp: Date.now()
   });
-});
-
-module.exports = router;
+};
