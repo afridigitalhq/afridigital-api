@@ -1,7 +1,6 @@
 const { getIO } = require('./core/realtime/socket');
 const { attachSocket } = require('./core/realtime/socket');
 const express = require("express");
-const express = require("express");
 const http = require("http");
 
 const app = express();
