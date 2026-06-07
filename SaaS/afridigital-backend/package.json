@@ -33,7 +33,7 @@
     "ws": "^8.21.0",
     "zod": "^4.4.3"
   },
-  "main": "server.js",
+  "main": "server.safe.base.js",
   "_moduleAliases": {
     "kernel": "core/kernel",
     "@kernel": "core/kernel"

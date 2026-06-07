@@ -1,23 +1,16 @@
-/*__WHATSAPP_LOCK__*/
-const safeExecute = require("../../kernel/safe.degradation").safeExecute = require('../../flow/engine/runtime');
+const { executeFlow } = require('../../flow/engine/runtime.v3');
+const { classifyOutcome } = require('../../kernel/outcome.v3');
+const { enqueueReplay } = require('../../kernel/replay.memory.v6');
 
-function detectIntent(text = '') {
-  return { primary: text.includes('hello') ? 'greeting' : 'systemFlow' };
-}
+async function handleMessage(payload) {
+  const result = await executeFlow(payload);
+  const outcome = classifyOutcome(result);
 
-async function handleMessage(payload = {}) {
-  const message = payload.text || payload.body || '';
+  if (outcome.type === 'failure' && outcome.retryable) {
+    await enqueueReplay({ payload });
+  }
 
-  const intentRaw = detectIntent(message);
-  const intent = (typeof intentRaw === 'string' ? intentRaw : intentRaw?.primary || intentRaw?.intent || 'system');
-
-
-  const result = await executeFlow(
-    ({ greeting: 'greetingFlow', system: 'systemFlow' }[intent] || 'systemFlow'),
-    
-  );
-
-  return result;
+  return { ok: outcome.type === 'success', flow: result.flow, result, outcome };
 }
 
 module.exports = { handleMessage };

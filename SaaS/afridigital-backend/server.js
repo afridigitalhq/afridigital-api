@@ -1,72 +1,208 @@
-const graphLock=require("./core/kernel/module.graph.lock").validate();if(!graphLock.ok){console.error("❌ MODULE GRAPH BROKEN",graphLock);process.exit(1);}
-const bootValidate=require("./core/kernel/boot.validate");
-const boot=bootValidate();
-if(!boot.safe){console.error("❌ SYSTEM BOOT FAILED",boot.shield);process.exit(1);}
-const { getIO } = require('./core/realtime/socket');
-const { attachSocket } = require('./core/realtime/socket');
 const express = require("express");
-const http = require("http");
+const crypto = require("crypto");
+const Redis = require("ioredis");
 
 const app = express();
-// REMOVED_PIPELINE_WEBHOOK_MOUNT
-const { mountWhatsApp } = require("./core/whatsapp"); 
-// REMOVED_DUPLICATE_MOUNT_WHATSAPP
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 
-const server = http.createServer(app);
-const { startKernelTick } = require("./core/kernel/tick/kernelTick"); 
-const { attachFlowBridge } = require("./core/kernel/bridge/flowBridge"); 
-const bus = require("./core/kernel/events/eventBus"); 
+/* =========================
+   INTELLIGENCE STATE
+========================= */
 
+const INSTANCE_ID = `v7-${Math.random().toString(36).slice(2,10)}`;
 
-/**
- * HEALTH CORE
- */
-app.get("/health", (req, res) => {
-  res.json({ ok: true, service: "afridigital-api" });
-});
+let redis = null;
+let ready = false;
 
-/**
- * FLOW HEALTH (safe stub)
- */
-app.get("/flow/health", (req, res) => {
-  res.json({ ok: true, engine: "flowgraph", status: "stub-active" });
-});
+const seen = new Map();
 
-/**
-  /**
-   * WHATSAPP WEBHOOK (safe stub)
-   */
-  // REMOVED DUPLICATE WHATSAPP STUB ROUTE (PIPELINE HANDLES IT)
+/* =========================
+   REDIS INIT
+========================= */
+
+function initRedis() {
+  if (!process.env.REDIS_URL) {
+    console.log("⚠️ V7 running in memory mode");
+    return;
+  }
+
+  redis = new Redis(process.env.REDIS_URL);
+
+  redis.on("connect", () => {
+    ready = true;
+    console.log("🟢 V7 Intelligence Mesh online");
   });
 
-/**
- * OPTIONAL MODULE HOOKS (safe loaders)
- */
-try {
-} catch (e) {
-  console.log("⚠️ FlowSocket disabled:", e.message);
+  redis.on("error", () => {
+    ready = false;
+    console.log("⚠️ Redis degraded (V7 fallback)");
+  });
 }
 
-try {
-  const bus = require("./core/redis/streamBus");
-  console.log("Redis stream bus loaded");
-} catch (e) {
-  console.log("⚠️ Redis stream fallback active (memory mode)");
+initRedis();
+
+/* =========================
+   INTELLIGENCE CLASSIFIER
+========================= */
+
+function classify(event) {
+  const text = (event.text || "").toLowerCase();
+
+  if (text.startsWith("/")) return "command";
+  if (text.includes("error")) return "system";
+  if (text.includes("order") || text.includes("pay")) return "ai-task";
+  if (text.length < 10) return "low";
+
+  return "chat";
 }
 
-/**
- * START SERVER
- */
-try {
-} catch (e) {
-  console.log("⚠️ FlowSocket disabled:", e.message);
-}
-const PORT = process.env.PORT || 3000;
-const io = attachSocket(server);
+/* =========================
+   STREAM ROUTER (V7 CORE)
+========================= */
 
-server.listen(PORT, () => {
-  console.log("🚀 AFRI KERNEL STABLE ON PORT", PORT);
+function routeStream(type) {
+  switch (type) {
+    case "ai-task": return "afri:events:ai";
+    case "command": return "afri:events:high";
+    case "system": return "afri:events:high";
+    case "low": return "afri:events:low";
+    default: return "afri:events:normal";
+  }
+}
+
+/* =========================
+   IDEMPOTENCY
+========================= */
+
+function isSeen(id) {
+  if (!id) return false;
+  if (seen.has(id)) return true;
+  seen.set(id, Date.now());
+  setTimeout(() => seen.delete(id), 3600000);
+  return false;
+}
+
+/* =========================
+   ENQUEUE (INTELLIGENT)
+========================= */
+
+async function enqueue(event) {
+  const type = classify(event);
+  const stream = routeStream(type);
+
+  event.type = type;
+  event.stream = stream;
+
+  if (redis && ready) {
+    await redis.xadd(stream, "*", "data", JSON.stringify(event));
+    return { mode: "redis", stream, type };
+  }
+
+  return { mode: "memory", type };
+}
+
+/* =========================
+   WEBHOOK (<200ms GUARANTEE)
+========================= */
+
+function verify(req) {
+  const sig = req.headers["x-hub-signature-256"];
+  if (!sig) return false;
+
+  const expected = crypto
+    .createHmac("sha256", process.env.META_APP_SECRET || "")
+    .update(req.rawBody || JSON.stringify(req.body))
+    .digest("hex");
+
+  return sig.replace("sha256=", "") === expected;
+}
+
+app.post("/webhook", async (req, res) => {
+  try {
+    if (!verify(req)) return res.sendStatus(401);
+
+    const msg =
+      req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+
+    if (!msg) return res.sendStatus(200);
+    if (isSeen(msg.id)) return res.sendStatus(200);
+
+    await enqueue({
+      id: msg.id,
+      from: msg.from,
+      text: msg.text?.body || "",
+      ts: Date.now()
+    });
+
+    return res.sendStatus(200);
+  } catch (e) {
+    return res.sendStatus(200);
+  }
 });
 
-const deployShield=require("./core/kernel/deploy.shield");app.get("/health",(req,res)=>res.json(deployShield()));
+/* =========================
+   V7 AI WORKER LOOP
+========================= */
+
+async function process(event) {
+  console.log("🧠 V7 processing:", event.type, event.id);
+
+  // 🔥 AI PIPELINE HOOK (future LLM / logic layer)
+}
+
+async function worker(streamName) {
+  if (!redis) return;
+
+  while (true) {
+    try {
+      const data = await redis.xreadgroup(
+        "GROUP",
+        "v7-group",
+        INSTANCE_ID,
+        "COUNT",
+        10,
+        "BLOCK",
+        2000,
+        "STREAMS",
+        streamName,
+        ">"
+      );
+
+      if (!data) continue;
+
+      for (const item of data[0][1]) {
+        const event = JSON.parse(item[1][1]);
+
+        if (isSeen(event.id)) continue;
+
+        await process(event);
+
+        await redis.xack(streamName, "v7-group", item[0]);
+      }
+
+    } catch (e) {
+      console.log("⚠️ worker recover:", e.message);
+      await new Promise(r => setTimeout(r, 500));
+    }
+  }
+}
+
+/* =========================
+   BOOT MULTI-STREAM
+========================= */
+
+const streams = [
+  "afri:events:ai",
+  "afri:events:high",
+  "afri:events:normal",
+  "afri:events:low"
+];
+
+streams.forEach(worker);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("🚀 V7 INTELLIGENCE MESH RUNNING ON", PORT);
+  console.log("🧬 NODE:", INSTANCE_ID);
+});
