@@ -50,3 +50,39 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 CLEAN SERVER RUNNING ON", PORT);
 });
+
+
+// META VERIFICATION (REQUIRED)
+app.get('/webhook/whatsapp', (req, res) => {
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
+
+  if (mode === 'subscribe' && token === process.env.META_VERIFY_TOKEN) {
+    return res.status(200).send(challenge);
+  }
+
+  return res.sendStatus(403);
+});
+
+// WHATSAPP MESSAGE RECEIVER
+app.post('/webhook/whatsapp', (req, res) => {
+  try {
+    const value = req.body?.entry?.[0]?.changes?.[0]?.value;
+    const msg = value?.messages?.[0];
+
+    console.log('📩 WEBHOOK EVENT:', JSON.stringify(req.body));
+
+    if (msg) {
+      console.log('🧠 MESSAGE:', {
+        from: msg.from,
+        text: msg.text?.body
+      });
+    }
+
+    return res.sendStatus(200);
+  } catch (e) {
+    console.error('WEBHOOK ERROR:', e.message);
+    return res.sendStatus(200);
+  }
+});
