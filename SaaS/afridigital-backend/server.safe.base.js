@@ -18,6 +18,21 @@ app.get("/env-check", (req, res) => {
   });
 });
 
+
+
+app.post('/webhook/whatsapp', async (req, res) => {
+  try {
+    const msg = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
+    if (!msg) return res.sendStatus(200);
+    console.log('📩 WEBHOOK RECEIVED:', msg.id);
+    return res.sendStatus(200);
+  } catch (e) {
+    console.error('WEBHOOK ERROR:', e.message);
+    return res.sendStatus(200);
+  }
+});
+
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(" CLEAN SERVER RUNNING ON", PORT);
 });
