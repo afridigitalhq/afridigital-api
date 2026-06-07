@@ -36,12 +36,28 @@ app.get('/webhook/whatsapp', (req, res) => {
 
 app.post('/webhook/whatsapp', async (req, res) => {
   try {
-    const msg = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!msg) return res.sendStatus(200);
-    console.log('📩 WEBHOOK RECEIVED:', msg.id);
+    const value = req.body?.entry?.[0]?.changes?.[0]?.value;
+
+    const msg =
+      value?.messages?.[0] ||
+      value?.message ||
+      null;
+
+    console.log('📩 RAW WEBHOOK:', JSON.stringify(req.body));
+
+    if (msg) {
+      console.log('🧠 PARSED MESSAGE:', {
+        id: msg.id,
+        from: msg.from,
+        text: msg.text?.body || null
+      });
+    } else {
+      console.log('⚠️ NO MESSAGE FOUND:', value);
+    }
+
     return res.sendStatus(200);
-  } catch (e) {
-    console.error('WEBHOOK ERROR:', e.message);
+  } catch (err) {
+    console.error('WEBHOOK_ERROR:', err.message);
     return res.sendStatus(200);
   }
 });
