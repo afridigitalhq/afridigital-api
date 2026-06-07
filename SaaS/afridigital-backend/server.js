@@ -206,3 +206,13 @@ app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 V7 INTELLIGENCE MESH RUNNING ON", PORT);
   console.log("🧬 NODE:", INSTANCE_ID);
 });
+
+app.get("/env-check", (req, res) => {
+  res.json({
+    META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN,
+    META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID,
+    META_VERIFY_TOKEN: !!process.env.META_VERIFY_TOKEN,
+    REDIS_URL: !!process.env.REDIS_URL
+  });
+});
+
