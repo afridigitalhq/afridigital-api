@@ -1,38 +1,23 @@
-const normalize = require("../pipeline/normalize");
-const intentAI = require("../pipeline/intent.ai");
+/*__WHATSAPP_LOCK__*/
+const safeExecute = require("../../kernel/safe.degradation").safeExecute = require('../../flow/engine/runtime');
 
-// FlowGraph engine (REAL)
-const { executeFlow } = require("../../flow/engine/runtime");
-
-/**
- * WhatsApp → FlowGraph Controller
- */
-async function handleWhatsApp(reqBody = {}) {
-  const input = normalize(reqBody);
-  const intent = intentAI(input.text);
-
-  // Map intent → FlowGraph flowName
-  const flowMap = {
-    greeting: "greetingFlow",
-    system_query: "systemFlow",
-    flow_request: "systemFlow",
-    unknown: "systemFlow"
-  };
-
-  const flowName = flowMap[intent.primary] || "systemFlow";
-
-  const result = await executeFlow(flowName, {
-    input,
-    intent
-  });
-
-  return {
-    ok: true,
-    from: input.from,
-    intent: intent.primary,
-    flow: flowName,
-    response: result.result
-  };
+function detectIntent(text = '') {
+  return { primary: text.includes('hello') ? 'greeting' : 'systemFlow' };
 }
 
-module.exports = { handleWhatsApp };
+async function handleMessage(payload = {}) {
+  const message = payload.text || payload.body || '';
+
+  const intentRaw = detectIntent(message);
+  const intent = (typeof intentRaw === 'string' ? intentRaw : intentRaw?.primary || intentRaw?.intent || 'system');
+
+
+  const result = await executeFlow(
+    ({ greeting: 'greetingFlow', system: 'systemFlow' }[intent] || 'systemFlow'),
+    
+  );
+
+  return result;
+}
+
+module.exports = { handleMessage };

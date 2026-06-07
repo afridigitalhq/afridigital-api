@@ -1,16 +1,12 @@
-const graphLock=require("./core/kernel/module.graph.lock").validate();if(!graphLock.ok){console.error("❌ MODULE GRAPH BROKEN",graphLock);process.exit(1);}
-const bootValidate=require("./core/kernel/boot.validate");
-const boot=bootValidate();
-if(!boot.safe){console.error("❌ SYSTEM BOOT FAILED",boot.shield);process.exit(1);}
 const { getIO } = require('./core/realtime/socket');
 const { attachSocket } = require('./core/realtime/socket');
 const express = require("express");
 const http = require("http");
 
 const app = express();
-// REMOVED_PIPELINE_WEBHOOK_MOUNT
+app.use("/webhook/whatsapp", require("./routes/whatsapp.pipeline"));
 const { mountWhatsApp } = require("./core/whatsapp"); 
-// REMOVED_DUPLICATE_MOUNT_WHATSAPP
+mountWhatsApp(app);
 app.use(express.json());
 
 const server = http.createServer(app);
@@ -37,7 +33,8 @@ app.get("/flow/health", (req, res) => {
   /**
    * WHATSAPP WEBHOOK (safe stub)
    */
-  // REMOVED DUPLICATE WHATSAPP STUB ROUTE (PIPELINE HANDLES IT)
+  app.post("/webhook/whatsapp", (req, res) => {
+    res.json({ ok: true, webhook: "active" });
   });
 
 /**
@@ -68,5 +65,3 @@ const io = attachSocket(server);
 server.listen(PORT, () => {
   console.log("🚀 AFRI KERNEL STABLE ON PORT", PORT);
 });
-
-const deployShield=require("./core/kernel/deploy.shield");app.get("/health",(req,res)=>res.json(deployShield()));

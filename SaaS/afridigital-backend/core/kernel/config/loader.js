@@ -1,3 +1,5 @@
+
+
 const path = require('path');
 
 function get(key) {
@@ -25,3 +27,15 @@ function get(key) {
 }
 
 module.exports = { get, raw: process.env };
+
+// WHATSAPP_ENV_BRIDGE (SAFE LAYER)
+function getWhatsappConfig() {
+  return {
+    token: process.env.META_ACCESS_TOKEN || null,
+    phoneId: process.env.META_PHONE_NUMBER_ID || null,
+    verifyToken: process.env.META_VERIFY_TOKEN || null
+  };
+}
+
+module.exports.getWhatsappConfig = getWhatsappConfig;
+

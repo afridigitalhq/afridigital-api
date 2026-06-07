@@ -1,7 +1,7 @@
 const webhook = require("./webhook");
 
 function mountWhatsApp(app) {
-  app.use("/webhook/whatsapp", webhook);
+  // DISABLED_DUPLICATE_WHATSAPP_MOUNT
   console.log("📡 WhatsApp module mounted");
 }
 

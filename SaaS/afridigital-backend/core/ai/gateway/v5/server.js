@@ -17,7 +17,7 @@ app.get("/health", (req, res) => {
 
 // MAIN AI ROUTE
 
-app.use("/webhook/whatsapp", require("../../../routes/a2.webhook"));
+// DISABLED_AI_WEBHOOK_CONFLICT
 app.post("/v1/run", async (req, res) => {
   try {
     if (!auth.validateKey(req.body.apiKey)) {

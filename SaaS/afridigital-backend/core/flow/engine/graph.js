@@ -1,3 +1,4 @@
+/*__GRAPH_LOCKED__*/
 /**
  * FLOWGRAPH v1 - Graph Definition Layer
  */
