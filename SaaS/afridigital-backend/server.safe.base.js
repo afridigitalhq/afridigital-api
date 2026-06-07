@@ -36,12 +36,20 @@ app.get('/webhook/whatsapp', (req, res) => {
 
 app.post('/webhook/whatsapp', async (req, res) => {
   try {
-    const msg = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!msg) return res.sendStatus(200);
-    console.log('📩 WEBHOOK RECEIVED:', msg.id);
+    const { messagePipeline } = require('./core/pipeline/messagePipeline');
+    const { flowEngine } = require('./core/engine/flowEngine');
+    const { sendMessage } = require('./adapters/whatsapp/sendMessage');
+
+    const result = messagePipeline(req);
+    if (!result || !result.ok) return res.sendStatus(200);
+
+    const reply = await flowEngine(result.message);
+
+    await sendMessage(result.message.from, reply);
+
     return res.sendStatus(200);
-  } catch (e) {
-    console.error('WEBHOOK ERROR:', e.message);
+  } catch (err) {
+    console.error('WEBHOOK_PIPELINE_ERROR:', err.message);
     return res.sendStatus(200);
   }
 });
