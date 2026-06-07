@@ -20,6 +20,20 @@ app.get("/env-check", (req, res) => {
 
 
 
+
+
+app.get('/webhook/whatsapp', (req, res) => {
+  const challenge = req.query['hub.challenge'];
+  const verifyToken = req.query['hub.verify_token'];
+
+  if (verifyToken !== process.env.META_VERIFY_TOKEN) {
+    return res.sendStatus(403);
+  }
+
+  return res.status(200).send(challenge);
+});
+
+
 app.post('/webhook/whatsapp', async (req, res) => {
   try {
     const msg = req.body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
