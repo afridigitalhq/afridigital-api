@@ -34,6 +34,7 @@ app.get('/webhook/whatsapp', (req, res) => {
 });
 
 
+
 app.post('/webhook/whatsapp', async (req, res) => {
   try {
     const value = req.body?.entry?.[0]?.changes?.[0]?.value;
@@ -51,6 +52,17 @@ app.post('/webhook/whatsapp', async (req, res) => {
         from: msg.from,
         text: msg.text?.body || null
       });
+    } else {
+      console.log('⚠️ NO MESSAGE FOUND:', value);
+    }
+
+    return res.sendStatus(200);
+  } catch (err) {
+    console.error('WEBHOOK_ERROR:', err.message);
+    return res.sendStatus(200);
+  }
+});
+  
     } else {
       console.log('⚠️ NO MESSAGE FOUND:', value);
     }
