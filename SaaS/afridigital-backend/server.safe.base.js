@@ -41,11 +41,15 @@ app.post('/webhook/whatsapp', async (req, res) => {
     const { sendMessage } = require('./adapters/whatsapp/sendMessage');
 
     const result = messagePipeline(req);
+console.log('📩 PIPELINE INPUT:', result);
     if (!result || !result.ok) return res.sendStatus(200);
 
     const reply = await flowEngine(result.message);
+console.log('🧠 AI REPLY:', reply);
 
-    await sendMessage(result.message.from, reply);
+    console.log('📤 SENDING:', result.message.from, reply);
+await sendMessage(result.message.from, reply);
+console.log('✅ SENT DONE');
 
     return res.sendStatus(200);
   } catch (err) {
