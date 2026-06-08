@@ -1,3 +1,4 @@
+/* DISABLED ENTRY FILE */
 const express = require("express");
 const crypto = require("crypto");
 const Redis = require("ioredis");
@@ -202,7 +203,7 @@ streams.forEach(worker);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
+// DISABLED_MULTI_ENTRY => {
   console.log("🚀 V7 INTELLIGENCE MESH RUNNING ON", PORT);
   console.log("🧬 NODE:", INSTANCE_ID);
 });

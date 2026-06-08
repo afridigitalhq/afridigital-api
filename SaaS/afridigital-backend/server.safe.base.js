@@ -1,3 +1,4 @@
+/* DISABLED ENTRY FILE */
 
 const express = require("express");
 const app = express();
@@ -75,7 +76,7 @@ console.log('🔥 RAW BODY:', JSON.stringify(req.body))
   }
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+// DISABLED_MULTI_ENTRY => {
   console.log("CLEAN SERVER RUNNING ON", PORT);
 });
 function normalizePhone(num){return String(num).replace(/[^0-9]/g,'');}

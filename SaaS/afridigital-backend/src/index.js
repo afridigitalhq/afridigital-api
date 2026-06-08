@@ -1,3 +1,4 @@
+require("../core/kernel/config/loader");
 const express = require("express");
 
 
@@ -54,6 +55,18 @@ app.get("/admin/stats", getAdminStats);
 
 // ---------------- START SERVER (RENDER SAFE) ----------------
 const PORT = process.env.PORT || 10000;
+
+
+app.get('/env-debug', (req,res)=>{
+  res.json({
+    META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN,
+    META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID,
+    META_VERIFY_TOKEN: !!process.env.META_VERIFY_TOKEN,
+    REDIS_URL: !!process.env.REDIS_URL,
+    ALL_KEYS: Object.keys(process.env).filter(k=>k.includes('META') || k.includes('REDIS'))
+  });
+});
+
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🧠 V32 RENDER BACKEND LIVE ON PORT", PORT);
