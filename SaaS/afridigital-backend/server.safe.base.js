@@ -2,6 +2,28 @@ const express = require("express");
 const app = express();
 
 app.use(express.json());
+app.use((req,res,next)=>{
+  const b=req.body;
+  if(b?.entry?.[0]?.changes?.[0]?.value){
+    req.normalizedMessage=b.entry[0].changes[0].value;
+  }
+  next();
+});
+app.use((req,res,next)=>{ 
+  const b=req.body; 
+  if(b?.entry?.[0]?.changes?.[0]?.value){ 
+    req.normalizedMessage = b.entry[0].changes[0].value; 
+  } 
+  next(); 
+});
+app.use(express.json({ verify: (req, res, buf) => { req.rawBody = buf.toString(); } }));
+app.use((req,res,next)=>{ 
+  const b=req.body; 
+  if(b?.entry?.[0]?.changes?.[0]?.value){ 
+    req.normalizedMessage = b.entry[0].changes[0].value; 
+  } 
+  next(); 
+});
 
 app.get("/health", (req, res) => {
   res.json({ ok: true });

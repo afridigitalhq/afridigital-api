@@ -17,6 +17,7 @@ router.get("/", (req, res) => {
   return res.sendStatus(403);
 });
 
+console.log("🔥 WEBHOOK HIT:", JSON.stringify(req.body || {}));
 router.post("/", async (req, res) => {
   const result = messagePipeline(req);
 
