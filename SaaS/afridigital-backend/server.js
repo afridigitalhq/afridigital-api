@@ -211,7 +211,7 @@ app.get("/env-check", (req, res) => {
   res.json({
     META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN,
     META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID,
-    META_VERIFY_TOKEN: !!process.env.META_VERIFY_TOKEN,
+    META_VERIFY_TOKEN: !!afri_verify_123,
     REDIS_URL: !!process.env.REDIS_URL
   });
 });
