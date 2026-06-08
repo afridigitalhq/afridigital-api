@@ -17,7 +17,7 @@ app.get('/webhook/whatsapp', (req, res) => {
   const challenge = req.query['hub.challenge'];
   const verifyToken = req.query['hub.verify_token'];
 
-  if (verifyToken !== afri_verify_123) {
+  if (verifyToken !== "afri_verify_123") {
     return res.sendStatus(403);
   }
 
