@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 async function sendMessage(to, text) {
   try {
     const url = `https://graph.facebook.com/v19.0/${process.env.META_PHONE_NUMBER_ID}/messages`;
