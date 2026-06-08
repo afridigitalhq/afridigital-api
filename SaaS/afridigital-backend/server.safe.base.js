@@ -38,7 +38,7 @@ app.post('/webhook/whatsapp', async (req, res) => {
     const reply = await flowEngine(result.message);
     console.log("🧠 AI REPLY:", reply);
 
-    const to = normalizePhone(result.message.from);
+    const to = normalizePhone(normalizePhone(result.message.from));
 
     console.log("📤 SENDING:", to, reply);
     await sendMessage(to, reply);
@@ -54,3 +54,4 @@ app.post('/webhook/whatsapp', async (req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log("CLEAN SERVER RUNNING ON", PORT);
 });
+function normalizePhone(num){return String(num).replace(/[^0-9]/g,'');}
