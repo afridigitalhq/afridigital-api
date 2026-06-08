@@ -13,7 +13,7 @@ async function sendMessage(to, text) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${require("../core/kernel/config/loader").whatsapp.accessToken}`
+        'Authorization': `Bearer ${{ getConfig: () => ({}) }.whatsapp.accessToken}`
       },
       body: JSON.stringify(payload)
     });
