@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  if (mode === "subscribe" && token === process.env.META_VERIFY_TOKEN) {
+  if (mode === "subscribe" && token === require("../core/kernel/config/loader").whatsapp.verifyToken) {
     return res.status(200).send(challenge);
   }
 

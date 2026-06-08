@@ -1,10 +1,21 @@
+const { askAfriAI } = require("../../adapters/ai/afriAI");
+
 async function flowEngine(message) {
   const text = (message.text || "").toLowerCase();
 
-  if (text.includes("hello")) return "reply: hello 👋";
-  if (text.includes("help")) return "reply: how can I assist?";
+  // 🔹 simple rule-based shortcuts first
+  if (text.includes("hello")) {
+    return "👋 hello from AfriDigital system";
+  }
 
-  return "reply: message received";
+  if (text.includes("help")) {
+    return "🛠 I can assist you via AfriAI engine";
+  }
+
+  // 🧠 AI fallback path
+  const ai = await askAfriAI(message);
+
+  return ai.reply;
 }
 
 module.exports = { flowEngine };
