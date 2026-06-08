@@ -1,7 +1,12 @@
 const { askAfriAI } = require("../../adapters/ai/afriAI");
 
 async function flowEngine(message) {
-  const text = (message.text || "").toLowerCase();
+  
+const text =
+  typeof message.text === 'string'
+    ? message.text.toLowerCase()
+    : (message.text?.body || '').toLowerCase();
+
 
   // 🔹 simple rule-based shortcuts first
   if (text.includes("hello")) {
@@ -13,9 +18,17 @@ async function flowEngine(message) {
   }
 
   // 🧠 AI fallback path
-  const ai = await askAfriAI(message);
+  
+const ai = await askAfriAI({
+  text,
+  from: message.from,
+  messageId: message.id
+});
 
-  return ai.reply;
+
+  
+return ai?.reply || "⚠️ AI temporarily unavailable";
+
 }
 
 module.exports = { flowEngine };

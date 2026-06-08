@@ -1,5 +1,5 @@
 const express = require("express");
-require("dotenv").config();
+
 
 const { logEvent } = require("./audit/ledger");
 
