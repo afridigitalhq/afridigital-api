@@ -25,6 +25,7 @@ app.get('/webhook/whatsapp', (req, res) => {
 });
 
 app.post('/webhook/whatsapp', async (req, res) => {
+console.log('🔥 RAW BODY:', JSON.stringify(req.body))
   try {
     const { messagePipeline } = require('./core/pipeline/messagePipeline');
     const { flowEngine } = require('./core/engine/flowEngine');
