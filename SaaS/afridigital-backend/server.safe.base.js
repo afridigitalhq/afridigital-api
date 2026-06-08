@@ -9,18 +9,9 @@ app.get("/health", (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/env-check", (req, res) => {
-  res.json({
-    META_ACCESS_TOKEN: !!process.env.META_ACCESS_TOKEN,
-    META_PHONE_NUMBER_ID: !!process.env.META_PHONE_NUMBER_ID,
-    META_VERIFY_TOKEN: !!process.env.META_VERIFY_TOKEN,
-    REDIS_URL: !!process.env.REDIS_URL
-  });
-});
-
-
-
-
+function normalizePhone(num) {
+  return (num || "").replace(/\+/g, "").replace(/\s/g, "");
+}
 
 app.get('/webhook/whatsapp', (req, res) => {
   const challenge = req.query['hub.challenge'];
@@ -33,7 +24,6 @@ app.get('/webhook/whatsapp', (req, res) => {
   return res.status(200).send(challenge);
 });
 
-
 app.post('/webhook/whatsapp', async (req, res) => {
   try {
     const { messagePipeline } = require('./core/pipeline/messagePipeline');
@@ -41,25 +31,26 @@ app.post('/webhook/whatsapp', async (req, res) => {
     const { sendMessage } = require('./adapters/whatsapp/sendMessage');
 
     const result = messagePipeline(req);
-console.log('📩 PIPELINE INPUT:', result);
+    console.log("📩 PIPELINE INPUT:", result);
+
     if (!result || !result.ok) return res.sendStatus(200);
 
     const reply = await flowEngine(result.message);
-console.log('🧠 AI REPLY:', reply);
+    console.log("🧠 AI REPLY:", reply);
 
-    console.log('📤 SENDING:', result.message.from, reply);
-await sendMessage(result.message.from, reply);
-console.log('✅ SENT DONE');
+    const to = normalizePhone(result.message.from);
+
+    console.log("📤 SENDING:", to, reply);
+    await sendMessage(to, reply);
+    console.log("✅ SENT DONE");
 
     return res.sendStatus(200);
   } catch (err) {
-    console.error('WEBHOOK_PIPELINE_ERROR:', err.message);
+    console.error("WEBHOOK_PIPELINE_ERROR:", err.message);
     return res.sendStatus(200);
   }
 });
 
-
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(" CLEAN SERVER RUNNING ON", PORT);
+  console.log("CLEAN SERVER RUNNING ON", PORT);
 });
-
