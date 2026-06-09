@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+console.log("DISABLED_LISTENER")(PORT, () => {
   console.log("🚀 RENDER SERVER RUNNING ON", PORT);
 });

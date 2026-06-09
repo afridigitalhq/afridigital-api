@@ -1,3 +1,4 @@
+const hookedListen = require("../core/runtime/hooks/listen.hook");
 const express = require("express");
 const app = express();
 app.use(express.json());
@@ -35,4 +36,4 @@ app.post("/afriagent/test", async (req,res)=>{
 
 // START (Render-safe)
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+app.listen .listen(.listen( hookedListen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));

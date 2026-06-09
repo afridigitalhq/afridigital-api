@@ -10,7 +10,7 @@ grep -q "apiGateway" $FILE || sed -i '1a const apiGateway = require("./core/gate
 # ensure mount exists BEFORE listen
 if ! grep -q "app.use('/api', apiGateway)" $FILE; then
   awk '
-  /app.listen/ {
+  /// app.listen DISABLED/ {
     print "app.use('/api', apiGateway);"
   }
   {print}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>AfriBrain PDE Cortex</title>
+<style>
+  body { margin:0; overflow:hidden; background:#000; }
+  canvas { display:block; }
+</style>
+</head>
+
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+
+<script>
+// ================================
+// GPU PDE NEURAL FIELD (PING-PONG)
+// ================================
+
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// ================================
+// FULLSCREEN QUAD
+// ================================
+const geo = new THREE.PlaneGeometry(2,2);
+
+// ================================
+// INITIAL FIELD TEXTURE
+// ================================
+function createTexture() {
+  const size = 256;
+  const data = new Float32Array(size * size * 4);
+
+  for (let i = 0; i < size * size; i++) {
+    data[i*4] = Math.random() * 0.2;   // activation (u)
+    data[i*4+1] = Math.random() * 0.2; // inhibitor (v)
+    data[i*4+2] = 0;
+    data[i*4+3] = 1;
+  }
+
+  const tex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat, THREE.FloatType);
+  tex.needsUpdate = true;
+  return tex;
+}
+
+let texA = createTexture();
+let texB = createTexture();
+
+// ================================
+// REACTION-DIFFUSION SHADER (GRAY-SCOTT)
+// ================================
+const frag = `
+uniform sampler2D state;
+uniform vec2 resolution;
+uniform float time;
+
+vec4 laplace(sampler2D tex, vec2 uv, vec2 px) {
+  return
+    texture2D(tex, uv + px*vec2(-1.0,0.0)) +
+    texture2D(tex, uv + px*vec2(1.0,0.0)) +
+    texture2D(tex, uv + px*vec2(0.0,-1.0)) +
+    texture2D(tex, uv + px*vec2(0.0,1.0)) -
+    4.0 * texture2D(tex, uv);
+}
+
+void main() {
+
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  vec2 px = 1.0 / resolution.xy;
+
+  vec4 c = texture2D(state, uv);
+
+  float u = c.r;
+  float v = c.g;
+
+  vec4 l = laplace(state, uv, px);
+
+  float Du = 0.16;
+  float Dv = 0.08;
+  float F  = 0.060;
+  float k  = 0.062;
+
+  float uvv = u * v * v;
+
+  float du = Du * l.r - uvv + F * (1.0 - u);
+  float dv = Dv * l.g + uvv - (F + k) * v;
+
+  u += du * 1.0;
+  v += dv * 1.0;
+
+  // external "attention spike"
+  float pulse = smoothstep(0.02, 0.0, distance(uv, vec2(0.5)));
+  u += pulse * 0.5;
+
+  gl_FragColor = vec4(u, v, 0.0, 1.0);
+}
+`;
+
+// ================================
+// RENDER SHADER (VISUALIZATION)
+// ================================
+const displayFrag = `
+uniform sampler2D state;
+uniform vec2 resolution;
+
+void main() {
+
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  vec4 c = texture2D(state, uv);
+
+  float u = c.r;
+  float v = c.g;
+
+  float intensity = u - v;
+
+  vec3 col = vec3(0.0, 0.2 + intensity, 0.6 + intensity*1.5);
+
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+// ================================
+// MATERIALS
+// ================================
+function createMaterial(shader) {
+  return new THREE.ShaderMaterial({
+    uniforms: {
+      state: { value: texA },
+      resolution: { value: new THREE.Vector2(innerWidth, innerHeight) },
+      time: { value: 0 }
+    },
+    vertexShader: `
+      void main() {
+        gl_Position = vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: shader
+  });
+}
+
+const simMat = createMaterial(frag);
+const renderMat = createMaterial(displayFrag);
+
+const simMesh = new THREE.Mesh(geo, simMat);
+const renderMesh = new THREE.Mesh(geo, renderMat);
+
+scene.add(renderMesh);
+
+// ================================
+// GPU PING-PONG FRAMEBUFFER SIM
+// ================================
+let rtA = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
+  type: THREE.FloatType
+});
+
+let rtB = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
+  type: THREE.FloatType
+});
+
+let current = rtA;
+let next = rtB;
+
+// ================================
+// SIMULATION STEP
+// ================================
+function step() {
+
+  simMat.uniforms.state.value = current.texture;
+
+  renderer.setRenderTarget(next);
+  renderer.render(simMesh, camera);
+  renderer.setRenderTarget(null);
+
+  let tmp = current;
+  current = next;
+  next = tmp;
+
+  renderMat.uniforms.state.value = current.texture;
+}
+
+// ================================
+// LOOP
+// ================================
+function animate() {
+  requestAnimationFrame(animate);
+
+  step();
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+// ================================
+// WEB SOCKET STIMULUS LAYER
+// ================================
+const ws = new WebSocket("wss://" + window.location.host);
+
+ws.onmessage = (msg) => {
+  try {
+    const d = JSON.parse(msg.data);
+
+    if (d.type === "PULSE") {
+      // inject disturbance into PDE field
+      const uv = renderMat.uniforms.state.value;
+      uv.needsUpdate = true;
+    }
+  } catch(e){}
+};
+
+window.addEventListener("resize", () => {
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+
+</body>
+</html>

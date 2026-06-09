@@ -156,7 +156,7 @@ app.get("/v1/usage", (req, res) => {
 
 // START
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", () => {
+// app.listen DISABLED(PORT, "0.0.0.0", () => {
   console.log("🚀 STRICT KERNEL v5 RUNNING ON", PORT);
 });
 JS

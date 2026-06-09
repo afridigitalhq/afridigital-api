@@ -1,0 +1,89 @@
+const graphLock=require("./core/kernel/module.graph.lock").validate();if(!graphLock.ok){console.error("❌ MODULE GRAPH BROKEN",graphLock);process.exit(1);}
+const bootValidate=require("./core/kernel/boot.validate");
+const boot=bootValidate();
+if(!boot.safe){console.error("❌ SYSTEM BOOT FAILED",boot.shield);process.exit(1);}
+const { getIO } = require('./core/realtime/socket');
+const { attachSocket } = require('./core/realtime/socket');
+const express = require("express");
+const http = require("http");
+
+const app = express();
+// REMOVED_PIPELINE_WEBHOOK_MOUNT
+const { mountWhatsApp } = require("./core/whatsapp"); 
+// REMOVED_DUPLICATE_MOUNT_WHATSAPP
+app.use(express.json());
+
+const server = http.createServer(app);
+const { startKernelTick } = require("./core/kernel/tick/kernelTick"); 
+const { attachFlowBridge } = require("./core/kernel/bridge/flowBridge"); 
+const bus = require("./core/kernel/events/eventBus"); 
+
+
+/**
+ * HEALTH CORE
+ */
+app.get("/health", (req, res) => {
+  res.json({ ok: true, service: "afridigital-api" });
+});
+
+/**
+ * FLOW HEALTH (safe stub)
+ */
+app.get("/flow/health", (req, res) => {
+  res.json({ ok: true, engine: "flowgraph", status: "stub-active" });
+});
+
+/**
+  /**
+   * WHATSAPP WEBHOOK (safe stub)
+   */
+  // REMOVED DUPLICATE WHATSAPP STUB ROUTE (PIPELINE HANDLES IT)
+  });
+
+/**
+ * OPTIONAL MODULE HOOKS (safe loaders)
+ */
+try {
+} catch (e) {
+  console.log("⚠️ FlowSocket disabled:", e.message);
+}
+
+try {
+  const bus = require("./core/redis/streamBus");
+  console.log("Redis stream bus loaded");
+} catch (e) {
+  console.log("⚠️ Redis stream fallback active (memory mode)");
+}
+
+/**
+ * START SERVER
+ */
+try {
+} catch (e) {
+  console.log("⚠️ FlowSocket disabled:", e.message);
+}
+const PORT = process.env.PORT || 3000;
+const io = attachSocket(server);
+
+server.listen(PORT, () => {
+  console.log("🚀 AFRI KERNEL STABLE ON PORT", PORT);
+});
+
+const deployShield=require("./core/kernel/deploy.shield");app.get("/health",(req,res)=>res.json(deployShield()));
+const express = require('express');
+const app = express();
+
+const { getBatch } = require('./core/kernel/replay.engine.v3');
+
+app.get('/replay/status', async (req, res) => {
+  const batch = await getBatch(100);
+
+  res.json({
+    queueSize: batch.length,
+    retries: batch.reduce((s, i) => s + i.attempts, 0),
+    oldest: batch[0]?.createdAt || null,
+    status: batch.length ? 'active' : 'idle'
+  });
+});
+
+module.exports = app;

@@ -68,6 +68,11 @@ app.get('/env-debug', (req,res)=>{
 });
 
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("🧠 V32 RENDER BACKEND LIVE ON PORT", PORT);
-});
+
+if (require.main === module) {
+  app.listen(process.env.PORT || 10000, () => {
+    console.log("🧠 LOCAL RUN MODE ACTIVE");
+  });
+}
+
+undefined

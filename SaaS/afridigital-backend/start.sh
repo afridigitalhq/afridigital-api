@@ -1,2 +1,5 @@
 #!/bin/bash
-node core/ai/gateway/v5/server.js
+
+bash core/kernel/freeze-v2-1.sh || exit 1
+
+node src/index.js

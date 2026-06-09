@@ -1,0 +1,9 @@
+=== EXECUTION GATE RULES ===
+ALLOW: core/**
+ALLOW: controllers/**
+DENY: **/wire_*
+DENY: **/patch_*
+DENY: **/rebuild*
+DENY: **/fix_*
+DENY: **/snapshot*
+DENY: archive/** (execution only)

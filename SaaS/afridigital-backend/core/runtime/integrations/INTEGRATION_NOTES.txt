@@ -1,0 +1,7 @@
+AFRISCAN FINAL INTEGRATION:
+
+1. Render CI webhook → /render/webhook
+2. WhatsApp send API → /whatsapp/send
+3. React UI connects via WS (already active on 9090)
+4. AFRISCAN remains read-only observer layer
+5. All events normalized via event.schema.js

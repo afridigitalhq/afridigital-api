@@ -30,7 +30,7 @@ TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
 git add .
 
-git commit -m "deploy: snapshot $TIMESTAMP" || echo "ℹ️ No changes to commit"
+echo "snapshot disabled (use afribk)"  || echo "ℹ️ No changes to commit"
 
 # ---------------------------
 # 3. PUSH TO REPO

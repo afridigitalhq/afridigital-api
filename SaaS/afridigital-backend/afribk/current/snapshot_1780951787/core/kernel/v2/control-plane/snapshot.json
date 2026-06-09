@@ -1,0 +1,19 @@
+{
+  "versions": {
+    "kernel": "v2.1",
+    "whatsapp": "v5"
+  },
+  "history": [
+    {
+      "name": "kernel",
+      "version": "v2.1",
+      "ts": 1780605108870
+    },
+    {
+      "name": "whatsapp",
+      "version": "v5",
+      "ts": 1780605108872
+    }
+  ],
+  "active": {}
+}

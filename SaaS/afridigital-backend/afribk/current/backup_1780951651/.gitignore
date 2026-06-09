@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+
+# backend isolation only
+apps/
+backup_v1_*
+../afridigital-frontend/
+../afridigital-os/
+*.log
+*.bak

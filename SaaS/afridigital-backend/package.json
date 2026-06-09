@@ -5,7 +5,10 @@
   "scripts": {
     "start": "node src/index.js",
     "prestart": "node scripts/kernel-guard.js",
-    "prebuild": "node scripts/kernel-guard.js"
+    "prebuild": "node scripts/kernel-guard.js",
+    "dev": "node server.js",
+    "obs": "node obs-dashboard/server.js",
+    "collector": "node control-plane/collector/server.js"
   },
   "dependencies": {
     "ajv": "^8.20.0",
@@ -28,15 +31,21 @@
     "openai": "^6.39.1",
     "pdfkit": "^0.18.0",
     "pg": "^8.21.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "redis": "^6.0.0",
     "socket.io": "^4.8.3",
     "uuid": "^14.0.0",
     "ws": "^8.21.0",
     "zod": "^4.4.3"
   },
-  "main": "server.safe.base.js",
+  "main": "server.js",
   "_moduleAliases": {
     "kernel": "core/kernel",
     "@kernel": "core/kernel"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.16"
   }
 }

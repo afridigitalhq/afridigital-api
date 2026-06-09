@@ -13,7 +13,7 @@ async function runCommand(req, sendWhatsAppMessage) {
 
   // ⚡ STATUS
   if (text === "afri heal") {
-    const snap = systemSnapshot();
+    const snap = systemSnapshot_READONLY();
     const issues = detectIssues(snap);
 
     if (issues.length === 0) {
@@ -32,7 +32,7 @@ async function runCommand(req, sendWhatsAppMessage) {
 
   // ⚡ DIAGNOSTIC ONLY
   if (text === "afri diagnose") {
-    const snap = systemSnapshot();
+    const snap = systemSnapshot_READONLY();
     const issues = detectIssues(snap);
 
     return sendWhatsAppMessage(
@@ -43,7 +43,7 @@ async function runCommand(req, sendWhatsAppMessage) {
 
   // ⚡ STATUS
   if (text === "afri status") {
-    return sendWhatsAppMessage(from, JSON.stringify(systemSnapshot(), null, 2));
+    return sendWhatsAppMessage(from, JSON.stringify(systemSnapshot_READONLY(), null, 2));
   }
 
   return sendWhatsAppMessage(from, "⚠️ Unknown command");

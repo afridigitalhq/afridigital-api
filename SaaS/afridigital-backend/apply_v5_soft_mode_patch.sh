@@ -216,7 +216,7 @@ app.post("/webhook/whatsapp", async (req, res) => {
 // ================= START =================
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
+// app.listen DISABLED(PORT, "0.0.0.0", () => {
   console.log("🚀 SOFT MODE v5 RUNNING ON", PORT);
 });
 JS

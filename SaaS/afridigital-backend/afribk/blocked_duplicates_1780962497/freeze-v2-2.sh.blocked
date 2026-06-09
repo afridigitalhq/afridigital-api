@@ -1,0 +1,84 @@
+#!/bin/bash
+
+echo "🧊 KERNEL FREEZE v2.2 (TRUTH MODE ACTIVE)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+BASE="."
+QUARANTINE="afribk/blocked_duplicates_$(date +%s)"
+REPORT="core/kernel/freeze-report.log"
+
+mkdir -p "$QUARANTINE"
+: > "$REPORT"
+
+echo "🔍 STEP 1: EXCLUDING BACKUPS + SNAPSHOTS"
+
+FILES=$(grep -R "app.listen\|http.listen\|server.listen" . \
+  --exclude-dir=node_modules \
+  --exclude-dir=.git \
+  --exclude-dir=afribk \
+  | grep -v "backup_" \
+  | grep -v "snapshot_" \
+  | cut -d: -f1 | sort)
+
+TOTAL=$(echo "$FILES" | grep -v "^$" | wc -l)
+
+echo "📦 ACTIVE runtime files detected: $TOTAL" | tee -a "$REPORT"
+
+echo ""
+echo "🧠 STEP 2: STRICT DUPLICATE DETECTION"
+
+DUPLICATES=$(echo "$FILES" | sort | uniq -c | awk '$1 > 1')
+
+if [ ! -z "$DUPLICATES" ]; then
+  echo "🚨 DUPLICATES FOUND (ACTIVE CODE ONLY):" | tee -a "$REPORT"
+  echo "$DUPLICATES" | tee -a "$REPORT"
+
+  echo ""
+  echo "🛑 BLOCKING DUPLICATE SOURCES..."
+
+  echo "$DUPLICATES" | while read count file; do
+    if [ -f "$file" ]; then
+
+      mkdir -p "$QUARANTINE"
+
+      cp "$file" "$QUARANTINE/$(basename "$file").blocked"
+
+      echo "⛔ BLOCKED: $file | occurrences: $count" | tee -a "$REPORT"
+
+      echo "// BLOCKED BY KERNEL FREEZE v2.2 - DUPLICATE RUNTIME SOURCE" > "$file"
+    fi
+  done
+else
+  echo "🟢 NO ACTIVE DUPLICATES FOUND" | tee -a "$REPORT"
+fi
+
+echo ""
+echo "🔍 STEP 3: FINAL REAL RUNTIME CHECK"
+
+REAL=$(grep -R "app.listen\|http.listen\|server.listen" . \
+  --exclude-dir=node_modules \
+  --exclude-dir=.git \
+  --exclude-dir=afribk \
+  | grep -v "backup_" \
+  | grep -v "snapshot_" \
+  | wc -l)
+
+echo "📊 REAL ACTIVE RUNTIME COUNT: $REAL"
+
+echo ""
+echo "📊 STEP 4: HARD ENFORCEMENT RESULT"
+
+if [ "$REAL" -gt 1 ]; then
+  echo "🔴 SYSTEM LOCKED: MULTI-RUNTIME DETECTED"
+  echo "🛑 DEPLOYMENT BLOCKED"
+  exit 1
+else
+  echo "🟢 SINGLE RUNTIME CONFIRMED"
+fi
+
+echo ""
+echo "📁 QUARANTINE: $QUARANTINE"
+echo "📄 REPORT: $REPORT"
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🧊 KERNEL FREEZE v2.2 COMPLETE"

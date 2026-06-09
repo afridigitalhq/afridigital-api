@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>AfriBrain Live Cortex</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #05070f, #02030a);
+      overflow: hidden;
+      font-family: monospace;
+      color: #00ffe1;
+    }
+
+    svg {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .node {
+      fill: #00ffe1;
+      stroke: #00aaff;
+      stroke-width: 1px;
+      filter: drop-shadow(0 0 6px #00ffe1);
+    }
+
+    .link {
+      stroke: rgba(0, 255, 225, 0.2);
+      stroke-width: 1px;
+    }
+
+    .pulse {
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { r: 6; opacity: 1; }
+      50% { r: 12; opacity: 0.5; }
+      100% { r: 6; opacity: 1; }
+    }
+
+    .hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: #00ffe1;
+    }
+  </style>
+</head>
+
+<body>
+<div class="hud" id="hud">Connecting...</div>
+<svg></svg>
+
+<script>
+const svg = d3.select("svg");
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const nodes = [
+  { id: "FlowEngine" },
+  { id: "KernelTick" },
+  { id: "EventBus" },
+  { id: "WebSocket" },
+  { id: "RedisMesh" },
+  { id: "AdminGraph" }
+];
+
+const links = [
+  { source: "KernelTick", target: "FlowEngine" },
+  { source: "FlowEngine", target: "EventBus" },
+  { source: "EventBus", target: "WebSocket" },
+  { source: "EventBus", target: "RedisMesh" },
+  { source: "WebSocket", target: "AdminGraph" }
+];
+
+const simulation = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d => d.id).distance(180))
+  .force("charge", d3.forceManyBody().strength(-600))
+  .force("center", d3.forceCenter(width / 2, height / 2));
+
+const link = svg.append("g")
+  .selectAll("line")
+  .data(links)
+  .enter()
+  .append("line")
+  .attr("class", "link");
+
+const node = svg.append("g")
+  .selectAll("circle")
+  .data(nodes)
+  .enter()
+  .append("circle")
+  .attr("class", "node")
+  .attr("r", 10);
+
+const label = svg.append("g")
+  .selectAll("text")
+  .data(nodes)
+  .enter()
+  .append("text")
+  .text(d => d.id)
+  .attr("fill", "#00ffe1")
+  .attr("font-size", 11);
+
+simulation.on("tick", () => {
+  link
+    .attr("x1", d => d.source.x)
+    .attr("y1", d => d.source.y)
+    .attr("x2", d => d.target.x)
+    .attr("y2", d => d.target.y);
+
+  node
+    .attr("cx", d => d.x)
+    .attr("cy", d => d.y);
+
+  label
+    .attr("x", d => d.x + 12)
+    .attr("y", d => d.y + 4);
+});
+
+// ----------------------------
+// LIVE WEB SOCKET STREAM
+// ----------------------------
+const ws = new WebSocket("wss://" + window.location.host);
+
+ws.onopen = () => {
+  document.getElementById("hud").innerText = "🧠 AfriBrain Cortex ONLINE";
+};
+
+ws.onmessage = (msg) => {
+  try {
+    const data = JSON.parse(msg.data);
+
+    if (data.type === "AFRIBRAIN_TICK") {
+      const randNode = nodes[Math.floor(Math.random() * nodes.length)];
+
+      d3.selectAll("circle")
+        .filter(d => d.id === randNode.id)
+        .transition()
+        .duration(200)
+        .attr("r", 18)
+        .transition()
+        .duration(400)
+        .attr("r", 10);
+
+      document.getElementById("hud").innerText =
+        "⚡ Tick: " + new Date().toLocaleTimeString();
+    }
+  } catch (e) {}
+};
+
+ws.onerror = () => {
+  document.getElementById("hud").innerText = "⚠️ Disconnected (fallback mode)";
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+./scripts/runtime-guard.js:    const out = execSync(`grep -R "// app.listen DISABLED\\|http.listen" ${dir} --exclude-dir=node_modules`, { encoding: "utf8" });
+./scripts/afriscan.sh:LISTENERS=$(grep -R "listen(" src core app server 2>/dev/null | wc -l)
+./core/kernel/enforce-runtime-policy.sh:VIOLATIONS=$(grep -R "app.listen\|http.listen\|server.listen" . \
+./core/kernel/runtime-hard-guard.sh:COUNT=$(grep -R "app.listen(" . \
+./core/runtime/entry.runtime.js:  server.listen(PORT, () => {
+./archive/v9/bootstrap/afrios.bootstrap.js:app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+./archive/server-backup/server.backup.1780240744.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.bracefix.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.clean.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.cleanfix.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.final.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.safe.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.backup.whatsapp.fix.js:server.listen(PORT, () => {
+./archive/server-backup/server.clean.final.js:app.listen(PORT,'0.0.0.0',()=>{
+./archive/server-backup/server.corrupt.backup.js:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.js.BROKEN_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.js.FULL_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.js.backup:app.listen(PORT, "0.0.0.0", () => {
+./archive/server-backup/server.js.broken.1780165294:app.listen(PORT, () => {
+./archive/server-backup/server.js.pre-clean:server.listen(PORT, () => {
+./archive/server-backup/server.js.pre-fix:app.listen(PORT, () => {
+./archive/server-backup/server.locked.js:app.listen(PORT,'0.0.0.0',()=>{
+./archive/server-backup/server.recovery.base.js:app.listen(PORT,'0.0.0.0',()=>{
+./archive/server-backup/server.safe.base.bak.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.1780240744.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.whatsapp.fix.js:server.listen(PORT, () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.1780383979.js:http.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.1780383979.js:app.listen(PORT, "0.0.0.0", () => console.log("🚀 Render service running on", PORT));
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.bracefix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.clean.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.cleanfix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.final.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.backup.safe.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.broken.1780165294:app.listen(PORT, () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.clean.final.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/backup_1780951651/archive/server-backup/server.corrupt.backup.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.BROKEN_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.FULL_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.backup:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.pre-clean:server.listen(PORT, () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.js.pre-fix:app.listen(PORT, () => {
+./afribk/current/backup_1780951651/archive/server-backup/server.locked.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/backup_1780951651/archive/server-backup/server.recovery.base.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/backup_1780951651/archive/server-backup/server.safe.base.bak.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/archive/v9/bootstrap/afrios.bootstrap.js:app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+./afribk/current/backup_1780951651/core/ai/gateway/v5/server.js:app.listen(PORT, () => {
+./afribk/current/backup_1780951651/src/index.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/apply_v5_kernel_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/apply_v5_soft_mode_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/backup_1780951651/fix_server_final.sh:# 3. Ensure routes are ABOVE listen()
+./afribk/current/backup_1780951651/fix_server_final.sh:/app.listen/ {print before; print; next}
+./afribk/current/backup_1780951651/render.boot.js:app.listen(PORT, () => {
+./afribk/current/backup_1780951651/restore_api_gateway.sh:  /app.listen/ {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.1780240744.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.whatsapp.fix.js:server.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.1780383979.js:http.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.1780383979.js:app.listen(PORT, "0.0.0.0", () => console.log("🚀 Render service running on", PORT));
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.bracefix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.clean.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.cleanfix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.final.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.backup.safe.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.broken.1780165294:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.clean.final.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951787/archive/server-backup/server.corrupt.backup.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.BROKEN_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.FULL_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.backup:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.pre-clean:server.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.js.pre-fix:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/archive/server-backup/server.locked.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951787/archive/server-backup/server.recovery.base.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951787/archive/server-backup/server.safe.base.bak.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/archive/v9/bootstrap/afrios.bootstrap.js:app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+./afribk/current/snapshot_1780951787/core/ai/gateway/v5/server.js:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/src/index.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/apply_v5_kernel_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/apply_v5_soft_mode_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951787/fix_server_final.sh:# 3. Ensure routes are ABOVE listen()
+./afribk/current/snapshot_1780951787/fix_server_final.sh:/app.listen/ {print before; print; next}
+./afribk/current/snapshot_1780951787/render.boot.js:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951787/restore_api_gateway.sh:  /app.listen/ {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.1780240744.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.whatsapp.fix.js:server.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.1780383979.js:http.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.1780383979.js:app.listen(PORT, "0.0.0.0", () => console.log("🚀 Render service running on", PORT));
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.bracefix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.clean.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.cleanfix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.final.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.backup.safe.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.broken.1780165294:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.clean.final.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951831/archive/server-backup/server.corrupt.backup.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.BROKEN_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.FULL_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.backup:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.pre-clean:server.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.js.pre-fix:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/archive/server-backup/server.locked.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951831/archive/server-backup/server.recovery.base.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/current/snapshot_1780951831/archive/server-backup/server.safe.base.bak.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/archive/v9/bootstrap/afrios.bootstrap.js:app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+./afribk/current/snapshot_1780951831/core/ai/gateway/v5/server.js:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/src/index.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/apply_v5_kernel_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/apply_v5_soft_mode_patch.sh:app.listen(PORT, "0.0.0.0", () => {
+./afribk/current/snapshot_1780951831/fix_server_final.sh:# 3. Ensure routes are ABOVE listen()
+./afribk/current/snapshot_1780951831/fix_server_final.sh:/app.listen/ {print before; print; next}
+./afribk/current/snapshot_1780951831/render.boot.js:app.listen(PORT, () => {
+./afribk/current/snapshot_1780951831/restore_api_gateway.sh:  /app.listen/ {
+./afribk/archive/archive_snapshot_1780951651/v9/bootstrap/afrios.bootstrap.js:app.listen(PORT, "0.0.0.0", ()=>console.log("🚀 AFRIOS ONLINE", PORT));
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.1780240744.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.1780383979.js:http.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.1780383979.js:app.listen(PORT, "0.0.0.0", () => console.log("🚀 Render service running on", PORT));
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.bracefix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.clean.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.cleanfix.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.final.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.safe.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.backup.whatsapp.fix.js:server.listen(PORT, () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.clean.final.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.corrupt.backup.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.BROKEN_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.FULL_BACKUP:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.backup:app.listen(PORT, "0.0.0.0", () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.broken.1780165294:app.listen(PORT, () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.pre-clean:server.listen(PORT, () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.js.pre-fix:app.listen(PORT, () => {
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.locked.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.recovery.base.js:app.listen(PORT,'0.0.0.0',()=>{
+./afribk/archive/archive_snapshot_1780951651/server-backup/server.safe.base.bak.js:app.listen(PORT, "0.0.0.0", () => {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./scripts/runtime-guard.js:6:    const out = execSync(`grep -R "// app.listen DISABLED\\|http.listen" ${dir} --exclude-dir=node_modules`, { encoding: "utf8" });
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./render-entry.js:14:// app.listen DISABLED(PORT, "0.0.0.0", () => {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./render-scan.sh:1:grep -R "// app.listen DISABLED\|http.listen" -n . \
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./kernel/execution-kernel.js:24:      "grep -R \"// app.listen DISABLED\\|http.listen\" . --exclude-dir=node_modules --exclude-dir=archive --exclude-dir=afribk",
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./kernel/obs/scan.js:7:      "grep -R \"// app.listen DISABLED\\|http.listen\" . --exclude-dir=node_modules --exclude-dir=archive --exclude-dir=afribk",
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./obs-dashboard/server.js:63:// app.listen DISABLED(PORT, () => {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./restore_api_gateway.sh:13:  /// app.listen DISABLED/ {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./control-plane/collector/server.js:42:// app.listen DISABLED(PORT, () => {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./_system_archive/fix_server_final.sh:16:# 3. Ensure routes are ABOVE listen()
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./_system_archive/fix_server_final.sh:18:/// app.listen DISABLED/ {print before; print; next}
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./apply_v5_kernel_patch.sh:159:// app.listen DISABLED(PORT, "0.0.0.0", () => {
+./afribk/blocked_duplicates_1780962497/_runtime_listener_audit.txt.blocked:./apply_v5_soft_mode_patch.sh:219:// app.listen DISABLED(PORT, "0.0.0.0", () => {
+./afribk/blocked_duplicates_1780962497/server.backup.1780383979.js.blocked:http.listen(PORT, "0.0.0.0", () => {
+./afribk/blocked_duplicates_1780962497/server.backup.1780383979.js.blocked:app.listen(PORT, "0.0.0.0", () => console.log("🚀 Render service running on", PORT));
+./afribk/blocked_duplicates_1780962497/freeze-v2-1.sh.blocked:FILES=$(grep -R "app.listen\|http.listen\|server.listen" . \
+./afribk/blocked_duplicates_1780962497/freeze-v2-1.sh.blocked:RECHECK=$(grep -R "app.listen\|http.listen\|server.listen" . \
+./afribk/blocked_duplicates_1780962497/freeze-v2-2.sh.blocked:FILES=$(grep -R "app.listen\|http.listen\|server.listen" . \
+./afribk/blocked_duplicates_1780962497/freeze-v2-2.sh.blocked:REAL=$(grep -R "app.listen\|http.listen\|server.listen" . \
+./afribk/blocked_duplicates_1780962497/runtime-lock.js.blocked:  const original = // app.listen DISABLED;
+./afribk/blocked_duplicates_1780962497/runtime-lock.js.blocked:  // app.listen DISABLED = function () {
+./afribk/blocked_duplicates_1780962497/runtime-policy.json.blocked:    "app.listen",
+./afribk/blocked_duplicates_1780962497/runtime-policy.json.blocked:    "server.listen",
+./afribk/blocked_duplicates_1780962497/single-runtime-guard.js.blocked:  const original = // app.listen DISABLED;
+./afribk/blocked_duplicates_1780962497/single-runtime-guard.js.blocked:  // app.listen DISABLED = function () {
+./render-entry.js:app.listen(PORT, "0.0.0.0", () => {
+./render-scan.sh:grep -R "// app.listen DISABLED\|http.listen" -n . \
+./kernel/execution-kernel.js:      "grep -R \"// app.listen DISABLED\\|http.listen\" . --exclude-dir=node_modules --exclude-dir=archive --exclude-dir=afribk",
+./kernel/obs/scan.js:      "grep -R \"// app.listen DISABLED\\|http.listen\" . --exclude-dir=node_modules --exclude-dir=archive --exclude-dir=afribk",
+./obs-dashboard/server.js:// app.listen DISABLED(PORT, () => {
+./restore_api_gateway.sh:  /// app.listen DISABLED/ {
+./control-plane/collector/server.js:// app.listen DISABLED(PORT, () => {
+./_system_archive/fix_server_final.sh:# 3. Ensure routes are ABOVE listen()
+./_system_archive/fix_server_final.sh:/// app.listen DISABLED/ {print before; print; next}
+./apply_v5_kernel_patch.sh:// app.listen DISABLED(PORT, "0.0.0.0", () => {
+./apply_v5_soft_mode_patch.sh:// app.listen DISABLED(PORT, "0.0.0.0", () => {

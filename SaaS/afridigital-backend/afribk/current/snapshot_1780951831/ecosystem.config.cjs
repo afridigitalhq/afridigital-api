@@ -1,0 +1,1 @@
+module.exports={apps:[{name:"afrios-backend",script:"server.js",cwd:"/data/data/com.termux/files/home/AfriDigitalHubRuntime/src/SaaS/afridigital-backend",interpreter:"node",env:{NODE_ENV:"production"}}]};
