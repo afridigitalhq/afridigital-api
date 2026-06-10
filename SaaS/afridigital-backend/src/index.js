@@ -1,5 +1,5 @@
 // KERNEL DISABLED FOR CLEAN RENDER TEST
-require("../core/kernel/config/loader");
+// KERNEL DISABLED FOR RENDER CLEAN MODE
 const express = require("express");
 
 
