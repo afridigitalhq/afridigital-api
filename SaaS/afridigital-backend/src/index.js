@@ -63,3 +63,9 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
+// --- DEBUG ROUTE (TEMP) ---
+app.get('/__route_test', (req, res) => {
+  res.json({ ok: true, route: 'express_alive' });
+});
+
