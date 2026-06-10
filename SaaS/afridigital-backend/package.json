@@ -6,7 +6,7 @@
     "start": "node src/index.js",
     "prestart": "node scripts/kernel-guard.js",
     "prebuild": "node scripts/kernel-guard.js",
-    "dev": "node server.js",
+    "dev": "node src/index.js",
     "obs": "node obs-dashboard/server.js",
     "collector": "node control-plane/collector/server.js"
   },
