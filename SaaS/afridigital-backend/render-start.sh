@@ -1,2 +1,1 @@
-#!/bin/bash
-node src/index.js
+node SaaS/afridigital-backend/src/index.js
