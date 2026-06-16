@@ -58,3 +58,11 @@ if (graph.run) graph.run();
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 V12.5 EVENT GRAPH STABLE:", PORT);
 });
+app.use('/admin-hub', express.static('admin-hub'));
+
+// ===== ADMIN HUB STATIC MOUNT (SAFE IDENTITY CHECK) =====
+if (!global.__ADMIN_HUB_MOUNTED) {
+  const express = require("express");
+  app.use("/admin", express.static("admin-hub"));
+  global.__ADMIN_HUB_MOUNTED = true;
+}

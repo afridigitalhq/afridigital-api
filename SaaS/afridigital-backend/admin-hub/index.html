@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AfriDigital Admin Hub</title>
+</head>
+<body>
+  <h1>🚀 AfriDigital Live Admin</h1>
+  <pre id="log">Connecting...</pre>
+
+  <script>
+    const log = document.getElementById("log");
+    const ws = new WebSocket("wss://afridigital-api.onrender.com");
+
+    ws.onopen = () => log.innerText = "WS CONNECTED";
+
+    ws.onmessage = (msg) => {
+      log.innerText = msg.data + "\n\n" + log.innerText;
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AfriDigital Admin Hub</title>
+</head>
+<body>
+  <h1>🚀 Admin Control Plane</h1>
+  <pre id="data">Loading...</pre>
+
+  <script>
+    fetch('/admin-hub/registry.json')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('data').innerText =
+          JSON.stringify(d, null, 2);
+      });
+  </script>
+</body>
+</html>
