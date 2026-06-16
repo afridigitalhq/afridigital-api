@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "core/boot/main.entry.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node boot.js"
   },
-  "start": "node server.js",
+  "start": "node boot.js",
   "dependencies": {
     "acorn": "^8.17.0",
     "axios": "^1.17.0",
