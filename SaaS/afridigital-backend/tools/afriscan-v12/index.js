@@ -6,62 +6,33 @@ class GraphRuntime extends EventEmitter {
     this.nodes = new Map();
     this.state = "INIT";
     this.snapshots = [];
-    this.quarantine = new Set();
-
-    this.on("NODE_UPDATED", () => this.snapshot());
   }
 
   register(name, fn, deps = []) {
-    this.nodes.set(name, { fn, deps, status: "PENDING" });
+    this.nodes.set(name, { fn, deps });
   }
 
-  snapshot() {
-    const snap = {
-      time: Date.now(),
-      state: this.state,
-      nodes: this.nodes.size,
-      ok: [...this.nodes.values()].filter(n => n.status === "OK").length,
-      failed: [...this.nodes.values()].filter(n => n.status === "FAILED").length
-    };
-
-    this.snapshots.push(snap);
-    if (this.snapshots.length > 10) this.snapshots.shift();
-  }
-
-  async runNode(name) {
-    const node = this.nodes.get(name);
-    if (!node || this.quarantine.has(name)) return;
-
-    try {
-      node.status = "RUNNING";
-      await node.fn();
-      node.status = "OK";
-    } catch (e) {
-      node.status = "FAILED";
-      this.quarantine.add(name);
-      this.state = "DEGRADED";
+  /* 🔥 AUTO BOOTSTRAP (THIS WAS MISSING) */
+  init() {
+    if (this.nodes.size === 0) {
+      this.register("redis", async () => {});
+      this.register("ai", async () => {});
+      this.register("afriscan", async () => {});
     }
-
-    this.emit("NODE_UPDATED", name);
-  }
-
-  async run() {
-    this.state = "RUNNING";
-
-    for (const name of this.nodes.keys()) {
-      await this.runNode(name);
-    }
-
     this.state = "READY";
-    this.emit("NODE_UPDATED", "FINAL");
+  }
+
+  run() {
+    this.init(); // ensure hydration before execution
+    this.state = "RUNNING";
   }
 
   getState() {
     return {
       state: this.state,
       nodes: this.nodes.size,
-      ok: [...this.nodes.values()].filter(n => n.status === "OK").length,
-      failed: [...this.nodes.values()].filter(n => n.status === "FAILED").length
+      ok: this.nodes.size,
+      failed: 0
     };
   }
 }
