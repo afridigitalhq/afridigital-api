@@ -49,6 +49,17 @@ function computeWeightedHealth(state) {
 }
 
 const app = express();
+
+// ===== ROUTE BINDING PHASE (LOCKED) =====
+function bindRoutes() {
+  app.get("/status", (_, res) => {
+    const state = graph.snapshots.at(-1) || graph.getState();
+    res.json({ state: graph.getState?.(), snapshots: graph.snapshots || [], computed: state });
+  });
+}
+
+bindRoutes();
+
 let __ROUTES_LOCKED = false;
 app.use(express.json());
 
