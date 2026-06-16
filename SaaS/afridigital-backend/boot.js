@@ -49,6 +49,7 @@ function computeWeightedHealth(state) {
 }
 
 const app = express();
+let __ROUTES_LOCKED = false;
 app.use(express.json());
 
 const PORT = process.env.PORT || 10000;
@@ -131,6 +132,15 @@ app.get("/status", (_, res) => {
     computed: state
   });
 });
+
+
+if (!__ROUTES_LOCKED) {
+app.get("/status", (_, res) => {
+  const state = graph.snapshots.at(-1) || graph.getState();
+  res.json({ state: graph.getState?.(), snapshots: graph.snapshots || [], computed: state });
+});
+__ROUTES_LOCKED = true;
+}
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 V12.5 EVENT GRAPH ONLINE:", PORT);
