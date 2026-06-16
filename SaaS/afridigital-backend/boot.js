@@ -1,6 +1,16 @@
 const express = require("express");
 const graph = require("./tools/afriscan-v12");
 
+// ===== LIGHTWEIGHT REGISTRY LAYER (SAFE EXTENSION) =====
+const nodeWeights = { redis: 1, ai: 1, afriscan: 1 };
+function computeWeightedHealth(state) {
+  const nodes = state.nodes || 3;
+  const ok = state.ok || 0;
+  const weightTotal = Object.values(nodeWeights).reduce((a,b)=>a+b,0);
+  const score = weightTotal > 0 ? (ok / nodes) * weightTotal : 0;
+  return { ...state, weightedScore: score, model: "V12_WEIGHTED_SAFE_LAYER" };
+}
+
 const app = express();
 app.use(express.json());
 
