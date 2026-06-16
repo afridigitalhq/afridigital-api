@@ -1,3 +1,1 @@
-console.log("🧠 SERVER BOOT DISABLED - USING SRC DIRECT");
-
-module.exports = require('./src/index.js');
+console.log('🚫 BLOCKED ENTRY - USE boot.js ONLY'); process.exit(1);
