@@ -65,6 +65,11 @@ app.get("/status", (_, res) => {
     snapshots: graph.snapshots || []
   });
 });
+  res.json({
+    state: graph.getState ? graph.getState() : null,
+    snapshots: graph.snapshots || []
+  });
+});
 
 graph.run();
 
@@ -112,7 +117,6 @@ app.get("/meta", (_, res) => {
   res.json(graph.meta || {});
 });
 
-app.get("/status", (_, res) => {
   res.json({
     state: graph.getState ? graph.getState() : null,
     snapshots: graph.snapshots || []
