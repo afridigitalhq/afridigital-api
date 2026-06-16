@@ -6,7 +6,7 @@ function getStatus() {
     const kernel = execSync("ls africore/kernel").toString();
 
     const kernelCheck = require("fs").existsSync(
-      "africore/kernel/connectivity.kernel.js"
+      "./core/execution-compiler/control-plane/runtime/authority.js"
     );
 
     return `

@@ -1,9 +1,0 @@
-function enforceSingleRuntime(app) {
-  const original = // app.listen DISABLED;
-  // app.listen DISABLED = function () {
-    console.error("🚨 BLOCKED: Multiple runtime attempt detected");
-    console.trace();
-    return { close: () => {} };
-  };
-}
-module.exports = { enforceSingleRuntime };

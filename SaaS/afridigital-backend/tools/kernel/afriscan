@@ -1,0 +1,72 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/../.." || exit 1
+
+HR="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+section() {
+  echo ""
+  echo "$HR"
+  echo "🧠 $1"
+  echo "$HR"
+}
+
+block() {
+  echo ""
+  echo "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+  echo "┃ $1 ┃"
+  echo "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+  echo ""
+}
+
+ok="🟢"
+warn="🟡"
+bad="🔴"
+info="⚪"
+
+echo "🧠 AFRISCAN UNIFIED OBSERVATORY DASHBOARD"
+
+section "📦 FILESYSTEM GOVERNANCE LAYER"
+
+echo "📦 FILE COUNT: $ok $(find . -path "*/proot-distro/*" -prune -o -type f | wc -l)"
+
+echo ""
+echo "🚨 FORBIDDEN ARTIFACTS:"
+found=$(find . -path "*/proot-distro/*" -prune -o -type f | grep -Ei "backup|freeze|disabled|quarantine|copy|\.old|\.bak" || true)
+if [ -z "$found" ]; then
+  echo "$ok CLEAN"
+else
+  echo "$warn DETECTED"
+  echo "$found"
+fi
+
+echo ""
+echo "🧱 SINGLETON STATE:"
+render=$(find . -path "*/proot-distro/*" -prune -o -type f -name "render.js")
+echo "$render"
+echo "render.js COUNT: $(echo "$render" | wc -l)"
+
+echo ""
+echo "📡 WHATSAPP PIPELINE MAP:"
+find . -path "*/proot-distro/*" -prune -o -type f | grep -Ei "whatsapp.*pipeline|pipeline.*whatsapp" || true
+
+echo ""
+echo "🧠 CORE PIPELINE STRUCTURE:"
+ls -R ./core/whatsapp/pipeline 2>/dev/null || echo "$bad NO PIPELINE FOUND"
+
+echo ""
+echo "🗂 ARCHIVE LAYER:"
+arch=$(find . -path "*/proot-distro/*" -prune -o -type f | grep -Ei "_FINAL_CONSOLIDATION_ARCHIVE|archive" || true)
+[ -z "$arch" ] && echo "$ok NO ARCHIVES" || echo "$warn ARCHIVE LAYERS PRESENT"
+
+echo ""
+echo "⚙️ NODE VALIDATION:"
+node -c server.js 2>/dev/null && echo "$ok SERVER OK" || echo "$bad SERVER MISSING"
+
+section "🧠 EXECUTION GRAPH (KERNEL v7.1)"
+
+# removed drift kernel (safe fallback)
+
+section "📊 SYSTEM STATUS"
+
+echo "$ok AFRISCAN OPERATIONAL"

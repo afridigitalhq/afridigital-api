@@ -1,0 +1,22 @@
+{
+  "singletons": {
+    "render.js": "./runtime/ui/render.js",
+    "whatsappPipeline.js": "./src/services/whatsapp/whatsappPipeline.js"
+  },
+  "blocked_paths": [
+    "archive/",
+    "_FINAL_CONSOLIDATION_ARCHIVE/",
+    "backup/",
+    "freeze/",
+    "quarantine/"
+  ],
+  "blocked_patterns": [
+    "backup",
+    "freeze",
+    "disabled",
+    "quarantine",
+    ".old",
+    ".bak",
+    "copy"
+  ]
+}

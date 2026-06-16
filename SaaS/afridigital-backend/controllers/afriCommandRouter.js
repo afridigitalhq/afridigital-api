@@ -25,7 +25,7 @@ async function handleAfriCommand(req, res, sendWhatsAppMessage) {
 
   if (text === "kernel") {
     const fs = require("fs");
-    const exists = fs.existsSync("africore/kernel/connectivity.kernel.js");
+    const exists = fs.existsSync("./core/execution-compiler/control-plane/runtime/authority.js");
 
     await sendWhatsAppMessage(
       from,

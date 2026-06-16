@@ -1,0 +1,4 @@
+{
+  "render_entry": "./runtime/ui/render.js",
+  "whatsapp_entry": "./src/services/whatsapp/whatsappPipeline.js"
+}

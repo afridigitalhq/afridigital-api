@@ -1,9 +1,0 @@
-{
-  "status": "FROZEN",
-  "mode": "production",
-  "kernel_mutation": false,
-  "event_system": "stable",
-  "whatsapp": "enabled",
-  "render_entry": "render.boot.js",
-  "freeze_time": "now"
-}

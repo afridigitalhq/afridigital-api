@@ -1,0 +1,19 @@
+{
+  "forbidden_patterns": [
+    "backup",
+    "freeze",
+    "disabled",
+    "quarantine",
+    ".old",
+    ".bak",
+    "copy"
+  ],
+  "forbidden_paths": [
+    "archive/",
+    "_FINAL_CONSOLIDATION_ARCHIVE/"
+  ],
+  "singletons": {
+    "render.js": "./runtime/ui/render.js",
+    "whatsappPipeline.js": "./src/services/whatsapp/whatsappPipeline.js"
+  }
+}

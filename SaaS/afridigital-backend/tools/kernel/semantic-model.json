@@ -1,0 +1,19 @@
+{
+  "render": {
+    "entry": "./runtime/ui/render.js",
+    "singleton": true
+  },
+  "whatsapp": {
+    "entry": "./src/services/whatsapp/whatsappPipeline.js",
+    "roles": [
+      "normalize",
+      "intent",
+      "router",
+      "handler",
+      "formatter",
+      "context",
+      "planner"
+    ],
+    "singleton": true
+  }
+}

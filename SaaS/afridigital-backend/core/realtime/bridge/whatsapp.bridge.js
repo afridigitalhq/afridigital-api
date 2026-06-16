@@ -3,7 +3,7 @@
  * Converts WhatsApp messages into system events
  */
 
-const { emit } = require("../../runtime/eventbus/afriscan.bus");
+const { emit } = require("../../runtime/eventbus");
 
 function pushWhatsAppEvent(event) {
   return emit("whatsapp:message", {

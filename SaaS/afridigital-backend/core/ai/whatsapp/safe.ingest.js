@@ -1,4 +1,4 @@
-const { bus } = require("../../realtime/afriscan.graph.ws");
+const { bus } = require("../../realti../../runtime/eventbus");
 
 function ingest(message) {
   bus.emit("event", {

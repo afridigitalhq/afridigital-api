@@ -1,0 +1,11 @@
+{
+  "mode": "V15_FIREWALL_LOCK",
+  "canonical": "core/whatsapp/pipeline/router.js",
+  "execution": [
+    "core/whatsapp/pipeline/router.js"
+  ],
+  "modules": 7,
+  "blocked": 7,
+  "ignored": 437,
+  "status": "FIREWALL_DRIFT"
+}

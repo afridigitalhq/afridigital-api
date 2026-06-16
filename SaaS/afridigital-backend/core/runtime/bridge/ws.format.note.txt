@@ -1,4 +1,0 @@
-AFRISCAN WS FORMAT RULE:
-- every event must be JSON
-- must include: type, payload, ts
-- React consumes raw stream

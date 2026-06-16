@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+FILE="${1:-}"
+KERNEL="./tools/kernel/kernel-v6.3.sh"
+
+if [[ -z "$FILE" ]]; then
+  echo "⛔ FILE REQUIRED"
+  exit 1
+fi
+
+bash "$KERNEL" "$FILE"
+
+mkdir -p "$(dirname "$FILE")"
+touch "$FILE"
+
+echo "✅ FILE CREATED VIA KERNEL v6.3"

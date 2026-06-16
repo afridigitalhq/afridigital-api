@@ -8,7 +8,7 @@ const stream = new EventEmitter();
 
 function emitScan(data) {
   stream.emit("scan", {
-    type: "afriscan_scan",
+    type: "execution_compiler_scan",
     ts: Date.now(),
     data
   });

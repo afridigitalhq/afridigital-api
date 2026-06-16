@@ -1,5 +1,5 @@
 const EventEmitter = require("events");
-const { emit } = require("../runtime/telemetry/afriscan.stream");
+const { emit } = require("../telemetry");
 
 /**
  * 🧠 RENDER CI BRAIN

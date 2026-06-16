@@ -9,3 +9,5 @@ backup_v1_*
 ../afridigital-os/
 *.log
 *.bak
+node_modules/
+_KERNEL_CONSOLIDATION_BACKUP/

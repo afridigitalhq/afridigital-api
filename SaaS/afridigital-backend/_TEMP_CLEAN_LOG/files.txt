@@ -1,0 +1,13 @@
+./bin/afriscan.backup.js
+./bin/afriscan.js.bak
+./tools/architecture-freeze.js
+./FREEZE_MANIFEST.json
+./afriscan/isolation/render/cli.backup.js
+./afriscan/isolation/render/cli.lock.backup.js
+./afriscan/isolation/render/cli.v2.backup.js
+./afriscan/isolation/format/cliFormatter.backup.js
+./afriscan/runtime/core/pipeline.js.bak
+./afriscan/pipeline.backup.js
+./afriscan/pipeline.lock.backup.js
+./afriscan/pipeline.v2.backup.js
+./afriscan/cli.backup.js

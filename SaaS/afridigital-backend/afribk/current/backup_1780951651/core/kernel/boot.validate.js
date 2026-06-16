@@ -1,1 +1,0 @@
-module.exports=function bootValidate(){const shield=require("./deploy.shield")();const checks=[shield.ok,shield.checks?.graph!==false,shield.checks?.flow!==false];const safe=checks.every(Boolean);return{safe,shield}};
