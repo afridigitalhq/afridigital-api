@@ -1,0 +1,17 @@
+{
+  "theme": "dark-cyberpunk",
+  "layout": {
+    "sidebar": ["AfriAI", "AfriScan", "Event Streams", "System Monitor"],
+    "center": "live_dag_canvas",
+    "bottom": "timeline_scrubber",
+    "right": "event_inspector"
+  },
+  "dag_states": {
+    "IDLE": "gray",
+    "EXECUTING": "blue-glow",
+    "SUCCESS": "green-glow",
+    "FAILED": "red-pulse"
+  },
+  "mode": "time-travel-enabled",
+  "source": "redis-stream + ws-cluster"
+}

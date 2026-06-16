@@ -71,3 +71,18 @@ class GraphRuntime extends EventEmitter {
 }
 
 module.exports = new GraphRuntime();
+
+// WS LIVE BRIDGE HOOK
+const wsBridge = require('../../core/ws/bridge');
+
+// attach runtime emitter if available
+if (typeof this.on === 'function') {
+  this.on('event', (e) => {
+    wsBridge.emitEvent({
+      type: 'GRAPH_EVENT',
+      data: e,
+      ts: Date.now()
+    });
+  });
+}
+
