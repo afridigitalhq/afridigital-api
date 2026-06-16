@@ -70,6 +70,9 @@ app.get("/", (_, res) => {
 app.get("/health", (_, res) => {
   const state = graph.snapshots.at(-1) || graph.getState();
   res.json(graph.computeHealth ? graph.computeHealth(state) : state);
+});
+  const state = graph.snapshots.at(-1) || graph.getState();
+  res.json(graph.computeHealth ? graph.computeHealth(state) : state);
 graph.meta = graph.meta || {}; 
 graph.meta.version = "v12.5_event_graph"; 
 graph.meta.lastBoot = Date.now(); 
