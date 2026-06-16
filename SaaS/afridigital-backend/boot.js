@@ -1,3 +1,32 @@
+const graph = require("./tools/afriscan-v12");
+
+// ===== AFRISCAN SELF-HEALING OBSERVER LAYER (SAFE) =====
+graph.meta = graph.meta || {};
+graph.meta.healthMode = "v1_observer";
+
+function computeHealth(state) {
+  const nodes = state.nodes || 0;
+  const ok = state.ok || 0;
+  const failed = state.failed || 0;
+
+  const stability = nodes ? ok / nodes : 0;
+  const penalty = failed * 0.15;
+
+  const score = Math.max(0, stability - penalty);
+
+  let status = "READY";
+  if (score < 0.7) status = "DEGRADED";
+  if (score < 0.4) status = "CRITICAL";
+
+  return {
+    ...state,
+    score,
+    status,
+    suggestions: failed > 0 ? ["restart-risk-nodes", "check-event-stream"] : []
+  };
+}
+
+graph.computeHealth = computeHealth;
 const express = require("express");
 const graph = require("./tools/afriscan-v12");
 
