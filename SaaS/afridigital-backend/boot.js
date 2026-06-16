@@ -1,12 +1,16 @@
 const express = require("express");
 const graph = require("./tools/afriscan-v12");
 
+/* FORCE MODULE INITIALIZATION (IMPORTANT) */
+require("./tools/afriscan-v12");
+
 const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 10000;
 
-/* ===== ROUTES ===== */
+/* ================= ROUTES ================= */
+
 app.get("/", (_, res) => {
   res.json({
     ok: true,
@@ -34,9 +38,23 @@ app.get("/meta", (_, res) => {
   res.json(graph.meta || {});
 });
 
-/* ===== GRAPH BOOT ===== */
-graph.run?.();
+/* ================= GRAPH BOOT SEQUENCE ================= */
+
+/* 1. Ensure graph exists */
+if (!graph.nodes) graph.nodes = new Map();
+
+/* 2. Ensure safe registration phase before execution */
+if (graph.register) {
+  graph.register("redis", async () => {});
+  graph.register("ai", async () => {});
+  graph.register("afriscan", async () => {});
+}
+
+/* 3. Execute graph AFTER registration */
+if (graph.run) graph.run();
+
+/* ================= START SERVER ================= */
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 EVENT GRAPH ONLINE:", PORT);
+  console.log("🚀 V12.5 EVENT GRAPH STABLE:", PORT);
 });
