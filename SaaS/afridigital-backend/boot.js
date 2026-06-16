@@ -60,7 +60,8 @@ app.get("/", (_, res) => {
 });
 
 app.get("/health", (_, res) => {
-  res.json(graph.snapshots.at(-1) || graph.getState());
+  const state = graph.snapshots.at(-1) || graph.getState();
+  res.json(graph.computeHealth ? graph.computeHealth(state) : state);
 });
 
 app.listen(PORT, "0.0.0.0", () => {
