@@ -36,7 +36,6 @@ graph.meta.version = "v12.5_event_graph";
 graph.meta.lastBoot = Date.now(); 
 graph.meta.mode = "render-prod";
 const express = require("express");
-const graph = require("./tools/afriscan-v12");
 
 // ===== LIGHTWEIGHT REGISTRY LAYER (SAFE EXTENSION) =====
 const nodeWeights = { redis: 1, ai: 1, afriscan: 1 };
