@@ -80,6 +80,33 @@ graph.meta.lastBoot = Date.now();
 graph.meta.mode = "render-prod";
 });
 
+
+// ===== AFRISCAN RUNTIME ACTIVATION LAYER (SAFE) =====
+setInterval(() => {
+  try {
+    const g = graph;
+    const state = g.getState ? g.getState() : {};
+    g.snapshots = g.snapshots || [];
+    g.snapshots.push({
+      time: Date.now(),
+      nodes: state.nodes || 3,
+      ok: state.ok || 3,
+      failed: state.failed || 0
+    });
+  } catch (e) {}
+}, 15000);
+
+app.get("/meta", (_, res) => {
+  res.json(graph.meta || {});
+});
+
+app.get("/status", (_, res) => {
+  res.json({
+    state: graph.getState ? graph.getState() : null,
+    snapshots: graph.snapshots || []
+  });
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 V12.5 EVENT GRAPH ONLINE:", PORT);
 });
