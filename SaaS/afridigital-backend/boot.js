@@ -57,6 +57,15 @@ graph.register("redis", async () => {});
 graph.register("ai", async () => {});
 graph.register("afriscan", async () => {});
 
+
+// ===== ENSURE ROUTES REGISTER BEFORE GRAPH EXECUTION =====
+app.get("/status", (_, res) => {
+  res.json({
+    state: graph.getState ? graph.getState() : null,
+    snapshots: graph.snapshots || []
+  });
+});
+
 graph.run();
 
 app.get("/", (_, res) => {
