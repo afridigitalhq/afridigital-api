@@ -1,0 +1,11 @@
+{
+  "ignore_paths": [
+    "_CLEAN_ARCHIVE",
+    "snapshot",
+    "backup",
+    "BROKEN",
+    "node_modules"
+  ],
+  "server_match": "server.js",
+  "mode": "READ_ONLY"
+}

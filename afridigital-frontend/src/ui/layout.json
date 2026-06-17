@@ -1,0 +1,19 @@
+{
+  "theme": "dark-cyberpunk",
+  "layout": {
+    "sidebar": ["AfriAI", "AfriScan", "Event Streams", "System Monitor"],
+    "center": "webgl_dag_canvas",
+    "bottom": "timeline_scrubber",
+    "right": "event_inspector"
+  },
+  "visuals": {
+    "node": {
+      "idle": "#2a2a2a",
+      "active": "#00c2ff",
+      "success": "#00ff88",
+      "error": "#ff3b3b"
+    },
+    "edges": "animated-flow"
+  },
+  "mode": "time-travel-enabled"
+}

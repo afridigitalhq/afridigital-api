@@ -1,0 +1,12 @@
+{
+  "backup_id": "",
+  "timestamp": "",
+  "total_files": 0,
+  "unique_files": 0,
+  "duplicate_files": 0,
+  "duplicates_blocked": 0,
+  "health_score": 0,
+  "change_state": "NEW",
+  "similarity_score": 0,
+  "previous_backup": null
+}

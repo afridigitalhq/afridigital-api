@@ -1,0 +1,65 @@
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
+
+export default function DagWebGL({ nodes, edges }) {
+  const mountRef = useRef(null);
+
+  useEffect(() => {
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#05060a");
+
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      2000
+    );
+
+    camera.position.z = 600;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: false });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    mountRef.current.appendChild(renderer.domElement);
+
+    // POOL (critical optimization)
+    const pool = new Map();
+
+    function getMesh(id) {
+      if (pool.has(id)) return pool.get(id);
+
+      const geo = new THREE.SphereGeometry(6, 8, 8);
+      const mat = new THREE.MeshBasicMaterial({ color: 0x00c2ff });
+      const mesh = new THREE.Mesh(geo, mat);
+
+      scene.add(mesh);
+      pool.set(id, mesh);
+
+      return mesh;
+    }
+
+    let frame = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // throttle heavy updates
+      frame++;
+      if (frame % 2 === 0) {
+        for (const n of nodes) {
+          const mesh = getMesh(n.id);
+
+          mesh.position.x = n.x || Math.random() * 200;
+          mesh.position.y = n.y || Math.random() * 200;
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    return () => mountRef.current.removeChild(renderer.domElement);
+  }, [nodes, edges]);
+
+  return <div ref={mountRef} />;
+}

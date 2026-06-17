@@ -1,0 +1,203 @@
+./controllers/afriCommandEngineV6.js:2:const { systemSnapshot, detectIssues } = require("../core/selfheal/monitor");
+./controllers/afriCommandEngineV6.js:16:    const snap = systemSnapshot_READONLY();
+./controllers/afriCommandEngineV6.js:35:    const snap = systemSnapshot_READONLY();
+./controllers/afriCommandEngineV6.js:46:    return sendWhatsAppMessage(from, JSON.stringify(systemSnapshot_READONLY(), null, 2));
+./.gitignore:7:backup_v1_*
+./deploy.sh:25:# 2. AUTO COMMIT SNAPSHOT
+./deploy.sh:27:echo "📦 Creating snapshot commit..."
+./deploy.sh:33:echo "snapshot disabled (use afribk)"  || echo "ℹ️ No changes to commit"
+./DUPLICATE_CLUSTER_REPORT.txt:86:🔥 GROUP (size   archive/v9/webhooks/webhook.backup.js):
+./DUPLICATE_CLUSTER_REPORT.txt:107:🔥 GROUP (size   archive/server-backup/server.safe.base.js):
+./DUPLICATE_CLUSTER_REPORT.txt:110:🔥 GROUP (size   archive/server-backup/server.safe.base.bak.js):
+./DUPLICATE_CLUSTER_REPORT.txt:113:🔥 GROUP (size   archive/server-backup/server.recovery.base.js):
+./DUPLICATE_CLUSTER_REPORT.txt:116:🔥 GROUP (size   archive/server-backup/server.locked.js):
+./DUPLICATE_CLUSTER_REPORT.txt:119:🔥 GROUP (size   archive/server-backup/server.js):
+./DUPLICATE_CLUSTER_REPORT.txt:122:🔥 GROUP (size   archive/server-backup/server.dist.js):
+./DUPLICATE_CLUSTER_REPORT.txt:125:🔥 GROUP (size   archive/server-backup/server.corrupt.backup.js):
+./DUPLICATE_CLUSTER_REPORT.txt:128:🔥 GROUP (size   archive/server-backup/server.core.js):
+./DUPLICATE_CLUSTER_REPORT.txt:131:🔥 GROUP (size   archive/server-backup/server.clean.js):
+./DUPLICATE_CLUSTER_REPORT.txt:134:🔥 GROUP (size   archive/server-backup/server.clean.final.js):
+./DUPLICATE_CLUSTER_REPORT.txt:137:🔥 GROUP (size   archive/server-backup/server.broken.backup.js):
+./DUPLICATE_CLUSTER_REPORT.txt:140:🔥 GROUP (size   archive/server-backup/server.boot.js):
+./DUPLICATE_CLUSTER_REPORT.txt:143:🔥 GROUP (size   archive/server-backup/server.backup.whatsapp.fix.js):
+./DUPLICATE_CLUSTER_REPORT.txt:146:🔥 GROUP (size   archive/server-backup/server.backup.safe.js):
+./DUPLICATE_CLUSTER_REPORT.txt:149:🔥 GROUP (size   archive/server-backup/server.backup.js):
+./DUPLICATE_CLUSTER_REPORT.txt:152:🔥 GROUP (size   archive/server-backup/server.backup.final.js):
+./DUPLICATE_CLUSTER_REPORT.txt:155:🔥 GROUP (size   archive/server-backup/server.backup.cleanfix.js):
+./DUPLICATE_CLUSTER_REPORT.txt:158:🔥 GROUP (size   archive/server-backup/server.backup.clean.js):
+./DUPLICATE_CLUSTER_REPORT.txt:161:🔥 GROUP (size   archive/server-backup/server.backup.bracefix.js):
+./DUPLICATE_CLUSTER_REPORT.txt:164:🔥 GROUP (size   archive/server-backup/server.backup.1780383979.js):
+./DUPLICATE_CLUSTER_REPORT.txt:167:🔥 GROUP (size   archive/server-backup/server.backup.1780240744.js):
+./DUPLICATE_CLUSTER_REPORT.txt:170:🔥 GROUP (size   archive/server-backup/server.app.js):
+./core/ai/afriBrainV6.js:1:function explain(issue, snapshot) {
+./core/ai/afriBrainV6.js:8:- serverRunning: ${snapshot.serverRunning}
+./core/ai/afriBrainV6.js:9:- kernelExists: ${snapshot.kernelExists}
+./core/ai/gateway/v5/intelligence/router.js:11:  const m = metrics.snapshot().providers[provider] || { success: 0, fail: 0, latency: [] };
+./core/ai/gateway/v5/telemetry/metrics.js:21:function snapshot() {
+./core/ai/gateway/v5/telemetry/metrics.js:25:module.exports = { record, snapshot };
+./core/ai/gateway/v5/metrics/index.js:3:function snapshot() {
+./core/ai/gateway/v5/metrics/index.js:11:module.exports = { snapshot };
+./core/memory/snapshot/index.js:4:const SNAPSHOT_FILE = path.join(process.cwd(), "core/memory/snapshot/memory.json");
+./core/memory/snapshot/index.js:17: * SAVE snapshot to disk
+./core/memory/snapshot/index.js:19:function saveSnapshot() { return; } {
+./core/memory/snapshot/index.js:29:    fs.writeFileSync(SNAPSHOT_FILE, JSON.stringify(data, null, 2));
+./core/memory/snapshot/index.js:32:    console.log("Snapshot save failed:", e.message);
+./core/memory/snapshot/index.js:38: * RESTORE snapshot from disk
+./core/memory/snapshot/index.js:40:function restoreSnapshot() { return {}; } {
+./core/memory/snapshot/index.js:42:    if (!fs.existsSync(SNAPSHOT_FILE)) return {};
+./core/memory/snapshot/index.js:44:    const raw = fs.readFileSync(SNAPSHOT_FILE, "utf-8");
+./core/memory/snapshot/index.js:47:    console.log("Snapshot restore failed:", e.message);
+./core/memory/snapshot/index.js:56:  const data = restoreSnapshot();
+./core/memory/snapshot/index.js:62:  console.log(`🧠 Snapshot hydrated: ${Object.keys(data).length} keys`);
+./core/memory/snapshot/index.js:68:function startAutoSnapshot(intervalMs = 15000) {
+./core/memory/snapshot/index.js:70:    saveSnapshot();
+./core/memory/snapshot/index.js:76:  saveSnapshot,
+./core/memory/snapshot/index.js:77:  restoreSnapshot,
+./core/memory/snapshot/index.js:79:  startAutoSnapshot
+./core/memory/snapshot/auto.js:14:        "core/memory/snapshot/memory.json",
+./core/selfheal/monitor.js:4:function systemSnapshot() {
+./core/selfheal/monitor.js:12:function detectIssues(snapshot) {
+./core/selfheal/monitor.js:15:  if (!snapshot.serverRunning) issues.push("SERVER_DOWN");
+./core/selfheal/monitor.js:16:  if (!snapshot.kernelExists) issues.push("KERNEL_MISSING");
+./core/selfheal/monitor.js:17:  if (!snapshot.logsExist) issues.push("LOGS_MISSING");
+./core/selfheal/monitor.js:22:module.exports = { systemSnapshot, detectIssues };
+./core/observe/metrics.js:14:function snapshot(){
+./core/observe/metrics.js:23:module.exports = { tick, fail, snapshot };
+./core/observe/health.js:1:const { snapshot } = require("./metrics");
+./core/observe/health.js:11:    system: snapshot(),
+./core/observe/v8Observe.js:20:function snapshot(){
+./core/observe/v8Observe.js:24:module.exports = { trace, error, snapshot };
+./core/observe/v8Health.js:1:const { snapshot } = require("./v8Observe");
+./core/observe/v8Health.js:4:  const s = snapshot();
+./core/observability/metrics.js:8:function snapshot() {
+./core/observability/metrics.js:16:module.exports = { inc, snapshot };
+./core/observability/health.js:7:    uptime: metrics.snapshot().uptime,
+./core/observability/health.js:10:    metrics: metrics.snapshot()
+./core/observability/routes.js:4:const { snapshot } = require('./metrics');
+./core/observability/routes.js:8:  res.json(snapshot());
+./core/observability/v1_4/index.js:43:  snapshot() {
+./core/observability/v1_4/http.js:9:      health: obs.snapshot().health
+./core/observability/v1_4/http.js:16:      status: obs.snapshot().ready ? 'ready' : 'initializing'
+./core/observability/v1_4/http.js:21:    res.json(obs.snapshot().metrics);
+./core/observability/v1_4/http.js:25:    res.json(obs.snapshot().traces.slice(-50));
+./core/graph/persist/store.js:4:const DIR = path.join(__dirname, 'snapshots');
+./core/_locks/afribk_policy.env:2:AUTO_SNAPSHOT_BLOCK=true
+./adult-cleanup-audit.sh:39:find . -type f | grep -Ei 'fix|patch|legacy|backup|old|temp' || true
+./project-files.txt:46:./archive/v9/webhooks/webhook.backup.js
+./project-filecontrollers/afriCommandEngineV6.js:2:const { systemSnapshot, detectIssues } = require("../core/selfheal/monitor");
+controllers/afriCommandEngineV6.js:16:    const snap = systemSnapshot_READONLY();
+controllers/afriCommandEngineV6.js:35:    const snap = systemSnapshot_READONLY();
+controllers/afriCommandEngineV6.js:46:    return sendWhatsAppMessage(from, JSON.stringify(systemSnapshot_READONLY(), null, 2));
+core/whatsapp/pipeline/intent.js:6:  if (t.includes("deploy")) return "deploy_check";
+core/ai/afriBrainV6.js:1:function explain(issue, snapshot) {
+core/ai/afriBrainV6.js:8:- serverRunning: ${snapshot.serverRunning}
+core/ai/afriBrainV6.js:9:- kernelExists: ${snapshot.kernelExists}
+core/ai/gateway/v5/intelligence/router.js:11:  const m = metrics.snapshot().providers[provider] || { success: 0, fail: 0, latency: [] };
+core/ai/gateway/v5/telemetry/metrics.js:21:function snapshot() {
+core/ai/gateway/v5/telemetry/metrics.js:25:module.exports = { record, snapshot };
+core/ai/gateway/v5/metrics/index.js:3:function snapshot() {
+core/ai/gateway/v5/metrics/index.js:11:module.exports = { snapshot };
+core/memory/snapshot/index.js:4:const SNAPSHOT_FILE = path.join(process.cwd(), "core/memory/snapshot/memory.json");
+core/memory/snapshot/index.js:17: * SAVE snapshot to disk
+core/memory/snapshot/index.js:19:function saveSnapshot() { return; } {
+core/memory/snapshot/index.js:38: * RESTORE snapshot from disk
+core/memory/snapshot/index.js:70:    saveSnapshot();
+core/memory/snapshot/index.js:76:  saveSnapshot,
+core/memory/snapshot/auto.js:14:        "core/memory/snapshot/memory.json",
+core/selfheal/monitor.js:4:function systemSnapshot() {
+core/selfheal/monitor.js:12:function detectIssues(snapshot) {
+core/selfheal/monitor.js:15:  if (!snapshot.serverRunning) issues.push("SERVER_DOWN");
+core/selfheal/monitor.js:16:  if (!snapshot.kernelExists) issues.push("KERNEL_MISSING");
+core/selfheal/monitor.js:17:  if (!snapshot.logsExist) issues.push("LOGS_MISSING");
+core/selfheal/monitor.js:22:module.exports = { systemSnapshot, detectIssues };
+core/kernel/bootstrap.js:8:  // master node (Render in real deployment)
+core/kernel/deploy.shield.js:1:module.exports=function deployShield(){const graph=require("../flow/engine/graph");const flow=require("../flow/engine/runtime");const whatsapp=require("../whatsapp/controller");const ok=!!graph.greetingFlow&&typeof flow.executeFlow==="function"&&typeof whatsapp.handleMessage==="function";return{ok,render:ok,checks:{graph:!!graph.greetingFlow,flow:typeof flow.executeFlow,whatsapp:typeof whatsapp.handleMessage},env:{META_ACCESS_TOKEN:!!process.env.META_ACCESS_TOKEN,META_PHONE_NUMBER_ID:!!process.env.META_PHONE_NUMBER_ID,META_VERIFY_TOKEN:!!process.env.META_VERIFY_TOKEN},timestamp:Date.now()}}
+core/kernel/boot.validate.js:1:module.exports=function bootValidate(){const shield=require("./deploy.shield")();const checks=[shield.ok,shield.checks?.graph!==false,shield.checks?.flow!==false];const safe=checks.every(Boolean);return{safe,shield}};
+core/kernel/module.graph.lock.js:1:const graph={"whatsapp.controller":"./core/whatsapp/controller/index.js","flow.runtime":"./core/flow/engine/runtime.js","flow.graph":"./core/flow/engine/graph.js","deploy.shield":"./core/kernel/deploy.shield.js"};function validate(){const fs=require("fs");for(const k in graph){if(!fs.existsSync(graph[k])){return{ok:false,missing:k,path:graph[k]};}}return{ok:true,graph};}module.exports={graph,validate};
+core/observe/metrics.js:14:function snapshot(){
+core/observe/metrics.js:23:module.exports = { tick, fail, snapshot };
+core/observe/health.js:1:const { snapshot } = require("./metrics");
+core/observe/health.js:11:    system: snapshot(),
+core/observe/v8Observe.js:20:function snapshot(){
+core/observe/v8Observe.js:24:module.exports = { trace, error, snapshot };
+core/observe/v8Health.js:1:const { snapshot } = require("./v8Observe");
+core/observe/v8Health.js:4:  const s = snapshot();
+core/observability/metrics.js:8:function snapshot() {
+core/observability/metrics.js:16:module.exports = { inc, snapshot };
+core/observability/health.js:7:    uptime: metrics.snapshot().uptime,
+core/observability/health.js:10:    metrics: metrics.snapshot()
+core/observability/routes.js:4:const { snapshot } = require('./metrics');
+core/observability/routes.js:8:  res.json(snapshot());
+core/observability/v1_4/index.js:43:  snapshot() {
+core/observability/v1_4/http.js:9:      health: obs.snapshot().health
+core/observability/v1_4/http.js:16:      status: obs.snapshot().ready ? 'ready' : 'initializing'
+core/observability/v1_4/http.js:21:    res.json(obs.snapshot().metrics);
+core/observability/v1_4/http.js:25:    res.json(obs.snapshot().traces.slice(-50));
+core/africore/intelligence/intent.js:13:    if(t?.includes("deploy") || t?.includes("server") || t?.includes("log")){
+core/africore/brain/index.js:24:  if(t?.includes("server") || t?.includes("deploy")){
+core/graph/persist/store.js:4:const DIR = path.join(__dirname, 'snapshots');
+deploy.sh:27:echo "📦 Creating snapshot commit..."
+deploy.sh:33:echo "snapshot disabled (use afribk)"  || echo "ℹ️ No changes to commit"
+deploy.sh:45:echo "⏳ Waiting for Render deploy..."
+LOCK STATUS: ACTIVE
+AFRIBK IS SOLE BACKUP AUTHORITY
+AUTO WRITES DISABLED VIA ENV FLAGS
+./controllers/afriCommandEngineV6.js
+./.gitignore
+./DUPLICATE_CLUSTER_REPORT.txt
+./core/memory/snapshot/index.js
+./core/selfheal/monitor.js
+./afribk/current/backup_1780951651/audit/boot_files.txt
+./afribk/current/backup_1780951651/audit/files.txt
+./afribk/current/backup_1780951651/controllers/afriCommandEngineV6.js
+./afribk/current/backup_1780951651/core/memory/snapshot/index.js
+./afribk/current/backup_1780951651/core/selfheal/monitor.js
+./afribk/current/backup_1780951651/.gitignore
+./afribk/current/backup_1780951651/DUPLICATE_CLUSTER_REPORT.txt
+./afribk/current/backup_1780951651/__whatsapp_rebuild.js
+./afribk/current/backup_1780951651/adult-cleanup-audit.sh
+./afribk/current/backup_1780951651/fix_webhook_a2.js
+./afribk/current/backup_1780951651/patch_a2_webhook.js
+./afribk/current/backup_1780951651/project-files.txt
+./afribk/current/backup_1780951651/wire_whatsapp_engine.js
+./afribk/current/snapshot_1780951787/audit/boot_files.txt
+./afribk/current/snapshot_1780951787/audit/files.txt
+./afribk/current/snapshot_1780951787/controllers/afriCommandEngineV6.js
+./afribk/current/snapshot_1780951787/core/memory/snapshot/index.js
+./afribk/current/snapshot_1780951787/core/selfheal/monitor.js
+./afribk/current/snapshot_1780951787/.gitignore
+./afribk/current/snapshot_1780951787/DUPLICATE_CLUSTER_REPORT.txt
+./afribk/current/snapshot_1780951787/__whatsapp_rebuild.js
+./afribk/current/snapshot_1780951787/adult-cleanup-audit.sh
+./afribk/current/snapshot_1780951787/fix_webhook_a2.js
+./afribk/current/snapshot_1780951787/patch_a2_webhook.js
+./afribk/current/snapshot_1780951787/project-files.txt
+./afribk/current/snapshot_1780951787/wire_whatsapp_engine.js
+./afribk/current/snapshot_1780951831/audit/boot_files.txt
+./afribk/current/snapshot_1780951831/audit/files.txt
+./afribk/current/snapshot_1780951831/controllers/afriCommandEngineV6.js
+./afribk/current/snapshot_1780951831/core/memory/snapshot/index.js
+./afribk/current/snapshot_1780951831/core/selfheal/monitor.js
+./afribk/current/snapshot_1780951831/.gitignore
+./afribk/current/snapshot_1780951831/DUPLICATE_CLUSTER_REPORT.txt
+./afribk/current/snapshot_1780951831/__whatsapp_rebuild.js
+./afribk/current/snapshot_1780951831/adult-cleanup-audit.sh
+./afribk/current/snapshot_1780951831/fix_webhook_a2.js
+./afribk/current/snapshot_1780951831/patch_a2_webhook.js
+./afribk/current/snapshot_1780951831/project-files.txt
+./afribk/current/snapshot_1780951831/wire_whatsapp_engine.js
+./afribk/quarantine/_quarantine/cleanup_candidates.txt
+./afribk/quarantine/_quarantine/v3_candidates.txt
+./afribk/quarantine/_quarantine/v4_candidates.txt
+./afribk/quarantine/duplicates_.txt
+./afribk/state/current_state.txt
+./afribk/report/state_report_1780952151.txt
+./afribk/_policy/lock_v6_report.txt
+./adult-cleanup-audit.sh
+./project-files.txt
+./audit/files.txt
+./audit/boot_files.txt
+./__whatsapp_rebuild.js
+./wire_whatsapp_engine.js
+./fix_webhook_a2.js
+./patch_a2_webhook.js

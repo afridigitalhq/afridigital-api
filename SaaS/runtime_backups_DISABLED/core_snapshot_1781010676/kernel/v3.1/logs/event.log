@@ -1,0 +1,4 @@
+{"type":"message","payload":{"sessionId":"u1","text":"hello persistence"},"ts":1780605391618}
+{"type":"health:check","payload":{"ok":true},"ts":1780605797668}
+{"type":"health","payload":{"ok":true},"ts":1780605882583}
+{"type":"plugin:load","payload":{"name":"whatsapp"},"ts":1780605882589}

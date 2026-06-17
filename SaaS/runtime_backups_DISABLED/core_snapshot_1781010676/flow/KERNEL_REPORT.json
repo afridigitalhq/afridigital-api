@@ -1,0 +1,20 @@
+{
+  "canonical": {
+    "flowEngine": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/flow/engine.js",
+    "flowRuntime": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/runtime/workflowRuntime.js",
+    "flowRouter": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/flow/router.js",
+    "eventMesh": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/africore/mesh/consumer.js",
+    "eventBus": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/africore/runtime/eventBus.js",
+    "websocket": "/data/data/com.termux/files/home/AfriDigitalHub/SaaS/afridigital-backend/core/flow/ws/afribrainSocket.js"
+  },
+  "counts": {
+    "flow": 21,
+    "mesh": 183,
+    "ws": 44
+  },
+  "disabled": {
+    "flow": 20,
+    "mesh": 182,
+    "ws": 43
+  }
+}

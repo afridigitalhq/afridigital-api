@@ -1,0 +1,7 @@
+afribk/current/snapshot_1780951831/archive/v9/webhooks/webhook.backup.js
+afribk/current/snapshot_1780951831/core/ai/gateway/v5/runtime/transport/whatsappCloudV2.js
+afribk/current/snapshot_1780951831/core/ai/toolboxV5.js
+afribk/current/snapshot_1780951831/core/kernel/stream.v6.js
+afribk/current/snapshot_1780951831/core/redis/client.js
+afribk/current/snapshot_1780951831/core/selfheal/repair.js
+afribk/current/snapshot_1780951831/core/whatsapp/pipeline/handlers.js

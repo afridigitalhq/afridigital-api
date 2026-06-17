@@ -1,0 +1,16 @@
+Detected runtime entries: 56
+🚨 DUPLICATES FOUND
+     11 ./_runtime_listener_audit.txt
+      2 ./archive/server-backup/server.backup.1780383979.js
+      2 ./core/kernel/freeze-v2-1.sh
+      2 ./core/kernel/freeze-v2-2.sh
+      2 ./core/kernel/runtime-lock.js
+      3 ./core/kernel/runtime-policy.json
+      2 ./core/kernel/single-runtime-guard.js
+⛔ BLOCKED (duplicate runtime): ./_runtime_listener_audit.txt (11 occurrences)
+⛔ BLOCKED (duplicate runtime): ./archive/server-backup/server.backup.1780383979.js (2 occurrences)
+⛔ BLOCKED (duplicate runtime): ./core/kernel/freeze-v2-1.sh (2 occurrences)
+⛔ BLOCKED (duplicate runtime): ./core/kernel/freeze-v2-2.sh (2 occurrences)
+⛔ BLOCKED (duplicate runtime): ./core/kernel/runtime-lock.js (2 occurrences)
+⛔ BLOCKED (duplicate runtime): ./core/kernel/runtime-policy.json (3 occurrences)
+⛔ BLOCKED (duplicate runtime): ./core/kernel/single-runtime-guard.js (2 occurrences)

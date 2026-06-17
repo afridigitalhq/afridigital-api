@@ -1,0 +1,11 @@
+{"id":"evt_1780126867778_nfld4k9f8qi","ts":1780126867778,"type":"memory:set","traceId":null,"payload":{"key":"user","value":"afri"},"node":"local"}
+{"id":"evt_1780126867781_rs8alofdzhj","ts":1780126867781,"type":"ai:reply","traceId":"trace_1","payload":{"text":"hello"},"node":"local"}
+{"id":"evt_1780126926928_fyqjffdxtg","ts":1780126926928,"type":"test","traceId":"trace_mesh","payload":{"ok":true},"node":"local"}
+{"id":"evt_1780136680692_hu0wncfxxlt","ts":1780136680696,"type":"test:boot","traceId":null,"parent":null,"node":"local","hash":"4bd57d98414b12fb4ab24f81d2b5c85017d40eb72fd03d517b1456c7a1ce3d17"}
+{"id":"evt_1780136779575_g16t0bz6ypq","ts":1780136779576,"type":"test:boot","traceId":null,"parent":null,"node":"local","hash":"9a3b6f860cd67ca63a73a3093bfd2fbd638ad614596abf9a7753f6d06c907ec0"}
+{"id":"evt_1780136829575_9aus8htg9ks","ts":1780136829576,"type":"test:boot","traceId":null,"parent":null,"node":"local","hash":"4906e12259ab69383c1a5134f70c1605472871e7e558bf1c3fdae8820daeaa32"}
+{"id":"evt_1780136829581_zc2chcrvws","ts":1780136829581,"type":"memory:set","traceId":null,"parent":null,"node":"local","hash":"5b1343cd96f21a3c5b488bdeccb4ab3e8049e681678a09cbf6829a3dbb5f7bfa"}
+{"id":"evt_1780136867228_f7kyoszfyvs","ts":1780136867228,"type":"memory:set","traceId":null,"parent":null,"node":"local","hash":"435cf415229520b43b44fa7e72e1d393947618a25cf5ad9ab47529cb46b7d923"}
+{"id":"evt_1780136867234_6y9tte6dy5e","ts":1780136867234,"type":"ai:reply","traceId":null,"parent":null,"node":"local","hash":"ed5fe3f3c9fb1fb530eb8cc7c4c16b52be0c74a06a3269fa05f8b136b860c96f"}
+{"id":"evt_1780138320685_ovu11ehir4","ts":1780138320685,"type":"test:boot","traceId":null,"parent":null,"node":"local","hash":"9008e9e6652e116fe8dfd55fa247e812e02fe0a0eb379384bb15e2c0447d0bce"}
+{"id":"evt_1780138320697_vi08du2pubm","ts":1780138320697,"type":"memory:set","traceId":null,"parent":null,"node":"local","hash":"9cb9caa0250fb229cb8b66ceeadc7f26e4f26b2f041e0aa120145f6a0543a704"}

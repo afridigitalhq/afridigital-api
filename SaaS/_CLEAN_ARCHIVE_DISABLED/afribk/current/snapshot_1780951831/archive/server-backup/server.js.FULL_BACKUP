@@ -1,0 +1,82 @@
+const whatsappDeliveryEngine = require("./core/ai/gateway/v5/plugins/whatsapp/delivery");
+console.log("🔥 SERVER BOOT FILE:", __filename);
+const express = require("express");
+const app = express();const app = express(
+app.use(express.json(
+// ================= KERNEL CORE =================
+const { run } = require("./core/ai/gateway/v5/kernel"
+const usage = require("./core/ai/gateway/v5/usage/store"
+// ================= HEALTH =================
+app.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    service: "afri-ai-v5-kernel",
+    mode: "STRICT_KERNEL"
+  }
+}
+// ================= KERNEL ENDPOINT =================
+app.post("/v1/run", async (req, res) => {
+  try {
+    const result = await run(req.body || {}
+    res.json(result} catch (e) {
+    res.status(500).json({
+      error: "KERNEL_FAILURE",
+      message: e.message
+    }
+}
+// ================= USAGE =================
+app.get("/v1/usage", (req, res) => {
+  res.json(usage.getAll(}
+// ================= WHATSAPP (STRICT ADAPTER ONLY) =================
+const { handleWhatsApp } = require("./core/ai/gateway/v5/plugins/whatsapp/kernelAdapter"
+// ================= START SERVER =================
+const PORT = process.env.PORT || 3000
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("🚀 STRICT KERNEL v5 RUNNING ON", PORT}
+    console.error("WHATSAPP ERROR:", err);
+    return res.status(500).json({ ok: false, error: err.message }
+}
+
+const whatsappDelivery = require("./core/ai/gateway/v5/plugins/whatsapp/delivery");
+
+
+
+    const msg = await whatsappDelivery.enqueue({
+      text: req.body?.text || "",
+      meta: result
+    }
+
+    return res.json({
+      ok: true,
+      msgId: msg.msgId,
+      status: msg.status,
+      reply: result.reply,
+      streamed: true
+    }
+
+  
+    console.error("WHATSAPP V2 ERROR:", err);
+    return res.status(500).json({ ok: false, error: err.message }
+}
+
+
+const whatsappDelivery = require('./core/ai/gateway/v5/plugins/whatsapp/delivery');
+
+
+
+    const msg = await whatsappDelivery.enqueue({
+      text: req.body?.text || '',
+      meta: result
+    }
+
+    return res.json({
+      ok: true,
+      msgId: msg.msgId,
+      reply: result.reply,
+      streamed: true
+    }
+
+  
+    console.error('WHATSAPP FIX ERROR:', err);
+    return res.status(500).json({ ok: false, error: err.message }
+}

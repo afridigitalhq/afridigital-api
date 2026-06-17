@@ -1,0 +1,29 @@
+./core/ops/renderReadinessCheck.js:49:  process.exit(0);
+./core/ops/renderReadinessCheck.js:52:  process.exit(1);
+./afri-verify.js:11:    process.exit(1);
+./node_modules/@redis/time-series/README.md:35:  process.exit(1);
+./node_modules/bullmq/dist/cjs/classes/child-processor.js:109:            process.exit(process.exitCode || 0);
+./node_modules/bullmq/dist/cjs/classes/child.js:10: * @see https://nodejs.org/api/process.html#process_exit_codes
+./node_modules/bullmq/dist/cjs/classes/main-base.js:44:        process.exit();
+./node_modules/bullmq/dist/esm/classes/child-processor.js:106:            process.exit(process.exitCode || 0);
+./node_modules/bullmq/dist/esm/classes/child.js:7: * @see https://nodejs.org/api/process.html#process_exit_codes
+./node_modules/bullmq/dist/esm/classes/main-base.js:42:        process.exit();
+./node_modules/bcryptjs/bin/bcrypt:10:  process.exit(1);
+./node_modules/uuid/dist-node/uuid-bin.js:23:    process.exit(0);
+./node_modules/uuid/dist-node/uuid-bin.js:69:        process.exit(1);
+./node_modules/uuid/dist/uuid-bin.js:23:    process.exit(0);
+./node_modules/uuid/dist/uuid-bin.js:69:        process.exit(1);
+./node_modules/semver/bin/semver.js:141:const fail = () => process.exit(1)
+./node_modules/.bin/bcrypt:10:  process.exit(1);
+./node_modules/.bin/semver:141:const fail = () => process.exit(1)
+./node_modules/.bin/openai:21:        process.exit(result.status);
+./node_modules/.bin/openai:37:  process.exit(1);
+./node_modules/openai/src/helpers/audio.ts:49:          reject(new Error(`ffplay process exited with code ${code}`));
+./node_modules/openai/bin/cli:21:        process.exit(result.status);
+./node_modules/openai/bin/cli:37:  process.exit(1);
+./node_modules/openai/helpers/audio.js:47:                    reject(new Error(`ffplay process exited with code ${code}`));
+./node_modules/openai/helpers/audio.mjs:43:                    reject(new Error(`ffplay process exited with code ${code}`));
+./node_modules/zod/src/v3/benchmarks/index.ts:58:  process.exit();
+./adult-cleanup-audit.sh:26:echo "================ process.exit SCAN ================"
+./adult-cleanup-audit.sh:27:grep -R "process.exit" -n . 2>/dev/null || true
+./adult-cleanup-audit.sh:48:echo "- process.exit calls"

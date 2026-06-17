@@ -1,0 +1,13 @@
+{
+  "single_runtime": true,
+  "allowed_entry": "render-entry.js",
+  "block_direct_runtime": true,
+  "deny_patterns": [
+    "app.listen",
+    "http.listen",
+    "server.listen",
+    "server.js",
+    "obs-dashboard",
+    "control-plane"
+  ]
+}

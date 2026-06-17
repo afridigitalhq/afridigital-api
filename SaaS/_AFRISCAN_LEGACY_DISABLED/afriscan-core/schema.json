@@ -1,0 +1,21 @@
+{
+  "layers": {
+    "inventory": "files_only",
+    "architecture": "services_and_dependencies",
+    "health": "metrics_only"
+  },
+  "ignore_paths": [
+    "node_modules",
+    "_CLEAN_ARCHIVE",
+    "backup",
+    "snapshot"
+  ],
+  "domains": [
+    "AI_CORE",
+    "CONTROL_PLANE",
+    "OBSERVABILITY",
+    "RUNTIME",
+    "BACKUP",
+    "VENDOR"
+  ]
+}

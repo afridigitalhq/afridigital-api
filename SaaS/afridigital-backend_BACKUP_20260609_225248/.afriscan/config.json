@@ -1,0 +1,17 @@
+{
+  "entry": "src/index.js",
+  "strict_duplicates": true,
+  "duplicate_mode": "sha256",
+  "ignore_paths": [
+    "node_modules",
+    "afribk",
+    "archive",
+    "_SAFE_RESTRUCTURE_BACKUP",
+    "core/runtime/backups",
+    "obs-dashboard",
+    "control-plane/collector"
+  ],
+  "count_listeners_only_in": ["src", "app", "routes"],
+  "env_weight_mode": "real",
+  "render_focus": true
+}

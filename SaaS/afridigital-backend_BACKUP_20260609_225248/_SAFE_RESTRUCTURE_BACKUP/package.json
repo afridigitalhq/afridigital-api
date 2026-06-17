@@ -1,0 +1,51 @@
+{
+  "name": "afridigital-backend",
+  "version": "0.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "prestart": "node scripts/kernel-guard.js",
+    "prebuild": "node scripts/kernel-guard.js",
+    "dev": "node server.js",
+    "obs": "node obs-dashboard/server.js",
+    "collector": "node control-plane/collector/server.js"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "axios": "^1.17.0",
+    "bcryptjs": "^3.0.3",
+    "bull": "^4.16.5",
+    "bullmq": "^5.77.6",
+    "cors": "^2.8.6",
+    "d3": "^7.9.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "ioredis": "^5.11.1",
+    "jsonwebtoken": "^9.0.3",
+    "module-alias": "^2.3.4",
+    "mongoose": "^9.6.3",
+    "morgan": "^1.10.1",
+    "node-fetch": "^3.3.2",
+    "openai": "^6.39.1",
+    "pdfkit": "^0.18.0",
+    "pg": "^8.21.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "redis": "^6.0.0",
+    "socket.io": "^4.8.3",
+    "uuid": "^14.0.0",
+    "ws": "^8.21.0",
+    "zod": "^4.4.3"
+  },
+  "main": "server.js",
+  "_moduleAliases": {
+    "kernel": "core/kernel",
+    "@kernel": "core/kernel"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "vite": "^8.0.16"
+  }
+}
