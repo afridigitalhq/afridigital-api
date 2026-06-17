@@ -1,0 +1,12 @@
+export function createWSClient() {
+  const socket = new WebSocket("wss://afridigital-api.onrender.com");
+
+  socket.onopen = () => {
+    socket.send(JSON.stringify({
+      type: "dag:subscribe",
+      scope: "admin"
+    }));
+  };
+
+  return socket;
+}

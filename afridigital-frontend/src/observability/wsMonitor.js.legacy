@@ -1,0 +1,14 @@
+let wsState = {
+  connected: false,
+  lastPing: null,
+  attempts: 0
+};
+
+export function updateWSState(state) {
+  wsState = { ...wsState, ...state };
+  return wsState;
+}
+
+export function getWSState() {
+  return wsState;
+}

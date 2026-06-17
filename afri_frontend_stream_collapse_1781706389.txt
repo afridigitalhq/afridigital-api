@@ -1,0 +1,64 @@
+🧠 FRONTEND STREAM COLLAPSE AUDIT
+===================================
+
+📡 Active WS consumers detected:
+afridigital-frontend/src/core/live/wsClient.js:  const socket = new WebSocket("wss://afridigital-api.onrender.com");
+afridigital-frontend/src/core/live/wsClient.js:  socket.onopen = () => {
+afridigital-frontend/src/core/live/wsClient.js:    socket.send(JSON.stringify({
+afridigital-frontend/src/core/live/wsClient.js:  return socket;
+afridigital-frontend/src/core/stream/dagStreamClient.js:export function createDagStream(socket) {
+afridigital-frontend/src/core/stream/dagStreamClient.js:  if (socket) {
+afridigital-frontend/src/core/stream/dagStreamClient.js:    socket.onmessage = (msg) => {
+afridigital-frontend/src/ui/admin/hooks/useDagFeed.js:export function useDagFeed(socket) {
+afridigital-frontend/src/ui/admin/hooks/useDagFeed.js:    if (!socket) return;
+afridigital-frontend/src/ui/admin/hooks/useDagFeed.js:    socket.on("dag:event", (payload) => {
+afridigital-frontend/src/ui/admin/hooks/useDagFeed.js:    return () => socket.off("dag:event");
+afridigital-frontend/src/ui/admin/hooks/useDagFeed.js:  }, [socket]);
+afridigital-frontend/src/ui/admin/live/useLiveDagStream.js:import { createWS } from "../../../core/live/wsClient";
+afridigital-frontend/src/ui/admin/live/useLiveDagStream.js:    const socket = createWS();
+afridigital-frontend/src/ui/admin/live/useLiveDagStream.js:      socket,
+afridigital-frontend/src/ui/admin/live/useLiveDagStream.js:    return () => socket.close();
+afridigital-frontend/src/ui/admin/live/useAdminLiveDag.js:import { createWS } from "../../../core/live/wsClient";
+afridigital-frontend/src/ui/admin/live/useAdminLiveDag.js:    const socket = createWS();
+afridigital-frontend/src/ui/admin/live/useAdminLiveDag.js:    bindLiveDag(socket, setNodes);
+afridigital-frontend/src/ui/admin/live/useAdminLiveDag.js:    return () => socket.close();
+afridigital-frontend/src/ui/admin/live/useLiveDag.js:import { createWSClient } from "../../core/live/wsClient";
+afridigital-frontend/src/ui/admin/live/useLiveDag.js:    const socket = createWSClient();
+afridigital-frontend/src/ui/admin/live/useLiveDag.js:    bindLiveDagStream(socket, (event) => {
+afridigital-frontend/src/ui/admin/live/useLiveDag.js:    return () => socket.close();
+afridigital-frontend/src/dag/observability/eventBridge.js:export function attachDagStream(socket, callback) {
+afridigital-frontend/src/dag/observability/eventBridge.js:  socket.on("dag:event", (data) => {
+afridigital-frontend/src/viz/runtime/dagStreamConnector.js:export function attachDagStream(socket, onUpdate) {
+afridigital-frontend/src/viz/runtime/dagStreamConnector.js:  if (!socket) return;
+afridigital-frontend/src/viz/runtime/dagStreamConnector.js:  socket.on("dag:event", (payload) => {
+afridigital-frontend/src/viz/runtime/dagStreamConnector.js:  socket.on("connect", () => {
+afridigital-frontend/src/viz/runtime/dagStreamConnector.js:    socket.emit("dag:subscribe", { scope: "admin" });
+afridigital-frontend/src/viz/runtime/liveDagBridge.js:export function bindLiveDag(socket, onNodes, onEvents, onHeatmap) {
+afridigital-frontend/src/viz/runtime/liveDagBridge.js:  if (!socket) return;
+afridigital-frontend/src/viz/runtime/liveDagBridge.js:  socket.onmessage = (msg) => {
+afridigital-frontend/src/viz/runtime/liveDagRuntime.js:export function bindLiveDagStream(socket, onNodes) {
+afridigital-frontend/src/viz/runtime/liveDagRuntime.js:  if (!socket) return;
+afridigital-frontend/src/viz/runtime/liveDagRuntime.js:  socket.onmessage = (msg) => {
+afridigital-frontend/src/live/dagStreamClient.js:export function createDagStream(socket) {
+afridigital-frontend/src/live/dagStreamClient.js:  if (socket) {
+afridigital-frontend/src/live/dagStreamClient.js:    socket.on("dag:event", (payload) => emit(payload));
+afridigital-frontend/src/live/dagStreamClient.js:    socket.on("kernel:update", (payload) => emit(payload));
+afridigital-frontend/src/live/dagBinder.js:export function bindDagStream(socket, { onNodes }) {
+afridigital-frontend/src/live/dagBinder.js:  const stream = createDagStream(socket);
+afridigital-frontend/src/stream/liveDagClient.js:  const socket = new WebSocket(WS_URL);
+afridigital-frontend/src/stream/liveDagClient.js:  socket.onopen = () => {
+afridigital-frontend/src/stream/liveDagClient.js:    socket.send(JSON.stringify({ type: "SUBSCRIBE_DAG_STREAM" }));
+afridigital-frontend/src/stream/liveDagClient.js:  socket.onmessage = (msg) => {
+afridigital-frontend/src/stream/liveDagClient.js:  socket.onclose = () => {
+afridigital-frontend/src/stream/liveDagClient.js:  return { socket, state };
+afridigital-frontend/src/stream/dagContractClient.js:export function subscribe(socket) {
+afridigital-frontend/src/stream/dagContractClient.js:  if (!socket) return;
+afridigital-frontend/src/stream/dagContractClient.js:  socket.on("dag:event", e => listeners.dag.forEach(fn => fn(e)));
+afridigital-frontend/src/stream/dagContractClient.js:  socket.on("region:metric", e => listeners.region.forEach(fn => fn(e)));
+afridigital-frontend/src/stream/dagContractClient.js:  socket.on("anomaly:detected", e => listeners.anomaly.forEach(fn => fn(e)));
+afridigital-frontend/src/stream/dagContractClient.js:  socket.on("kernel:update", e => listeners.kernel.forEach(fn => fn(e)));
+
+🧪 Quarantining legacy frontend WS layers...
+✔ Legacy frontend WS layers quarantined
+
+🔁 Enforcing canonical stream client mapping...
