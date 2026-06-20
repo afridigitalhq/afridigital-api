@@ -3,73 +3,25 @@ const app = express();
 
 app.use(express.json());
 
-const { registerKernel } = require("./africore/kernel/connectivity.kernel");
-registerKernel(app);
-
+// HEALTH CHECK
 app.get("/health", (req, res) => {
   res.json({
     ok: true,
-    service: "afriagent-v1"
+    service: "afridigital-api",
+    mode: "safe-bootstrap"
   });
 });
 
-app.post("/afriagent/test", async (req, res) => {
-  try {
-    const { afriagentKernel } = require("./africore/kernel/afriagent/kernel");
-    const { execute } = require("./africore/kernel/afriagent/executor");
-    const { normalizePlan } = require("./africore/kernel/afriagent/planner.contract");
-
-    const event = { user: "2347060553158", text: "test" };
-
-    const plan = normalizePlan(event);
-
-    const result = await afriagentKernel(
-      event,
-      {
-        planner: { buildPlan: () => plan },
-        executor: { execute }
-      }
-    );
-
-    res.json({ ok: true, result });
-  } catch (e) {
-    res.json({ ok: false, error: e.message });
-  }
+// TEST ROUTE
+app.post("/afriagent/test", (req, res) => {
+  res.json({
+    ok: true,
+    message: "backend running in safe mode (kernel disabled)"
+  });
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("🚀 AFRIAGENT V1 RUNNING:", PORT);
+  console.log("🟢 AfriDigital API LIVE on", PORT);
 });
-// deploy trigger 1779876956
-
-const { stream } = require("./realtime/admin-stream");
-
-// SIMPLE SSE ENDPOINT FOR ADMIN DASHBOARD
-app.get("/realtime/admin", (req, res) => {
-  res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Cache-Control", "no-cache");
-  res.setHeader("Connection", "keep-alive");
-
-  const send = (data) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
-
-  const listener = (event) => send(event);
-
-  stream.on("event", listener);
-
-  req.on("close", () => {
-    stream.off("event", listener);
-  });
-});
-
-// ===== AI BRAIN INSTRUMENTATION =====
-const { instrumentRequest } = require("./core/instrumentation/requestHooks");
-
-app.use(instrumentRequest);
-
-
-// CONTROL TOWER HEALTH ROUTE
-app.use('/api/system', require('./routes/system/health'));
