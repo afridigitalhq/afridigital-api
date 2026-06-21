@@ -39,27 +39,7 @@ export default function DagWebGL({ nodes, edges }) {
 
     let frame = 0;
 
-      const mountNode = mountRef.current;
-      let lastFrame = 0;
-
-      function renderFrame(time) {
-        requestAnimationFrame(renderFrame);
-
-        if (time - lastFrame < 16) return;
-        lastFrame = time;
-
-        for (const n of nodes) {
-          const mesh = getMesh(n.id);
-
-          // cluster smoothing (prevents jitter)
-          mesh.position.x += ((n.x || 0) - mesh.position.x) * 0.15;
-          mesh.position.y += ((n.y || 0) - mesh.position.y) * 0.15;
-        }
-
-        renderer.render(scene, camera);
-      }
-
-      requestAnimationFrame(renderFrame);
+    function animate() {
       requestAnimationFrame(animate);
 
       // throttle heavy updates
@@ -76,35 +56,9 @@ export default function DagWebGL({ nodes, edges }) {
       renderer.render(scene, camera);
     }
 
-      const mountNode = mountRef.current;
-      let lastFrame = 0;
+    animate();
 
-      function renderFrame(time) {
-        requestAnimationFrame(renderFrame);
-
-        if (time - lastFrame < 16) return;
-        lastFrame = time;
-
-        for (const n of nodes) {
-          const mesh = getMesh(n.id);
-
-          // cluster smoothing (prevents jitter)
-          mesh.position.x += ((n.x || 0) - mesh.position.x) * 0.15;
-          mesh.position.y += ((n.y || 0) - mesh.position.y) * 0.15;
-        }
-
-        renderer.render(scene, camera);
-      }
-
-      requestAnimationFrame(renderFrame);
-
-const mountNode = mountRef.current;
-
-return () => {
-  if (mountNode && renderer?.domElement && mountNode.contains(renderer.domElement)) {
-    mountNode.removeChild(renderer.domElement);
-  }
-};
+    return () => mountRef.current.removeChild(renderer.domElement);
   }, [nodes, edges]);
 
   return <div ref={mountRef} />;
