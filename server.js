@@ -73,3 +73,4 @@ app.use(instrumentRequest);
 
 // CONTROL TOWER HEALTH ROUTE
 app.use('/api/system', require('./routes/system/health'));
+\n// SAFETY GUARD\nif (process.env.OS_ENABLE === 'true') console.warn('OS MODE ACTIVE (DEV ONLY)');

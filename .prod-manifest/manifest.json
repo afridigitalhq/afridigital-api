@@ -1,0 +1,19 @@
+{
+  "deployment_mode": "SAFE_PRODUCTION",
+  "services": {
+    "frontend": "AfriDigital-hub",
+    "backend": "AfriDigital-api"
+  },
+  "excluded_layers": [
+    "os_layer",
+    "simulation_engine",
+    "god_gpu_system",
+    "realtime_ws_engine",
+    "experimental_dag"
+  ],
+  "render_targets": {
+    "frontend": "https://afridigital-hub.onrender.com",
+    "backend": "https://afridigital-api.onrender.com"
+  },
+  "ws_bridge": "wss://afridigital-api.onrender.com"
+}
