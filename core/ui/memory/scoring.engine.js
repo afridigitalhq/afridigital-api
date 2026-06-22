@@ -18,3 +18,4 @@ function rankModes(userMemory) {
 }
 
 module.exports = { calculateScore, rankModes };
+// DEPRECATED (SAFE MODE): superseded by canonical kernel map

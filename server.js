@@ -1,27 +1,36 @@
-const express = require("express");
-const app = express();
 
-app.use(express.json());
+const { getInbox } = require("./core/whatsapp-ci/inbox");
 
-// HEALTH CHECK
-app.get("/health", (req, res) => {
-  res.json({
-    ok: true,
-    service: "afridigital-api",
-    mode: "safe-bootstrap"
-  });
+app.get("/api/whatsapp/inbox", (req, res) => {
+  const role = req.query.role || "VIEWER";
+  res.json(getInbox(role));
 });
 
-// TEST ROUTE
-app.post("/afriagent/test", (req, res) => {
-  res.json({
-    ok: true,
-    message: "backend running in safe mode (kernel disabled)"
-  });
-});
+const { reviewPR, executeApprovedPR } = require("./core/whatsapp-ci/pr.engine");
 
-const PORT = process.env.PORT || 3000;
+app.post("/api/whatsapp/pr/action", express.json(), (req, res) => {
+  try {
+    const { prId, reviewerId, action } = req.body;
 
-app.listen(PORT, () => {
-  console.log("🟢 AfriDigital API LIVE on", PORT);
+    const pr = reviewPR({
+      prId,
+      reviewerId,
+      action
+    });
+
+    let result = null;
+
+    if (action === "APPROVE") {
+      result = executeApprovedPR(pr);
+    }
+
+    res.json({
+      status: pr.status,
+      pr,
+      result
+    });
+
+  } catch (e) {
+    res.status(500).json({ error: "PR_ACTION_FAILED" });
+  }
 });
