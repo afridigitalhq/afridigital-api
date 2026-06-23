@@ -4,108 +4,30 @@ import * as THREE from "three";
 export default function DagWebGL({ nodes, edges }) {
   const mountRef = useRef(null);
 
+  
   useEffect(() => {
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#05060a");
+    const mountNode = mountRef.current;
+    let lastFrame = 0;
 
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      2000
-    );
-
-    camera.position.z = 600;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: false });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
-
-    // POOL (critical optimization)
-    const pool = new Map();
-
-    function getMesh(id) {
-      if (pool.has(id)) return pool.get(id);
-
-      const geo = new THREE.SphereGeometry(6, 8, 8);
-      const mat = new THREE.MeshBasicMaterial({ color: 0x00c2ff });
-      const mesh = new THREE.Mesh(geo, mat);
-
-      scene.add(mesh);
-      pool.set(id, mesh);
-
-      return mesh;
-    }
-
-    let frame = 0;
-
-      const mountNode = mountRef.current;
-      let lastFrame = 0;
-
-      function renderFrame(time) {
-        requestAnimationFrame(renderFrame);
-
-        if (time - lastFrame < 16) return;
-        lastFrame = time;
-
-        for (const n of nodes) {
-          const mesh = getMesh(n.id);
-
-          // cluster smoothing (prevents jitter)
-          mesh.position.x += ((n.x || 0) - mesh.position.x) * 0.15;
-          mesh.position.y += ((n.y || 0) - mesh.position.y) * 0.15;
-        }
-
-        renderer.render(scene, camera);
-      }
-
-      requestAnimationFrame(renderFrame);
-      requestAnimationFrame(animate);
-
-      // throttle heavy updates
-      frame++;
-      if (frame % 2 === 0) {
-        for (const n of nodes) {
-          const mesh = getMesh(n.id);
-
-          mesh.position.x = n.x || Math.random() * 200;
-          mesh.position.y = n.y || Math.random() * 200;
-        }
-      }
-
-      renderer.render(scene, camera);
-    }
-
-      const mountNode = mountRef.current;
-      let lastFrame = 0;
-
-      function renderFrame(time) {
-        requestAnimationFrame(renderFrame);
-
-        if (time - lastFrame < 16) return;
-        lastFrame = time;
-
-        for (const n of nodes) {
-          const mesh = getMesh(n.id);
-
-          // cluster smoothing (prevents jitter)
-          mesh.position.x += ((n.x || 0) - mesh.position.x) * 0.15;
-          mesh.position.y += ((n.y || 0) - mesh.position.y) * 0.15;
-        }
-
-        renderer.render(scene, camera);
-      }
-
+    function renderFrame(time) {
       requestAnimationFrame(renderFrame);
 
-const mountNode = mountRef.current;
+      if (!mountNode) return;
 
-return () => {
-  if (mountNode && renderer?.domElement && mountNode.contains(renderer.domElement)) {
-    mountNode.removeChild(renderer.domElement);
-  }
-};
+      for (const n of (nodes || [])) {
+        // safe placeholder render
+      }
+    }
+
+    requestAnimationFrame(renderFrame);
+
+    return () => {
+      if (mountNode && mountNode.firstChild) {
+        mountNode.innerHTML = "";
+      }
+    };
   }, [nodes, edges]);
+
 
   return <div ref={mountRef} />;
 }
