@@ -1,0 +1,6 @@
+RULE 1: Only SyscallGate may execute operations
+RULE 2: KCP must approve or defer all events
+RULE 3: KSPL has final authority on legality
+RULE 4: KMGL may only propose, never execute
+RULE 5: Orchestrator may only route events
+RULE 6: No direct module execution allowed outside kernel boundary

@@ -1,3 +1,4 @@
+// AFRIKERNEL_MODULE_ONLY_RUNTIME (NO app.listen ALLOWED)
 const http=require('http');
 const socketio=require('socket.io');
 const express=require('express');
@@ -5,7 +6,7 @@ const express=require('express');
 function startVisualEngine(bus){
 
   const app=express();
-  const server=http.createServer(app);
+  const server=// DISABLED_SERVER(http.createServer(app);
   const io=new socketio.Server(server);
 
   app.get('/',(_,res)=>{

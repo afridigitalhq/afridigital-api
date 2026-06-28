@@ -1,3 +1,4 @@
+// AFRIKERNEL_MODULE_ONLY_RUNTIME (NO app.listen ALLOWED)
 const express = require('express');
 const fs = require('fs');
 
@@ -14,6 +15,6 @@ app.get('/afrid/state', (req, res) => {
 });
 
 app.get('/go/:service',(req,res)=>{const map={hfm:'https://hfm.com/?refid=YOUR_ID'};const s=req.params.service;if(map[s]){console.log('OUTBOUND',s,req.ip,Date.now());res.redirect(map[s])}else{res.status(404).send('Unknown service')}});
-app.listen(3000, () => {
+// DISABLED_LISTEN(app.listen(3000, () => {
   console.log('⚡ Afri state running on http://localhost:3000/afrid/state');
 });

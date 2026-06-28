@@ -1,0 +1,10 @@
+{
+  "rollback": "READY",
+  "mode": "MANUAL_APPROVAL_REQUIRED",
+  "checks": [
+    "SyscallGate integrity",
+    "Release fingerprint validation",
+    "Deployment status verification"
+  ],
+  "action": "restore last known good state only"
+}

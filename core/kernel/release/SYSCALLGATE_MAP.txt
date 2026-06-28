@@ -1,0 +1,74 @@
+core/kernel/ENTRYPOINT.lock:SyscallGate canonical entrypoint = core/kernel/syscall/SyscallGate.js (hardened-backed)
+core/kernel/index.js:const { SyscallGate } = require("./syscall/SyscallGate");
+core/kernel/index.js:const kernel = // REMOVED_ILLEGAL_INSTANTIATION({
+core/kernel/syscall/syscall.gate.js:class SyscallGate {
+core/kernel/syscall/syscall.gate.js:module.exports = { SyscallGate };
+core/kernel/syscall/SyscallGate.js:const { SyscallGate } = require("./SyscallGate.hardened.js");
+core/kernel/syscall/SyscallGate.js:module.exports = { SyscallGate };
+core/kernel/syscall/SyscallGate.hardened.js:class SyscallGate {
+core/kernel/syscall/SyscallGate.hardened.js:      throw new Error("SyscallGate: missing core runtime");
+core/kernel/syscall/SyscallGate.hardened.js:module.exports = { SyscallGate };
+core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        "SyscallGate",
+core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        ["SyscallGate", "Governor"],
+core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        ["SyscallGate", "Consciousness"],
+core/kernel/control-plane/HotRuntimeControlPlane.js:        "Orchestrator → KCP → KSPL → SyscallGate",
+core/kernel/control-plane/FROZEN_STATE.json:{ "mode": "READ_ONLY", "status": "FROZEN", "entrypoint": "SyscallGate" }
+core/kernel/policy/KernelSovereignPolicyLayer.js:    if (event?.bypassSyscallGate) {
+core/kernel/deploy/DEPLOYMENT_MANIFEST.json:  "kernel": "SyscallGate-Orchestrated-Distributed-OS",
+core/kernel/deploy/DEPLOYMENT_MANIFEST.json:  "execution_surface": "SyscallGate",
+core/kernel/deploy/RUNTIME_SAFETY.contract:RULE 1: Only SyscallGate may execute operations
+core/kernel/deploy/verify.deploy.sh:grep -q "SyscallGate" core/kernel/deploy/DEPLOYMENT_MANIFEST.json && \
+core/kernel/deploy/hardening/HARDENING_GATE.json:    "SyscallGate": "READ_ONLY_REFERENCE"
+core/kernel/deploy/hardening/HARDENING_GATE.json:    "SyscallGate modification",
+core/kernel/_audit/consolidation.audit:CANONICAL_ENTRYPOINT=SyscallGate
+core/kernel/_hardening/hardening.lock:CANONICAL_EXECUTOR=SyscallGate
+core/kernel/_hardening/CANONICAL_RUNTIME.contract:RULE 1: SyscallGate is the only execution surface
+core/kernel/_hardening/CANONICAL_RUNTIME.contract:RULE 3: no direct module execution outside SyscallGate.[TRACE_DISPATCH])
+core/kernel/_hardening/boot.hook.js:const { SyscallGate } = require("../syscall/SyscallGate");
+core/kernel/_hardening/boot.hook.js:  const gate = // REMOVED_ILLEGAL_INSTANTIATION(core);
+core/kernel/_hardening/boot.hook.js:  global.SyscallGate = gate;
+core/kernel/_hardening/BOOT_CONTRACT.txt:RULE 3: SyscallGate is globally exposed executor
+core/kernel/bootstrap/syscall.boot.js:const { SyscallGate } = require("../syscall/SyscallGate");
+core/kernel/bootstrap/syscall.boot.js:  const gate = // REMOVED_ILLEGAL_INSTANTIATION(core);
+core/kernel/freeze/CANONICAL_ENTRYPOINT.lock:SyscallGate=core/kernel/syscall/SyscallGate.js
+core/kernel/freeze/FREEZE_CONTRACT.txt:RULE 1: SyscallGate is the only execution surface
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/ENTRYPOINT.lock:SyscallGate canonical entrypoint = core/kernel/syscall/SyscallGate.js (hardened-backed)
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/index.js:const { SyscallGate } = require("./syscall/SyscallGate");
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/index.js:const kernel = // REMOVED_ILLEGAL_INSTANTIATION({
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/syscall.gate.js:class SyscallGate {
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/syscall.gate.js:module.exports = { SyscallGate };
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/SyscallGate.js:const { SyscallGate } = require("./SyscallGate.hardened.js");
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/SyscallGate.js:module.exports = { SyscallGate };
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/SyscallGate.hardened.js:class SyscallGate {
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/SyscallGate.hardened.js:      throw new Error("SyscallGate: missing core runtime");
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/syscall/SyscallGate.hardened.js:module.exports = { SyscallGate };
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        "SyscallGate",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        ["SyscallGate", "Governor"],
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/control-plane/dashboard/ControlPlaneDashboard.js:        ["SyscallGate", "Consciousness"],
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/control-plane/HotRuntimeControlPlane.js:        "Orchestrator → KCP → KSPL → SyscallGate",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/policy/KernelSovereignPolicyLayer.js:    if (event?.bypassSyscallGate) {
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/DEPLOYMENT_MANIFEST.json:  "kernel": "SyscallGate-Orchestrated-Distributed-OS",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/DEPLOYMENT_MANIFEST.json:  "execution_surface": "SyscallGate",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/RUNTIME_SAFETY.contract:RULE 1: Only SyscallGate may execute operations
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/verify.deploy.sh:grep -q "SyscallGate" core/kernel/deploy/DEPLOYMENT_MANIFEST.json && \
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/hardening/HARDENING_GATE.json:    "SyscallGate": "READ_ONLY_REFERENCE"
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/deploy/hardening/HARDENING_GATE.json:    "SyscallGate modification",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_audit/consolidation.audit:CANONICAL_ENTRYPOINT=SyscallGate
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/hardening.lock:CANONICAL_EXECUTOR=SyscallGate
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/CANONICAL_RUNTIME.contract:RULE 1: SyscallGate is the only execution surface
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/CANONICAL_RUNTIME.contract:RULE 3: no direct module execution outside SyscallGate.[TRACE_DISPATCH])
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/boot.hook.js:const { SyscallGate } = require("../syscall/SyscallGate");
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/boot.hook.js:  const gate = // REMOVED_ILLEGAL_INSTANTIATION(core);
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/boot.hook.js:  global.SyscallGate = gate;
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/_hardening/BOOT_CONTRACT.txt:RULE 3: SyscallGate is globally exposed executor
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/bootstrap/syscall.boot.js:const { SyscallGate } = require("../syscall/SyscallGate");
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/bootstrap/syscall.boot.js:  const gate = // REMOVED_ILLEGAL_INSTANTIATION(core);
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/freeze/CANONICAL_ENTRYPOINT.lock:SyscallGate=core/kernel/syscall/SyscallGate.js
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/freeze/FREEZE_CONTRACT.txt:RULE 1: SyscallGate is the only execution surface
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/constitution/sovereign.constitution.js:      "SyscallGate is the only execution boundary",
+core/kernel/freeze/SYSCALLGATE_MAP.log:core/kernel/control-desk/sovereign.control.desk.js:      execution: "SyscallGate blocked when frozen"
+core/kernel/constitution/sovereign.constitution.js:      "SyscallGate is the only execution boundary",
+core/kernel/control-desk/sovereign.control.desk.js:      execution: "SyscallGate blocked when frozen"
+core/kernel/release/KERNEL_FINGERPRINT.sha256:08f9508bb89148fd4ae2a3dbd17e692c63157a1a3cde0e09a667767e9f8d9b12  core/kernel/syscall/SyscallGate.js
+core/kernel/release/KERNEL_FINGERPRINT.sha256:21fd8b8674cb151ffdf136fbeb643697b855b4f5c8a7c4f58765e17ae0bfb321  core/kernel/syscall/SyscallGate.guard.js
+core/kernel/release/KERNEL_FINGERPRINT.sha256:82d97d490203014efd92e92faccde8e5900a838e5bcc076cfcfb8a498e282652  core/kernel/syscall/SyscallGate.hardened.js

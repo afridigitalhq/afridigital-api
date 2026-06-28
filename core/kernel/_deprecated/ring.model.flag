@@ -1,0 +1,5 @@
+R0 = Kernel (Syscall Core)
+R1 = System Services (Ledger, Validator, Router)
+R2 = Adapters (GitHub, WhatsApp, CI, Snapshot)
+R3 = UI / HUD (Read-only Observers)
+// DEPRECATED (SAFE MODE): superseded by canonical kernel map

@@ -1,0 +1,14 @@
+{
+  "observability": "GLOBAL_EXPORT",
+  "timestamp": "Mon Jun 22 10:28:04 WAT 2026",
+  "artifacts": {
+    "release_manifest": "core/kernel/release/RELEASE_MANIFEST.json",
+    "fingerprint": "core/kernel/release/KERNEL_FINGERPRINT.sha256",
+    "deploy_status": "core/kernel/release/DEPLOY_STATUS.json",
+    "syscall_map": "core/kernel/release/SYSCALLGATE_MAP.txt",
+    "soc_state": "core/kernel/soc/SOC_RECOVERY_PLAN.json",
+    "ci_state": "core/kernel/release/DEPLOY_STATUS.json"
+  },
+  "entrypoint": "SyscallGate",
+  "mode": "READ_ONLY"
+}

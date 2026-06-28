@@ -1,0 +1,20 @@
+const { broadcast } = require("../realtime/flowgraph-ws");
+const NeuralGrid = require("../neural-grid");
+
+function emit(type, service, status, msg) {
+  const event = {
+    type,
+    service,
+    status,
+    msg,
+    ts: Date.now()
+  };
+
+  // OLD: raw broadcast
+  broadcast(event);
+
+  // NEW: neural processing
+  NeuralGrid.pulse(event);
+}
+
+module.exports = { emit };

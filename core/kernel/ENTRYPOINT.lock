@@ -1,0 +1,1 @@
+SyscallGate canonical entrypoint = core/kernel/syscall/SyscallGate.js (hardened-backed)

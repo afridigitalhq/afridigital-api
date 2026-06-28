@@ -1,0 +1,12 @@
+{
+  "kernel": "SyscallGate-Orchestrated-Distributed-OS",
+  "status": "DEPLOYMENT_LOCKED",
+  "execution_surface": "SyscallGate",
+  "consensus_layer": "KCP",
+  "policy_layer": "KSPL",
+  "meta_governance": "KMGL",
+  "orchestrator": true,
+  "direct_execution_bypass": false,
+  "mode": "controlled-production",
+  "timestamp": "LOCKED"
+}

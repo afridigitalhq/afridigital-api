@@ -1,0 +1,31 @@
+{
+  "system": "ControlPlaneOS",
+  "version": "1.0.0",
+  "state": "FROZEN",
+
+  "rules": {
+    "mutation": "DISABLED",
+    "schemaChanges": "FORBIDDEN",
+    "runtimeStructure": "IMMUTABLE",
+    "SyscallGate": "READ_ONLY_REFERENCE"
+  },
+
+  "allowedChanges": [
+    "telemetry mapping",
+    "UI rendering updates",
+    "dashboard layout changes"
+  ],
+
+  "forbiddenChanges": [
+    "kernel restructuring",
+    "execution flow changes",
+    "SyscallGate modification",
+    "event engine replacement"
+  ],
+
+  "audit": {
+    "mode": "strict",
+    "logging": "append-only",
+    "rollback": "snapshot-only"
+  }
+}

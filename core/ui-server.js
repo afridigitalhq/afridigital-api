@@ -1,3 +1,4 @@
+// AFRIKERNEL_MODULE_ONLY_RUNTIME (NO app.listen ALLOWED)
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -40,6 +41,6 @@ app.get("/health", (req, res) => {
 
 /* START */
 app.get('/go/:service',(req,res)=>{const map={hfm:'https://hfm.com/?refid=YOUR_ID'};const s=req.params.service;if(map[s]){console.log('OUTBOUND',s,req.ip,Date.now());res.redirect(map[s])}else{res.status(404).send('Unknown service')}});
-app.listen(PORT, () => {
+// DISABLED_LISTEN(app.listen(PORT, () => {
   console.log(`⚡ AFRIDIGITAL HUB LIVE → http://localhost:${PORT}`);
 });

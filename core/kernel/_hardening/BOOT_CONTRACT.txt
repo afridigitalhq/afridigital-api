@@ -1,0 +1,5 @@
+RULE 1: System MUST initialize via bootKernel()
+RULE 2: All imports pass through interceptor
+RULE 3: SyscallGate is globally exposed executor
+RULE 4: Forbidden kernel modules = runtime exception
+RULE 5: No fallback execution paths allowed

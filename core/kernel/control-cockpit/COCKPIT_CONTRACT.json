@@ -1,0 +1,33 @@
+{
+  "cockpit": "UNIFIED_CONTROL_PLANE",
+  "version": "1.0.0",
+  "mode": "READ_ONLY",
+  "entrypoint": "SyscallGate",
+  "panels": {
+    "soc": {
+      "title": "Incident Response",
+      "source": "core/kernel/soc/SOC_RECOVERY_PLAN.json",
+      "access": "read-only"
+    },
+    "ci": {
+      "title": "CI Pipeline",
+      "source": "core/kernel/pipeline/PROMOTION_FLOW.json",
+      "access": "read-only"
+    },
+    "deploy": {
+      "title": "Deployment Status",
+      "source": "core/kernel/release/DEPLOY_STATUS.json",
+      "access": "read-only"
+    },
+    "observability": {
+      "title": "System Snapshot",
+      "source": "core/kernel/observability/export/AUDIT_SNAPSHOT.json",
+      "access": "read-only"
+    }
+  },
+  "governance": {
+    "mutation": false,
+    "execution": "blocked",
+    "approval_required": true
+  }
+}

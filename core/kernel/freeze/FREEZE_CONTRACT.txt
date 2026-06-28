@@ -1,0 +1,5 @@
+🧠 FREEZE CONTRACT
+RULE 1: SyscallGate is the only execution surface
+RULE 2: Control plane is READ-ONLY
+RULE 3: No kernel structural mutations allowed
+RULE 4: All deprecated layers remain non-executable

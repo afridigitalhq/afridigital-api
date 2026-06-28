@@ -1,0 +1,17 @@
+{
+  "compliance": "SOC2_STYLE_EXPORT",
+  "timestamp": "Mon Jun 22 10:29:05 WAT 2026",
+  "entrypoint": "SyscallGate",
+  "artifacts": {
+    "cockpit": "core/kernel/control-cockpit/COCKPIT_CONTRACT.json",
+    "ci": "core/kernel/pipeline/PROMOTION_FLOW.json",
+    "soc": "core/kernel/soc/SOC_RECOVERY_PLAN.json",
+    "release": "core/kernel/release/RELEASE_MANIFEST.json",
+    "fingerprint": "core/kernel/release/KERNEL_FINGERPRINT.sha256"
+  },
+  "policy": {
+    "mode": "READ_ONLY",
+    "mutation": false,
+    "audit_level": "HIGH_ASSURANCE"
+  }
+}

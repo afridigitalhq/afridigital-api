@@ -1,0 +1,5 @@
+RULE 1: SyscallGate is the only execution surface
+RULE 2: event-engine, event-spine, spine are deprecated abstractions only
+RULE 3: no direct module execution outside SyscallGate.dispatch()
+RULE 4: all imports must pass import.guard validation
+RULE 5: violation = runtime exception (no silent fallback)

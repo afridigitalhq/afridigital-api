@@ -1,0 +1,4 @@
+timestamp=1782116418
+CANONICAL_EXECUTOR=SyscallGate
+FORBIDDEN_ENTRIES=event-engine,event-spine,spine,ring
+ENFORCEMENT_MODE=IMPORT_GUARD_ONLY

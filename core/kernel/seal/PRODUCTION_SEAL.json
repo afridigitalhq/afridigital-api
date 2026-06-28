@@ -1,0 +1,11 @@
+{
+  "seal": "IMMUTABLE",
+  "status": "LOCKED",
+  "entrypoint": "SyscallGate",
+  "binding": {
+    "fingerprint": "core/kernel/seal/SEAL_FINGERPRINT.sha256",
+    "syscall": "core/kernel/seal/SYSCALLGATE_BINDING.txt",
+    "bundle": "core/kernel/seal/BUNDLE_STATE.txt"
+  },
+  "rule": "Any mismatch invalidates deployment"
+}

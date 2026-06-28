@@ -1,0 +1,32 @@
+{
+  "dashboard": "KernelControlPlane",
+  "version": "1.0.0",
+  "mode": "READ_ONLY",
+  "sections": {
+    "system": {
+      "title": "System Snapshot",
+      "fields": ["health", "status", "uptime"]
+    },
+    "events": {
+      "title": "Event Stream",
+      "fields": ["eventCount", "eventRate", "queueDepth"]
+    },
+    "telemetry": {
+      "title": "Telemetry Feed",
+      "fields": ["anomalies", "warnings", "forecast"]
+    },
+    "replay": {
+      "title": "Replay Inspector",
+      "fields": ["timeline", "traceId", "executionPath"]
+    },
+    "diagnostics": {
+      "title": "System Diagnostics",
+      "fields": ["errors", "latency", "throttles"]
+    }
+  },
+  "binding": {
+    "source": "CleanControlPlane",
+    "access": "read-only",
+    "execution": "blocked"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "pipeline": "ENV_PROMOTION",
+  "stages": [
+    "DEV",
+    "STAGING",
+    "PRODUCTION"
+  ],
+  "rules": {
+    "order_enforced": true,
+    "skip_allowed": false,
+    "syscall_gate_required": true,
+    "artifact_lock": true
+  },
+  "entry_validation": {
+    "bundle_required": true,
+    "fingerprint_required": true
+  }
+}
