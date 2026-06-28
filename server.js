@@ -17,6 +17,8 @@ const app = express();
 app.use(express.json());
 
 const server = http.createServer(app);
+const kernel=createKernel?createKernel({}):{};
+if(kernel) mountKernelObservability(app,kernel);
 
 /* ================= CORE MODULES ================= */
 const { getInbox } = require("./core/whatsapp-ci/inbox");
@@ -24,6 +26,8 @@ const { reviewPR, executeApprovedPR } = require("./core/whatsapp-ci/pr.engine");
 const { getEvents, replay, getInsights } = require("./core/event-engine/engine");
 const { getState } = require("./core/ci/state");
 const { getAttackTopology } = require("./core/intelligence/attack.topology");
+const createKernel=require("./core/kernel/bootstrap/syscall.boot").createKernel;
+const mountKernelObservability=require("./core/kernel/contract/observability.routes");
 
 /* ================= HEALTH ================= */
 app.get("/health", (_, res) => {
