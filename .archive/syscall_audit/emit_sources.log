@@ -1,0 +1,49 @@
+core/control-plane/routing/routing.brain.js:46:function emitRouteDecision(traceId, eventType, route) {
+core/flow3d/flow.bridge.js:3:function emitFlow3D(from, to, meta = {}) {
+core/flow3d/flow.bridge.js:19:module.exports = { emitFlow3D, wireFlow3D };
+core/visual-engine/live.stream.js:1:module.exports=function(bus,io){if(!bus||!io) return; bus.on("GRAPH_NODE_CREATED",n=>io.emit("node",n)); bus.on("GRAPH_EDGE_CREATED",e=>io.emit("edge",e)); bus.on("AI_TRACE",t=>io.emit("trace",t)); console.log("🌐 LIVE FLOWGRAPH STREAM ACTIVE");};
+core/ci/graph.engine.js:7:function emitNode(type, payload) {
+core/event-engine/engine.ai.backup.js:3:function emit(type, service, status, msg) {
+core/event-engine/engine.ai.backup.js:29:module.exports = { emit, getEvents, replay };
+core/event-engine/engine.backup.consolidation.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.backup.consolidation.js:80:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.backup.js:3:function emit(type, service, status, msg) {
+core/event-engine/engine.backup.js:24:module.exports = { emit, getEvents };
+core/event-engine/engine.causal.backup.js:13:function emit(type, service, status, msg) {
+core/event-engine/engine.clean.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.clean.backup.js:72:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.corrupt.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.corrupt.backup.js:82:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.corrupt.final.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.corrupt.final.backup.js:82:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.emit.backup.js:13:function emit(type, service, status, msg) {
+core/event-engine/engine.fix.backup.js:13:function emit(type, service, status, msg) {
+core/event-engine/engine.js:3:function emit(type, service, status, msg) {
+core/event-engine/engine.js:40:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.js.backup_1782001266:4:function emit(type, service, status, msg) {
+core/event-engine/engine.js.backup_1782001266:20:module.exports = { emit };
+core/event-engine/engine.physics.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.physics.backup.js:72:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.pre-emit.backup.js:13:function emit(type, service, status, msg) {
+core/event-engine/engine.pre-sim.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.pre-sim.backup.js:83:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.stable.backup.js:13:function emit(type, service, status, msg) {
+core/event-engine/engine.ws.backup.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.ws.backup.js:71:module.exports = { emit, getEvents, replay, getInsights };
+core/event-engine/engine.ws.repair.js:28:function emit(type, service, status, msg) {
+core/event-engine/engine.ws.repair.js:71:module.exports = { emit, getEvents, replay, getInsights };
+core/event-spine/ci.spine.js:3:function emit(event) {
+core/event-spine/ci.spine.js:21:module.exports = { emit, subscribe };
+core/hud/webgl.stream.js:11:function emitHUD(event) {
+core/hud/webgl.stream.js:25:module.exports = { registerHUDClient, emitHUD };
+core/kernel/UnifiedEventContract.js:5:function emit(event) {
+core/kernel/UnifiedEventContract.js:10:module.exports = { emit };
+core/kernel/_deprecated/spine.js:4:function emit(event) {
+core/kernel/_deprecated/spine.js:24:module.exports = { emit, subscribe };
+core/kernel/observability/kernel.telemetry.js:12:function emitTelemetry(event) {
+core/sim/engine.core.js:28:function emit(type, service, status, msg) {
+core/sim/engine.core.js:83:module.exports = { emit, getEvents, replay, getInsights };
+core/sim/engine.snapshot.js:28:function emit(type, service, status, msg) {
+core/sim/engine.snapshot.js:83:module.exports = { emit, getEvents, replay, getInsights };
+core/spine/ci.spine.js:3:function emit(event) {
+core/spine/ci.spine.js:19:module.exports = { emit, subscribe };

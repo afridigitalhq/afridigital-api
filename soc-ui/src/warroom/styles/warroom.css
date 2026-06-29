@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  background: #05070a;
+  overflow: hidden;
+}
+
+.glow {
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+}

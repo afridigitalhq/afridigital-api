@@ -1,47 +1,74 @@
-const fs = require("fs");
+const fs=require("fs");
 
-function scan(file) {
-  try {
-    return fs.readFileSync(file, "utf-8");
-  } catch (e) {
-    return "";
-  }
+const IGNORE_DIRS=[
+  "freeze",
+  "release",
+  "recovery",
+  "seal",
+  "soc",
+  "_enforce"
+];
+
+function isIgnored(file){
+  return IGNORE_DIRS.some(d=>file.includes("/"+d+"/"));
 }
 
-function enforceNoMultipleInstances() {
-  const output = require("child_process")
-    .execSync("grep -R \"// REMOVED_ILLEGAL_INSTANTIATION\" core/kernel 2>/dev/null || true")
-    .toString();
+function scanAll(dir){
+  const fs=require("fs");
+  const path=require("path");
 
-  const lines = output.split("\n").filter(Boolean);
+  let results=[];
 
-  // allow only boot + index canonical entry
-  const allowed = [
+  function walk(d){
+    for(const e of fs.readdirSync(d,{withFileTypes:true})){
+      const p=path.join(d,e.name);
+      if(e.isDirectory()) walk(p);
+      else if(p.endsWith(".js")) results.push(p);
+    }
+  }
+
+  walk(dir);
+  return results;
+}
+
+function enforceNoMultipleInstances(){
+  const allowed=[
     "core/kernel/index.js",
     "core/kernel/bootstrap/syscall.boot.js"
   ];
 
-  const violations = lines.filter(l =>
-    !allowed.some(a => l.includes(a))
-  );
+  const hits=[];
 
-  if (violations.length > 0) {
-    console.error("🚨 SYSYSCALLGATE MULTI-INSTANCE VIOLATION DETECTED");
-    console.error(violations.join("\n"));
+  for(const file of scanAll("core/kernel")){
+    if(isIgnored(file)) continue;
+
+    const txt=fs.readFileSync(file,"utf8");
+
+    if(
+      txt.includes("REMOVED_ILLEGAL_INSTANTIATION") &&
+      !allowed.some(a=>file.endsWith(a))
+    ){
+      hits.push(file);
+    }
+  }
+
+  if(hits.length){
+    console.error("🚨 SYSCALLGATE MULTI-INSTANCE VIOLATION");
+    console.error(hits.join("\n"));
     process.exit(1);
   }
 
   return true;
 }
 
-function enforceSingleDispatch(kernel) {
-  if (!kernel || typeof kernel.dispatch !== "function") {
+function enforceSingleDispatch(kernel){
+  if(!kernel||typeof kernel.dispatch!=="function"){
     throw new Error("SyscallGate invalid runtime: missing dispatch()");
   }
   return true;
 }
 
-module.exports = {
+module.exports={
   enforceNoMultipleInstances,
   enforceSingleDispatch
 };

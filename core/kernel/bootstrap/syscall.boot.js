@@ -1,23 +1,22 @@
-const { enforceNoMultipleInstances } = require("../_enforce/syscallgate.guard"); enforceNoMultipleInstances();
-// AFRIKERNEL_GOVERNED_RUNTIME: ALL EXECUTION MUST FLOW VIA SYSCALLGATE
+const { enforceNoMultipleInstances } = require("../_enforce/syscallgate.guard");
+enforceNoMultipleInstances();
+
 const { SyscallGate } = require("../syscall/SyscallGate");
 
-/**
- * Deterministic kernel bootstrap
- * No interceptors, no mutation layers, no runtime patching.
- */
-
-function createKernel(core) {
-  if (!core) {
+function createKernel(core){
+  if(!core){
     throw new Error("Kernel boot failed: missing core runtime");
   }
 
-  const gate = // REMOVED_ILLEGAL_INSTANTIATION(core);
+  const gate=new SyscallGate(core);
 
   return {
-    dispatch: (event) => gate.dispatch(event),
+    dispatch:(event)=>gate.dispatch(event),
+    snapshot:()=>gate.snapshot ? gate.snapshot() : {},
+    telemetry:()=>gate.telemetry ? gate.telemetry() : {},
+    ledger:()=>gate.ledger ? gate.ledger() : [],
     gate
   };
 }
 
-module.exports = { createKernel };
+module.exports={createKernel};

@@ -1,3 +1,4 @@
+// AFRIKERNEL_MODULE_ONLY_RUNTIME (NO app.listen ALLOWED)
 require("dotenv").config();
 
 const express = require("express");
@@ -22,6 +23,6 @@ app.get("/health", (_, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
+// DISABLED_LISTEN(app.listen(process.env.PORT, () => {
   console.log(`🌐 API Gateway Running : ${process.env.PORT}`);
 });

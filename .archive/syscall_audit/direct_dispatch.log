@@ -1,0 +1,10 @@
+core/ai/bridge/action.dispatcher.js:3:async function dispatch(intent, payload = {}) {
+core/ai/brain.economy.js:51:  const result = await dispatch(intent, {
+core/ai/orchestrator/index.js:31:  const dispatchResult = await dispatch(intent, {
+core/kernel/bootstrap/syscall.boot.js:17:    dispatch: (event) => gate.dispatch(event),
+core/kernel/consciousness/KernelConsciousness.js:64:    return this.kernel.dispatch(enriched);
+core/kernel/interface/api/KernelAPI.js:20:    return this.syscallGate.dispatch(event);
+core/kernel/orchestration/KernelOrchestrator.js:31:          ? kernel.dispatch(event)
+core/kernel/state/StateMachineKernel.js:24:  dispatch(event) {
+core/kernel/syscall/syscall.gate.js:7:  dispatch(syscall) {
+core/kernel/wiring/kernel.wiring.js:23:    dispatch: (event) => kernel.dispatch(event),
