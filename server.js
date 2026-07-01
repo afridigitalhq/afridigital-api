@@ -1,12 +1,3 @@
-
-
-/* AFRIAI_SAFE_GUARD */
-function safe(v){
-  if (!v) return "";
-  if (typeof v === "string") return v;
-  if (typeof v === "object") return JSON.stringify(v);
-  return String(v);
-}
 require("dotenv").config();
 
 const express = require("express");
@@ -17,27 +8,43 @@ const app = express();
 app.use(express.json());
 
 const server = http.createServer(app);
+
 /* ================= CORE MODULES ================= */
 const { getInbox } = require("./core/whatsapp-ci/inbox");
 const { reviewPR, executeApprovedPR } = require("./core/whatsapp-ci/pr.engine");
 const { getEvents, replay, getInsights } = require("./core/event-engine/engine");
 const { getState } = require("./core/ci/state");
 const { getAttackTopology } = require("./core/intelligence/attack.topology");
-const createKernel=require("./core/kernel/bootstrap/syscall.boot").createKernel;
-const mountKernelObservability=require("./core/kernel/contract/observability.routes");
 
-const kernel=createKernel({});
-mountKernelObservability(app,kernel);
-/* ================= HEALTH ================= */
+const createKernel = require("./core/kernel/bootstrap/syscall.boot").createKernel;
+const mountKernelObservability = require("./core/kernel/contract/observability.routes");
+
+const kernel = createKernel({});
+
+/* ================= KERNEL ================= */
+mountKernelObservability(app, kernel);
+
+/* ================= ROUTES ================= */
 app.get("/health", (_, res) => {
   res.json({
     ok: true,
-    kernel: "v4-clean",
+    kernel: "v4-recovered",
     service: "afridigital-api"
   });
 });
 
-/* ================= WHATSAPP ================= */
+app.get("/status", (_, res) => {
+  res.json({ ok: true, kernel: "v4-recovered", service: "afridigital-api", status: "running" });
+});
+
+app.get("/api", (_, res) => {
+  res.json({
+    ok: true,
+    service: "afridigital-api",
+    kernel: "v4-recovered"
+  });
+});
+
 app.get("/api/whatsapp/inbox", (req, res) => {
   const role = req.query.role || "VIEWER";
   res.json(getInbox(role));
@@ -61,7 +68,6 @@ app.post("/api/whatsapp/pr/action", (req, res) => {
   }
 });
 
-/* ================= EVENTS ================= */
 app.get("/api/events", (_, res) => {
   res.json({ ok: true, events: getEvents() });
 });
@@ -76,76 +82,18 @@ app.get("/api/events/insights", (_, res) => {
   res.json({ ok: true, insights: getInsights() });
 });
 
-/* ================= CI ================= */
 app.get("/api/ci/state", (_, res) => {
   res.json(getState());
 });
 
-/* ================= INTELLIGENCE ================= */
 app.get("/api/topology", (_, res) => {
   res.json({ ok: true, topology: getAttackTopology() });
 });
 
-/* ================= AFRIAI (SINGLETON MOUNT) ================= */
-function attachAfriAI(server) {
-  const wss = new WebSocket.Server({ server, path: "/ws/afriai" });
-
-  wss.on("connection", (ws) => {
-    ws.send(JSON.stringify({
-      type: "afriai",
-      status: "connected",
-      mode: "read-only"
-    }));
-
-    ws.on("message", (msg) => {
-      ws.send(JSON.stringify({
-        type: "afriai-response",
-        input: msg.toString(),
-        reply: "AfriAI v1 active (clean kernel)"
-      }));
-    });
-  });
-
-  console.log("🧠 AfriAI WS mounted → /ws/afriai");
-}
-
-app.post("/api/afriai/ask", (req, res) => {
-  const message = req.body?.message || "";
-
-  res.json({
-    success: true,
-    afriai: {
-      intent: "GENERAL_CHAT",
-      reply: "AfriAI interaction layer active (clean v1)",
-      input: message,
-      ts: Date.now()
-    }
-  });
-});
-
 /* ================= START ================= */
-attachAfriAI(server);
-
 const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
-  console.log("🟢 KERNEL v4 CLEAN ONLINE ON", PORT);
+  console.log("🟢 SERVER REBUILT FROM RECOVERY CORE");
+  console.log("🚀 PORT:", PORT);
 });
-
-
-/* ================= AFRIAI UI STREAM v1.1 ================= */
-try {
-  const WebSocket = require("ws");
-  const attach = require("./core/afriai/ws/afriai.stream");
-  attach(server, WebSocket.Server);
-  console.log("🧠 AfriAI UI Stream v1.1 mounted");
-} catch (e) {
-  console.log("⚠ AfriAI UI mount skipped:", e.message);
-}
-
-/* ================= LOG FILTER ================= */
-global.AFRIAI_SAFE = (r) => {
-  if (!r) return "";
-  if (typeof r === "object") return r.reply || JSON.stringify(r);
-  return String(r);
-};
-
