@@ -1,3 +1,4 @@
+const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");
 module.exports = function attachAfriAIStream(server, WebSocketServer) {
   if (!server || !WebSocketServer) return;
 
@@ -26,3 +27,6 @@ module.exports = function attachAfriAIStream(server, WebSocketServer) {
 
   console.log("🧠 AfriAI UI Stream mounted → /ws/afriai");
 };
+
+
+bootstrapAfriAIStream(module.exports);

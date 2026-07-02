@@ -1,3 +1,4 @@
+const { bootstrapFlowgraph } = require("../../bootstrap/ws-integration/output/flowgraph-bootstrap");
 /**
  * 🌐 WebSocket Bridge for FlowGraph UI
  */
@@ -7,7 +8,7 @@ const { subscribe } = require("../ui/flowgraph-stream");
 
 function initFlowGraphWS(server) {
 
-  const wss = new WebSocket.Server({ server });
+  const wss = null /* DISABLED_BY_WS_KERNEL */;
 
   wss.on("connection", (ws) => {
 
@@ -23,6 +24,8 @@ function initFlowGraphWS(server) {
 
   console.log("🌐 FlowGraph WebSocket Bridge ACTIVE");
 }
+
+bootstrapFlowgraph(module.exports);
 
 module.exports = {
   initFlowGraphWS

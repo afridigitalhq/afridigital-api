@@ -1,15 +1,18 @@
 const WebSocket = require("ws");
+const observer = require("../../../core/afriai/observer/ws.afriai.observer");
+const { bootstrapRealtimeHub } = require("../../../bootstrap/ws-integration/output/realtime-hub-bootstrap");
 
 let wss;
 
-function initWS(server) {
-  wss = new WebSocket.Server({ server });
+function initWS_DISABLED(server) {
+  wss = null /* DISABLED_BY_WS_KERNEL */;
 
   wss.on("connection", (ws, req) => {
 
     ws.channels = new Set();
 
     ws.on("message", (msg) => {
+      observer.ingest(msg.toString());
       try {
         const data = JSON.parse(msg);
 
@@ -43,5 +46,7 @@ function broadcast(payload, channel = "events") {
     }
   });
 }
+
+bootstrapRealtimeHub(module.exports);
 
 module.exports = { initWS, broadcast };

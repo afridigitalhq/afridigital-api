@@ -1,0 +1,29 @@
+{
+  "timestamp": 1782738388730,
+  "kernelReport": {
+    "scanned": 12,
+    "registered": 16,
+    "total": 12
+  },
+  "registry": [
+    "afriai-stream-bootstrap",
+    "afriai-ws-bootstrap",
+    "flowgraph-bootstrap",
+    "realtime-hub-bootstrap",
+    "streambridge-backup-bootstrap",
+    "streambridge-bootstrap",
+    "ws-discovery",
+    "ws-integration",
+    "ws-manifest",
+    "ws-registrar",
+    "ws-registry",
+    "ws-runtime",
+    "afriai.ws",
+    "flowgraph",
+    "realtime.hub",
+    "stream.bridge"
+  ],
+  "meta": {
+    "servicesMounted": 16
+  }
+}

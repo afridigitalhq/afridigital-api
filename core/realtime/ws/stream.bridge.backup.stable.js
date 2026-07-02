@@ -2,8 +2,8 @@ const WebSocket = require("ws");
 
 let wss;
 
-function initWS(server) {
-  wss = new WebSocket.Server({ server });
+function initWS_DISABLED(server) {
+  wss = null /* DISABLED_BY_WS_KERNEL */;
 
   wss.on("connection", (ws) => {
     ws.send(JSON.stringify({ type: "system", msg: "connected" }));

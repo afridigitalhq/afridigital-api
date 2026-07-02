@@ -1,12 +1,13 @@
+const { bootstrapStreamBridge } = require("../../../bootstrap/ws-integration/output/streambridge-bootstrap");
 const WebSocket = require("ws");
 
 let wss;
 let lastPayload = null;
 let lastSent = 0;
 
-function initWS(server) {
+function initWS_DISABLED(server) {
 const { attachDiffBroadcast } = require("./diff.throttle");
-  wss = new WebSocket.Server({ server });
+  wss = null /* DISABLED_BY_WS_KERNEL */;
 
   wss.on("connection", (ws) => {
     ws.send(JSON.stringify({ type: "system", msg: "connected" }));
@@ -40,6 +41,8 @@ function broadcast(payload) {
     }
   });
 }
+
+bootstrapStreamBridge(module.exports);
 
 module.exports = {
   initWS,

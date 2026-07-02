@@ -1,0 +1,9 @@
+{
+  "mode": "HARD_LOCK",
+  "timestamp": 1782738530649,
+  "rules": [
+    "no direct WS creation",
+    "registry-only WS mounting",
+    "kernel-controlled lifecycle"
+  ]
+}

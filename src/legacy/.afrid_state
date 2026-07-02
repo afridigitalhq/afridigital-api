@@ -1,0 +1,7 @@
+mode=DEVOPS
+path=/data/data/com.termux/files/home/AfriDigitalHub/DevOps
+lock=0
+deploy=https://afridigital-hub.onrender.com
+MODE=DEVOPS
+LOCK=0
+DEPLOY=https://afridigital-hub.onrender.com

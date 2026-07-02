@@ -1,11 +1,12 @@
+const { bootstrapStreamBridgeBackup } = require("../../../bootstrap/ws-integration/output/streambridge-backup-bootstrap");
 const WebSocket = require("ws");
 
 let wss;
 let lastPayload = null;
 let lastSent = 0;
 
-function initWS(server) {
-  wss = new WebSocket.Server({ server });
+function initWS_DISABLED(server) {
+  wss = null /* DISABLED_BY_WS_KERNEL */;
 
   wss.on("connection", (ws) => {
     ws.send(JSON.stringify({ type: "system", msg: "connected" }));
@@ -38,6 +39,8 @@ function broadcast(payload) {
     }
   });
 }
+
+bootstrapStreamBridgeBackup(module.exports);
 
 module.exports = {
   initWS,
