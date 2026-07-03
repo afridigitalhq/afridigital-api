@@ -1,14 +1,16 @@
-const { enforceNoMultipleInstances } = require("../_enforce/syscallgate.guard");
+import { enforceNoMultipleInstances } from "../_enforce/syscallgate.guard.js";
+
+const mod = await import("../syscall/SyscallGate.hardened.js");
+const SyscallGate = mod.SyscallGate;
+
 enforceNoMultipleInstances();
 
-const { SyscallGate } = require("../syscall/SyscallGate");
-
-function createKernel(core){
+export function createKernel(core){
   if(!core){
     throw new Error("Kernel boot failed: missing core runtime");
   }
 
-  const gate=new SyscallGate(core);
+  const gate = new SyscallGate(core);
 
   return {
     dispatch:(event)=>gate.dispatch(event),
@@ -18,5 +20,3 @@ function createKernel(core){
     gate
   };
 }
-
-module.exports={createKernel};
