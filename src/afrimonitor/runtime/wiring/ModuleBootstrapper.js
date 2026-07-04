@@ -1,0 +1,33 @@
+import { ServiceBootstrap } from "../../services/ServiceBootstrap.js";
+
+import { AIImplementation } from "../../implementation/ai/AIImplementation.js";
+import { APIImplementation } from "../../implementation/api/APIImplementation.js";
+import { CameraImplementation } from "../../implementation/camera/CameraImplementation.js";
+import { StreamImplementation } from "../../implementation/stream/StreamImplementation.js";
+import { StorageImplementation } from "../../implementation/storage/StorageImplementation.js";
+import { EventImplementation } from "../../implementation/events/EventImplementation.js";
+import { UserImplementation } from "../../implementation/users/UserImplementation.js";
+
+export class ModuleBootstrapper {
+  constructor(container) {
+    this.container = container || new ServiceBootstrap().bootstrap();
+  }
+
+  wire() {
+    const bindings = {
+      ai: AIImplementation,
+      api: APIImplementation,
+      camera: CameraImplementation,
+      stream: StreamImplementation,
+      storage: StorageImplementation,
+      events: EventImplementation,
+      users: UserImplementation
+    };
+
+    for (const [name, Impl] of Object.entries(bindings)) {
+      this.container.register(name, Impl);
+    }
+
+    return this.container;
+  }
+}

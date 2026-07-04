@@ -1,0 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/bash
+CMD="$1"
+case "$CMD" in
+audit) bash "$(dirname "$0")/commands/audit.sh" ;;
+bootstrap) bash "$(dirname "$0")/commands/bootstrap.sh" ;;
+validate) bash "$(dirname "$0")/commands/validate.sh" ;;
+wire) bash "$(dirname "$0")/commands/wire.sh" ;;
+runtime) bash "$(dirname "$0")/commands/runtime.sh" ;;
+*) echo "Usage: afri {audit|bootstrap|validate|wire|runtime}"; exit 1 ;;
+esac

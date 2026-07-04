@@ -1,0 +1,14 @@
+export class ServiceFactory {
+  create(factory, ...args) {
+    if (typeof factory !== "function") {
+      throw new TypeError("Service factory must be a function");
+    }
+
+    const result = factory(...args);
+
+    // if class constructor was passed
+    if (result instanceof factory) return result;
+
+    return result;
+  }
+}
