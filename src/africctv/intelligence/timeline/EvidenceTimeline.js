@@ -1,3 +1,5 @@
+import { evidenceRepository } from "../../storage/repositories/EvidenceRepository.js";
+
 export class EvidenceTimeline {
 
   constructor(){
