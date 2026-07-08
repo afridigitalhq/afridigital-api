@@ -2,6 +2,9 @@ import { WebSocketServer } from "ws";
 import { getMockVisionPayload } from "../../runtime/MockCameraRuntime.js";
 import { observeCameraFeed } from "../../intelligence/AfriCCTVObservationEngine.js";
 import { rotateCameraWall } from "../../runtime/wall/CameraWallRuntime.js";
+import { recordingEngine } from "../../recording/RecordingEngine.js";
+import { evidenceTimeline } from "../../intelligence/timeline/EvidenceTimeline.js";
+import { africctvPlaybackBridge } from "../../playback/bridge/AfriCCTVPlaybackBridge.js";
 
 export class WebSocketGateway {
   constructor(server){
@@ -29,11 +32,17 @@ export class WebSocketGateway {
       const payload=getMockVisionPayload();
 
       const aiObservation = observeCameraFeed(payload);
+      const recording = recordingEngine.record(`cam${payload.active}`,"VIDEO_FRAME");
+      const evidence = evidenceTimeline.record({cameraId:`cam${payload.active}`,type:"VIDEO_FRAME",timestamp:Date.now()});
+      const playback = africctvPlaybackBridge.requestFromEvidence(evidence);
       const wall = rotateCameraWall();
 
       const msg=JSON.stringify({
         ...payload,
         aiObservation,
+        recording,
+        evidence,
+        playback,
         wall
       });
 
