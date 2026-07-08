@@ -14,6 +14,7 @@ export class EvidenceTimeline {
     };
 
     this.records.push(evidence);
+    evidenceRepository.save(evidence);
 
     return evidence;
   }

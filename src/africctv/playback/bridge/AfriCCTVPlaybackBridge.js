@@ -1,3 +1,5 @@
+import { playbackRepository } from "../../storage/repositories/PlaybackRepository.js";
+
 import { createPlaybackRequest } from "../contracts/PlaybackRequest.js";
 import { timelineViewer } from "../TimelineViewer.js";
 
@@ -10,6 +12,8 @@ export class AfriCCTVPlaybackBridge {
       cameraId:evidence.cameraId,
       timestamp:evidence.timestamp
     });
+
+    playbackRepository.save(request);
 
     timelineViewer.add({
       cameraId:evidence.cameraId,
