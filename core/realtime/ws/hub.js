@@ -4,8 +4,8 @@ const { bootstrapRealtimeHub } = require("../../../bootstrap/ws-integration/outp
 
 let wss;
 
-function initWS_DISABLED(server) {
-  wss = null /* DISABLED_BY_WS_KERNEL */;
+function initWS(server) {
+  wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws, req) => {
 

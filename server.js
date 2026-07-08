@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
+import { mountWS } from "./bootstrap/ws/init-ws.js";
 
 // ✅ FIXED IMPORT PATHS (MATCH YOUR REAL CORE STRUCTURE)
 import { getInbox } from "./core/whatsapp-ci/inbox.engine.js";
@@ -34,6 +35,7 @@ app.get("/api/soc", (_, res) => {
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
+mountWS(server);
 
 try {
   const kernel = createKernel?.();

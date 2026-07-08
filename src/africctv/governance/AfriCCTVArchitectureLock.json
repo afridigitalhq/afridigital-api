@@ -1,0 +1,27 @@
+{
+  "module": "AfriCCTV",
+  "phase": "108.4",
+  "status": "LOCKED",
+  "ownership": {
+    "cameraDiscovery": "backend",
+    "cameraRegistry": "backend",
+    "streamSessions": "backend",
+    "mockVisionRuntime": "backend",
+    "aiObservation": "backend",
+    "websocketTransport": "backend",
+    "uiRendering": "frontend"
+  },
+  "contracts": {
+    "websocket": "/ws/africctv",
+    "payload": "vision+aiObservation",
+    "frontend": "render-only"
+  },
+  "rules": [
+    "NO frontend camera simulation",
+    "NO business logic inside UI",
+    "NO duplicate camera ownership",
+    "Adapters remain plug-and-play",
+    "Every future camera connector uses adapter contract"
+  ],
+  "nextPhase": "109"
+}

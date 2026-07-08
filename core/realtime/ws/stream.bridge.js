@@ -5,9 +5,9 @@ let wss;
 let lastPayload = null;
 let lastSent = 0;
 
-function initWS_DISABLED(server) {
+function initWS(server) {
 const { attachDiffBroadcast } = require("./diff.throttle");
-  wss = null /* DISABLED_BY_WS_KERNEL */;
+  wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws) => {
     ws.send(JSON.stringify({ type: "system", msg: "connected" }));

@@ -1,0 +1,61 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+ROOT="tools/africctv-phase-bootstrap"
+
+COMMAND=$1
+shift
+
+case "$COMMAND" in
+
+bootstrap)
+ echo "🚀 AFRICCTV BOOTSTRAP COMMAND"
+
+ PHASE=$1
+
+ echo "📌 PIPELINE INTELLIGENCE CHECK"
+ $ROOT/intelligence/pipeline-intelligence.sh "$PHASE" || exit 1
+
+ $ROOT/phase-runner.sh "$@"
+ ;;
+
+health)
+ echo "🚀 AFRICCTV HEALTH COMMAND"
+ $ROOT/health/bootstrap-health.sh
+ ;;
+
+audit)
+ echo "🚀 AFRICCTV AUDIT COMMAND"
+ PHASE=$1
+ MODULE=$2
+
+if [ -z "$PHASE" ] || [ -z "$MODULE" ]; then
+ echo "Usage: africctv audit <phase> <module>"
+ exit 1
+fi
+
+REPORT="$ROOT/reports/Phase${PHASE}_${MODULE}.report"
+
+if [ -f "$REPORT" ]; then
+ cat "$REPORT"
+else
+ echo "⚠️ Audit report not found"
+fi
+ ;;
+
+registry)
+ echo "🚀 AFRICCTV REGISTRY"
+ cat "$ROOT/registry/phase-registry.json"
+ ;;
+
+*)
+ echo ""
+ echo "AFRICCTV COMMAND CENTER"
+ echo ""
+ echo "Commands:"
+ echo "  bootstrap <phase> <module>"
+ echo "  health"
+ echo "  audit <phase> <module>"
+ echo "  registry"
+ ;;
+
+esac
