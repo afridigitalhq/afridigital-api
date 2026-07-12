@@ -1,0 +1,19 @@
+{
+  "id": "AfriSports",
+  "name": "AfriSports",
+  "version": "1.0.0",
+  "type": "ecosystem-module",
+  "entry": "./modules/afrisports/index.js",
+  "permissions": [
+    "PLUGIN_RUNTIME",
+    "WS_STREAM",
+    "CONTROL_CENTER"
+  ],
+  "capabilities": [
+    "live_scores",
+    "telemetry",
+    "dashboard"
+  ],
+  "autoload": false,
+  "hotPlug": true
+}
