@@ -1,6 +1,6 @@
 const fs=require("fs");
 
-const file="core/realtime/ws/stream.bridge.js";
+const file="core/realtime/ws/stream.bridge.cjs";
 let s=fs.readFileSync(file,"utf8");
 
 if(!s.includes("bootstrapStreamBridge")){

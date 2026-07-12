@@ -3,9 +3,9 @@ const fs = require("fs");
 const targets = [
   "core/afriai/ws/afriai.ws.js",
   "core/afriai/ws/afriai.stream.js",
-  "core/realtime/ws/hub.js",
+  "core/realtime/ws/stream.bridge.cjs",
   "core/realtime/flowgraph-ws.js",
-  "core/realtime/ws/stream.bridge.js",
+  "core/realtime/ws/stream.bridge.cjs",
   "core/realtime/ws/stream.bridge.backup.js",
   "core/realtime/ws/stream.bridge.backup.stable.js"
 ];

@@ -58,6 +58,6 @@ module.exports={
 };
 `;
 
-fs.writeFileSync("core/kernel/_enforce/syscallgate.guard.js",source);
+fs.writeFileSync("core/kernel/_enforce/syscallgate.guard.cjs",source);
 
-console.log("✅ Rebuilt syscallgate.guard.js");
+console.log("✅ Rebuilt syscallgate.guard.cjs");

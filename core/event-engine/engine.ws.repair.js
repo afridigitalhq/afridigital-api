@@ -40,7 +40,7 @@ function emit(type, service, status, msg) {
     level
   };
 
-  const { broadcast } = require("../realtime/ws/stream.bridge");
+  const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
   broadcast(event);
   eventLog.push(event);
   if (eventLog.length > 500) eventLog.shift();

@@ -1,7 +1,7 @@
 const { addCluster } = require("./enrich/cluster");
 const { addPhysics } = require("./enrich/physics");
 const { addCausal } = require("./enrich/causal");
-const { broadcast } = require("../realtime/ws/stream.bridge");
+const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
 
 function processEvent(event) {
   let e = addCluster(event);

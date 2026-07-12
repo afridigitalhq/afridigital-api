@@ -1,16 +1,12 @@
 vault/
 simulation/
-event-engine/
 deploy_logs/
 dist/
 lib/
 node_modules/
-core/
 realtime/
-kernel/
 render/
 simulation/
-event-engine/
 vault/
 deploy_logs/
 dist/

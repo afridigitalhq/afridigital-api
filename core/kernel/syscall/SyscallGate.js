@@ -4,6 +4,6 @@
  * All other implementations are deprecated aliases.
  */
 
-const { SyscallGate } = require("./SyscallGate.hardened.js");
+const { SyscallGate } = require("./SyscallGate.hardened.cjs");
 
 module.exports = { SyscallGate };

@@ -49,12 +49,12 @@ function computePhysics(event) {
     level
   };
 
-  const { broadcast } = require("../realtime/ws/stream.bridge");
-  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+  const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
   const physics = computePhysics(event);
   event.physics = physics;
   eventLog.push(event);
-  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
   if (eventLog.length > 500) eventLog.shift();
 
   return event;

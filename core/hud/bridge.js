@@ -1,4 +1,4 @@
-const { broadcast } = require("../realtime/ws/dag.stream");
+const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
 const { emit } = require("../event-spine/ci.spine");
 
 function pushHudEvent(event) {
