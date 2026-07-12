@@ -1,6 +1,9 @@
-import { enforceNoMultipleInstances } from "../_enforce/syscallgate.guard.js";
+import { createRequire } from "module";
 
-const mod = await import("../syscall/SyscallGate.hardened.js");
+const require = createRequire(import.meta.url);
+const { enforceNoMultipleInstances } = require("../_enforce/syscallgate.guard.cjs");
+
+const mod = await import("../syscall/SyscallGate.hardened.cjs");
 const SyscallGate = mod.SyscallGate;
 
 enforceNoMultipleInstances();

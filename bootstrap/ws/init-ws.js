@@ -1,8 +1,7 @@
-import { createRequire } from "module";
+import { mountWSRuntime } from "../ws-runtime.boot.js";
 
-const require = createRequire(import.meta.url);
-const { initWS } = require("../../core/realtime/ws/stream.bridge.js");
+export function mountWS(server){
 
-export function mountWS(server) {
-  return initWS(server);
+  return mountWSRuntime(server);
+
 }
