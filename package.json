@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "node src/bootstrap/index.js",
-    "start": "node src/bootstrap/index.js",
+    "start": "node server.js",
     "build": "echo 🟢 API BUILD OK"
   },
   "repository": {
