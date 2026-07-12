@@ -18,3 +18,6 @@ lib/
 *.tar.gz
 .env
 AfriDigital-api/
+
+architecture-work/
+wave-*-start-lock/
