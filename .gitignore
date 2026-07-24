@@ -17,3 +17,14 @@ AfriDigital-api/
 
 architecture-work/
 wave-*-start-lock/
+
+# Runtime snapshots
+snapshots/
+
+# Legacy compatibility surfaces
+src/legacy/
+soc-ui/
+soc/taps/
+
+# Temporary recovery exports
+backups/
