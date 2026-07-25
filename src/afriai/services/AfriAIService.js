@@ -1,7 +1,12 @@
 import IntentRouter from "../router/IntentRouter.js";
 import ConversationMemory from "../memory/ConversationMemory.js";
+import afriAIRuntime from "../runtime/AfriAIRuntime.js";
 
-export function AfriAIService({ message = "", sessionId = "landing" }) {
+export async function AfriAIService({
+  message = "",
+  sessionId = "landing"
+}) {
+
   const memory = ConversationMemory(sessionId);
 
   memory.add({
@@ -11,14 +16,22 @@ export function AfriAIService({ message = "", sessionId = "landing" }) {
 
   const result = IntentRouter(message);
 
+  let reply;
+
+  if (result?.fallback) {
+    reply = await afriAIRuntime.ask(message);
+  } else {
+    reply = result.reply;
+  }
+
   memory.add({
     role: "assistant",
-    content: result.reply
+    content: reply
   });
 
   return {
     sessionId,
-    reply: result.reply,
+    reply,
     contextSize: memory.size()
   };
 }

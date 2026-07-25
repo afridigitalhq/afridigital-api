@@ -1,8 +1,9 @@
 export function UnknownIntent() {
   return {
     handled: true,
+    fallback: true,
     reply:
-      "I'm still learning that area of the AfriDigital ecosystem. You can ask me about our products, development status, payments, AfriDesign Studio, or upcoming roadmap features."
+      "I can help you explore AfriDigital products, services, and capabilities. For this request, I will connect you with our support team for further assistance."
   };
 }
 

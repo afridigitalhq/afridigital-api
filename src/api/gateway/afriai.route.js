@@ -3,19 +3,33 @@ import AfriAIService from "../../afriai/services/AfriAIService.js";
 
 const router = express.Router();
 
-router.post("/ask",(req,res)=>{
+router.post("/ask", async (req,res)=>{
 
-  const { sessionId="landing", message="" } = req.body || {};
+  try {
 
-  const data = AfriAIService({
-    sessionId,
-    message
-  });
+    const {
+      sessionId="landing",
+      message=""
+    } = req.body || {};
 
-  res.json({
-    ok:true,
-    data
-  });
+    const data = await AfriAIService({
+      sessionId,
+      message
+    });
+
+    res.json({
+      ok:true,
+      data
+    });
+
+  } catch(error){
+
+    res.status(500).json({
+      ok:false,
+      error:"AfriAI service unavailable"
+    });
+
+  }
 
 });
 

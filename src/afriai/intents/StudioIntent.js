@@ -13,22 +13,32 @@ export function StudioIntent(message = "") {
     text.includes("afrivideo") ||
     text.includes("afritemplate")
   ) {
+
     const studios = Object.entries(StudioKnowledge.studios)
-      .map(([name, info]) => `${name}: ${info.ai} (${info.purpose})`)
+      .map(
+        ([name, info]) =>
+          `${name.replace("Studio"," Studio")} → ${info.ai}: ${info.purpose}`
+      )
       .join("\n");
 
     return {
       handled: true,
-      reply: `${StudioKnowledge.description}
+      reply:
+`${StudioKnowledge.name}
+
+${StudioKnowledge.description}
 
 Status: ${StudioKnowledge.status}
 
-Studios:
-${studios}`
+AI Studios:
+${studios}
+
+Planned capabilities:
+${StudioKnowledge.plannedFeatures.join(", ")}`
     };
   }
 
-  return { handled: false };
+  return { handled:false };
 }
 
 export default StudioIntent;
