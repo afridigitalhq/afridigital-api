@@ -1,6 +1,9 @@
 import IntentRouter from "../router/IntentRouter.js";
 import ConversationMemory from "../memory/ConversationMemory.js";
 import afriAIRuntime from "../runtime/AfriAIRuntime.js";
+import ActionBuilder from "../responses/ActionBuilder.js";
+import ResponseBuilder from "../responses/ResponseBuilder.js";
+import SuggestionSelector from "../responses/SuggestionSelector.js";
 
 export async function AfriAIService({
   message = "",
@@ -29,11 +32,15 @@ export async function AfriAIService({
     content: reply
   });
 
-  return {
-    sessionId,
+  return ResponseBuilder({
     reply,
-    contextSize: memory.size()
-  };
+    suggestions: SuggestionSelector(message),
+    actions: ActionBuilder(SuggestionSelector(message)),
+    metadata: {
+      sessionId,
+      contextSize: memory.size()
+    }
+  });
 }
 
 export default AfriAIService;

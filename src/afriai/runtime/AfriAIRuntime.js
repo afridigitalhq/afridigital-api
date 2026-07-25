@@ -39,7 +39,13 @@ ${message}
 AfriAI:
 `;
 
-    return await askOllama(prompt);
+    const llmReply = await askOllama(prompt);
+
+    if (llmReply && llmReply.trim()) {
+      return llmReply;
+    }
+
+    return `I'm AfriAI, the intelligence assistant of AfriDigital. I can help you explore our products, AfriDesign Studio, platform capabilities, development status, and ecosystem roadmap. Please ask me about AfriDigital features or products.`;
   }
 
 }
