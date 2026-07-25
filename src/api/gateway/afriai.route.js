@@ -1,38 +1,20 @@
 import express from "express";
+import AfriAIService from "../../afriai/services/AfriAIService.js";
 
 const router = express.Router();
 
-const sessions = new Map();
-
 router.post("/ask",(req,res)=>{
 
-  const {sessionId="landing",message=""}=req.body||{};
+  const { sessionId="landing", message="" } = req.body || {};
 
-  if(!sessions.has(sessionId)){
-    sessions.set(sessionId,{messages:[]});
-  }
-
-  const session=sessions.get(sessionId);
-
-  session.messages.push({
-    role:"user",
+  const data = AfriAIService({
+    sessionId,
     message
-  });
-
-  const reply=`AfriAI received: ${message}`;
-
-  session.messages.push({
-    role:"assistant",
-    message:reply
   });
 
   res.json({
     ok:true,
-    data:{
-      sessionId,
-      reply,
-      contextSize:session.messages.length
-    }
+    data
   });
 
 });
