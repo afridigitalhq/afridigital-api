@@ -4,6 +4,7 @@ import PaymentsKnowledge from "../../../src/afriai/knowledge/PaymentsKnowledge.j
 import RoadmapKnowledge from "../../../src/afriai/knowledge/RoadmapKnowledge.js";
 import StatusKnowledge from "../../../src/afriai/knowledge/StatusKnowledge.js";
 import StudioKnowledge from "../../../src/afriai/knowledge/StudioKnowledge.js";
+import OpportunitiesKnowledge from "../../../src/afriai/knowledge/OpportunitiesKnowledge.js";
 
 const AfriAIKnowledgeRegistry = {
 
@@ -14,7 +15,8 @@ const AfriAIKnowledgeRegistry = {
       payments: PaymentsKnowledge,
       roadmap: RoadmapKnowledge,
       status: StatusKnowledge,
-      studio: StudioKnowledge
+      studio: StudioKnowledge,
+      opportunities: OpportunitiesKnowledge
     };
   }
 

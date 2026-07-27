@@ -28,6 +28,18 @@ const AfriAIKnowledgeRetriever = {
       context.payments = knowledge.payments;
     }
 
+
+    if(
+      text.includes("earn") ||
+      text.includes("income") ||
+      text.includes("money") ||
+      text.includes("business") ||
+      text.includes("sell") ||
+      text.includes("work")
+    ){
+      context.opportunities = knowledge.opportunities;
+    }
+
     if(
       text.includes("studio") ||
       text.includes("design")
