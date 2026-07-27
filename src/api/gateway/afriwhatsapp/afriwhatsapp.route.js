@@ -40,6 +40,11 @@ export default function afriWhatsAppRoute(app){
   // Meta incoming messages
   app.post("/api/afriwhatsapp/webhook", async (req,res)=>{
 
+    console.log(
+      "META WHATSAPP PAYLOAD:",
+      JSON.stringify(req.body,null,2)
+    );
+
     const result =
       await AfriWhatsAppWebhookHandler.handle(
         req.body
