@@ -1,5 +1,5 @@
 import express from "express";
-import AfriAIService from "../../afriai/services/AfriAIService.js";
+import AfriAIChannelGateway from "../../../modules/afriai/channels/AfriAIChannelGateway.js";
 
 const router = express.Router();
 
@@ -12,10 +12,10 @@ router.post("/ask", async (req,res)=>{
       message=""
     } = req.body || {};
 
-    const data = await AfriAIService({
-      sessionId,
+    const data = await AfriAIChannelGateway.receive(
+      "Web",
       message
-    });
+    );
 
     res.json({
       ok:true,
