@@ -4,9 +4,22 @@ const AfriWhatsAppRuntime = {
 
   async receive(message){
 
-    return await AfriWhatsAppMessageProcessor.processIncoming(
-      message
-    );
+    const aiResponse =
+      await AfriWhatsAppMessageProcessor.processIncoming(
+        message
+      );
+
+    const delivery =
+      await AfriWhatsAppMessageProcessor.processOutgoing({
+        to: message.from,
+        response: aiResponse.response.response
+      });
+
+    return {
+      aiResponse,
+      delivery,
+      status:"LIVE_TEXT_COMPLETED"
+    };
 
   },
 
