@@ -1,5 +1,6 @@
 import { createEventKernel } from "../kernel/eventbus/EventKernelFactory.js";
 import { initAfriCCTV } from "../africctv/bootstrap/initAfriCCTV.js";
+import { init as initAfriAI } from "../../modules/afriai/bootstrap/index.js";
 import { AfriProducts } from "./registry/ProductRegistry.js";
 import { loadPlugins } from "./runtime/PluginLoader.js";
 import { createProductPluginMap } from "./binding/ProductPluginMap.js";
@@ -15,6 +16,9 @@ export async function initAfriDigitalBootstrap(server) {
 
   // 📡 CCTV (isolated domain emitter only)
   const cctv = initAfriCCTV(server, eventBus);
+
+  // 🧠 AfriAI lifecycle registration
+  const afriai = initAfriAI(server);
 
   // 🔌 Plugins
   const plugins = await loadPlugins();
@@ -36,6 +40,7 @@ export async function initAfriDigitalBootstrap(server) {
   return {
     eventBus,
     cctv,
+    afriai,
     plugins,
     map
   };
