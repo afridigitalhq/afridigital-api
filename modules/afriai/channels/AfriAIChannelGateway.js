@@ -4,10 +4,10 @@ import AfriAIResponseComposer from "../responses/AfriAIResponseComposer.js";
 
 const AfriAIChannelGateway = {
 
-  receive(channel,message){
+  async receive(channel,message){
 
     const result =
-      AfriAIConversationOrchestrator.process({
+      await AfriAIConversationOrchestrator.process({
         sessionId: `${channel}-session`,
         message
       });

@@ -1,10 +1,11 @@
 import AfriAIConversationRuntime from "../conversation/AfriAIConversationRuntime.js";
 import AfriAIIntentRouter from "../intents/AfriAIIntentRouter.js";
 import AfriAIToolExecutor from "../tools/AfriAIToolExecutor.js";
+import afriAIRuntime from "../../../src/afriai/runtime/AfriAIRuntime.js";
 
 const AfriAIConversationOrchestrator = {
 
-  process(request){
+  async process(request){
 
     const session =
       AfriAIConversationRuntime.start(
@@ -22,10 +23,18 @@ const AfriAIConversationOrchestrator = {
         intent
       );
 
+    const response =
+      await afriAIRuntime.ask(
+        request.message
+      );
+
     return {
       session,
       intent,
-      execution,
+      execution:{
+        ...execution,
+        response
+      },
       status:"AI_RESPONSE_READY"
     };
 

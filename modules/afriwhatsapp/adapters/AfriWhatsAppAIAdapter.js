@@ -3,9 +3,9 @@ import AfriWhatsAppService from "../services/AfriWhatsAppService.js";
 
 const AfriWhatsAppAIAdapter = {
 
-  receive(message){
+  async receive(message){
 
-    return AfriAIChannelGateway.receive(
+    return await AfriAIChannelGateway.receive(
       "AfriWhatsApp",
       message
     );
