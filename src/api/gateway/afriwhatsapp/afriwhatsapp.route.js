@@ -14,6 +14,12 @@ export default function afriWhatsAppRoute(app){
     const challenge =
       req.query["hub.challenge"];
 
+    console.log("AfriWhatsApp verification check:", {
+      mode,
+      tokenReceived: Boolean(token),
+      envTokenLoaded: Boolean(process.env.META_VERIFY_TOKEN)
+    });
+
     if(
       mode === "subscribe" &&
       token === process.env.META_VERIFY_TOKEN
