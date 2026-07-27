@@ -4,6 +4,13 @@ const OLLAMA_URL =
   process.env.OLLAMA_URL ||
   "http://127.0.0.1:11434/api/generate";
 
+const OLLAMA_MODEL =
+  process.env.OLLAMA_MODEL ||
+  "qwen2.5";
+
+const OLLAMA_API_KEY =
+  process.env.OLLAMA_API_KEY || "";
+
 export async function askOllama(prompt){
 
   try {
@@ -11,12 +18,16 @@ export async function askOllama(prompt){
     const response = await axios.post(
       OLLAMA_URL,
       {
-        model:"qwen2:0.5b",
+        model: OLLAMA_MODEL,
         prompt,
         stream:false
       },
       {
-        timeout:5000
+        timeout:10000,
+        headers:{
+          Authorization:`Bearer ${OLLAMA_API_KEY}`,
+          "Content-Type":"application/json"
+        }
       }
     );
 
