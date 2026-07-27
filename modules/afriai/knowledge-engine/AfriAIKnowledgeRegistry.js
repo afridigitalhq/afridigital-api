@@ -1,10 +1,10 @@
-import AfriPlatformKnowledge from "../../../src/afriai/knowledge/AfriPlatformKnowledge.js";
-import ProductKnowledge from "../../../src/afriai/knowledge/ProductKnowledge.js";
-import PaymentsKnowledge from "../../../src/afriai/knowledge/PaymentsKnowledge.js";
-import RoadmapKnowledge from "../../../src/afriai/knowledge/RoadmapKnowledge.js";
-import StatusKnowledge from "../../../src/afriai/knowledge/StatusKnowledge.js";
-import StudioKnowledge from "../../../src/afriai/knowledge/StudioKnowledge.js";
-import OpportunitiesKnowledge from "../../../src/afriai/knowledge/OpportunitiesKnowledge.js";
+import AfriPlatformKnowledge from "../knowledge/AfriPlatformKnowledge.js";
+import ProductKnowledge from "../knowledge/ProductKnowledge.js";
+import PaymentsKnowledge from "../knowledge/PaymentsKnowledge.js";
+import RoadmapKnowledge from "../knowledge/RoadmapKnowledge.js";
+import StatusKnowledge from "../knowledge/StatusKnowledge.js";
+import StudioKnowledge from "../knowledge/StudioKnowledge.js";
+import OpportunitiesKnowledge from "../knowledge/OpportunitiesKnowledge.js";
 
 const AfriAIKnowledgeRegistry = {
 
