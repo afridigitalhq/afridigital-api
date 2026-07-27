@@ -5,7 +5,7 @@ const AfriWhatsAppProviderGateway = {
   receiveWebhook(payload){
 
     return AfriWhatsAppRuntime.receive(
-      payload.message
+      payload
     );
 
   },
