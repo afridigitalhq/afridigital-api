@@ -2,9 +2,9 @@ import AfriWhatsAppRuntime from "../runtime/AfriWhatsAppRuntime.js";
 
 const AfriWhatsAppProviderGateway = {
 
-  receiveWebhook(payload){
+  async receiveWebhook(payload){
 
-    return AfriWhatsAppRuntime.receive(
+    return await AfriWhatsAppRuntime.receive(
       payload
     );
 

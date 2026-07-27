@@ -2,9 +2,9 @@ import AfriWhatsAppProviderGateway from "./AfriWhatsAppProviderGateway.js";
 
 const AfriWhatsAppWebhookHandler = {
 
-  handle(request){
+  async handle(request){
 
-    return AfriWhatsAppProviderGateway.receiveWebhook(
+    return await AfriWhatsAppProviderGateway.receiveWebhook(
       request
     );
 

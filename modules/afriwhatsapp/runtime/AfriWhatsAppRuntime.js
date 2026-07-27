@@ -2,15 +2,19 @@ import AfriWhatsAppMessageProcessor from "./AfriWhatsAppMessageProcessor.js";
 
 const AfriWhatsAppRuntime = {
 
-  receive(message){
+  async receive(message){
 
-    return AfriWhatsAppMessageProcessor.processIncoming(message);
+    return await AfriWhatsAppMessageProcessor.processIncoming(
+      message
+    );
 
   },
 
-  send(response){
+  async send(response){
 
-    return AfriWhatsAppMessageProcessor.processOutgoing(response);
+    return await AfriWhatsAppMessageProcessor.processOutgoing(
+      response
+    );
 
   }
 
