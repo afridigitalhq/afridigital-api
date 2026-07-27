@@ -1,4 +1,5 @@
 import AfriAIChannelGateway from "../../afriai/channels/AfriAIChannelGateway.js";
+import AfriWhatsAppService from "../services/AfriWhatsAppService.js";
 
 const AfriWhatsAppAIAdapter = {
 
@@ -11,13 +12,12 @@ const AfriWhatsAppAIAdapter = {
 
   },
 
-  send(response){
+  async send(payload){
 
-    return {
-      channel:"AfriWhatsApp",
-      response,
-      status:"READY_FOR_DELIVERY"
-    };
+    return AfriWhatsAppService.send(
+      payload.to,
+      payload.response
+    );
 
   }
 

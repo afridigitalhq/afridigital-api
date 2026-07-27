@@ -2,15 +2,19 @@ import AfriWhatsAppAIAdapter from "../adapters/AfriWhatsAppAIAdapter.js";
 
 const AfriWhatsAppMessageProcessor = {
 
-  processIncoming(message){
+  async processIncoming(message){
 
-    return AfriWhatsAppAIAdapter.receive(message);
+    return AfriWhatsAppAIAdapter.receive(
+      message
+    );
 
   },
 
-  processOutgoing(response){
+  async processOutgoing(payload){
 
-    return AfriWhatsAppAIAdapter.send(response);
+    return AfriWhatsAppAIAdapter.send(
+      payload
+    );
 
   }
 
