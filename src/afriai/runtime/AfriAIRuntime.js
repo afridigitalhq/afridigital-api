@@ -1,4 +1,4 @@
-import askOllama from "../llm/OllamaClient.js";
+import AfriAIProviderRegistry from "../../../modules/afriai/providers/bootstrap.js";
 import AfriPlatformKnowledge from "../knowledge/AfriPlatformKnowledge.js";
 import ProductKnowledge from "../knowledge/ProductKnowledge.js";
 import StudioKnowledge from "../knowledge/StudioKnowledge.js";
@@ -35,7 +35,11 @@ ${message}
 AfriAI:
 `;
 
-    const llmReply = await askOllama(prompt);
+    const provider =
+      AfriAIProviderRegistry.get("ollama");
+
+    const llmReply =
+      await provider.generate(prompt);
 
     if (llmReply && llmReply.trim()) {
       return llmReply;
