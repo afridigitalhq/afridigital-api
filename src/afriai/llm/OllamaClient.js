@@ -13,6 +13,12 @@ const OLLAMA_API_KEY =
 
 export async function askOllama(prompt){
 
+  console.log("🧪 OLLAMA ENV CHECK:", {
+    url: Boolean(process.env.OLLAMA_URL),
+    model: process.env.OLLAMA_MODEL,
+    key: Boolean(process.env.OLLAMA_API_KEY)
+  });
+
   try {
 
     const response = await axios.post(
