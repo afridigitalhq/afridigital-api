@@ -2,6 +2,35 @@ import AfriWhatsAppWebhookHandler from "../../../../modules/afriwhatsapp/provide
 
 export default function afriWhatsAppRoute(app){
 
+  // Meta webhook verification
+  app.get("/api/afriwhatsapp/webhook",(req,res)=>{
+
+    const mode =
+      req.query["hub.mode"];
+
+    const token =
+      req.query["hub.verify_token"];
+
+    const challenge =
+      req.query["hub.challenge"];
+
+    if(
+      mode === "subscribe" &&
+      token === process.env.META_VERIFY_TOKEN
+    ){
+
+      return res.status(200).send(
+        challenge
+      );
+
+    }
+
+    return res.sendStatus(403);
+
+  });
+
+
+  // Meta incoming messages
   app.post("/api/afriwhatsapp/webhook", async (req,res)=>{
 
     const result =
@@ -9,7 +38,7 @@ export default function afriWhatsAppRoute(app){
         req.body
       );
 
-    res.json({
+    res.status(200).json({
       status:"RECEIVED",
       result
     });
