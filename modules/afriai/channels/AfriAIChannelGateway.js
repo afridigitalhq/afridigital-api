@@ -1,15 +1,29 @@
 import AfriAIChannelRegistry from "./AfriAIChannelRegistry.js";
+import AfriAIConversationOrchestrator from "../orchestrator/AfriAIConversationOrchestrator.js";
+import AfriAIResponseComposer from "../responses/AfriAIResponseComposer.js";
 
 const AfriAIChannelGateway = {
 
   receive(channel,message){
 
+    const result =
+      AfriAIConversationOrchestrator.process({
+        sessionId: `${channel}-session`,
+        message
+      });
+
+    const response =
+      AfriAIResponseComposer.compose(
+        result
+      );
+
     return {
       channel,
-      message,
       supportedChannels:AfriAIChannelRegistry.load(),
       runtime:"AfriAIConversationRuntime",
-      status:"REQUEST_RECEIVED"
+      conversation:result,
+      response,
+      status:"AI_RESPONSE_READY"
     };
 
   },
