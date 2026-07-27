@@ -1,4 +1,4 @@
-import askOllama from "../../../src/afriai/llm/OllamaClient.js";
+import askOllama from "../llm/OllamaClient.js";
 
 const OllamaProvider = {
 
