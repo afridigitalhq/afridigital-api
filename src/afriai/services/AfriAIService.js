@@ -6,6 +6,8 @@ import ResponseBuilder from "../responses/ResponseBuilder.js";
 import SuggestionSelector from "../responses/SuggestionSelector.js";
 
 export async function AfriAIService({
+
+  console.log("🟢 AFRIAI SERVICE HIT:", message);
   message = "",
   sessionId = "landing"
 }) {
