@@ -1,0 +1,6 @@
+MODULE=AfriAI
+CANONICAL_RUNTIME=src/afriai/runtime/AfriAIRuntime.js
+STATUS=LOCKED
+RULE=ALL_AI_EXECUTION_MUST_USE_CANONICAL_RUNTIME
+PROVIDER_LAYER=modules/afriai/providers
+KNOWLEDGE_ENGINE=modules/afriai/knowledge-engine
