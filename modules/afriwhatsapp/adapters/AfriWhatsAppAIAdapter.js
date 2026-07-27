@@ -7,7 +7,7 @@ const AfriWhatsAppAIAdapter = {
 
     return await AfriAIChannelGateway.receive(
       "AfriWhatsApp",
-      message
+      message.message
     );
 
   },
