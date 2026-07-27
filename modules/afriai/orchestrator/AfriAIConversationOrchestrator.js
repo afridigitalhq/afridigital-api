@@ -1,7 +1,7 @@
 import AfriAIConversationRuntime from "../conversation/AfriAIConversationRuntime.js";
 import AfriAIIntentRouter from "../intents/AfriAIIntentRouter.js";
 import AfriAIToolExecutor from "../tools/AfriAIToolExecutor.js";
-import afriAIRuntime from "../../../src/afriai/runtime/AfriAIRuntime.js";
+import afriAIRuntime from "../runtime/AfriAIRuntime.js";
 
 const AfriAIConversationOrchestrator = {
 
