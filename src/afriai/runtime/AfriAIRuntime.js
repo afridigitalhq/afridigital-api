@@ -14,6 +14,8 @@ export class AfriAIRuntime {
 
   async ask(message){
 
+    console.log("🤖 AFRIAI RUNTIME HIT:", message);
+
     const knowledge =
       AfriAIKnowledgeRetriever.retrieve(message);
 
