@@ -1,0 +1,6 @@
+src/legacy/afridigital-core/kernel/v20/ai.autoresponder.cjs:15:    return "Hello 👋 I’m AfriAI. How can I help you today?";
+src/afriai/intents/GreetingIntent.js:21:    reply: `Hello! 👋 Welcome to ${AfriPlatformKnowledge.platform.name}. I'm AfriAI, your intelligent assistant for the AfriDigital ecosystem. I can help you explore our products, explain features, provide development status updates, and answer questions about the platform.`
+src/afriai/intents/HelpIntent.js:13:        "I am AfriAI, the intelligence assistant for the AfriDigital ecosystem. I can help you explore products, explain platform features, provide development status updates, explain AfriDesign Studio, and answer roadmap questions."
+src/afriai/runtime/AfriAIRuntime.js:50:    return `I'm AfriAI, the intelligence assistant of AfriDigital. I can help you explore our products, AfriDesign Studio, platform capabilities, development status, and ecosystem roadmap. Please ask me about AfriDigital features or products.`;
+modules/afriwhatsapp/runtime/AfriWhatsAppRuntime.js:15:        response: aiResponse?.response?.response || aiResponse?.response || "Hello 👋 I am AfriAI."
+modules/afriai/responses/AfriAIResponseComposer.js:8:        "Hello 👋 I'm AfriAI. How can I help you today?",
