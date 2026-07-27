@@ -1,10 +1,10 @@
-import AfriAIProviderRegistry from "../../../modules/afriai/providers/bootstrap.js";
+import AfriAIProviderRegistry from "../providers/bootstrap.js";
 import AfriPlatformKnowledge from "../knowledge/AfriPlatformKnowledge.js";
 import ProductKnowledge from "../knowledge/ProductKnowledge.js";
 import StudioKnowledge from "../knowledge/StudioKnowledge.js";
 import PaymentsKnowledge from "../knowledge/PaymentsKnowledge.js";
 import StatusKnowledge from "../knowledge/StatusKnowledge.js";
-import AfriAIKnowledgeRetriever from "../../../modules/afriai/knowledge-engine/AfriAIKnowledgeRetriever.js";
+import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
 
 export class AfriAIRuntime {
 
