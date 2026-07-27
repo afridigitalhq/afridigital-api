@@ -35,7 +35,7 @@ export async function askOllama(prompt){
 
   } catch(error){
 
-    console.log("⚠️ Ollama unavailable, using fallback runtime");
+    console.log("⚠️ Ollama unavailable:", error.response?.data || error.message);
 
     return "";
 
