@@ -17,7 +17,8 @@ export default function afriWhatsAppRoute(app){
     console.log("AfriWhatsApp verification check:", {
       mode,
       tokenReceived: Boolean(token),
-      envTokenLoaded: Boolean(process.env.META_VERIFY_TOKEN)
+      envTokenLoaded: Boolean(process.env.META_VERIFY_TOKEN),
+      envTokenLength: process.env.META_VERIFY_TOKEN?.length || 0
     });
 
     if(
