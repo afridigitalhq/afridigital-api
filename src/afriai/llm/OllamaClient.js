@@ -31,6 +31,8 @@ export async function askOllama(prompt){
       }
     );
 
+    console.log("🧠 OLLAMA RAW RESPONSE:", JSON.stringify(response.data));
+
     return response.data.response || "";
 
   } catch(error){
