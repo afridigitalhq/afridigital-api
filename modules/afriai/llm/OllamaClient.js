@@ -13,6 +13,8 @@ const REQUESTED_MODEL =
 const OLLAMA_API_KEY =
   process.env.OLLAMA_API_KEY || "";
 
+let CACHED_MODEL = null;
+
 
 async function getAvailableModel(){
 
@@ -65,8 +67,7 @@ export async function askOllama(prompt){
   });
 
 
-  const model =
-    await getAvailableModel();
+  const model = CACHED_MODEL || (CACHED_MODEL = await getAvailableModel());
 
 
   try {
