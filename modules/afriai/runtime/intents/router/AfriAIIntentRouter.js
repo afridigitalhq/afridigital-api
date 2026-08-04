@@ -1,0 +1,1 @@
+import AfriAIIntentClassifier from "../../../decision/classifier/AfriAIIntentClassifier.js";const AfriAIIntentRouter={route(message=""){return AfriAIIntentClassifier.classify(message);}};export default AfriAIIntentRouter;

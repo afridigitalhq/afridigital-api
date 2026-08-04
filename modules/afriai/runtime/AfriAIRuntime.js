@@ -1,47 +1,61 @@
-import AfriAIRuntimeOrchestrator from "./orchestrator/AfriAIRuntimeOrchestrator.js";
-import AfriAIExecutionRuntime from "./execution/AfriAIExecutionRuntime.js";
-import AfriAIProviderRegistry from "../providers/AfriAIProviderRegistry.js";
+import AfriAIProviderRegistry from "../providers/bootstrap.js";
+import AfriPlatformKnowledge from "../knowledge/AfriPlatformKnowledge.js";
+import ProductKnowledge from "../knowledge/ProductKnowledge.js";
+import StudioKnowledge from "../knowledge/StudioKnowledge.js";
+import PaymentsKnowledge from "../knowledge/PaymentsKnowledge.js";
+import StatusKnowledge from "../knowledge/StatusKnowledge.js";
+import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
 
-const AfriAIRuntime={
+export class AfriAIRuntime {
 
-  async ask(message="",context={}){
+  constructor(){
+    this.status = "ready";
+  }
 
-    const orchestration=
-      AfriAIRuntimeOrchestrator.run(
-        message,
-        context
-      );
+  async ask(message){
 
-    const execution=
-      AfriAIExecutionRuntime.execute(
-        orchestration
-      );
+    console.log("🤖 AFRIAI RUNTIME HIT:", message);
+
+    const knowledge =
+      AfriAIKnowledgeRetriever.retrieve(message);
+
+    const prompt = `
+You are AfriAI, the official intelligence assistant of AfriDigital.
+
+Rules:
+- Answer using only the AfriDigital knowledge provided.
+- Do not invent features, services, or availability.
+- If a request requires human involvement, recommend support assistance.
+- Represent AfriDigital professionally.
+
+Knowledge:
+${JSON.stringify(knowledge)}
+
+User:
+${message}
+
+AfriAI:
+`;
 
     const provider =
       AfriAIProviderRegistry.get("ollama");
 
-    const aiResponse =
-      provider
-        ? await provider.generate(message)
-        : "";
+    const llmReply =
+      await provider.generate(prompt);
 
-    return{
-      runtime:"AfriAIRuntime",
-      message,
-      orchestration,
-      execution,
-      reply:
-        aiResponse ||
-        orchestration.knowledge?.knowledge ||
-        orchestration.knowledge?.response ||
-        orchestration.decision?.reason ||
-        orchestration.execution?.response ||
-        "I am processing your request through the AfriDigital intelligence layer.",
-      status:"READY"
-    };
+    if (llmReply && llmReply.trim()) {
+      return llmReply;
+    }
 
+    return `I'm AfriAI, the intelligence assistant of AfriDigital. I can help you explore our products, AfriDesign Studio, platform capabilities, development status, and ecosystem roadmap. Please ask me about AfriDigital features or products.`;
   }
 
-};
+}
 
-export default AfriAIRuntime;
+export const afriAIRuntime = new AfriAIRuntime();
+
+export function init(server){
+  console.log("🧠 AfriAI Runtime initialized");
+}
+
+export default afriAIRuntime;
