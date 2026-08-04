@@ -1,10 +1,7 @@
 import AfriAIProviderRegistry from "../providers/bootstrap.js";
-import AfriPlatformKnowledge from "../knowledge/AfriPlatformKnowledge.js";
-import ProductKnowledge from "../knowledge/ProductKnowledge.js";
-import StudioKnowledge from "../knowledge/StudioKnowledge.js";
-import PaymentsKnowledge from "../knowledge/PaymentsKnowledge.js";
-import StatusKnowledge from "../knowledge/StatusKnowledge.js";
 import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
+import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
+import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
 
 export class AfriAIRuntime {
 
@@ -23,9 +20,8 @@ export class AfriAIRuntime {
 You are AfriAI, the official intelligence assistant of AfriDigital.
 
 Rules:
-- Answer using only the AfriDigital knowledge provided.
-- Do not invent features, services, or availability.
-- If a request requires human involvement, recommend support assistance.
+- Answer using only AfriDigital knowledge provided.
+- Do not invent features.
 - Represent AfriDigital professionally.
 
 Knowledge:
@@ -37,17 +33,52 @@ ${message}
 AfriAI:
 `;
 
-    const provider =
-      AfriAIProviderRegistry.get("ollama");
+    const providers = [
+      AfriAIProviderRegistry.get("ollama"),
+      AfriAIProviderRegistry.get("knowledge")
+    ];
 
-    const llmReply =
-      await provider.generate(prompt);
+    for(const provider of providers){
 
-    if (llmReply && llmReply.trim()) {
-      return llmReply;
+      if(!provider) continue;
+
+      const healthy =
+        await AfriAIProviderHealth.check(provider);
+
+      if(!healthy){
+        console.log(
+          "⏭️ Skipping unhealthy provider:",
+          provider.name
+        );
+        continue;
+      }
+
+      try{
+
+        const reply =
+          await provider.generate(prompt);
+
+        if(reply && reply.trim()){
+          return AfriAIResponseNormalizer.normalize(reply);
+        }
+
+      }catch(error){
+
+        console.log(
+          "⚠️ AfriAI provider failed:",
+          provider.name,
+          error.message
+        );
+
+      }
     }
 
-    return `I'm AfriAI, the intelligence assistant of AfriDigital. I can help you explore our products, AfriDesign Studio, platform capabilities, development status, and ecosystem roadmap. Please ask me about AfriDigital features or products.`;
+    return JSON.stringify({
+      provider:"runtime",
+      status:"NO_PROVIDER_AVAILABLE",
+      knowledge
+    });
+
   }
 
 }
