@@ -1,17 +1,9 @@
-import AfriAIIntentRegistry from "./AfriAIIntentRegistry.js";
+import AfriAIIntentClassifier from "../decision/classifier/AfriAIIntentClassifier.js";
 
 const AfriAIIntentRouter = {
-
-  resolve(message){
-
-    return {
-      message,
-      availableIntents:AfriAIIntentRegistry.load(),
-      status:"INTENT_PENDING"
-    };
-
+  resolve(message=""){
+    return AfriAIIntentClassifier.classify(message);
   }
-
 };
 
 export default AfriAIIntentRouter;
