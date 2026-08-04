@@ -1,24 +1,71 @@
 import AfriAIPreviewRuntime from "../preview/AfriAIPreviewRuntime.js";
 import AfriAIApprovalRuntime from "../approval/AfriAIApprovalRuntime.js";
+import AfriAIExecutionReceipt from "../receipts/AfriAIExecutionReceipt.js";
+import AfriAIExecutionAudit from "../audit/AfriAIExecutionAudit.js";
+import AfriAIExecutionStatus from "../status/AfriAIExecutionStatus.js";
+import AfriAISkillRegistry from "../../skills/registry/AfriAISkillRegistry.js";
+import AfriAISkillPermissions from "../../skills/permissions/AfriAISkillPermissions.js";
+import AfriAISkillExecutor from "../../skills/executor/AfriAISkillExecutor.js";
 
 const AfriAIExecutionCoordinator = {
 
- preview(request){
+preview(request){
+ return AfriAIPreviewRuntime.create(request);
+},
 
-   return AfriAIPreviewRuntime.create(
-     request
-   );
+approve(execution){
+ return AfriAIApprovalRuntime.approve(execution);
+},
 
- },
+execute(request={}){
 
+ const skill =
+   request.skill || "conversation";
 
- approve(execution){
+ const available =
+   AfriAISkillRegistry.load();
 
-   return AfriAIApprovalRuntime.approve(
-     execution
-   );
-
+ if(!available.includes(skill)){
+  return {
+   status:AfriAIExecutionStatus.FAILED,
+   reason:"SKILL_NOT_AVAILABLE"
+  };
  }
+
+ const permission =
+   AfriAISkillPermissions.check(skill);
+
+ if(!permission.allowed){
+  return {
+   status:AfriAIExecutionStatus.CANCELLED,
+   reason:"PERMISSION_DENIED"
+  };
+ }
+
+ const result =
+   AfriAISkillExecutor.run(
+    skill,
+    request.data || {}
+   );
+
+ const receipt =
+   AfriAIExecutionReceipt.create(result);
+
+ const audit =
+   AfriAIExecutionAudit.record({
+    skill,
+    status:AfriAIExecutionStatus.COMPLETED
+   });
+
+ return {
+  status:AfriAIExecutionStatus.COMPLETED,
+  skill,
+  result,
+  receipt,
+  audit
+ };
+
+}
 
 };
 
