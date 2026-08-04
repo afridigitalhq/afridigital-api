@@ -2,6 +2,7 @@ import AfriAIProviderRegistry from "../providers/bootstrap.js";
 import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
 import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
 import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
+import AfriAIExecutionTrace from "../execution/trace/AfriAIExecutionTrace.js";
 
 export class AfriAIRuntime {
 
@@ -10,6 +11,9 @@ export class AfriAIRuntime {
   }
 
   async ask(message){
+
+    const trace =
+      AfriAIExecutionTrace.start();
 
     console.log("🤖 AFRIAI RUNTIME HIT:", message);
 
@@ -46,12 +50,24 @@ AfriAI:
         await AfriAIProviderHealth.check(provider);
 
       if(!healthy){
+
+        trace.providersChecked.push({
+          provider:provider.name,
+          status:"UNAVAILABLE"
+        });
+
         console.log(
           "⏭️ Skipping unhealthy provider:",
           provider.name
         );
+
         continue;
       }
+
+      trace.providersChecked.push({
+        provider:provider.name,
+        status:"READY"
+      });
 
       try{
 
@@ -59,7 +75,22 @@ AfriAI:
           await provider.generate(prompt);
 
         if(reply && reply.trim()){
-          return AfriAIResponseNormalizer.normalize(reply);
+
+          trace.selectedProvider =
+            provider.name;
+
+          const normalized =
+            AfriAIResponseNormalizer.normalize(reply);
+
+          normalized.trace =
+            AfriAIExecutionTrace.finish(
+              trace,
+              {
+                selectedProvider:provider.name
+              }
+            );
+
+          return normalized;
         }
 
       }catch(error){
