@@ -1,0 +1,160 @@
+import ArtifactStorage from "../storage/AfriDebugArtifactStorage.js";
+import Ledger from "../audit/AfriDebugImmutableAuditLedger.js";
+
+const queue = [];
+
+
+const AfriDebugRepairApprovalQueue = {
+
+
+  submit(input={}){
+
+    const request={
+
+      approvalId:
+        `APPROVAL-${Date.now()}`,
+
+      planId:
+        input.planId || null,
+
+      incidentId:
+        input.incidentId || null,
+
+      action:
+        input.action || null,
+
+      status:
+        "pending",
+
+      submittedAt:
+        Date.now()
+
+    };
+
+
+    queue.push(request);
+
+
+    ArtifactStorage.save(
+      "approvals/repair-queue",
+      request.approvalId,
+      request
+    );
+
+
+    ArtifactStorage.save(
+      "approvals",
+      "repair-queue",
+      queue
+    );
+
+
+    Ledger.record({
+
+      type:"HUMAN_APPROVAL_REQUESTED",
+
+      approvalId:
+        request.approvalId,
+
+      actor:
+        "AfriDebugRepairApprovalQueue"
+
+    });
+
+
+    return request;
+
+  },
+
+
+  approve(id,user="AfriDebugAdmin"){
+
+
+    const request =
+      queue.find(
+        item=>item.approvalId===id
+      );
+
+
+    if(!request){
+
+      return {
+        success:false,
+        reason:"APPROVAL_NOT_FOUND"
+      };
+
+    }
+
+
+    request.status="approved";
+    request.approvedBy=user;
+    request.approvedAt=Date.now();
+
+
+    ArtifactStorage.save(
+      "approvals/repair-queue",
+      request.approvalId,
+      request
+    );
+
+
+    ArtifactStorage.save(
+      "approvals",
+      "repair-queue",
+      queue
+    );
+
+
+    Ledger.record({
+
+      type:"HUMAN_APPROVAL_GRANTED",
+
+      approvalId:
+        request.approvalId,
+
+      reviewer:user,
+
+      actor:
+        "AfriDebugRepairApprovalQueue"
+
+    });
+
+
+    return {
+
+      success:true,
+
+      request
+
+    };
+
+  },
+
+
+  list(){
+
+    return queue;
+
+  },
+
+
+  health(){
+
+    return {
+
+      service:"AfriDebugRepairApprovalQueue",
+
+      persistent:true,
+
+      auditBound:true,
+
+      status:"healthy"
+
+    };
+
+  }
+
+};
+
+
+export default AfriDebugRepairApprovalQueue;
