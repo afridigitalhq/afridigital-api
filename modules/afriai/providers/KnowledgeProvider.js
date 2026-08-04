@@ -48,6 +48,8 @@ const KnowledgeProvider = {
       sources.push("ProductKnowledge");
     }
 
+    console.log("🛠 AFRIDEBUG KNOWLEDGE:", JSON.stringify(Object.keys(knowledge)));
+
     if(knowledge.studio){
       answer =
         knowledge.studio.description;
@@ -78,6 +80,8 @@ const KnowledgeProvider = {
         "RoadmapKnowledge"
       );
     }
+
+    console.log("🛠 AFRIDEBUG FINAL ANSWER:", answer);
 
     return JSON.stringify({
 

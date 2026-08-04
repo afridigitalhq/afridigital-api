@@ -3,6 +3,7 @@ import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriev
 import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
 import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
 import AfriAIExecutionTrace from "../execution/trace/AfriAIExecutionTrace.js";
+import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
 
 export class AfriAIRuntime {
 
@@ -16,6 +17,7 @@ export class AfriAIRuntime {
       AfriAIExecutionTrace.start();
 
     console.log("🤖 AFRIAI RUNTIME HIT:", message);
+    AfriDebugRuntime.inspect({stage:"runtime_start",message});
 
     const knowledge =
       AfriAIKnowledgeRetriever.retrieve(message);

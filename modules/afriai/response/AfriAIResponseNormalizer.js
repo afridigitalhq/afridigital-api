@@ -1,3 +1,5 @@
+import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
+
 const AfriAIResponseNormalizer = {
 
 normalize(providerResponse){
@@ -13,8 +15,17 @@ normalize(providerResponse){
 
      const knowledge = data.knowledge || {};
 
+     AfriDebugRuntime.inspect({
+       stage:"NORMALIZED_RESPONSE_INPUT",
+       knowledgeKeys:Object.keys(knowledge)
+     });
+
      let answer =
        knowledge.platform?.description ||
+       knowledge.studio?.description ||
+       knowledge.payments?.description ||
+       knowledge.roadmap?.description ||
+       knowledge.status?.description ||
        "AfriDigital knowledge response ready.";
 
      if(knowledge.products?.AfriCommerce){
@@ -22,6 +33,11 @@ normalize(providerResponse){
         `AfriCommerce is ${knowledge.products.AfriCommerce.description} ` +
         `Current status: ${knowledge.products.AfriCommerce.status}.`;
      }
+
+     AfriDebugRuntime.inspect({
+       stage:"NORMALIZED_RESPONSE_OUTPUT",
+       answer
+     });
 
      return {
        provider:data.provider,
