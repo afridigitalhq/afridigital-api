@@ -28,3 +28,7 @@ soc/taps/
 
 # Temporary recovery exports
 backups/
+
+.afridebug-runtime/
+.afrinucchain/
+.afrinucchain.state
