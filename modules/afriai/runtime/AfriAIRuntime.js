@@ -16,9 +16,13 @@ export class AfriAIRuntime {
     const trace =
       AfriAIExecutionTrace.start();
 
+    const debugRequestId =
+      AfriDebugRuntime.start("AfriAI");
+
     console.log("🤖 AFRIAI RUNTIME HIT:", message);
 
     AfriDebugRuntime.event(
+      debugRequestId,
       "REQUEST_RECEIVED",
       {
         service:"AfriAI",
@@ -108,7 +112,19 @@ AfriAI:
             }
           );
 
-          return normalized;
+          AfriDebugRuntime.event(
+              debugRequestId,
+              "FINAL_OUTPUT",
+              {
+                provider:normalized.provider,
+                status:normalized.status
+              }
+            );
+
+            normalized.debug =
+              AfriDebugRuntime.finish(debugRequestId);
+
+            return normalized;
         }
 
       }catch(error){
