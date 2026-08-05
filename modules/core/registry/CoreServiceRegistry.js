@@ -13,6 +13,7 @@ const CoreServiceRegistry={services:{
   session:["CoreSessionManager","CoreSessionRegistry"],
   investigation:["CoreInvestigationEngine","CoreInvestigationRegistry","CoreInvestigationStageManager"],
   pipeline:["CorePipelineEngine","CorePipelineRegistry","CorePipelineStageManager"],
+  runtime:["CoreRuntimeEngine","CoreRuntimeRegistry"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
   africoin:["AfriCoinWalletManager","AfriCoinBalanceEngine","AfriCoinTransactionEngine","AfriCoinRewardEngine","AfriCoinLedgerAdapter"]
 }};
