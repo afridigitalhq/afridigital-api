@@ -7,6 +7,7 @@ const CoreServiceRegistry={services:{
   events:["CoreEventBus","CoreEventRegistry","CoreNotificationEngine","CoreWebhookManager","CoreMessageQueue"],
   ai:["CoreAIEngine","CorePromptManager","CoreMemoryManager","CoreEmbeddingService","CoreKnowledgeStore","CoreAgentRuntime"],
   analytics:["CoreAnalyticsEngine","CoreMetricsCollector","CoreUsageTracker","CoreReportEngine"],
+  billingUsage:["CorePayAsYouUseEngine","CoreBillingMeter","CoreBillingUsageRegistry"],
   billing:["CoreBillingEngine","CoreSubscriptionManager","CoreInvoiceGenerator","CorePaymentGateway","CoreUsageBilling"],
   finance:["CoreLedgerEngine","CoreAccountManager","CoreTransactionEngine","CoreCurrencyEngine","CoreWalletEngine","CoreSettlementEngine"],
   africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
