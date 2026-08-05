@@ -1,2 +1,7 @@
-const CoreCaseRegistry={types:["SECURITY","PAYMENT","CONTENT","DELIVERY","COMPLIANCE","DISPUTE"]};
+const CoreCaseRegistry={
+ register(name,config){
+  return {name,config,status:"REGISTERED"};
+ }
+};
+
 export default CoreCaseRegistry;
