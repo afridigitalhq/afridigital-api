@@ -1,4 +1,5 @@
 import AfriAIKnowledgeRegistry from "./AfriAIKnowledgeRegistry.js";
+import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
 
 const AfriAIKnowledgeRetriever = {
 
@@ -57,8 +58,25 @@ const AfriAIKnowledgeRetriever = {
     }
 
     if(Object.keys(context).length === 0){
-      return knowledge.platform;
+
+      const fallback = knowledge.platform;
+
+      AfriDebugRuntime.event(
+        "KNOWLEDGE_RETRIEVED",
+        {
+          keys:["platform"]
+        }
+      );
+
+      return fallback;
     }
+
+    AfriDebugRuntime.event(
+      "KNOWLEDGE_RETRIEVED",
+      {
+        keys:Object.keys(context)
+      }
+    );
 
     return context;
 
