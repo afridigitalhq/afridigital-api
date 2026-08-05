@@ -11,6 +11,7 @@ const CoreServiceRegistry={services:{
   finance:["CoreLedgerEngine","CoreAccountManager","CoreTransactionEngine","CoreCurrencyEngine","CoreWalletEngine","CoreSettlementEngine"],
   africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
   session:["CoreSessionManager","CoreSessionRegistry"],
+  investigation:["CoreInvestigationEngine","CoreInvestigationRegistry","CoreInvestigationStageManager"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
   africoin:["AfriCoinWalletManager","AfriCoinBalanceEngine","AfriCoinTransactionEngine","AfriCoinRewardEngine","AfriCoinLedgerAdapter"]
 }};
