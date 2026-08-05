@@ -3,7 +3,8 @@ const AfriPlatformModuleLoader = {
     "afriverified",
     "afritrust",
     "afritick",
-    "afridebug"
+    "afridebug",
+    "afridev",
   ],
 
   load(){
