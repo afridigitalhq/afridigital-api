@@ -8,7 +8,7 @@ const AfriPlatformServiceRegistry={
     "AfriCoin",
     "AfriWallet",
     "Notifications",
-    "Analytics"
+    "Analytics",
     "AfriDebug"
   ]
 };

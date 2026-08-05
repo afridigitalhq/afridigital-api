@@ -2,7 +2,7 @@ const AfriPlatformGateway = {
   services:{
     afriverified:"/api/afriverified",
     afritrust:"/api/afritrust",
-    afritick:"/api/afritick"
+    afritick:"/api/afritick",
     afridebug:"/api/afridebug",
   },
 
