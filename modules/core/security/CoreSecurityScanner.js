@@ -1,6 +1,7 @@
-const AfriDebugSecurityScanner={
-  scan(project){
-    return {project,status:"SECURITY_SCAN_STARTED"};
-  }
+const CoreSecurityScanner={
+ scan(target){
+  return {target,issues:[],status:"SCANNED",scannedAt:new Date().toISOString()};
+ }
 };
-export default AfriDebugSecurityScanner;
+
+export default CoreSecurityScanner;

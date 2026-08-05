@@ -1,6 +1,7 @@
-const AfriDebugSecretScanner={
-  scan(content){
-    return {content,status:"SECRETS_CHECKED"};
-  }
+const CoreSecretScanner={
+ scan(files=[]){
+  return {files,secrets:[],status:"SCANNED"};
+ }
 };
-export default AfriDebugSecretScanner;
+
+export default CoreSecretScanner;

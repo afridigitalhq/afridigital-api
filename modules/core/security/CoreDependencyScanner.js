@@ -1,6 +1,7 @@
-const AfriDebugDependencyScanner={
-  scan(dependencies){
-    return {dependencies,status:"DEPENDENCIES_ANALYZED"};
-  }
+const CoreDependencyScanner={
+ scan(dependencies=[]){
+  return {dependencies,vulnerabilities:[],status:"SCANNED"};
+ }
 };
-export default AfriDebugDependencyScanner;
+
+export default CoreDependencyScanner;
