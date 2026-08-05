@@ -2,7 +2,8 @@ const AfriPlatformModuleLoader = {
   modules:[
     "afriverified",
     "afritrust",
-    "afritick"
+    "afritick",
+    "afridebug"
   ],
 
   load(){
