@@ -1,3 +1,4 @@
+import afriDebugRoute from "./afridebug/afridebug.route.js";
 import afriWhatsAppRoute from "./afriwhatsapp/afriwhatsapp.route.js";
 import modulesRoute from "./modules.route.js";
 import healthRoute from "./health.route.js";
@@ -8,4 +9,5 @@ export default function registerRoutes(app) {
   healthRoute(app);
   modulesRoute(app);
   afriWhatsAppRoute(app);
+  afriDebugRoute(app);
 }
