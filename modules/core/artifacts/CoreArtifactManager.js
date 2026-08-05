@@ -1,2 +1,7 @@
-const AfriDebugArtifactManager={create(type,data){return {type,data,status:"CREATED"};}};
-export default AfriDebugArtifactManager;
+const CoreArtifactManager={
+ package(artifact){
+  return {...artifact,status:"PACKAGED"};
+ }
+};
+
+export default CoreArtifactManager;
