@@ -9,6 +9,7 @@ const CoreServiceRegistry={services:{
   analytics:["CoreAnalyticsEngine","CoreMetricsCollector","CoreUsageTracker","CoreReportEngine"],
   billing:["CoreBillingEngine","CoreSubscriptionManager","CoreInvoiceGenerator","CorePaymentGateway","CoreUsageBilling"],
   finance:["CoreLedgerEngine","CoreAccountManager","CoreTransactionEngine","CoreCurrencyEngine","CoreWalletEngine","CoreSettlementEngine"],
+  africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
   africoin:["AfriCoinWalletManager","AfriCoinBalanceEngine","AfriCoinTransactionEngine","AfriCoinRewardEngine","AfriCoinLedgerAdapter"]
 }};
