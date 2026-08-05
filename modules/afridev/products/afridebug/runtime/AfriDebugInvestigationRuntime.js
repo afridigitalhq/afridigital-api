@@ -2,10 +2,7 @@ import AfriDebugEvidenceIntake from "../investigation/intake/AfriDebugEvidenceIn
 import AfriDebugDependencyGraph from "../dependency/AfriDebugDependencyGraph.js";
 import AfriDebugRuntime from "./AfriDebugRuntime.js";
 import AfriDebugLogCollector from "../intake/AfriDebugLogCollector.js";
-import AfriDebugStackTraceAnalyzer from "../ai/AfriDebugStackTraceAnalyzer.js";
-import AfriDebugKnowledgeMatcher from "../ai/AfriDebugKnowledgeMatcher.js";
-import AfriDebugRootCauseAnalyzer from "../ai/AfriDebugRootCauseAnalyzer.js";
-import AfriDebugPatchAdvisor from "../ai/AfriDebugPatchAdvisor.js";
+import AfriDebugIntelligenceAdapter from "../intelligence/AfriDebugIntelligenceAdapter.js";
 import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
 import AfriDebugPatchValidator from "../patch/AfriDebugPatchValidator.js";
 import AfriDebugTestBridge from "../integration/AfriDebugTestBridge.js";
