@@ -1,6 +1,6 @@
 const CoreEvidenceRegistry={
- register(type,handler){
-  return {type,handler,status:"REGISTERED"};
+ register(name,config){
+  return {name,config,status:"REGISTERED"};
  }
 };
 
