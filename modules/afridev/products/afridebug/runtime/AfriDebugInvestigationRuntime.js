@@ -14,10 +14,14 @@ const AfriDebugInvestigationRuntime={
   const dependency=AfriDebugDependencyGraph.build(repository);
   const runtime=AfriDebugRuntime.boot();
   const logs=AfriDebugLogCollector.collect(repository);
-  const stack=AfriDebugStackTraceAnalyzer.analyze(logs);
-  const knowledge=AfriDebugKnowledgeMatcher.match(stack);
-  const rootCause=AfriDebugRootCauseAnalyzer.analyze(knowledge);
-  const plan=AfriDebugPatchAdvisor.suggest(rootCause);
+  const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{
+   repository,
+   runtime
+  });
+  const stack=intelligence;
+  const knowledge=AfriDebugIntelligenceAdapter.patterns(stack,[]);
+  const rootCause=AfriDebugIntelligenceAdapter.reason(knowledge);
+  const plan=AfriDebugIntelligenceAdapter.recommend(rootCause);
   const patch=AfriDebugPatchGenerator.generate(plan);
   const validation=AfriDebugPatchValidator.validate(patch);
   const tests=AfriDebugTestBridge.execute(validation);
