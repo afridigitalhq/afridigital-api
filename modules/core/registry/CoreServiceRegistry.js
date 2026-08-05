@@ -6,7 +6,8 @@ const CoreServiceRegistry={services:{
   identity:["CoreUserManager","CoreOrganizationManager","CoreWorkspaceManager","CoreRoleManager","CorePermissionManager","CoreSessionManager","CoreAPIKeyManager","CoreIdentityAudit"],
   events:["CoreEventBus","CoreEventRegistry","CoreNotificationEngine","CoreWebhookManager","CoreMessageQueue"],
   ai:["CoreAIEngine","CorePromptManager","CoreMemoryManager","CoreEmbeddingService","CoreKnowledgeStore","CoreAgentRuntime"],
-  analytics:["CoreAnalyticsEngine","CoreMetricsCollector","CoreUsageTracker","CoreReportEngine"]
+  analytics:["CoreAnalyticsEngine","CoreMetricsCollector","CoreUsageTracker","CoreReportEngine"],
+  billing:["CoreBillingEngine","CoreSubscriptionManager","CoreInvoiceGenerator","CorePaymentGateway","CoreUsageBilling"]
 }};
 
 export default CoreServiceRegistry;
