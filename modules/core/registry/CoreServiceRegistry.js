@@ -10,6 +10,7 @@ const CoreServiceRegistry={services:{
   billingUsage:["CorePayAsYouUseEngine","CoreBillingMeter","CoreBillingUsageRegistry"],
   entitlement:["CoreEntitlementEngine","CoreEntitlementManager","CoreEntitlementRegistry"],
   feature:["CoreFeatureEngine","CoreFeatureManager","CoreFeatureRegistry"],
+  patch:["CoreDiffEngine","CorePatchEngine","CorePatchValidator","CoreChangeTracker","CorePatchRegistry"],
   billing:["CoreBillingEngine","CoreSubscriptionManager","CoreInvoiceGenerator","CorePaymentGateway","CoreUsageBilling"],
   finance:["CoreLedgerEngine","CoreAccountManager","CoreTransactionEngine","CoreCurrencyEngine","CoreWalletEngine","CoreSettlementEngine"],
   africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
