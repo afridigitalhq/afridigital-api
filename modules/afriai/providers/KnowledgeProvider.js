@@ -1,4 +1,5 @@
 import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
+import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
 
 const KnowledgeProvider = {
   name:"knowledge",
@@ -81,7 +82,13 @@ const KnowledgeProvider = {
       );
     }
 
-    console.log("🛠 AFRIDEBUG FINAL ANSWER:", answer);
+    AfriDebugRuntime.event(
+      "PROVIDER_RESPONSE",
+      {
+        provider:"knowledge",
+        sources
+      }
+    );
 
     return JSON.stringify({
 
