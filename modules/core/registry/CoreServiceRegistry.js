@@ -1,7 +1,7 @@
 const CoreServiceRegistry={services:{
   storage:["CoreFileStorage","CoreAttachmentManager"],
   artifacts:["CoreArtifactManager","CorePackageBuilder","CoreExportEngine","CoreDownloadManager"],
-  evidence:["CoreEvidenceVault","CoreBeforeSnapshot","CoreAfterSnapshot","CoreComparisonEngine"],
+  evidence:["CoreEvidenceVault","CoreBeforeSnapshot","CoreAfterSnapshot","CoreComparisonEngine","CoreEvidenceIdentity","CoreEvidenceIntegrity","CoreEvidenceChain","CoreEvidenceAuditBridge"],
   security:["CoreSecurityGateway","CoreSecurityRequest","CoreSecurityDecision","CoreSecurityPolicy","CoreSecurityAudit","CoreSecurityCaseBridge","CoreSecurityRuntime","CoreSecurityScanner","CoreFileScanner","CoreDependencyScanner","CoreSecretScanner","CoreIntegrityChecker","CoreSandboxValidator"],
   identity:["CoreUserManager","CoreOrganizationManager","CoreWorkspaceManager","CoreRoleManager","CorePermissionManager","CoreSessionManager","CoreAPIKeyManager","CoreIdentityAudit"],
   events:["CoreEventBus","CoreEventRegistry","CoreNotificationEngine","CoreWebhookManager","CoreMessageQueue"],
