@@ -1,5 +1,13 @@
-import CoreServiceRegistry from "../../../../core/registry/CoreServiceRegistry.js";
+import CoreStorageEngine from "../../../../core/storage/CoreStorageEngine.js";
+import CoreStorageManager from "../../../../core/storage/CoreStorageManager.js";
 
-const AfriDebugCoreStorageAdapter={services:CoreServiceRegistry.services.storage};
+const AfriDebugStorageAdapter={
+ save(file,context={}){
+  return CoreStorageEngine.save(file,{service:"AfriDebug",...context});
+ },
+ remove(id){
+  return CoreStorageManager.remove(id);
+ }
+};
 
-export default AfriDebugCoreStorageAdapter;
+export default AfriDebugStorageAdapter;
