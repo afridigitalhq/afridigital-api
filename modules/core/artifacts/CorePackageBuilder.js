@@ -1,2 +1,2 @@
-const AfriDebugPackageBuilder={build(caseId){return {caseId,package:"AFRIDEBUG_PACKAGE",status:"BUILT"};}};
-export default AfriDebugPackageBuilder;
+const CorePackageBuilder={build(caseId){return {caseId,package:"PACKAGE",status:"BUILT"};}};
+export default CorePackageBuilder;

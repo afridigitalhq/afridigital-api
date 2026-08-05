@@ -1,2 +1,2 @@
-const AfriDebugDownloadManager={download(file){return {file,status:"DOWNLOAD_READY"};}};
-export default AfriDebugDownloadManager;
+const CoreDownloadManager={download(file){return {file,status:"DOWNLOAD_READY"};}};
+export default CoreDownloadManager;

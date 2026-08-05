@@ -1,6 +1,6 @@
-const AfriDebugSandboxValidator={
+const CoreSandboxValidator={
   validate(project){
     return {project,status:"SANDBOX_READY"};
   }
 };
-export default AfriDebugSandboxValidator;
+export default CoreSandboxValidator;

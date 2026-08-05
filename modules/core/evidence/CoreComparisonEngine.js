@@ -1,6 +1,6 @@
-const AfriDebugComparison={
+const CoreComparisonEngine={
   compare(before,after){
     return {before,after,status:"COMPARED"};
   }
 };
-export default AfriDebugComparison;
+export default CoreComparisonEngine;
