@@ -12,6 +12,7 @@ const CoreServiceRegistry={services:{
   africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
   session:["CoreSessionManager","CoreSessionRegistry"],
   investigation:["CoreInvestigationEngine","CoreInvestigationRegistry","CoreInvestigationStageManager"],
+  pipeline:["CorePipelineEngine","CorePipelineRegistry","CorePipelineStageManager"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
   africoin:["AfriCoinWalletManager","AfriCoinBalanceEngine","AfriCoinTransactionEngine","AfriCoinRewardEngine","AfriCoinLedgerAdapter"]
 }};
