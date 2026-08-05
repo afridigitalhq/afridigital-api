@@ -1,16 +1,54 @@
 const AfriDebugRuntime = {
-  events:[],
+  traces:{},
 
-  event(stage,data={}){
+  start(service="unknown"){
+    const requestId =
+      `${service.toLowerCase()}-${Date.now()}`;
+
+    this.traces[requestId]={
+      requestId,
+      service,
+      events:[],
+      startedAt:new Date().toISOString()
+    };
+
+    return requestId;
+  },
+
+  event(requestId,stage,data={}){
     const entry={
       stage,
       data,
       timestamp:new Date().toISOString()
     };
 
-    this.events.push(entry);
-    console.log("🛠 AFRIDEBUG EVENT:",JSON.stringify(entry));
+    if(this.traces[requestId]){
+      this.traces[requestId].events.push(entry);
+    }
+
+    console.log(
+      "🛠 AFRIDEBUG EVENT:",
+      JSON.stringify({
+        requestId,
+        ...entry
+      })
+    );
+
     return entry;
+  },
+
+  finish(requestId,status="COMPLETED"){
+    if(!this.traces[requestId]) return null;
+
+    this.traces[requestId].status=status;
+    this.traces[requestId].finishedAt=
+      new Date().toISOString();
+
+    return this.traces[requestId];
+  },
+
+  getTrace(requestId){
+    return this.traces[requestId] || null;
   },
 
   inspect(target={},meta={}){
