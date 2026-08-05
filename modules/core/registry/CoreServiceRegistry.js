@@ -13,14 +13,14 @@ const CoreServiceRegistry={services:{
   patch:["CoreDiffEngine","CorePatchEngine","CorePatchValidator","CoreChangeTracker","CorePatchRegistry"],
   billing:["CoreBillingEngine","CoreSubscriptionManager","CoreInvoiceGenerator","CorePaymentGateway","CoreUsageBilling"],
   finance:["CoreLedgerEngine","CoreAccountManager","CoreTransactionEngine","CoreCurrencyEngine","CoreWalletEngine","CoreSettlementEngine"],
-  africctv:["AfriCCTVSecurityAdapter","AfriCTVCEvidenceAdapter","AfriCCTVCaseAdapter"],
+
   session:["CoreSessionManager","CoreSessionRegistry"],
   investigation:["CoreInvestigationEngine","CoreInvestigationRegistry","CoreInvestigationStageManager"],
   pipeline:["CorePipelineEngine","CorePipelineRegistry","CorePipelineStageManager"],
   runtime:["CoreRuntimeEngine","CoreRuntimeRegistry"],
   orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
-  africoin:["AfriCoinWalletManager","AfriCoinBalanceEngine","AfriCoinTransactionEngine","AfriCoinRewardEngine","AfriCoinLedgerAdapter"]
+
 }};
 
 export default CoreServiceRegistry;
