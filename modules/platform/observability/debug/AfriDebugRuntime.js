@@ -1,4 +1,18 @@
 const AfriDebugRuntime = {
+  events:[],
+
+  event(stage,data={}){
+    const entry={
+      stage,
+      data,
+      timestamp:new Date().toISOString()
+    };
+
+    this.events.push(entry);
+    console.log("🛠 AFRIDEBUG EVENT:",JSON.stringify(entry));
+    return entry;
+  },
+
   inspect(target={},meta={}){
     return {
       debug:true,

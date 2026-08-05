@@ -17,6 +17,14 @@ export class AfriAIRuntime {
       AfriAIExecutionTrace.start();
 
     console.log("🤖 AFRIAI RUNTIME HIT:", message);
+
+    AfriDebugRuntime.event(
+      "REQUEST_RECEIVED",
+      {
+        service:"AfriAI",
+        message
+      }
+    );
     AfriDebugRuntime.inspect({stage:"runtime_start",message});
 
     const knowledge =
