@@ -1,3 +1,5 @@
+import AfriDebugPipelineManager from "./AfriDebugPipelineManager.js";
+
 const AfriDebugLifecycleEngine={
   stages:[
     "SECURITY_GATE",
@@ -20,8 +22,12 @@ const AfriDebugLifecycleEngine={
     "DELIVERY_PACKAGE"
   ],
 
-  start(){
-    return {status:"LIFECYCLE_STARTED",stages:this.stages};
+  start(context={}){
+    return {
+      status:"LIFECYCLE_STARTED",
+      stages:this.stages,
+      execution:this.stages.map(stage=>AfriDebugPipelineManager.run(stage,context))
+    };
   }
 };
 
