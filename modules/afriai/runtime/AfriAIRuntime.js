@@ -100,6 +100,14 @@ AfriAI:
               }
             );
 
+          AfriDebugRuntime.event(
+            "FINAL_OUTPUT",
+            {
+              provider:normalized.provider,
+              status:normalized.status
+            }
+          );
+
           return normalized;
         }
 
