@@ -39,7 +39,7 @@ normalize(providerResponse){
        answer
      });
 
-     return {
+     const normalizedResponse = {
        provider:data.provider,
        answer,
        sources:data.sources || [
@@ -53,6 +53,16 @@ normalize(providerResponse){
        ],
        status:"READY"
      };
+
+     AfriDebugRuntime.event(
+       "NORMALIZED_RESPONSE",
+       {
+         provider:normalizedResponse.provider,
+         status:normalizedResponse.status
+       }
+     );
+
+     return normalizedResponse;
 
    }
 
