@@ -1,5 +1,5 @@
 import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
-import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
+import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 const KnowledgeProvider = {
   name:"knowledge",
@@ -82,7 +82,7 @@ const KnowledgeProvider = {
       );
     }
 
-    AfriDebugRuntime.event(
+    CoreTraceEngine.event(
       "PROVIDER_RESPONSE",
       {
         provider:"knowledge",

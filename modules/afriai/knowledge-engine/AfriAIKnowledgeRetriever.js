@@ -1,5 +1,5 @@
 import AfriAIKnowledgeRegistry from "./AfriAIKnowledgeRegistry.js";
-import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
+import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 const AfriAIKnowledgeRetriever = {
 
@@ -61,7 +61,7 @@ const AfriAIKnowledgeRetriever = {
 
       const fallback = knowledge.platform;
 
-      AfriDebugRuntime.event(
+      CoreTraceEngine.event(
         "KNOWLEDGE_RETRIEVED",
         {
           keys:["platform"]
@@ -71,7 +71,7 @@ const AfriAIKnowledgeRetriever = {
       return fallback;
     }
 
-    AfriDebugRuntime.event(
+    CoreTraceEngine.event(
       "KNOWLEDGE_RETRIEVED",
       {
         keys:Object.keys(context)

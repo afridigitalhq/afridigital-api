@@ -3,7 +3,7 @@ import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriev
 import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
 import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
 import AfriAIExecutionTrace from "../execution/trace/AfriAIExecutionTrace.js";
-import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
+import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 export class AfriAIRuntime {
 
@@ -17,11 +17,11 @@ export class AfriAIRuntime {
       AfriAIExecutionTrace.start();
 
     const debugRequestId =
-      AfriDebugRuntime.start("AfriAI");
+      CoreTraceEngine.start("AfriAI");
 
     console.log("🤖 AFRIAI RUNTIME HIT:", message);
 
-    AfriDebugRuntime.event(
+    CoreTraceEngine.event(
       debugRequestId,
       "REQUEST_RECEIVED",
       {
@@ -29,7 +29,7 @@ export class AfriAIRuntime {
         message
       }
     );
-    AfriDebugRuntime.inspect({stage:"runtime_start",message});
+    CoreTraceEngine.inspect({stage:"runtime_start",message});
 
     const knowledge =
       AfriAIKnowledgeRetriever.retrieve(message);
@@ -104,7 +104,7 @@ AfriAI:
               }
             );
 
-          AfriDebugRuntime.event(
+          CoreTraceEngine.event(
             "FINAL_OUTPUT",
             {
               provider:normalized.provider,
@@ -112,7 +112,7 @@ AfriAI:
             }
           );
 
-          AfriDebugRuntime.event(
+          CoreTraceEngine.event(
               debugRequestId,
               "FINAL_OUTPUT",
               {
@@ -122,7 +122,7 @@ AfriAI:
             );
 
             normalized.debug =
-              AfriDebugRuntime.finish(debugRequestId);
+              CoreTraceEngine.finish(debugRequestId);
 
             return normalized;
         }

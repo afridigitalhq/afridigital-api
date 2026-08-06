@@ -1,4 +1,4 @@
-import AfriDebugRuntime from "../../platform/observability/debug/AfriDebugRuntime.js";
+import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 const AfriAIResponseNormalizer = {
 
@@ -15,7 +15,7 @@ normalize(providerResponse){
 
      const knowledge = data.knowledge || {};
 
-     AfriDebugRuntime.inspect({
+     CoreTraceEngine.inspect({
        stage:"NORMALIZED_RESPONSE_INPUT",
        knowledgeKeys:Object.keys(knowledge)
      });
@@ -34,7 +34,7 @@ normalize(providerResponse){
         `Current status: ${knowledge.products.AfriCommerce.status}.`;
      }
 
-     AfriDebugRuntime.inspect({
+     CoreTraceEngine.inspect({
        stage:"NORMALIZED_RESPONSE_OUTPUT",
        answer
      });
@@ -54,7 +54,7 @@ normalize(providerResponse){
        status:"READY"
      };
 
-     AfriDebugRuntime.event(
+     CoreTraceEngine.event(
        "NORMALIZED_RESPONSE",
        {
          provider:normalizedResponse.provider,
