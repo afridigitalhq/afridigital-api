@@ -1,5 +1,5 @@
 import AfriDebugIntakeAdapter from "../intake/AfriDebugIntakeAdapter.js";
-import AfriDebugDependencyGraph from "../dependency/AfriDebugDependencyGraph.js";
+import AfriDebugDependencyAdapter from "../dependency/AfriDebugDependencyAdapter.js";
 import AfriDebugRuntime from "./AfriDebugRuntime.js";
 
 import AfriDebugIntelligenceAdapter from "../intelligence/AfriDebugIntelligenceAdapter.js";
@@ -11,7 +11,7 @@ import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
 const AfriDebugInvestigationRuntime={
  investigate(repository){
   const intake=AfriDebugIntakeAdapter.repository(repository);
-  const dependency=AfriDebugDependencyGraph.build(repository);
+  const dependency=AfriDebugDependencyAdapter.build(repository);
   const runtime=AfriDebugRuntime.boot();
   const logs=AfriDebugIntakeAdapter.logs(repository);
   const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{
