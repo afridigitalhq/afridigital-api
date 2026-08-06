@@ -1,7 +1,7 @@
-import AfriDebugEvidenceIntake from "../investigation/intake/AfriDebugEvidenceIntake.js";
+import AfriDebugIntakeAdapter from "../intake/AfriDebugIntakeAdapter.js";
 import AfriDebugDependencyGraph from "../dependency/AfriDebugDependencyGraph.js";
 import AfriDebugRuntime from "./AfriDebugRuntime.js";
-import AfriDebugLogCollector from "../intake/AfriDebugLogCollector.js";
+
 import AfriDebugIntelligenceAdapter from "../intelligence/AfriDebugIntelligenceAdapter.js";
 import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
 import AfriDebugPatchValidator from "../patch/AfriDebugPatchValidator.js";
@@ -10,10 +10,10 @@ import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
 
 const AfriDebugInvestigationRuntime={
  investigate(repository){
-  const intake=AfriDebugEvidenceIntake.collect(repository);
+  const intake=AfriDebugIntakeAdapter.repository(repository);
   const dependency=AfriDebugDependencyGraph.build(repository);
   const runtime=AfriDebugRuntime.boot();
-  const logs=AfriDebugLogCollector.collect(repository);
+  const logs=AfriDebugIntakeAdapter.logs(repository);
   const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{
    repository,
    runtime
