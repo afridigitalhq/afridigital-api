@@ -1,9 +1,9 @@
-import AfriDebugLifecycleEngine from "../orchestration/AfriDebugLifecycleEngine.js";
+import AfriDebugOrchestrationAdapter from "../orchestration/AfriDebugOrchestrationAdapter.js";
 
 const AfriDebugWorkflow={
   name:"AfriDebug Investigation Lifecycle",
   version:"2.0",
-  stages:AfriDebugLifecycleEngine.stages,
+  stages:[],
 
   describe(){
     return {
