@@ -4,7 +4,7 @@ import AfriDebugRuntime from "./AfriDebugRuntime.js";
 
 import AfriDebugIntelligenceAdapter from "../intelligence/AfriDebugIntelligenceAdapter.js";
 import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
-import AfriDebugPatchValidator from "../patch/AfriDebugPatchValidator.js";
+import AfriDebugPatchAdapter from "../patch/AfriDebugPatchAdapter.js";
 import AfriDebugTestBridge from "../integration/AfriDebugTestBridge.js";
 import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
 
@@ -23,7 +23,7 @@ const AfriDebugInvestigationRuntime={
   const rootCause=AfriDebugIntelligenceAdapter.reason(knowledge);
   const plan=AfriDebugIntelligenceAdapter.recommend(rootCause);
   const patch=AfriDebugPatchGenerator.generate(plan);
-  const validation=AfriDebugPatchValidator.validate(patch);
+  const validation=AfriDebugPatchAdapter.validate(patch);
   const tests=AfriDebugTestBridge.execute(validation);
   const report=AfriDebugDeliveryAdapter.generate(repository);
 
