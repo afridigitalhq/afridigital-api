@@ -1,0 +1,12 @@
+{
+  "component": "AfriDebug Runtime Inspection",
+  "status": "PASSED",
+  "events": [
+    {
+      "type": "system",
+      "event": "runtime:inspection",
+      "status": "healthy",
+      "timestamp": "2026-08-06T19:52:36.135Z"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "project": "afridigital-api",
+  "version": "1.0.0",
+  "dependencyCount": 7,
+  "dependencies": [
+    "axios",
+    "cors",
+    "d3-force",
+    "dotenv",
+    "express",
+    "three",
+    "ws"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "component": "AfriDebug Delivery Package",
+  "status": "READY",
+  "contents": [
+    "Investigation Evidence",
+    "Patch Plan",
+    "Verification Report",
+    "Certification Report",
+    "Human Approval Record"
+  ],
+  "generatedAt": "2026-08-06T19:52:36.149Z"
+}

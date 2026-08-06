@@ -1,0 +1,10 @@
+{
+  "certification": "AfriDebug",
+  "status": "PASSED",
+  "generatedAt": "2026-08-06T19:52:36.155Z",
+  "evidence": [
+    "Validation results",
+    "Dependency graph",
+    "Runtime checks"
+  ]
+}

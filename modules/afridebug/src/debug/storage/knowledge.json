@@ -1,0 +1,25 @@
+[
+  {
+    "issue": "Knowledge persistence test",
+    "diagnosis": "TEST",
+    "resolution": "Created persistence layer",
+    "verified": true,
+    "createdAt": 1785927006604
+  },
+  {
+    "id": "KNOW-1785927068604",
+    "issue": "Persistent store verification",
+    "diagnosis": "TEST",
+    "resolution": "KnowledgeStore auto-saved",
+    "verified": true,
+    "createdAt": 1785927068604
+  },
+  {
+    "id": "CASE-1785928569384",
+    "issue": "ApprovalGate is not defined",
+    "diagnosis": "RUNTIME_DEPENDENCY_ERROR",
+    "resolution": "Import ApprovalGate",
+    "verified": true,
+    "createdAt": 1785928569384
+  }
+]

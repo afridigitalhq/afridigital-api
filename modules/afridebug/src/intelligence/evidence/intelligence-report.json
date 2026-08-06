@@ -1,0 +1,11 @@
+{
+  "component": "Impact Analysis",
+  "status": "PASSED",
+  "affectedModules": [
+    "core",
+    "platform",
+    "afridebug"
+  ],
+  "riskLevel": "LOW",
+  "generatedAt": "2026-08-06T19:52:36.150Z"
+}

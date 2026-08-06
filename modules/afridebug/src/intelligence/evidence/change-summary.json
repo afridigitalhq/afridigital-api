@@ -1,0 +1,11 @@
+{
+  "component": "Change Summary Intelligence",
+  "status": "PASSED",
+  "summary": "Changes analyzed and summarized",
+  "findings": [
+    "Affected modules identified",
+    "Dependencies reviewed",
+    "Risk assessment available"
+  ],
+  "generatedAt": "2026-08-06T19:52:36.151Z"
+}
