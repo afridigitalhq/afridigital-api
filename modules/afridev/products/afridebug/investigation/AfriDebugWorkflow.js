@@ -1,9 +1,19 @@
-import AfriDebugOrchestrationAdapter from "../orchestration/AfriDebugOrchestrationAdapter.js";
-
 const AfriDebugWorkflow={
   name:"AfriDebug Investigation Lifecycle",
-  version:"2.0",
-  stages:[],
+  version:"3.0",
+
+  stages:[
+    "REPOSITORY_INTAKE",
+    "DEPENDENCY_ANALYSIS",
+    "RUNTIME_INSPECTION",
+    "LOG_ANALYSIS",
+    "KNOWLEDGE_COMPARISON",
+    "AI_PATCH_PLANNING",
+    "PATCH_VERIFICATION",
+    "EVIDENCE_REPORT",
+    "HUMAN_APPROVAL",
+    "CLIENT_DELIVERY"
+  ],
 
   describe(){
     return {

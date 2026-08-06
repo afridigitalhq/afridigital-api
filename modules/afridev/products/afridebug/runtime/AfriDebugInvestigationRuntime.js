@@ -7,9 +7,12 @@ import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
 import AfriDebugPatchAdapter from "../patch/AfriDebugPatchAdapter.js";
 import AfriDebugTestBridge from "../integration/AfriDebugTestBridge.js";
 import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
+import AfriDebugPipelineAdapter from "../orchestration/AfriDebugPipelineAdapter.js";
+import AfriDebugWorkflow from "../investigation/AfriDebugWorkflow.js";
 
 const AfriDebugInvestigationRuntime={
  investigate(repository){
+  const pipeline=AfriDebugPipelineAdapter.run(AfriDebugWorkflow.stages,{repository});
   const intake=AfriDebugIntakeAdapter.repository(repository);
   const dependency=AfriDebugDependencyAdapter.build(repository);
   const runtime=AfriDebugRuntime.boot();
@@ -28,6 +31,7 @@ const AfriDebugInvestigationRuntime={
   const report=AfriDebugDeliveryAdapter.generate(repository);
 
   return {
+   pipeline,
    intake,
    dependency,
    runtime,
