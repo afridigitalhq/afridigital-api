@@ -6,7 +6,7 @@ import AfriDebugIntelligenceAdapter from "../intelligence/AfriDebugIntelligenceA
 import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
 import AfriDebugPatchValidator from "../patch/AfriDebugPatchValidator.js";
 import AfriDebugTestBridge from "../integration/AfriDebugTestBridge.js";
-import AfriDebugReportGenerator from "../delivery/AfriDebugReportGenerator.js";
+import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
 
 const AfriDebugInvestigationRuntime={
  investigate(repository){
@@ -25,7 +25,7 @@ const AfriDebugInvestigationRuntime={
   const patch=AfriDebugPatchGenerator.generate(plan);
   const validation=AfriDebugPatchValidator.validate(patch);
   const tests=AfriDebugTestBridge.execute(validation);
-  const report=AfriDebugReportGenerator.generate(repository);
+  const report=AfriDebugDeliveryAdapter.generate(repository);
 
   return {
    intake,
