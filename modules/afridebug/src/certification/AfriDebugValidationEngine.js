@@ -17,6 +17,7 @@ import { assembleDelivery } from "../delivery/AfriDebugDeliveryAssembler.js";
 import { analyzeImpact } from "../intelligence/AfriDebugImpactAnalyzer.js";
 import { generateChangeSummary } from "../intelligence/AfriDebugChangeSummaryGenerator.js";
 import { scoreConfidence } from "../intelligence/AfriDebugConfidenceScorer.js";
+import { validateIntake } from "../debug/intake/AfriDebugIntakeValidator.js";
 
 async function runValidation(){
 
@@ -40,6 +41,7 @@ const results = [
   analyzeImpact(),
   generateChangeSummary(),
   scoreConfidence(),
+  validateIntake(),
   await validateInvestigation(),
   generateEvidence(),
   generateReport()

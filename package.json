@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node src/bootstrap/index.js",
     "start": "node server.js",
-    "build": "echo 🟢 API BUILD OK"
+    "build": "echo 🟢 API BUILD OK",
+    "validate": "node modules/afridebug/src/certification/AfriDebugValidationEngine.js"
   },
   "repository": {
     "type": "git",

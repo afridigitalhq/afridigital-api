@@ -3,6 +3,7 @@ import CoreAnalysisEngine from "../../../../core/intelligence/CoreAnalysisEngine
 import CorePatternAnalyzer from "../../../../core/intelligence/CorePatternAnalyzer.js";
 import CoreReasoningEngine from "../../../../core/intelligence/CoreReasoningEngine.js";
 import CoreRecommendationEngine from "../../../../core/intelligence/CoreRecommendationEngine.js";
+import CoreKnowledgeEngine from "../../../../core/knowledge/CoreKnowledgeEngine.js";
 
 const AfriDebugIntelligenceAdapter={
  investigate(input,context={}){
@@ -11,9 +12,9 @@ const AfriDebugIntelligenceAdapter={
  analyze(data){
   return CoreAnalysisEngine.analyze(data);
  },
- patterns(input,patterns=[]){
+ patterns(input,patterns=CoreKnowledgeEngine.patterns()){
   return CorePatternAnalyzer.match(input,patterns);
- },
+},
  reason(context){
   return CoreReasoningEngine.reason(context);
  },

@@ -1,0 +1,10 @@
+{
+  "component": "AfriDebug Intake Validator",
+  "status": "PASSED",
+  "checks": [
+    "Repository Intake",
+    "Project Detection",
+    "Snapshot Validation"
+  ],
+  "timestamp": "2026-08-06T19:59:29.585Z"
+}

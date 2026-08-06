@@ -4,6 +4,7 @@ const AfriPlatformModuleLoader = {
     "afritrust",
     "afritick",
     "afridebug",
+    "afridesign",
     "afridev",
   ],
 

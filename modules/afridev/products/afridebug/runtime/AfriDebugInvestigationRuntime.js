@@ -17,16 +17,16 @@ const AfriDebugInvestigationRuntime={
   const dependency=AfriDebugDependencyAdapter.build(repository);
   const runtime=AfriDebugRuntime.boot();
   const logs=AfriDebugIntakeAdapter.logs(repository);
-  const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{
-   repository,
-   runtime
-  });
+  const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{repository,runtime});
+  const analysis=AfriDebugIntelligenceAdapter.analyze(intelligence);
   const stack=intelligence;
-  const knowledge=AfriDebugIntelligenceAdapter.patterns(stack,[]);
+  const knowledge=AfriDebugIntelligenceAdapter.patterns(analysis,[]);
   const rootCause=AfriDebugIntelligenceAdapter.reason(knowledge);
   const plan=AfriDebugIntelligenceAdapter.recommend(rootCause);
   const patch=AfriDebugPatchGenerator.generate(plan);
-  const validation=AfriDebugPatchAdapter.validate(patch);
+  const applied=AfriDebugPatchAdapter.apply(repository,patch);
+  const validation=AfriDebugPatchAdapter.validate(applied);
+  const tracking=AfriDebugPatchAdapter.track({repository,diff:AfriDebugPatchAdapter.diff({},applied),applied,validation});
   const tests=AfriDebugTestBridge.execute(validation);
   const report=AfriDebugDeliveryAdapter.generate(repository);
 
@@ -37,11 +37,14 @@ const AfriDebugInvestigationRuntime={
    runtime,
    logs,
    stack,
+   analysis,
    knowledge,
    rootCause,
    plan,
    patch,
+   applied,
    validation,
+   tracking,
    tests,
    report,
    status:"INVESTIGATION_COMPLETED"
