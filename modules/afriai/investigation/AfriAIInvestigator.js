@@ -1,3 +1,5 @@
+import AfriInvestigationEvidence from "../evidence/AfriInvestigationEvidence.js";
+
 import askOllama from "../llm/OllamaClient.js";
 
 const AfriAIInvestigator = {
