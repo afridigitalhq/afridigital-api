@@ -1,0 +1,47 @@
+{
+  "project": "AfriSuper3",
+  "jobId": "client-simulation-job-001",
+  "client": "Demo SaaS Client",
+  "request": "Fix application startup failure",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "workflow": {
+    "AfriDebug": {
+      "status": "INVESTIGATION_COMPLETED",
+      "artifact": "client-investigation-report.json",
+      "result": "Missing runtime environment configuration identified"
+    },
+    "AfriFix": {
+      "status": "PATCH_PLANNING_COMPLETED",
+      "artifact": "client-patch-plan.json",
+      "result": "Configuration update planned",
+      "humanApproval": true
+    },
+    "AfriNucChain": {
+      "status": "EXECUTION_COMPLETED",
+      "result": {
+        "executionId": "execution-1786096353978",
+        "telemetryId": "telemetry-1786096353979",
+        "evidenceId": "evidence-1786096353983",
+        "verificationId": "verification-1786096353984"
+      }
+    }
+  },
+  "validation": {
+    "investigation": "PASSED",
+    "patchPlanning": "PASSED",
+    "humanApproval": "PASSED",
+    "execution": "PASSED",
+    "telemetry": "PASSED",
+    "evidence": "PASSED",
+    "auditVerification": "PASSED"
+  },
+  "delivery": {
+    "status": "READY_FOR_CLIENT_HANDOFF",
+    "reportGenerated": true
+  },
+  "createdAt": "2026-08-07T09:52:33.984Z"
+}
