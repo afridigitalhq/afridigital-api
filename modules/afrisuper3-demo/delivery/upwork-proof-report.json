@@ -1,0 +1,41 @@
+{
+  "project": "AfriSuper3",
+  "description": "AI-assisted software debugging, fixing, execution and delivery pipeline",
+  "jobId": "afrisuper3-demo-job-001",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "capabilities": {
+    "AfriDebug": [
+      "Repository Investigation",
+      "Dependency Analysis",
+      "Runtime Inspection",
+      "Root Cause Detection"
+    ],
+    "AfriFix": [
+      "Patch Planning",
+      "Risk Assessment",
+      "Human Approval Gate",
+      "Rollback Planning"
+    ],
+    "AfriNucChain": [
+      "Execution Pipeline",
+      "Telemetry Tracking",
+      "Evidence Generation",
+      "Audit Verification",
+      "Delivery Lifecycle"
+    ]
+  },
+  "validation": {
+    "investigation": "PASSED",
+    "patchPlanning": "PASSED",
+    "execution": "PASSED",
+    "verification": "PASSED",
+    "clientDelivery": "READY"
+  },
+  "humanApprovalRequired": true,
+  "status": "DEMONSTRATION_COMPLETED",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}
