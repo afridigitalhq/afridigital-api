@@ -1,10 +1,9 @@
 import AfriAIProviderResilience from "../providers/resilience/AfriAIProviderResilience.js";
-import AfriInvestigationEvidence from "../evidence/AfriInvestigationEvidence.js";
-
 import askOllama from "../llm/OllamaClient.js";
 
 const AfriAIInvestigator = {
-  async investigate(evidence) {
+
+  async investigate(evidence){
 
     const prompt = `
 You are AfriAI Investigation Engine.
@@ -19,16 +18,31 @@ Return:
 3. Recommended next action
 `;
 
-    const response = await askOllama(prompt);
+    const execution = await AfriAIProviderResilience.execute(
+      evidence,
+      async()=>{
+        return await askOllama(prompt);
+      }
+    );
+
+    const analysis =
+      execution.status === "PROVIDER_SUCCESS"
+      ? execution.result
+      : "AI provider unavailable. Evidence preserved for later analysis.";
 
     return {
-      providerExecution,
       engine:"AfriAI Investigator",
       evidence,
-      analysis:response || "No AI response available",
-      status: response ? "ANALYZED" : "PENDING"
+      provider:execution,
+      analysis,
+      status:
+        execution.status === "PROVIDER_SUCCESS"
+        ? "ANALYZED"
+        : "PENDING"
     };
+
   }
+
 };
 
 export default AfriAIInvestigator;
