@@ -1,0 +1,13 @@
+{
+  "jobId": "afriai-runtime-validation-001",
+  "client": "AfriDigital Internal",
+  "request": "Validate AfriAI runtime orchestration pipeline",
+  "issueType": "RUNTIME_CONTRACT_VALIDATION",
+  "target": "modules/afriai",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "status": "RECEIVED"
+}

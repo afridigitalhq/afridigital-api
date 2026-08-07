@@ -1,0 +1,23 @@
+{
+  "jobId": "afriai-runtime-validation-001",
+  "component": "AfriFix",
+  "stage": "PATCH_PLANNING_COMPLETED",
+  "source": {
+    "component": "AfriDebug",
+    "artifact": "investigation-report.json"
+  },
+  "diagnosis": "ALIGN_RUNTIME_CONTRACT",
+  "patch": {
+    "type": "RUNTIME_EXPORT_CONTRACT_UPDATE",
+    "target": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+    "description": "Update runtime integration contract to use the supported export pattern consistently",
+    "riskLevel": "LOW"
+  },
+  "verification": {
+    "humanApprovalRequired": true,
+    "rollbackAvailable": true,
+    "testsRequired": true
+  },
+  "status": "READY_FOR_APPROVAL",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

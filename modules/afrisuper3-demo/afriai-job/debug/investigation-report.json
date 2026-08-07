@@ -1,0 +1,22 @@
+{
+  "jobId": "afriai-runtime-validation-001",
+  "component": "AfriDebug",
+  "stage": "INVESTIGATION_COMPLETED",
+  "target": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+  "issue": {
+    "type": "RUNTIME_CONTRACT_VALIDATION",
+    "severity": "MEDIUM",
+    "message": "AfriAIRuntimeOrchestrator cannot be instantiated as a constructor"
+  },
+  "analysis": {
+    "repositoryScanned": true,
+    "runtimeInspected": true,
+    "exportContractChecked": true,
+    "rootCause": "Module exports singleton object instead of constructor class"
+  },
+  "recommendation": {
+    "action": "ALIGN_RUNTIME_CONTRACT",
+    "readyForAfriFix": true
+  },
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}
