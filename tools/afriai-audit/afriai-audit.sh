@@ -90,5 +90,41 @@ import("./modules/afriai/llm/OllamaClient.js")
 NODE
 
 echo ""
+
+
+echo ""
+echo "=== AFRIAI EVIDENCE INTERPRETER ==="
+
+node - <<'NODE'
+import("./modules/afriai/investigation/AfriAIEvidenceInterpreter.js")
+.then(m=>{
+ console.log(JSON.stringify(
+  m.default.analyze({
+   security:"CONNECTED",
+   scan:"READY",
+   debug:"READY"
+  }),
+ null,2));
+})
+NODE
+
+
+
+echo ""
+echo "=== AFRIAI INVESTIGATION ENGINE ==="
+
+node - <<'NODE'
+import("./modules/afriai/investigation/AfriAIInvestigator.js")
+.then(async m=>{
+ const result = await m.default.investigate({
+  security:"CONNECTED",
+  scan:"READY",
+  debug:"READY"
+ });
+ console.log(JSON.stringify(result,null,2));
+})
+NODE
+
+echo ""
 echo "=== AUDIT COMPLETE ==="
 
