@@ -1,0 +1,72 @@
+[
+  {
+    "eventId": "evt-1786050664917-1",
+    "sequence": 1,
+    "type": "EXECUTION_CREATED",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-06T21:11:04.918Z",
+    "payload": {
+      "executionId": "exec-001",
+      "module": "afridebug",
+      "action": "repair"
+    }
+  },
+  {
+    "eventId": "evt-1786050664985-2",
+    "sequence": 2,
+    "type": "JOB_QUEUED",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-06T21:11:04.985Z",
+    "payload": {
+      "executionId": "exec-001",
+      "module": "afridebug",
+      "action": "repair"
+    }
+  },
+  {
+    "eventId": "evt-1786050664988-3",
+    "sequence": 3,
+    "type": "JOB_EXECUTED",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-06T21:11:04.988Z",
+    "payload": {
+      "executionId": "exec-001",
+      "module": "afridebug",
+      "action": "repair"
+    }
+  },
+  {
+    "eventId": "evt-1786050664990-4",
+    "sequence": 4,
+    "type": "VERIFICATION_COMPLETED",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-06T21:11:04.990Z",
+    "payload": {
+      "executionId": "exec-001",
+      "module": "afridebug",
+      "action": "repair"
+    }
+  },
+  {
+    "eventId": "evt-1786050664993-5",
+    "sequence": 5,
+    "type": "EVIDENCE_GENERATED",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-06T21:11:04.993Z",
+    "payload": {
+      "executionId": "exec-001",
+      "module": "afridebug",
+      "action": "repair"
+    }
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "component": "AfriFix Decision Layer",
+  "status": "READY",
+  "capabilities": [
+    "repair-decision",
+    "risk-analysis",
+    "recommendation-generation"
+  ],
+  "architecture": "Global Reusable Core Capability"
+}

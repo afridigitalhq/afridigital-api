@@ -1,0 +1,6 @@
+{
+  "component": "AfriFix Runtime Contract",
+  "status": "READY",
+  "approvalRequired": true,
+  "rollbackEnabled": true
+}

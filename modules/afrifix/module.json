@@ -1,0 +1,16 @@
+{
+  "name": "afrifix",
+  "version": "1.0.0",
+  "type": "core-runtime",
+  "description": "AfriDigital automated repair and execution runtime",
+  "capabilities": [
+    "intake",
+    "repair-planning",
+    "patch-generation",
+    "execution",
+    "rollback",
+    "verification",
+    "approval",
+    "evidence"
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "snapshotId": "snap-1786050765388",
+    "createdAt": "2026-08-06T21:12:45.388Z",
+    "executionId": "exec-001",
+    "module": "afridebug",
+    "state": "COMPLETED"
+  },
+  {
+    "snapshotId": "snap-1786050842165",
+    "createdAt": "2026-08-06T21:14:02.165Z",
+    "executionId": "exec-1786050842153",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "state": "PASSED"
+  }
+]

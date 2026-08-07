@@ -1,0 +1,11 @@
+{
+  "component": "AfriFix Security Boundary",
+  "status": "READY",
+  "capabilities": [
+    "identity-resolution",
+    "permission-control",
+    "workspace-access",
+    "repair-authorization"
+  ],
+  "architecture": "Global Reusable Security Capability"
+}

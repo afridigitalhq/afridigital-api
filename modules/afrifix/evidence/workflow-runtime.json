@@ -1,0 +1,6 @@
+{
+  "component": "AfriFix Workflow Runtime",
+  "status": "READY",
+  "architecture": "Global Reusable Core Capability",
+  "pattern": "Preview -> Approve -> Execute"
+}

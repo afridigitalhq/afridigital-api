@@ -1,0 +1,29 @@
+{
+  "component": "AfriFix Session Evidence",
+  "status": "RECORDED",
+  "sessionId": "fix-1786048946159",
+  "project": "afrifix-certification",
+  "events": [
+    {
+      "event": "INTAKE_STARTED",
+      "timestamp": "2026-08-06T20:42:26.160Z"
+    },
+    {
+      "event": "ANALYSIS_COMPLETED",
+      "timestamp": "2026-08-06T20:42:26.160Z"
+    },
+    {
+      "event": "REPAIR_PLAN_CREATED",
+      "timestamp": "2026-08-06T20:42:26.160Z"
+    },
+    {
+      "event": "PREVIEW_GENERATED",
+      "timestamp": "2026-08-06T20:42:26.161Z"
+    },
+    {
+      "event": "WAITING_APPROVAL",
+      "timestamp": "2026-08-06T20:42:26.161Z"
+    }
+  ],
+  "timestamp": "2026-08-06T20:42:26.161Z"
+}

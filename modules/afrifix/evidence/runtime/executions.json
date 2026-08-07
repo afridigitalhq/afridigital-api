@@ -1,0 +1,250 @@
+[
+  {
+    "executionId": "exec-1786050205526",
+    "module": "afridebug",
+    "action": "repair",
+    "status": "COMPLETED"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "exec-1786050241737",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-06T21:04:01.737Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "exec-1786050427448",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-06T21:07:07.448Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "exec-1786050842153",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-06T21:14:02.153Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786051029228",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-06T21:17:09.229Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786051115804",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-06T21:18:35.805Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786080965185",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T05:36:05.186Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786080965253",
+    "module": "africommerce",
+    "action": "verify",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T05:36:05.253Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786082362762",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T05:59:22.764Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786082435588",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T06:00:35.592Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786082435607",
+    "module": "africctv",
+    "action": "verify",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T06:00:35.607Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786082435611",
+    "module": "platform",
+    "action": "certify",
+    "workspace": "workspace-001",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-07T06:00:35.611Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ]
+  }
+]

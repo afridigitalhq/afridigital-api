@@ -1,0 +1,11 @@
+{
+  "component": "AfriFix Workspace Isolation",
+  "status": "READY",
+  "capabilities": [
+    "project-isolation",
+    "repair-sessions",
+    "evidence-boundaries",
+    "execution-history"
+  ],
+  "architecture": "Multi-tenant Ready Core Capability"
+}

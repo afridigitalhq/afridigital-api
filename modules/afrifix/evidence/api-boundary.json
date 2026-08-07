@@ -1,0 +1,12 @@
+{
+  "component": "AfriFix API Service Boundary",
+  "status": "READY",
+  "capabilities": [
+    "repair-requests",
+    "workspace-access",
+    "approval-flow",
+    "execution-monitoring",
+    "evidence-access"
+  ],
+  "architecture": "Reusable Service Interface"
+}

@@ -1,0 +1,32 @@
+=== header folders ===
+src/dashboard/partials/DashboardHeader.jsx
+src/platform/shell/header
+src/platform/layout/header
+src/platform/layout/header/StudioHeader.jsx
+src/platform/layout/header/registry/StudioHeaderRegistry.js
+src/platform/layout/header/contracts/StudioHeaderActionContract.js
+src/platform/studios/visual/partials/VisualStudioHeader.jsx
+=== header files ===
+src/dashboard/partials/DashboardHeader.jsx
+src/platform/layout/header/StudioHeader.jsx
+src/platform/layout/header/registry/StudioHeaderRegistry.js
+src/platform/layout/header/contracts/StudioHeaderActionContract.js
+src/platform/studios/visual/partials/VisualStudioHeader.jsx
+=== switcher folders ===
+src/platform/shell/PlatformWorkspaceSwitcher.jsx
+src/platform/workspace/switcher
+src/platform/workspace/switcher/WorkspaceModeSwitcher.jsx
+src/platform/workspace/switcher/AfriDesignModeSwitcher.jsx
+=== switcher files ===
+src/platform/shell/PlatformWorkspaceSwitcher.jsx
+src/platform/workspace/switcher/WorkspaceModeSwitcher.jsx
+src/platform/workspace/switcher/AfriDesignModeSwitcher.jsx
+=== status folders ===
+=== status files ===
+=== projects/templates/deploy dirs ===
+src/templates
+src/projects
+src/platform/projects
+src/platform/studios/templates
+src/ecosystem/projects
+src/ecosystem/deployment

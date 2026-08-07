@@ -1,0 +1,210 @@
+/**
+ * AfriDesign Canvas Layer Foundation
+ *
+ * Visual ownership:
+ * Canvas editor surface
+ */
+
+.afri-canvas-workspace{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  height:100%;
+  min-width:0;
+}
+
+
+.afri-canvas-workspace > header{
+  padding:12px 16px;
+  border-bottom:1px solid var(--panel-border);
+  font-weight:700;
+}
+
+
+.canvas-editor-layout{
+
+  display:flex;
+  flex:1;
+  min-height:0;
+  gap:12px;
+
+}
+
+
+.canvas-tool-rail{
+
+  width:56px;
+
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  padding:10px;
+
+  background:rgba(0,0,0,.25);
+
+  border-radius:16px;
+
+}
+
+
+.canvas-tool-rail button{
+
+  width:36px;
+  height:36px;
+
+  padding:0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+}
+
+
+.canvas-stage{
+
+  flex:1;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  overflow:auto;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.04) 1px,
+      transparent 1px
+    );
+
+  background-size:32px 32px;
+
+  border:1px dashed var(--panel-border);
+
+}
+
+
+.canvas-artboard{
+
+  width:760px;
+
+  height:520px;
+
+  background:white;
+
+  border-radius:8px;
+
+  position:relative;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.25);
+
+  overflow:hidden;
+
+}
+
+
+.canvas-object{
+
+  position:absolute;
+
+  min-width:150px;
+
+  padding:20px;
+
+  border-radius:14px;
+
+  background:#ffffff;
+
+  color:#111;
+
+  border:1px solid rgba(0,0,0,.12);
+
+  display:flex;
+
+  gap:10px;
+
+  align-items:center;
+
+  cursor:pointer;
+
+}
+
+
+.canvas-object.selected{
+
+  border:2px solid var(--accent);
+
+  box-shadow:
+    0 0 0 4px rgba(79,140,255,.18);
+
+}
+
+
+.canvas-quick-actions{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:10px;
+
+  padding:12px;
+
+}
+
+
+.canvas-quick-actions button{
+
+  padding:8px 14px;
+
+}
+
+
+.canvas-insert-panel{
+
+  width:180px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+
+  padding:14px;
+
+  background:rgba(255,255,255,.05);
+
+  border-radius:16px;
+
+  overflow:auto;
+
+}
+
+
+.canvas-insert-panel h3{
+
+  margin:0 0 8px;
+
+}
+
+
+.canvas-insert-panel button{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  text-align:left;
+
+}

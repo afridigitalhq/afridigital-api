@@ -1,0 +1,39 @@
+:root{
+  --shell-bg:#070b14;
+  --panel-bg:rgba(18,27,46,.72);
+  --panel-border:rgba(255,255,255,.08);
+  --text:#f5f7fb;
+  --muted:#9aa7bd;
+  --accent:#4f8cff;
+  --radius:18px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,system-ui,sans-serif;
+  background:#070b14;
+  color:var(--text);
+}
+
+button{
+  font-family:inherit;
+}
+
+h1,
+h2,
+h3,
+p{
+  margin:0;
+}

@@ -1,0 +1,11 @@
+{
+  "component": "AfriFix Platform Capability Bridge",
+  "status": "READY",
+  "architecture": "Global Reusable Core Capability",
+  "consumers": [
+    "AfriDebug",
+    "AfriDesign",
+    "Core Runtime",
+    "Future Products"
+  ]
+}

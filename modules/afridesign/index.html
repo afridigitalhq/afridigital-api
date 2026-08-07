@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AfriDesign Studio v2.0</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #0b0f1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .app-container {
+            max-width: 1400px;
+            width: 100%;
+            background: linear-gradient(145deg, #1b2333 0%, #10161f 100%);
+            border-radius: 36px;
+            padding: 28px 30px 30px 30px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            flex-wrap: wrap;
+            gap: 14px 20px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            background: #2d8cff;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 6px 14px rgba(45, 140, 255, 0.3);
+        }
+        .brand {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #ffffff 60%, #a0b8e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .brand-version {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6b7e9e;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 12px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            -webkit-text-fill-color: #6b7e9e;
+        }
+        .menu-bar {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #9aadcc;
+            flex-wrap: wrap;
+        }
+        .menu-bar span {
+            cursor: default;
+            transition: 0.2s;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .menu-bar span:hover {
+            color: #d6e4ff;
+            border-bottom-color: #2d8cff;
+        }
+        .top-right-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .mode-switch {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 10px 6px 6px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            gap: 6px;
+        }
+        .mode-switch .mode-btn {
+            background: transparent;
+            border: none;
+            color: #6b7e9e;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 5px 16px;
+            border-radius: 40px;
+            transition: 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .mode-switch .mode-btn i {
+            font-size: 14px;
+        }
+        .mode-switch .mode-btn.active {
+            background: #2d8cff;
+            color: white;
+            box-shadow: 0 4px 14px rgba(45, 140, 255, 0.4);
+        }
+        .mode-switch .mode-btn:not(.active):hover {
+            color: #c8d8f5;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .premium-badge {
+            background: linear-gradient(145deg, #ffb347, #ff8c00);
+            padding: 4px 14px 4px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1a1f2b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 16px rgba(255, 140, 0, 0.25);
+            border: 1px solid rgba(255, 200, 100, 0.3);
+        }
+        .premium-badge i {
+            font-size: 13px;
+        }
+        .profile-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #2d8cff, #6a4eff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+        }
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 28px;
+            margin-top: 22px;
+        }
+        .studio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .studio-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            padding: 20px 14px 16px 14px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.2s ease;
+            cursor: default;
+            backdrop-filter: blur(2px);
+        }
+        .studio-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(45, 140, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+        }
+        .studio-card .icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+            color: #7c93bb;
+        }
+        .studio-card .label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #d6e4ff;
+        }
+        .device-frame {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 28px;
+            padding: 40px 24px;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            text-align: center;
+            margin-top: 6px;
+            backdrop-filter: blur(4px);
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .device-frame p {
+            color: #6b7e9e;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+        .device-frame .big-icon {
+            font-size: 44px;
+            color: #3a4b6b;
+            margin-bottom: 12px;
+        }
+        .device-frame .frame-title {
+            color: #b0c6e8;
+            font-weight: 500;
+            font-size: 17px;
+        }
+        .device-frame .frame-sub {
+            color: #5b6f91;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .section-title {
+            color: #a0b5d9;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+        .recent-list {
+            list-style: none;
+        }
+        .recent-list li {
+            color: #d6e4ff;
+            font-size: 15px;
+            font-weight: 400;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .recent-list li i {
+            color: #3f5a82;
+            width: 20px;
+            font-size: 14px;
+        }
+        .assets-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .asset-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 12px 10px;
+            text-align: center;
+            color: #b6caf0;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: 0.15s;
+        }
+        .asset-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 6px;
+            color: #5f78a0;
+        }
+        .asset-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(45, 140, 255, 0.2);
+        }
+        .quick-tools {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        .tool-chip {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 40px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #9bb1d6;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            white-space: nowrap;
+        }
+        .afriai-card {
+            background: linear-gradient(145deg, #1d283b, #131b28);
+            border-radius: 28px;
+            padding: 20px 22px 22px 22px;
+            border: 1px solid rgba(255, 215, 100, 0.08);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 100, 0.04);
+            transition: 0.2s ease;
+            margin-top: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        .afriai-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 215, 100, 0.02), transparent 60%);
+            pointer-events: none;
+        }
+        .afriai-card:hover {
+            border-color: rgba(255, 200, 80, 0.2);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 200, 80, 0.02);
+        }
+        .afriai-card .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .afriai-card .ai-header i {
+            font-size: 26px;
+            color: #f5b342;
+            filter: drop-shadow(0 0 8px rgba(255, 180, 50, 0.2));
+        }
+        .afriai-card .ai-header span {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f5e7d3;
+            letter-spacing: -0.2px;
+        }
+        .afriai-card .ai-header .badge-premium {
+            margin-left: auto;
+            background: rgba(255, 200, 80, 0.12);
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #f5b342;
+            border: 1px solid rgba(255, 200, 80, 0.08);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .afriai-card .ai-msg {
+            color: #bccbeb;
+            font-size: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            border-radius: 20px;
+            border-left: 3px solid #f5b342;
+            margin-bottom: 18px;
+        }
+        .ai-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .ai-actions .ai-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            color: #b6caf0;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+            flex: 1 0 auto;
+            justify-content: center;
+        }
+        .ai-actions .ai-btn i {
+            color: #f5b342;
+            font-size: 14px;
+        }
+        .ai-actions .ai-btn:hover {
+            background: rgba(255, 200, 80, 0.04);
+            border-color: rgba(255, 200, 80, 0.1);
+            color: #e4edff;
+        }
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            .studio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .menu-bar {
+                justify-content: center;
+            }
+            .top-right-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .studio-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .mode-switch {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="top-bar">
+        <div class="logo-area">
+            <div class="logo-icon">A</div>
+            <span class="brand">AfriDesign Studio</span>
+            <span class="brand-version">v2.0</span>
+        </div>
+        <div class="menu-bar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Project</span>
+            <span>Help</span>
+        </div>
+        <div class="top-right-actions">
+            <div class="mode-switch">
+                <button class="mode-btn active"><i class="fas fa-sun"></i> Light</button>
+                <button class="mode-btn"><i class="fas fa-moon"></i> Dark</button>
+                <button class="mode-btn"><i class="fas fa-desktop"></i> System</button>
+            </div>
+            <div class="premium-badge">
+                <i class="fas fa-crown"></i> Premium
+            </div>
+            <div class="profile-avatar">JD</div>
+        </div>
+    </div>
+    <div class="main-grid">
+        <div>
+            <div class="studio-grid">
+                <div class="studio-card"><span class="icon">🌐</span><div class="label">Web Studio</div></div>
+                <div class="studio-card"><span class="icon">📱</span><div class="label">App Studio</div></div>
+                <div class="studio-card"><span class="icon">🎨</span><div class="label">Graphics Studio</div></div>
+                <div class="studio-card"><span class="icon">🎬</span><div class="label">Video Studio</div></div>
+                <div class="studio-card"><span class="icon">📄</span><div class="label">Template</div></div>
+            </div>
+            <div class="device-frame">
+                <div class="big-icon">📱</div>
+                <div class="frame-title">Device Frame</div>
+                <div class="frame-sub">Drop elements here</div>
+                <p style="margin-top:10px; font-size:13px; color:#4e6587;">
+                    <i class="fas fa-arrows-alt" style="margin-right:6px;"></i> Visual Studio · Projects
+                </p>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div>
+                <div class="section-title"><i class="fas fa-clock" style="margin-right:6px;"></i> Recent</div>
+                <ul class="recent-list">
+                    <li><i class="fas fa-globe"></i> AfriDigital Landing</li>
+                    <li><i class="fas fa-shopping-cart"></i> E-commerce App</li>
+                    <li><i class="fas fa-pen-fancy"></i> Brand Identity Design</li>
+                </ul>
+            </div>
+            <div>
+                <div class="section-title"><i class="fas fa-folder-open" style="margin-right:6px;"></i> Assets</div>
+                <div class="assets-grid">
+                    <div class="asset-item"><i class="fas fa-image"></i> Images</div>
+                    <div class="asset-item"><i class="fas fa-icons"></i> Icons</div>
+                    <div class="asset-item"><i class="fas fa-paint-brush"></i> Illustrations</div>
+                </div>
+            </div>
+            <div>
+                <div class="section-title"><i class="fas fa-tools" style="margin-right:6px;"></i> Quick Tools</div>
+                <div class="quick-tools">
+                    <span class="tool-chip">🎨 Color Picker</span>
+                    <span class="tool-chip">🌈 Gradient</span>
+                    <span class="tool-chip">🔤 Typography</span>
+                    <span class="tool-chip">⬛ Shadow</span>
+                    <span class="tool-chip">📐 Grid System</span>
+                    <span class="tool-chip">📏 Breakpoints</span>
+                    <span class="tool-chip">↕ Spacing</span>
+                    <span class="tool-chip">✨ Effects</span>
+                </div>
+            </div>
+            <div class="afriai-card">
+                <div class="ai-header">
+                    <i class="fas fa-robot"></i>
+                    <span>AfriAI</span>
+                    <span class="badge-premium"><i class="fas fa-crown"></i> Pro</span>
+                </div>
+                <div class="ai-msg">
+                    <i class="fas fa-comment-dots" style="margin-right:8px; color:#f5b342;"></i>
+                    Hello! How can I help?
+                </div>
+                <div class="ai-actions">
+                    <div class="ai-btn"><i class="fas fa-rocket"></i> Create landing</div>
+                    <div class="ai-btn"><i class="fas fa-palette"></i> Generate UI</div>
+                    <div class="ai-btn"><i class="fas fa-wand-magic-sparkles"></i> Improve design</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

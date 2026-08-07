@@ -1,0 +1,12 @@
+{
+  "component":"AfriFix Job Runtime",
+  "status":"READY",
+  "pipeline":[
+    "Queue",
+    "Schedule",
+    "Execute",
+    "Verify",
+    "Evidence"
+  ],
+  "architecture":"Global Runtime Queue"
+}

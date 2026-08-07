@@ -1,0 +1,20 @@
+{
+  "component": "AfriFix Global Repair Runtime",
+  "status": "CERTIFIED",
+  "architecture": "Reusable Core Capability",
+  "workflow": [
+    "Intake",
+    "Analysis",
+    "Repair Planning",
+    "Preview",
+    "Approval",
+    "Execution",
+    "Verification",
+    "Evidence"
+  ],
+  "integrations": [
+    "AfriDebug",
+    "Core Runtime",
+    "Platform Loader"
+  ]
+}

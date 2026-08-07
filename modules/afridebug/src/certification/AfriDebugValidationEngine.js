@@ -1,3 +1,5 @@
+import { validateAfriFix } from "../../../afrifix/src/certification/AfriFixValidationEngine.js";
+
 import { validate as bootstrapValidate } from "./AfriDebugBootstrapValidator.js";
 import { validate as moduleValidate } from "./AfriDebugModuleRegistryValidator.js";
 import { validate as pluginValidate } from "./AfriDebugPluginValidator.js";
@@ -42,6 +44,7 @@ const results = [
   generateChangeSummary(),
   scoreConfidence(),
   validateIntake(),
+  validateAfriFix(),
   await validateInvestigation(),
   generateEvidence(),
   generateReport()
