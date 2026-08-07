@@ -1,4 +1,6 @@
 import AfriDebugIntakeAdapter from "../intake/AfriDebugIntakeAdapter.js";
+import AfriSecurityRuntime from "../../../../afrisecurity/runtime/AfriSecurityRuntime.js";
+import AfriDebugScanAdapter from "../adapters/AfriDebugScanAdapter.js";
 import AfriDebugDependencyAdapter from "../dependency/AfriDebugDependencyAdapter.js";
 import AfriDebugRuntime from "./AfriDebugRuntime.js";
 
@@ -14,6 +16,7 @@ const AfriDebugInvestigationRuntime={
  investigate(repository){
   const pipeline=AfriDebugPipelineAdapter.run(AfriDebugWorkflow.stages,{repository});
   const intake=AfriDebugIntakeAdapter.repository(repository);
+  const scan=AfriDebugScanAdapter.scan(repository);
   const dependency=AfriDebugDependencyAdapter.build(repository);
   const runtime=AfriDebugRuntime.boot();
   const logs=AfriDebugIntakeAdapter.logs(repository);
@@ -31,8 +34,10 @@ const AfriDebugInvestigationRuntime={
   const report=AfriDebugDeliveryAdapter.generate(repository);
 
   return {
+   security,
    pipeline,
    intake,
+   scan,
    dependency,
    runtime,
    logs,

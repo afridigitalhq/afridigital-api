@@ -92,11 +92,12 @@ normalize(providerResponse){
    return {
      provider:data?.provider || "unknown",
      answer:data?.answer || String(providerResponse),
+     intent:data?.intent || "general",
+     execution:data?.execution || null,
+     availableTools:data?.availableTools || [],
      sources:data?.sources || [],
      confidence:data?.confidence || "LOW",
-     executionPath:[
-       "ResponseNormalizer"
-     ],
+     executionPath:data?.executionPath || ["ResponseNormalizer"],
      status:"READY"
    };
 
