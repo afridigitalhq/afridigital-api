@@ -1,3 +1,4 @@
+import AfriAIProviderResilience from "../providers/resilience/AfriAIProviderResilience.js";
 import AfriInvestigationEvidence from "../evidence/AfriInvestigationEvidence.js";
 
 import askOllama from "../llm/OllamaClient.js";
@@ -21,6 +22,7 @@ Return:
     const response = await askOllama(prompt);
 
     return {
+      providerExecution,
       engine:"AfriAI Investigator",
       evidence,
       analysis:response || "No AI response available",
