@@ -1,0 +1,16 @@
+{
+  "verificationId": "verification-1786094869593",
+  "component": "AfriNuc Execution Audit Verification Bridge",
+  "executionId": "execution-1786094869586",
+  "telemetryId": "telemetry-1786094869587",
+  "evidenceId": "evidence-1786094869591",
+  "jobId": "job-1786088481267",
+  "integrity": {
+    "executionExists": true,
+    "telemetryLinked": true,
+    "evidenceLinked": true,
+    "jobLinked": true
+  },
+  "status": "VERIFIED",
+  "verifiedAt": "2026-08-07T09:27:49.594Z"
+}

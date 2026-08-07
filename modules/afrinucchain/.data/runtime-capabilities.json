@@ -1,0 +1,13 @@
+{
+  "capabilities": [
+    "RecoveryPipeline",
+    "LifecyclePersistence",
+    "AuditVerification",
+    "CertificateGeneration",
+    "DeliveryPackaging",
+    "ClientHandoff",
+    "JobClosure",
+    "LifecycleArchive",
+    "ExecutionPipeline"
+  ]
+}
