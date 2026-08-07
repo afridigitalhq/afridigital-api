@@ -32,3 +32,6 @@ backups/
 .afridebug-runtime/
 .afrinucchain/
 .afrinucchain.state
+
+# AfriNucChain runtime generated data
+modules/afrinucchain/.data/
