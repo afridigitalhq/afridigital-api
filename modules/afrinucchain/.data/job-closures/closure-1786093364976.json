@@ -1,0 +1,10 @@
+{
+  "closureId": "closure-1786093364976",
+  "component": "AfriNuc Job Closure Controller",
+  "jobId": "job-1786088481267",
+  "batchId": "Batch-001",
+  "workspaceId": "workspace-1786088398169",
+  "deliveryId": "handoff-1786093296648",
+  "status": "JOB_CLOSED",
+  "closedAt": "2026-08-07T09:02:44.976Z"
+}

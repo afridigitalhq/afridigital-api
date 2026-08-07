@@ -1,0 +1,15 @@
+{
+  "certificateId": "certificate-1786093173189",
+  "component": "AfriNuc Recovery Certificate Generator",
+  "jobId": "job-1786088481267",
+  "batchId": "Batch-001",
+  "workspaceId": "workspace-1786088398169",
+  "auditEventId": "recovery-1786093129093",
+  "status": "RECOVERY_CERTIFIED",
+  "integrity": {
+    "recoveryVerified": true,
+    "auditVerified": true,
+    "deliveryReady": true
+  },
+  "issuedAt": "2026-08-07T08:59:33.190Z"
+}

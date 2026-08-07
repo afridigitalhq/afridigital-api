@@ -1,0 +1,13 @@
+{
+  "packageId": "delivery-package-1786093245859",
+  "component": "AfriNuc Recovery Delivery Package Builder",
+  "jobId": "job-1786088481267",
+  "batchId": "Batch-001",
+  "workspaceId": "workspace-1786088398169",
+  "artifacts": {
+    "auditEventId": "recovery-1786093198674",
+    "certificateId": "certificate-1786093198678"
+  },
+  "status": "READY_FOR_DELIVERY",
+  "createdAt": "2026-08-07T09:00:45.859Z"
+}
