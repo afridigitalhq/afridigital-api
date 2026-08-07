@@ -1,10 +1,12 @@
 import AfriAIDiagnosisContract from "../diagnosis/AfriAIDiagnosisContract.js";
 import AfriAIEvidenceEnricher from "../evidence/enrichment/AfriAIEvidenceEnricher.js";
+import AfriAIEvidenceGuard from "../guards/AfriAIEvidenceGuard.js";
 import AfriAIProviderResilience from "../providers/resilience/AfriAIProviderResilience.js";
 import AfriFixRemediationPlanner from "../remediation/AfriFixRemediationPlanner.js";
 import askOllama from "../llm/OllamaClient.js";
 
 const AfriAIInvestigator = {
+
   async investigate(evidence = {}) {
 
     const enrichedEvidence =
@@ -13,17 +15,27 @@ const AfriAIInvestigator = {
     const prompt = `
 You are AfriAI Investigation Engine.
 
-Analyze the enriched system evidence below.
+Analyze ONLY the supplied evidence.
 
-${JSON.stringify(enrichedEvidence, null, 2)}
+Do not invent:
+- attacks
+- malware
+- attackers
+- vulnerabilities
+- compromises
+- phishing
+- security breaches
+- root causes not supported by evidence
 
-Return a concise technical investigation containing:
+Clearly distinguish observed evidence from hypotheses.
+
+Return:
 1. Possible root cause
 2. Risk level
 3. Recommended next action
 
-Do not invent evidence.
-If evidence is insufficient, explicitly say so.
+Evidence:
+${JSON.stringify(enrichedEvidence, null, 2)}
 `;
 
     const execution =
@@ -32,25 +44,25 @@ If evidence is insufficient, explicitly say so.
         async () => await askOllama(prompt)
       );
 
-    const providerAvailable =
-      execution?.status === "PROVIDER_SUCCESS";
-
     const analysis =
-      providerAvailable
+      execution.status === "PROVIDER_SUCCESS"
         ? execution.result
         : "AI provider unavailable. Evidence preserved for later analysis.";
 
     const diagnosis =
       AfriAIDiagnosisContract.create({
         rootCause: analysis,
-        affectedComponent:
-          "AfriAI Investigation Pipeline",
+        affectedComponent: "AfriAI Investigation Pipeline",
         severity:
-          providerAvailable ? "LOW" : "HIGH",
+          execution.status === "PROVIDER_SUCCESS"
+            ? "LOW"
+            : "HIGH",
         confidence:
-          providerAvailable ? "MEDIUM" : "LOW",
+          execution.status === "PROVIDER_SUCCESS"
+            ? "MEDIUM"
+            : "LOW",
         recommendedFix:
-          providerAvailable
+          execution.status === "PROVIDER_SUCCESS"
             ? "Continue validation"
             : "Restore AI provider connection"
       });
@@ -58,13 +70,31 @@ If evidence is insufficient, explicitly say so.
     const diagnosisValidation =
       AfriAIDiagnosisContract.validate(diagnosis);
 
+    const evidenceGuard =
+      AfriAIEvidenceGuard.evaluate(
+        enrichedEvidence,
+        diagnosis
+      );
+
     const remediation =
-      AfriFixRemediationPlanner.plan({
-        rootCause: diagnosis.rootCause,
-        severity: diagnosis.severity,
-        confidence: diagnosis.confidence,
-        recommendedFix: diagnosis.recommendedFix
-      });
+      evidenceGuard.supported
+        ? AfriFixRemediationPlanner.plan({
+            rootCause: diagnosis.rootCause,
+            severity: diagnosis.severity,
+            confidence: diagnosis.confidence,
+            recommendedFix: diagnosis.recommendedFix
+          })
+        : {
+            diagnosis: {
+              rootCause: diagnosis.rootCause,
+              severity: diagnosis.severity,
+              confidence: diagnosis.confidence,
+              recommendedFix: diagnosis.recommendedFix
+            },
+            remediation: null,
+            verification: [],
+            status: "REMEDIATION_BLOCKED"
+          };
 
     return {
       engine: "AfriAI Investigator",
@@ -73,13 +103,16 @@ If evidence is insufficient, explicitly say so.
       analysis,
       diagnosis,
       diagnosisValidation,
+      evidenceGuard,
       remediation,
       status:
-        providerAvailable
+        execution.status === "PROVIDER_SUCCESS"
           ? "ANALYZED"
           : "PENDING"
     };
+
   }
+
 };
 
 export default AfriAIInvestigator;
