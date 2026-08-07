@@ -1,0 +1,13 @@
+ERROR: Application startup failed
+
+Service: Demo API Server
+
+Stack:
+RuntimeError: Missing environment configuration
+at startup.js:42
+
+Impact:
+Application cannot initialize successfully.
+
+Expected:
+Server starts normally after configuration correction.

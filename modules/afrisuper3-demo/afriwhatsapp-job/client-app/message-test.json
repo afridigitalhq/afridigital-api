@@ -1,0 +1,6 @@
+{
+  "channel": "WhatsApp",
+  "message": "Help me process my business request",
+  "expected": "Message routed through AfriWhatsApp AI adapter",
+  "status": "TEST_READY"
+}

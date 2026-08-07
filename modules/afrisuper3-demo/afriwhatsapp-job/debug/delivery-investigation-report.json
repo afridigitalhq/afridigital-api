@@ -1,0 +1,23 @@
+{
+  "jobId": "afriwhatsapp-llm-validation-001",
+  "component": "AfriDebug",
+  "stage": "DELIVERY_INVESTIGATION_COMPLETED",
+  "issue": {
+    "component": "MetaWhatsApp Delivery Provider",
+    "type": "OAUTH_AUTHENTICATION_FAILURE",
+    "severity": "HIGH",
+    "message": "Invalid OAuth access token - Cannot parse access token"
+  },
+  "analysis": {
+    "afriWhatsAppRuntime": "PASSED",
+    "afriAIProcessing": "PASSED",
+    "responseGeneration": "PASSED",
+    "externalDelivery": "FAILED"
+  },
+  "rootCause": "Invalid Meta WhatsApp access token configuration",
+  "recommendation": {
+    "action": "UPDATE_META_WHATSAPP_CREDENTIALS",
+    "readyForAfriFix": true
+  },
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

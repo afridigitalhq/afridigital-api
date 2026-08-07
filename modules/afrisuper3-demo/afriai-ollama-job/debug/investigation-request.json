@@ -1,0 +1,20 @@
+{
+  "jobId":"afriai-ollama-validation-001",
+  "component":"AfriDebug",
+  "target":"modules/afriai/providers",
+  "request":"Validate Ollama provider health and execution pipeline",
+  "pipeline":[
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "checks":[
+    "Provider Registry",
+    "Ollama Health Check",
+    "Ollama Endpoint",
+    "Generate API",
+    "Fallback Logic",
+    "Response Normalization"
+  ],
+  "status":"RECEIVED"
+}

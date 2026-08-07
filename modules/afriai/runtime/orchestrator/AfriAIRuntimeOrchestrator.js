@@ -3,25 +3,23 @@ import AfriAIIntentExecutor from "../intents/executor/AfriAIIntentExecutor.js";
 import AfriAIKnowledgeRuntime from "../../knowledge-governance/retrieval/AfriAIKnowledgeRuntime.js";
 import AfriAIDecisionResolver from "../../decision/resolver/AfriAIDecisionResolver.js";
 
-const AfriAIRuntimeOrchestrator={
+export class AfriAIRuntimeOrchestrator {
 
-  run(message="",context={}){
+  run(message = "", context = {}) {
 
-    const decision=AfriAIDecisionResolver.resolve(message);
-    const intent=AfriAIIntentRouter.route(message);
-    const knowledge=AfriAIKnowledgeRuntime.retrieve(message,context);
-    const execution=AfriAIIntentExecutor.execute(intent,knowledge);
+    const decision = AfriAIDecisionResolver.resolve(message);
+    const intent = AfriAIIntentRouter.route(message);
+    const knowledge = AfriAIKnowledgeRuntime.retrieve(message, context);
+    const execution = AfriAIIntentExecutor.execute(intent, knowledge);
 
-    return{
+    return {
       decision,
       intent,
       knowledge,
       execution,
-      status:"READY"
+      status: "READY"
     };
 
   }
 
-};
-
-export default AfriAIRuntimeOrchestrator;
+}

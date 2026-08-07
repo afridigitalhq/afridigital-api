@@ -1,0 +1,13 @@
+{
+  "jobId": "afriwhatsapp-runtime-validation-001",
+  "client": "AfriDigital Internal",
+  "request": "Validate AfriWhatsApp AI message processing pipeline",
+  "issueType": "RUNTIME_CONTRACT_VALIDATION",
+  "target": "modules/afriwhatsapp",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "status": "RECEIVED"
+}

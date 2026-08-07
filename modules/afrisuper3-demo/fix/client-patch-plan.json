@@ -1,0 +1,22 @@
+{
+  "jobId": "client-simulation-job-001",
+  "component": "AfriFix",
+  "stage": "PATCH_PLANNING_COMPLETED",
+  "source": {
+    "component": "AfriDebug",
+    "artifact": "client-investigation-report.json"
+  },
+  "diagnosis": "UPDATE_ENVIRONMENT_CONFIGURATION",
+  "patch": {
+    "type": "CONFIGURATION_UPDATE",
+    "description": "Add missing runtime environment configuration required for application startup",
+    "riskLevel": "LOW"
+  },
+  "verification": {
+    "humanApprovalRequired": true,
+    "rollbackAvailable": true,
+    "testsRequired": true
+  },
+  "status": "READY_FOR_APPROVAL",
+  "createdAt": "2026-08-07T09:51:20.116Z"
+}

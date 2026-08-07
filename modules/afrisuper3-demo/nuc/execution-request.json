@@ -1,0 +1,19 @@
+{
+  "jobId": "afrisuper3-demo-job-001",
+  "component": "AfriNucChain",
+  "stage": "EXECUTION_REQUESTED",
+  "source": {
+    "component": "AfriFix",
+    "artifact": "patch-plan.json"
+  },
+  "approval": {
+    "status": "APPROVED",
+    "approvedBy": "Human Reviewer",
+    "approvedAt": "2026-08-07T00:00:00.000Z"
+  },
+  "execution": {
+    "capability": "ExecutionPipeline",
+    "handler": "AfriNucExecutionRuntime"
+  },
+  "status": "READY_FOR_EXECUTION"
+}

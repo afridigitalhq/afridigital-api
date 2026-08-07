@@ -1,0 +1,13 @@
+{
+  "jobId": "client-simulation-job-001",
+  "client": "Demo SaaS Client",
+  "request": "Fix application startup failure",
+  "repository": "sample-app",
+  "issueType": "RUNTIME_ERROR",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "status": "RECEIVED"
+}

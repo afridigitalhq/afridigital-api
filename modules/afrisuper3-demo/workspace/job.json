@@ -1,0 +1,12 @@
+{
+  "jobId": "afrisuper3-demo-job-001",
+  "client": "Demo Client",
+  "request": "Investigate and fix application runtime failure",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "status": "CREATED",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

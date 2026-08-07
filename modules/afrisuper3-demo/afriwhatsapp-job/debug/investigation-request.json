@@ -1,0 +1,19 @@
+{
+  "jobId": "afriwhatsapp-llm-validation-001",
+  "component": "AfriDebug",
+  "target": "modules/afriwhatsapp + modules/afriai",
+  "request": "Validate WhatsApp to AfriAI LLM execution pipeline",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "checks": [
+    "WhatsApp Adapter",
+    "AI Channel Gateway",
+    "Conversation Orchestrator",
+    "AfriAI Runtime",
+    "LLM Provider Availability"
+  ],
+  "status": "RECEIVED"
+}

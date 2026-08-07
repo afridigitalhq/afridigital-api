@@ -1,0 +1,21 @@
+{
+  "jobId": "afrisuper3-demo-job-001",
+  "component": "AfriFix",
+  "stage": "PATCH_PLANNING_COMPLETED",
+  "input": {
+    "source": "AfriDebug",
+    "report": "investigation-report.json"
+  },
+  "patch": {
+    "type": "CONFIGURATION_UPDATE",
+    "description": "Update runtime dependency configuration based on investigation findings",
+    "riskLevel": "LOW"
+  },
+  "verification": {
+    "humanApprovalRequired": true,
+    "testsRequired": true,
+    "rollbackAvailable": true
+  },
+  "status": "READY_FOR_APPROVAL",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

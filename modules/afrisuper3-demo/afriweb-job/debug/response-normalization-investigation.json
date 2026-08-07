@@ -1,0 +1,24 @@
+{
+  "jobId": "afriweb-response-normalization-001",
+  "component": "AfriDebug",
+  "stage": "INVESTIGATION_COMPLETED",
+  "target": "modules/afriai/responses/AfriAIResponseComposer.js",
+  "issue": {
+    "type": "RESPONSE_CONTRACT_NORMALIZATION",
+    "severity": "LOW",
+    "message": "Response composer returns serialized JSON instead of conversational reply text."
+  },
+  "analysis": {
+    "pipelineValidated": true,
+    "afriWebRuntime": "PASSED",
+    "afriAIRuntime": "PASSED",
+    "knowledgeProvider": "PASSED",
+    "rootCause": "Response composer serializes the entire runtime response object instead of extracting the answer field."
+  },
+  "recommendation": {
+    "action": "NORMALIZE_REPLY_FIELD",
+    "readyForAfriFix": true
+  },
+  "status": "INVESTIGATION_COMPLETED",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

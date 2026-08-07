@@ -1,0 +1,31 @@
+{
+  "jobId": "afriwhatsapp-llm-validation-001",
+  "component": "AfriDebug",
+  "stage": "INVESTIGATION_COMPLETED",
+  "target": "modules/afriwhatsapp + modules/afriai",
+  "pipelineChecked": [
+    "AfriWhatsAppRuntime",
+    "AfriWhatsAppMessageProcessor",
+    "AfriWhatsAppAIAdapter",
+    "AfriAIChannelGateway",
+    "AfriAIConversationOrchestrator",
+    "AfriAIRuntime"
+  ],
+  "analysis": {
+    "whatsappAdapter": "CONNECTED",
+    "channelGateway": "CONNECTED",
+    "conversationOrchestrator": "CONNECTED",
+    "afriAIRuntime": "CONNECTED",
+    "llmProviderPath": "OLLAMA_WITH_KNOWLEDGE_FALLBACK"
+  },
+  "issue": {
+    "detected": false,
+    "message": "No blocking runtime contract issue detected"
+  },
+  "recommendation": {
+    "action": "RUN_LIVE_LLM_MESSAGE_TEST",
+    "readyForAfriFix": false
+  },
+  "status": "INVESTIGATION_COMPLETED",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

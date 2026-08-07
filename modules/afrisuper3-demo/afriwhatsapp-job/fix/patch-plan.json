@@ -1,0 +1,23 @@
+{
+  "jobId": "afriwhatsapp-llm-validation-001",
+  "component": "AfriFix",
+  "stage": "PATCH_PLANNING_COMPLETED",
+  "source": {
+    "component": "AfriDebug",
+    "artifact": "investigation-report.json"
+  },
+  "diagnosis": "RESPONSE_COMPOSER_INPUT_CONTRACT_MISMATCH",
+  "patch": {
+    "type": "RUNTIME_RESPONSE_NORMALIZATION",
+    "target": "modules/afriai/responses/AfriAIResponseComposer.js",
+    "description": "Normalize AfriAI runtime response object before passing message text to suggestion selector",
+    "riskLevel": "LOW"
+  },
+  "verification": {
+    "humanApprovalRequired": true,
+    "rollbackAvailable": true,
+    "testsRequired": true
+  },
+  "status": "READY_FOR_APPROVAL",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

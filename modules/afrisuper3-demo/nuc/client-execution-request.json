@@ -1,0 +1,19 @@
+{
+  "jobId": "client-simulation-job-001",
+  "component": "AfriNucChain",
+  "stage": "EXECUTION_REQUESTED",
+  "source": {
+    "component": "AfriFix",
+    "artifact": "client-patch-plan.json"
+  },
+  "approval": {
+    "status": "APPROVED",
+    "approvedBy": "Human Reviewer",
+    "approvedAt": "2026-08-07T09:51:55.163Z"
+  },
+  "execution": {
+    "capability": "ExecutionPipeline",
+    "handler": "AfriNucExecutionRuntime"
+  },
+  "status": "READY_FOR_EXECUTION"
+}

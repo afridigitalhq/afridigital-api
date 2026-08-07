@@ -1,0 +1,23 @@
+{
+  "jobId": "client-simulation-job-001",
+  "component": "AfriDebug",
+  "stage": "INVESTIGATION_COMPLETED",
+  "repository": "sample-app",
+  "issue": {
+    "type": "RUNTIME_ERROR",
+    "detected": true,
+    "message": "Missing environment configuration",
+    "severity": "HIGH"
+  },
+  "analysis": {
+    "repositoryScanned": true,
+    "runtimeInspected": true,
+    "logAnalyzed": true,
+    "rootCause": "Missing runtime environment configuration"
+  },
+  "recommendation": {
+    "action": "UPDATE_ENVIRONMENT_CONFIGURATION",
+    "readyForAfriFix": true
+  },
+  "createdAt": "2026-08-07T09:49:50.467Z"
+}

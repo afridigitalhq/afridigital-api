@@ -1,0 +1,23 @@
+{
+  "jobId": "afriwhatsapp-llm-validation-001",
+  "component": "AfriFix",
+  "stage": "PATCH_PLANNING_COMPLETED",
+  "source": {
+    "component": "AfriDebug",
+    "artifact": "delivery-investigation-report.json"
+  },
+  "diagnosis": "META_WHATSAPP_OAUTH_CONFIGURATION",
+  "patch": {
+    "type": "CREDENTIAL_CONFIGURATION_UPDATE",
+    "target": "Meta WhatsApp Provider",
+    "description": "Replace invalid OAuth access token with a valid Meta WhatsApp Business API access token and verify provider configuration.",
+    "riskLevel": "LOW"
+  },
+  "verification": {
+    "humanApprovalRequired": true,
+    "rollbackAvailable": true,
+    "testsRequired": true
+  },
+  "status": "READY_FOR_APPROVAL",
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}

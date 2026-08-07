@@ -7,12 +7,19 @@ const AfriAIResponseComposer = {
   compose(result = {}){
 
     const reply =
+      result?.execution?.response?.answer ||
+      result?.execution?.response?.response ||
       result?.execution?.response ||
       "Hello 👋 I'm AfriAI. How can I help you today?";
 
+    const normalizedReply =
+      typeof reply === "string"
+        ? reply
+        : JSON.stringify(reply);
+
     const suggestions =
       SuggestionSelector(
-        reply
+        normalizedReply
       );
 
     const actions =
@@ -21,7 +28,7 @@ const AfriAIResponseComposer = {
       );
 
     return ResponseBuilder({
-      reply,
+      reply: normalizedReply,
       suggestions,
       actions,
       metadata:{

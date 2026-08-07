@@ -1,0 +1,21 @@
+{
+  "jobId": "afriweb-llm-validation-001",
+  "component": "AfriDebug",
+  "target": "modules/afriweb + modules/afriai",
+  "request": "Validate AfriWeb to AfriAI LLM execution pipeline",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "checks": [
+    "AfriWeb Request Handler",
+    "AfriAI Channel Gateway",
+    "Conversation Orchestrator",
+    "AfriAI Runtime",
+    "LLM Provider Registry",
+    "Knowledge Fallback",
+    "Response Composer"
+  ],
+  "status": "RECEIVED"
+}

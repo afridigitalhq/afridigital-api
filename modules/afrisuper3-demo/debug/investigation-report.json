@@ -1,0 +1,21 @@
+{
+  "jobId": "afrisuper3-demo-job-001",
+  "component": "AfriDebug",
+  "stage": "INVESTIGATION_COMPLETED",
+  "issue": {
+    "type": "RUNTIME_ERROR",
+    "message": "Application failed during startup",
+    "severity": "HIGH"
+  },
+  "analysis": {
+    "repositoryScanned": true,
+    "dependenciesChecked": true,
+    "runtimeInspected": true,
+    "rootCause": "Missing dependency configuration"
+  },
+  "recommendation": {
+    "action": "UPDATE_RUNTIME_DEPENDENCY_CONFIGURATION",
+    "readyForAfriFix": true
+  },
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}
