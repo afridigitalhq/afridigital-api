@@ -1,4 +1,4 @@
-import OllamaProvider from "../../modules/afriai/providers/OllamaProvider.js";
+import OllamaProvider from "../../../modules/afriai/providers/OllamaProvider.js";
 
 export default function ollamaTestRoute(app){
 
