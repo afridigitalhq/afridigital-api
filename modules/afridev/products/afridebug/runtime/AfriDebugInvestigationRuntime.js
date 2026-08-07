@@ -12,49 +12,107 @@ import AfriDebugDeliveryAdapter from "../delivery/AfriDebugDeliveryAdapter.js";
 import AfriDebugPipelineAdapter from "../orchestration/AfriDebugPipelineAdapter.js";
 import AfriDebugWorkflow from "../investigation/AfriDebugWorkflow.js";
 
-const AfriDebugInvestigationRuntime={
- investigate(repository){
-  const pipeline=AfriDebugPipelineAdapter.run(AfriDebugWorkflow.stages,{repository});
-  const intake=AfriDebugIntakeAdapter.repository(repository);
-  const scan=AfriDebugScanAdapter.scan(repository);
-  const dependency=AfriDebugDependencyAdapter.build(repository);
-  const runtime=AfriDebugRuntime.boot();
-  const logs=AfriDebugIntakeAdapter.logs(repository);
-  const intelligence=AfriDebugIntelligenceAdapter.investigate(logs,{repository,runtime});
-  const analysis=AfriDebugIntelligenceAdapter.analyze(intelligence);
-  const stack=intelligence;
-  const knowledge=AfriDebugIntelligenceAdapter.patterns(analysis,[]);
-  const rootCause=AfriDebugIntelligenceAdapter.reason(knowledge);
-  const plan=AfriDebugIntelligenceAdapter.recommend(rootCause);
-  const patch=AfriDebugPatchGenerator.generate(plan);
-  const applied=AfriDebugPatchAdapter.apply(repository,patch);
-  const validation=AfriDebugPatchAdapter.validate(applied);
-  const tracking=AfriDebugPatchAdapter.track({repository,diff:AfriDebugPatchAdapter.diff({},applied),applied,validation});
-  const tests=AfriDebugTestBridge.execute(validation);
-  const report=AfriDebugDeliveryAdapter.generate(repository);
+import CoreApprovalRequest from "../../../../core/approval/CoreApprovalRequest.js";
+import CoreApprovalEngine from "../../../../core/approval/CoreApprovalEngine.js";
 
-  return {
-   security,
-   pipeline,
-   intake,
-   scan,
-   dependency,
-   runtime,
-   logs,
-   stack,
-   analysis,
-   knowledge,
-   rootCause,
-   plan,
-   patch,
-   applied,
-   validation,
-   tracking,
-   tests,
-   report,
-   status:"INVESTIGATION_COMPLETED"
-  };
- }
+const AfriDebugInvestigationRuntime={
+  investigate(repository,options={}){
+    const pipeline=AfriDebugPipelineAdapter.run(
+      AfriDebugWorkflow.stages,
+      {repository}
+    );
+
+    const security=AfriSecurityRuntime.inspect(repository);
+    const intake=AfriDebugIntakeAdapter.repository(repository);
+    const scan=AfriDebugScanAdapter.scan(repository);
+    const dependency=AfriDebugDependencyAdapter.build(repository);
+    const runtime=AfriDebugRuntime.boot();
+    const logs=AfriDebugIntakeAdapter.logs(repository);
+
+    const intelligence=AfriDebugIntelligenceAdapter.investigate(
+      logs,
+      {repository,runtime}
+    );
+
+    const analysis=AfriDebugIntelligenceAdapter.analyze(intelligence);
+    const stack=intelligence;
+    const knowledge=AfriDebugIntelligenceAdapter.patterns(analysis,[]);
+    const rootCause=AfriDebugIntelligenceAdapter.reason(knowledge);
+    const plan=AfriDebugIntelligenceAdapter.recommend(rootCause);
+    const patch=AfriDebugPatchGenerator.generate(plan);
+
+    const approvalRequest=CoreApprovalRequest.create({
+      service:"AfriDebug",
+      repository,
+      patch,
+      reason:"Human approval required before patch application"
+    });
+
+    const approval=CoreApprovalEngine.approve(approvalRequest);
+
+    const approvedStatus=
+      options.approval?.status==="APPROVED" ||
+      options.approval?.status==="HUMAN_APPROVED";
+
+    if(!approvedStatus){
+      return {
+        security,
+        pipeline,
+        intake,
+        scan,
+        dependency,
+        runtime,
+        logs,
+        stack,
+        analysis,
+        knowledge,
+        rootCause,
+        plan,
+        patch,
+        approval,
+        applied:null,
+        validation:null,
+        tracking:null,
+        tests:null,
+        report:null,
+        status:"AWAITING_HUMAN_APPROVAL"
+      };
+    }
+
+    const applied=AfriDebugPatchAdapter.apply(repository,patch);
+    const validation=AfriDebugPatchAdapter.validate(applied);
+    const tracking=AfriDebugPatchAdapter.track({
+      repository,
+      diff:AfriDebugPatchAdapter.diff({},applied),
+      applied,
+      validation
+    });
+    const tests=AfriDebugTestBridge.execute(validation);
+    const report=AfriDebugDeliveryAdapter.generate(repository);
+
+    return {
+      security,
+      pipeline,
+      intake,
+      scan,
+      dependency,
+      runtime,
+      logs,
+      stack,
+      analysis,
+      knowledge,
+      rootCause,
+      plan,
+      patch,
+      approval,
+      applied,
+      validation,
+      tracking,
+      tests,
+      report,
+      status:"INVESTIGATION_COMPLETED"
+    };
+  }
 };
 
 export default AfriDebugInvestigationRuntime;
