@@ -6,10 +6,33 @@ normalize(providerResponse){
 
  try{
 
-   const data =
-     typeof providerResponse === "string"
-       ? JSON.parse(providerResponse)
-       : providerResponse;
+   let data;
+
+   if(typeof providerResponse === "string"){
+
+     try{
+       data = JSON.parse(providerResponse);
+     }catch{
+
+       return {
+         provider:"ollama",
+         answer:providerResponse,
+         sources:[],
+         confidence:"LOW",
+         executionPath:[
+           "OllamaRawResponse",
+           "ResponseNormalizer"
+         ],
+         status:"READY"
+       };
+
+     }
+
+   }else{
+
+     data = providerResponse;
+
+   }
 
    if(data?.provider === "knowledge"){
 
