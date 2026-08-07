@@ -1,0 +1,25 @@
+{
+  "jobId": "afrisuper3-demo-job-001",
+  "component": "AfriSuper3",
+  "status": "DELIVERY_COMPLETED",
+  "pipeline": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain"
+  ],
+  "results": {
+    "investigation": "COMPLETED",
+    "patchPlanning": "COMPLETED",
+    "execution": "COMPLETED",
+    "verification": "PASSED"
+  },
+  "artifacts": {
+    "executionId": "execution-1786095662001",
+    "telemetryId": "telemetry-1786095662001",
+    "evidenceId": "evidence-1786095662005",
+    "verificationId": "verification-1786095662007"
+  },
+  "humanApproval": true,
+  "readyForClientDelivery": true,
+  "createdAt": "2026-08-07T00:00:00.000Z"
+}
