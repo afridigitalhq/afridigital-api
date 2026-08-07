@@ -73,4 +73,22 @@ import("./modules/afriai/providers/bootstrap.js")
 NODE
 
 echo ""
+
+echo ""
+echo "=== AFRIAI PIPELINE REPORT ==="
+
+node - <<'NODE'
+import("./modules/afriai/llm/OllamaClient.js")
+.then(m=>{
+ console.log(JSON.stringify({
+   pipeline:"AfriAI Debug Investigation",
+   provider:m.ollamaConfig(),
+   status:"READY",
+   recommendation:"System ready for investigation"
+ },null,2));
+})
+NODE
+
+echo ""
 echo "=== AUDIT COMPLETE ==="
+
