@@ -1,0 +1,41 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CLIENT-RELEASE-CONTROLLER-VALIDATION-001",
+  "mode": "FINAL_CLIENT_RELEASE_TEST",
+  "completed": {
+    "releaseId": "RELEASE-1786188131081",
+    "packageId": "PACKAGE-RELEASE-001",
+    "reviewId": "REVIEW-RELEASE-001",
+    "certificationId": "CERT-RELEASE-001",
+    "status": "CLIENT_RELEASE_COMPLETED",
+    "released": true,
+    "approvalContext": {
+      "required": true,
+      "reviewStatus": "approved",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "lifecycle": "COMPLETED",
+    "createdAt": 1786188131086
+  },
+  "blocked": {
+    "releaseId": "RELEASE-1786188131086",
+    "packageId": "PACKAGE-RELEASE-002",
+    "reviewId": null,
+    "certificationId": null,
+    "status": "CLIENT_RELEASE_BLOCKED",
+    "released": false,
+    "approvalContext": {
+      "required": true,
+      "reviewStatus": "pending",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "lifecycle": "WAITING_APPROVAL",
+    "createdAt": 1786188131086
+  },
+  "checks": [
+    "Approved package released",
+    "Unapproved delivery blocked",
+    "Release metadata preserved",
+    "Lifecycle completion recorded"
+  ],
+  "timestamp": "2026-08-08T11:22:11.086Z"
+}
