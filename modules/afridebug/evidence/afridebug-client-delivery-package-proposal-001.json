@@ -1,0 +1,25 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-PACKAGE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js",
+  "issue": "CERTIFIED_REPAIR_HAS_NO_CLIENT_DELIVERY_ASSEMBLY_LAYER",
+  "rootCause": "Certification proves repair quality but delivery artifacts are not automatically assembled into a client package",
+  "repair": [
+    "Collect investigation summary",
+    "Attach repair execution record",
+    "Attach verification evidence",
+    "Attach regression evidence",
+    "Attach certification record",
+    "Generate delivery package metadata"
+  ],
+  "workflow": [
+    "Certification",
+    "Evidence Assembly",
+    "Client Delivery Package",
+    "Human Review"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T11:12:55.898Z"
+}

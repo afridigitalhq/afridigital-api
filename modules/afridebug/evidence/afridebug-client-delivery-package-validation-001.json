@@ -1,0 +1,44 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-PACKAGE-VALIDATION-001",
+  "mode": "CLIENT_DELIVERY_PACKAGE_TEST",
+  "ready": {
+    "packageId": "PACKAGE-1786187617694",
+    "certificationId": "CERT-DELIVERY-001",
+    "verificationId": "VERIFY-DELIVERY-001",
+    "regressionId": "REGRESSION-DELIVERY-001",
+    "status": "DELIVERY_PACKAGE_READY",
+    "deliveryReady": true,
+    "approvalContext": {
+      "status": "approved",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "evidenceIncluded": [
+      "Verification Evidence",
+      "Regression Evidence",
+      "Certification Evidence"
+    ],
+    "createdAt": 1786187617694
+  },
+  "blocked": {
+    "packageId": "PACKAGE-1786187617694",
+    "certificationId": "CERT-DELIVERY-002",
+    "verificationId": null,
+    "regressionId": null,
+    "status": "DELIVERY_PACKAGE_BLOCKED",
+    "deliveryReady": false,
+    "approvalContext": null,
+    "evidenceIncluded": [
+      "Verification Evidence",
+      "Regression Evidence",
+      "Certification Evidence"
+    ],
+    "createdAt": 1786187617694
+  },
+  "checks": [
+    "Certified repair package created",
+    "Incomplete delivery blocked",
+    "Evidence references preserved",
+    "Approval context preserved"
+  ],
+  "timestamp": "2026-08-08T11:13:37.694Z"
+}
