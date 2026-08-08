@@ -1,0 +1,47 @@
+{
+  "component": "AfriFix Runtime Consolidation",
+  "status": "CERTIFIED",
+  "certifiedAt": "2026-08-08T05:44:40.223Z",
+  "policy": "ADAPTERS_ONLY",
+  "decision": "APPROVE_ADAPTER_MIGRATION_ONLY",
+  "review": {
+    "candidates": 40,
+    "retain": 32,
+    "adapter": 8,
+    "core": 0
+  },
+  "approvedAdapters": [
+    18,
+    19,
+    22,
+    27,
+    29,
+    30,
+    33,
+    34
+  ],
+  "adapterTargets": {
+    "18": "events",
+    "19": "evidence",
+    "22": "security",
+    "27": "scan/registry",
+    "29": "events",
+    "30": "events/storage",
+    "33": "registry",
+    "34": "storage/evidence"
+  },
+  "coreMigration": false,
+  "automaticMigration": false,
+  "humanApprovalRequired": true,
+  "verification": {
+    "status": "VERIFIED",
+    "approvedTargets": 8,
+    "adapterImplementations": 7,
+    "failures": []
+  },
+  "artifacts": {
+    "approval": "modules/afrifix/evidence/consolidation/reviews/runtime-approval.json",
+    "map": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeMigrationMap.js"
+  },
+  "next": "CONSOLIDATION_COMPLETE"
+}
