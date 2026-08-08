@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-VERIFICATION-ENGINE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/verification/AfriDebugRepairVerificationEngine.js",
+  "issue": "EXECUTED_REPAIR_HAS_NO_VERIFICATION_GATE",
+  "rootCause": "Repair execution creates execution records but no dedicated verification layer proves repair success",
+  "repair": [
+    "Accept completed execution records",
+    "Validate repair outcome",
+    "Generate verification evidence",
+    "Prepare regression testing handoff",
+    "Preserve approval and execution history"
+  ],
+  "workflow": [
+    "Repair Execution",
+    "Verification Engine",
+    "Regression Validation",
+    "Certification"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:48:17.659Z"
+}

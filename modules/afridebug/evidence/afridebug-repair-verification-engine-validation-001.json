@@ -1,0 +1,34 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-VERIFICATION-ENGINE-VALIDATION-001",
+  "mode": "REPAIR_VERIFICATION_TEST",
+  "verified": {
+    "verificationId": "VERIFY-1786186361964",
+    "executionId": "EXECUTION-VERIFY-001",
+    "planId": "PLAN-VERIFY-001",
+    "result": "REPAIR_VERIFIED",
+    "verified": true,
+    "approvalContext": {
+      "status": "approved",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "regressionRequired": true,
+    "createdAt": 1786186361964
+  },
+  "failed": {
+    "verificationId": "VERIFY-1786186361964",
+    "executionId": "EXECUTION-VERIFY-002",
+    "planId": "PLAN-VERIFY-002",
+    "result": "VERIFICATION_FAILED",
+    "verified": false,
+    "approvalContext": null,
+    "regressionRequired": true,
+    "createdAt": 1786186361964
+  },
+  "checks": [
+    "Completed execution verified",
+    "Blocked execution rejected",
+    "Approval context preserved",
+    "Regression handoff required"
+  ],
+  "timestamp": "2026-08-08T10:52:41.964Z"
+}
