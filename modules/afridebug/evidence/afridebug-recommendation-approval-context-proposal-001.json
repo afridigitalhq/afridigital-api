@@ -1,0 +1,23 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-RECOMMENDATION-APPROVAL-CONTEXT-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+  "issue": "RECOMMENDATION_APPROVAL_CONTEXT_NOT_PRESERVED",
+  "rootCause": "Recommendation evidence exists but approval trace is not attached before repair execution handoff",
+  "repair": [
+    "Attach approval reference to recommendation output",
+    "Preserve human authorization boundary",
+    "Link recommendation evidence with execution approval",
+    "Improve lifecycle audit continuity"
+  ],
+  "workflow": [
+    "Recommendation",
+    "Evidence Trace",
+    "Approval Context",
+    "Execution Handoff"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:52:08.263Z"
+}

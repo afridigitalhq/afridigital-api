@@ -64,6 +64,12 @@ const AfriDebugRecommendationEngine = {
           "AfriDebugKnowledgeMemory"
       },
 
+      approvalContext:{
+        required:true,
+        status:"PENDING_HUMAN_APPROVAL",
+        executionMode:"AFRINUCCHAIN_APPROVAL"
+      },
+
       confidence:
         ranked.length
           ? "historical_match"
