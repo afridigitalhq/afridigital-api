@@ -1,0 +1,91 @@
+{
+  "batch": "AFRIAI-KNOWLEDGE-GROUNDING-HARDENING",
+  "status": "FAILED",
+  "total": 7,
+  "passed": 6,
+  "failed": 1,
+  "results": [
+    {
+      "question": "What is AfriCommerce?",
+      "expectedKeys": [
+        "products"
+      ],
+      "actualKeys": [
+        "products"
+      ],
+      "pass": true
+    },
+    {
+      "question": "How does AfriCoin work?",
+      "expectedKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "actualKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "pass": true
+    },
+    {
+      "question": "What products does AfriDigital have?",
+      "expectedKeys": [
+        "platform",
+        "products",
+        "intelligence",
+        "payments"
+      ],
+      "actualKeys": [
+        "platform",
+        "products",
+        "intelligence",
+        "payments"
+      ],
+      "pass": true
+    },
+    {
+      "question": "Tell me about AfriDesign Studio",
+      "expectedKeys": [
+        "studio"
+      ],
+      "actualKeys": [
+        "studio"
+      ],
+      "pass": true
+    },
+    {
+      "question": "What is the current AfriDigital development status?",
+      "expectedKeys": [
+        "status",
+        "roadmap"
+      ],
+      "actualKeys": [
+        "status",
+        "roadmap"
+      ],
+      "pass": true
+    },
+    {
+      "question": "How can I earn with AfriDigital?",
+      "expectedKeys": [
+        "opportunities"
+      ],
+      "actualKeys": [
+        "opportunities"
+      ],
+      "pass": true
+    },
+    {
+      "question": "Tell me something completely unrelated to AfriDigital",
+      "expectedKeys": [],
+      "actualKeys": [
+        "platform",
+        "products",
+        "intelligence",
+        "payments"
+      ],
+      "pass": false
+    }
+  ],
+  "timestamp": "2026-08-08T07:05:23.305Z"
+}

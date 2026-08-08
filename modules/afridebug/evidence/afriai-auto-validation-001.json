@@ -1,0 +1,99 @@
+{
+  "batch": "AFRIDEBUG-AUTO-VALIDATION-001",
+  "mode": "AUTO_VALIDATION",
+  "target": "modules/afriai/knowledge-engine/AfriAIKnowledgeRetriever.js",
+  "status": "FAILED",
+  "total": 7,
+  "passed": 1,
+  "failed": 6,
+  "results": [
+    {
+      "question": "What is AfriCommerce?",
+      "expectedKeys": [
+        "products"
+      ],
+      "actualKeys": [
+        "products"
+      ],
+      "expectedGrounded": true,
+      "type": null,
+      "pass": false
+    },
+    {
+      "question": "How does AfriCoin work?",
+      "expectedKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "actualKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "expectedGrounded": true,
+      "type": null,
+      "pass": false
+    },
+    {
+      "question": "What products does AfriDigital have?",
+      "expectedKeys": [
+        "platform",
+        "products",
+        "intelligence",
+        "payments"
+      ],
+      "actualKeys": [],
+      "expectedGrounded": true,
+      "actualGrounded": false,
+      "type": "KNOWLEDGE_NOT_FOUND",
+      "pass": false
+    },
+    {
+      "question": "Tell me about AfriDesign Studio",
+      "expectedKeys": [
+        "studio"
+      ],
+      "actualKeys": [
+        "studio"
+      ],
+      "expectedGrounded": true,
+      "type": null,
+      "pass": false
+    },
+    {
+      "question": "What is the current AfriDigital development status?",
+      "expectedKeys": [
+        "status",
+        "roadmap"
+      ],
+      "actualKeys": [
+        "status",
+        "roadmap"
+      ],
+      "expectedGrounded": true,
+      "type": null,
+      "pass": false
+    },
+    {
+      "question": "How can I earn with AfriDigital?",
+      "expectedKeys": [
+        "opportunities"
+      ],
+      "actualKeys": [
+        "opportunities"
+      ],
+      "expectedGrounded": true,
+      "type": null,
+      "pass": false
+    },
+    {
+      "question": "Tell me something completely unrelated to AfriDigital",
+      "expectedKeys": [],
+      "actualKeys": [],
+      "expectedGrounded": false,
+      "actualGrounded": false,
+      "type": "KNOWLEDGE_NOT_FOUND",
+      "pass": true
+    }
+  ],
+  "timestamp": "2026-08-08T07:13:44.691Z"
+}

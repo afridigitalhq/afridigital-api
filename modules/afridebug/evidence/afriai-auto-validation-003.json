@@ -1,0 +1,99 @@
+{
+  "batch": "AFRIDEBUG-AUTO-VALIDATION-003",
+  "mode": "KNOWLEDGE_GROUNDING_VERIFICATION",
+  "status": "PASSED",
+  "total": 7,
+  "passed": 7,
+  "failed": 0,
+  "results": [
+    {
+      "question": "What is AfriCommerce?",
+      "expectedKeys": [
+        "products"
+      ],
+      "actualKeys": [
+        "products"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "How does AfriCoin work?",
+      "expectedKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "actualKeys": [
+        "payments",
+        "opportunities"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "What products does AfriDigital have?",
+      "expectedKeys": [
+        "platform",
+        "products",
+        "payments"
+      ],
+      "actualKeys": [
+        "platform",
+        "products",
+        "payments"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "Tell me about AfriDesign Studio",
+      "expectedKeys": [
+        "studio"
+      ],
+      "actualKeys": [
+        "studio"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "What is the current AfriDigital development status?",
+      "expectedKeys": [
+        "status",
+        "roadmap"
+      ],
+      "actualKeys": [
+        "status",
+        "roadmap"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "How can I earn with AfriDigital?",
+      "expectedKeys": [
+        "opportunities"
+      ],
+      "actualKeys": [
+        "opportunities"
+      ],
+      "grounded": true,
+      "type": null,
+      "pass": true
+    },
+    {
+      "question": "Tell me something completely unrelated to AfriDigital",
+      "expectedKeys": [],
+      "actualKeys": [],
+      "grounded": false,
+      "type": "KNOWLEDGE_NOT_FOUND",
+      "pass": true
+    }
+  ],
+  "timestamp": "2026-08-08T07:53:24.726Z"
+}

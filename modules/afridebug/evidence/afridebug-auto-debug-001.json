@@ -1,0 +1,32 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-001",
+  "mode": "AUTO_INVESTIGATION",
+  "intake": {
+    "question": "Tell me something completely unrelated to AfriDigital"
+  },
+  "runtimeEvidence": {
+    "grounded": true,
+    "keys": [
+      "platform",
+      "products",
+      "intelligence",
+      "payments"
+    ]
+  },
+  "classification": {
+    "type": "FALSE_KNOWLEDGE_GROUNDING",
+    "severity": "HIGH"
+  },
+  "codeEvidence": {
+    "file": "modules/afriai/knowledge-engine/AfriAIKnowledgeRetriever.js",
+    "fallbackDetected": true
+  },
+  "rootCause": "Empty retrieval context falls back to AfriDigital platform knowledge",
+  "repairPlan": {
+    "action": "Replace implicit platform fallback with explicit NOT_GROUNDED result and preserve matched knowledge routes",
+    "approvalRequired": true,
+    "executionMode": "AFRINUCCHAIN_APPROVAL"
+  },
+  "status": "HUMAN_APPROVAL_REQUIRED",
+  "timestamp": "2026-08-08T07:09:27.136Z"
+}

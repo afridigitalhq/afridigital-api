@@ -29,7 +29,6 @@ const AfriAIKnowledgeRetriever = {
       context.payments = knowledge.payments;
     }
 
-
     if(
       text.includes("earn") ||
       text.includes("income") ||
@@ -57,18 +56,29 @@ const AfriAIKnowledgeRetriever = {
       context.roadmap = knowledge.roadmap;
     }
 
+    if(
+      text.includes("what products") ||
+      text.includes("what is afridigital") ||
+      text.includes("tell me about afridigital")
+    ){
+      context.platform = knowledge.platform;
+      context.products = knowledge.products;
+      context.payments = knowledge.payments;
+    }
+
     if(Object.keys(context).length === 0){
 
-      const fallback = knowledge.platform;
-
       CoreTraceEngine.event(
-        "KNOWLEDGE_RETRIEVED",
+        "KNOWLEDGE_NOT_GROUNDED",
         {
-          keys:["platform"]
+          keys:[]
         }
       );
 
-      return fallback;
+      return {
+        grounded:false,
+        type:"KNOWLEDGE_NOT_FOUND"
+      };
     }
 
     CoreTraceEngine.event(
@@ -78,7 +88,10 @@ const AfriAIKnowledgeRetriever = {
       }
     );
 
-    return context;
+    return {
+      grounded:true,
+      ...context
+    };
 
   }
 

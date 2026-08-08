@@ -1,0 +1,21 @@
+{
+  "batch": "AFRIDEBUG-AUTO-REPAIR-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afriai/knowledge-engine/AfriAIKnowledgeRetriever.js",
+  "issue": "FALSE_KNOWLEDGE_GROUNDING",
+  "detectedFallback": true,
+  "patch": {
+    "operation": "REPLACE",
+    "old": "if(Object.keys(context).length === 0){\n\n      const fallback = knowledge.platform;\n\n      CoreTraceEngine.event(\n        \"KNOWLEDGE_RETRIEVED\",\n        {\n          keys:[\"platform\"]\n        }\n      );\n\n      return fallback;\n    }",
+    "new": "if(Object.keys(context).length === 0){\n\n      CoreTraceEngine.event(\n        \"KNOWLEDGE_NOT_GROUNDED\",\n        {\n          keys:[]\n        }\n      );\n\n      return {\n        grounded:false,\n        type:\"KNOWLEDGE_NOT_FOUND\"\n      };\n    }"
+  },
+  "validationPlan": [
+    "Known AfriDigital queries remain grounded",
+    "Unrelated queries return grounded:false",
+    "No implicit platform fallback remains"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T07:10:58.351Z"
+}
