@@ -1,0 +1,19 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-PATCH-PLANNING-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": [
+    "modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js",
+    "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js"
+  ],
+  "issue": "REPAIR_PLAN_TO_PATCH_PIPELINE_DISCONNECTED",
+  "rootCause": "Repair plans are not converted into approval-ready patch proposals",
+  "repair": [
+    "Connect repair plan output to patch generator",
+    "Create approval queue request",
+    "Preserve human approval gate before execution"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:23:45.639Z"
+}

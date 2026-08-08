@@ -9,7 +9,9 @@ const AfriDebugPatchGenerator = {
       strategy: input.patchStrategy || "TARGETED_RUNTIME_REPAIR",
       issue: input.issue || "",
       diagnosis: input.diagnosis || "",
+      source: input.source || "AfriDebugRepairPlanningEngine",
       recommendation,
+      repairPlan: input.repairPlan || null,
       operations: [
         {
           action: "INSPECT",
@@ -21,6 +23,7 @@ const AfriDebugPatchGenerator = {
         }
       ],
       requiresHumanApproval: true,
+      approvalStatus: "HUMAN_APPROVAL_REQUIRED",
       status: "PROPOSED",
       generatedAt: Date.now()
     };
