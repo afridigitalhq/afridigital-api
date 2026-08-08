@@ -1,15 +1,40 @@
 import fs from "fs";
+import KnowledgeMemory from "../../debug/memory/AfriDebugKnowledgeMemory.js";
 
-export function matchKnowledge(){
+export function matchKnowledge(issue = ""){
 
   console.log("\n🧠 AfriDebug Knowledge Matcher");
+
+  const knowledgeResult =
+    KnowledgeMemory.search(issue);
 
   const result = {
     component:"Knowledge Comparison",
     status:"PASSED",
-    matches:0,
-    patternsChecked:0,
-    timestamp:new Date().toISOString()
+    matches:
+      knowledgeResult.matches.length,
+
+    patternsChecked:
+      knowledgeResult.matches.length,
+
+    confidence:
+      knowledgeResult.confidence,
+
+    reinforcedPatterns:
+      knowledgeResult.matches.filter(
+        item => item.verified === true
+      ).length,
+
+    reinforcementAware:
+      knowledgeResult.matches.some(
+        item => item.verified === true
+      ),
+
+    source:
+      "AfriDebugKnowledgeMemory",
+
+    timestamp:
+      new Date().toISOString()
   };
 
   fs.mkdirSync(
@@ -24,5 +49,5 @@ export function matchKnowledge(){
 
   console.log("✅ Knowledge comparison evidence generated");
 
-  return true;
+  return result;
 }

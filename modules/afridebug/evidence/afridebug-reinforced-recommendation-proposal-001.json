@@ -1,0 +1,23 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REINFORCED-RECOMMENDATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js",
+  "issue": "REINFORCED_PATTERNS_NOT_REFLECTED_IN_RECOMMENDATIONS",
+  "rootCause": "Knowledge matcher returns historical confidence but does not expose verified reinforcement signals",
+  "repair": [
+    "Detect verified repair patterns",
+    "Expose reinforcement confidence",
+    "Improve recommendation explainability",
+    "Preserve human approval boundaries"
+  ],
+  "workflow": [
+    "Knowledge Memory Search",
+    "Reinforcement Detection",
+    "Confidence Enhancement",
+    "Recommendation Generation"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:26:12.863Z"
+}
