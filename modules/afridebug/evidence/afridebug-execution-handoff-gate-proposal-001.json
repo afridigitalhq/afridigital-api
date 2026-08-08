@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-EXECUTION-HANDOFF-GATE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js",
+  "issue": "VALIDATED_REPAIR_PLAN_NOT_CONNECTED_TO_EXECUTION_PIPELINE",
+  "rootCause": "Repair plan validation exists but no dedicated gate controls transfer into execution workflow",
+  "repair": [
+    "Accept only validated repair plans",
+    "Preserve approval context",
+    "Attach evidence trace",
+    "Create execution handoff metadata",
+    "Block unvalidated execution"
+  ],
+  "workflow": [
+    "Repair Plan Validation",
+    "Execution Handoff Gate",
+    "Repair Execution",
+    "Verification"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:39:40.974Z"
+}

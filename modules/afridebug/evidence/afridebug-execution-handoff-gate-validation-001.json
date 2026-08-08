@@ -1,0 +1,12 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-EXECUTION-HANDOFF-GATE-VALIDATION-001",
+  "mode": "EXECUTION_HANDOFF_CONTROL_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Validated plan accepted",
+    "Invalid plan blocked",
+    "Approval context preserved",
+    "Evidence trace preserved"
+  ],
+  "timestamp": "2026-08-08T10:41:29.124Z"
+}
