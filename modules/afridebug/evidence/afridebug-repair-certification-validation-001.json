@@ -1,0 +1,34 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-CERTIFICATION-VALIDATION-001",
+  "mode": "CERTIFICATION_GATE_TEST",
+  "certified": {
+    "certificationId": "CERT-1786187499271",
+    "verificationId": "VERIFY-CERT-001",
+    "regressionId": "REGRESSION-CERT-001",
+    "status": "CERTIFIED",
+    "certified": true,
+    "approvalContext": {
+      "status": "approved",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "deliveryReady": true,
+    "createdAt": 1786187499271
+  },
+  "rejected": {
+    "certificationId": "CERT-1786187499271",
+    "verificationId": "VERIFY-CERT-002",
+    "regressionId": "REGRESSION-CERT-002",
+    "status": "CERTIFICATION_FAILED",
+    "certified": false,
+    "approvalContext": null,
+    "deliveryReady": false,
+    "createdAt": 1786187499272
+  },
+  "checks": [
+    "Verified repair certified",
+    "Failed regression rejected",
+    "Approval context preserved",
+    "Delivery readiness calculated"
+  ],
+  "timestamp": "2026-08-08T11:11:39.272Z"
+}

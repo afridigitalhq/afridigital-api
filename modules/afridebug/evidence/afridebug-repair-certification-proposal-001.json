@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-CERTIFICATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js",
+  "issue": "VERIFIED_REPAIRS_HAVE_NO_CERTIFICATION_GATE",
+  "rootCause": "Verification and regression checks exist but no final certification layer validates delivery readiness",
+  "repair": [
+    "Accept verified repair results",
+    "Accept regression results",
+    "Preserve approval history",
+    "Generate certification record",
+    "Prepare client delivery handoff"
+  ],
+  "workflow": [
+    "Verification",
+    "Regression Validation",
+    "Certification",
+    "Client Delivery"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T11:11:06.963Z"
+}
