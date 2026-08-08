@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-RECOMMENDATION-REPAIR-PLAN-HANDOFF-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+  "issue": "APPROVED_RECOMMENDATION_NOT_CONVERTED_TO_REPAIR_PLAN",
+  "rootCause": "Recommendation output contains resolution intelligence but does not create a structured repair plan for execution pipeline",
+  "repair": [
+    "Generate repair plan from approved recommendation",
+    "Preserve evidence references",
+    "Attach approval context",
+    "Prepare execution handoff metadata"
+  ],
+  "workflow": [
+    "Recommendation",
+    "Evidence Trace",
+    "Approval Context",
+    "Repair Plan Generation",
+    "Execution Handoff"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:33:51.257Z"
+}

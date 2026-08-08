@@ -1,0 +1,12 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-PLAN-HANDOFF-VALIDATION-001",
+  "mode": "RECOMMENDATION_TO_PLAN_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Repair plan created",
+    "Evidence trace preserved",
+    "Approval context attached",
+    "Execution remains gated"
+  ],
+  "timestamp": "2026-08-08T10:36:16.143Z"
+}
