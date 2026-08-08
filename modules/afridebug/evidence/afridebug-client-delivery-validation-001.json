@@ -1,0 +1,26 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-VALIDATION-001",
+  "mode": "CLIENT_HANDOFF_ASSEMBLY_TEST",
+  "result": {
+    "deliveryId": "DELIVERY-1786180390669",
+    "certificationId": "CERT-TEST-001",
+    "evidencePackageId": "EVIDENCE-TEST-001",
+    "summary": "Missing module export repaired and verified",
+    "verification": "VERIFIED",
+    "approvalTrace": {
+      "approvalId": "APPROVAL-TEST-001",
+      "approvedBy": "AfriDebugAdmin"
+    },
+    "status": "CLIENT_HANDOFF_READY",
+    "humanReviewRequired": true,
+    "createdAt": 1786180390672
+  },
+  "checks": [
+    "Certification linked",
+    "Evidence package linked",
+    "Verification included",
+    "Approval trace preserved",
+    "Client handoff ready"
+  ],
+  "timestamp": "2026-08-08T09:13:10.672Z"
+}
