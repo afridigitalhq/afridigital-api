@@ -1,0 +1,28 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-EVIDENCE-PACKAGE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js",
+  "issue": "REPAIR_LIFECYCLE_EVIDENCE_NOT_ASSEMBLED",
+  "rootCause": "AfriDebug stores individual repair artifacts but has no final delivery evidence assembler",
+  "repair": [
+    "Collect incident context",
+    "Collect approval record",
+    "Collect execution result",
+    "Collect verification result",
+    "Collect learning resolution record",
+    "Generate client-ready evidence package"
+  ],
+  "workflow": [
+    "Investigation",
+    "Diagnosis",
+    "Recommendation",
+    "Approval",
+    "Execution",
+    "Verification",
+    "Certification"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:05:03.845Z"
+}

@@ -1,0 +1,14 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-EVIDENCE-PACKAGE-VALIDATION-001",
+  "mode": "DELIVERY_PACKAGE_ASSEMBLY_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Incident captured",
+    "Approval captured",
+    "Execution captured",
+    "Verification captured",
+    "Resolution captured",
+    "Certification prepared"
+  ],
+  "timestamp": "2026-08-08T09:07:05.292Z"
+}
