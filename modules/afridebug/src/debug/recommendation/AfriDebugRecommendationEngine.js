@@ -41,6 +41,16 @@ const AfriDebugRecommendationEngine = {
       source:
         "AfriDebugKnowledgeMemory",
 
+      verifiedPatterns:
+        ranked.filter(
+          item => item.verified === true
+        ).length,
+
+      explanation:
+        ranked.length
+          ? "Recommendation based on historical repair patterns"
+          : "No verified repair history available",
+
       confidence:
         ranked.length
           ? "historical_match"

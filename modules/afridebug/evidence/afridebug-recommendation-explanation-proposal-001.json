@@ -1,0 +1,23 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-RECOMMENDATION-EXPLANATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+  "issue": "RECOMMENDATION_REASONING_NOT_EXPOSED",
+  "rootCause": "Recommendation engine returns solutions without explaining confidence source or supporting repair history",
+  "repair": [
+    "Expose recommendation reasoning",
+    "Show verified pattern support",
+    "Include confidence explanation",
+    "Improve developer and client transparency"
+  ],
+  "workflow": [
+    "Knowledge Match",
+    "Confidence Analysis",
+    "Recommendation Generation",
+    "Explanation Output"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:48:02.800Z"
+}
