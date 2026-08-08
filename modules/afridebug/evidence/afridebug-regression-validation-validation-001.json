@@ -1,0 +1,36 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REGRESSION-VALIDATION-001",
+  "mode": "REGRESSION_SAFETY_TEST",
+  "passed": {
+    "regressionId": "REGRESSION-1786186457940",
+    "verificationId": "VERIFY-REGRESSION-001",
+    "status": "REGRESSION_PASSED",
+    "passed": true,
+    "checks": [
+      "Affected component review",
+      "Repair impact validation",
+      "Regression safety check"
+    ],
+    "certificationReady": true,
+    "createdAt": 1786186457941
+  },
+  "failed": {
+    "regressionId": "REGRESSION-1786186457941",
+    "verificationId": "VERIFY-REGRESSION-002",
+    "status": "REGRESSION_FAILED",
+    "passed": false,
+    "checks": [
+      "Affected component review",
+      "Repair impact validation",
+      "Regression safety check"
+    ],
+    "certificationReady": false,
+    "createdAt": 1786186457941
+  },
+  "checks": [
+    "Verified repair accepted",
+    "Failed verification rejected",
+    "Certification readiness calculated"
+  ],
+  "timestamp": "2026-08-08T10:54:17.941Z"
+}

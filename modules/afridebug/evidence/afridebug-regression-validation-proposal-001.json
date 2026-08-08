@@ -1,0 +1,23 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REGRESSION-VALIDATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/verification/AfriDebugRegressionValidator.js",
+  "issue": "VERIFIED_REPAIR_HAS_NO_REGRESSION_CHECK_LAYER",
+  "rootCause": "Repair verification confirms success but does not check whether existing functionality was affected",
+  "repair": [
+    "Accept verified repair records",
+    "Analyze affected components",
+    "Run regression validation checks",
+    "Generate regression evidence",
+    "Prepare certification handoff"
+  ],
+  "workflow": [
+    "Repair Verification",
+    "Regression Validation",
+    "Certification Gate"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:53:46.204Z"
+}
