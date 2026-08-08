@@ -1,0 +1,41 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-HUMAN-REVIEW-GATE-VALIDATION-001",
+  "mode": "FINAL_RELEASE_APPROVAL_TEST",
+  "approved": {
+    "reviewId": "REVIEW-1786188016319",
+    "packageId": "PACKAGE-REVIEW-001",
+    "reviewer": "AfriDebugAdmin",
+    "decision": "approved",
+    "status": "APPROVED_FOR_RELEASE",
+    "approved": true,
+    "approvalContext": {
+      "required": true,
+      "reviewer": "AfriDebugAdmin",
+      "decision": "approved",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "createdAt": 1786188016319
+  },
+  "blocked": {
+    "reviewId": "REVIEW-1786188016319",
+    "packageId": "PACKAGE-REVIEW-002",
+    "reviewer": "AfriDebugAdmin",
+    "decision": "pending",
+    "status": "RELEASE_BLOCKED",
+    "approved": false,
+    "approvalContext": {
+      "required": true,
+      "reviewer": "AfriDebugAdmin",
+      "decision": "pending",
+      "executionMode": "AFRINUCCHAIN_APPROVAL"
+    },
+    "createdAt": 1786188016319
+  },
+  "checks": [
+    "Approved delivery released",
+    "Pending review blocked",
+    "Reviewer metadata preserved",
+    "Human approval boundary maintained"
+  ],
+  "timestamp": "2026-08-08T11:20:16.320Z"
+}
