@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CERTIFICATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js",
+  "issue": "EVIDENCE_PACKAGE_NOT_CERTIFIED_FOR_CLIENT_DELIVERY",
+  "rootCause": "Evidence assembly exists but no final certification gate validates delivery readiness",
+  "repair": [
+    "Validate evidence package completeness",
+    "Verify approval status",
+    "Verify execution completion",
+    "Verify verification status",
+    "Generate delivery certification"
+  ],
+  "workflow": [
+    "Evidence Package",
+    "Certification Validation",
+    "Human Review",
+    "Client Delivery Ready"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:08:42.410Z"
+}
