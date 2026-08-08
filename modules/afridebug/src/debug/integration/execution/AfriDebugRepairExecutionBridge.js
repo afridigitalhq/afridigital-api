@@ -1,6 +1,8 @@
 import Planner from "../../planning/AfriDebugRepairPlanningEngine.js";
 import Controller from "../../execution/AfriDebugChangeExecutionController.js";
 import Approval from "../../approval/AfriDebugRepairApprovalQueue.js";
+import History from "../../history/AfriDebugRepairHistoryLedger.js";
+import Resolution from "../../learning/AfriDebugResolutionRecorder.js";
 
 const AfriDebugRepairExecutionBridge = {
 
@@ -50,11 +52,35 @@ const AfriDebugRepairExecutionBridge = {
       });
 
 
+    const history = History.record({
+      incidentId: input.incidentId || execution.incidentId,
+      approvalId: input.approvalId,
+      issue: plan.issue,
+      diagnosis: plan.diagnosis,
+      planId: plan.planId,
+      executionId: execution.executionId,
+      verificationStatus: execution.verification?.status,
+      rollbackStatus: execution.rollback ? "required" : "none",
+      outcome: execution.status
+    });
+
+    const resolution = Resolution.record({
+      investigationId: execution.incidentId,
+      error: plan.issue,
+      diagnosis: plan.diagnosis,
+      patch: execution.patch,
+      status: execution.status
+    });
+
     return {
 
       plan,
 
       execution,
+
+      history,
+
+      resolution,
 
       bridgeStatus:"executed"
 

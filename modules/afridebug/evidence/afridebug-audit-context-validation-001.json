@@ -1,0 +1,11 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-AUDIT-CONTEXT-VALIDATION-001",
+  "mode": "AUDIT_CONTEXT_PROPAGATION_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Approval ID propagated",
+    "Incident ID propagated",
+    "History ledger trace complete"
+  ],
+  "timestamp": "2026-08-08T09:04:15.657Z"
+}

@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-AUDIT-CONTEXT-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+  "issue": "AUDIT_CONTEXT_FIELDS_MISSING",
+  "rootCause": "Execution bridge does not forward approvalId and incidentId into learning records",
+  "repair": [
+    "Pass approvalId into History ledger",
+    "Preserve incident tracking",
+    "Improve repair audit traceability"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:58:39.573Z"
+}
