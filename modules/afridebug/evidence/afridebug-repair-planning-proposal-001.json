@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-PLANNING-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js",
+  "issue": "RECOMMENDATION_RESPONSE_SCHEMA_MISMATCH",
+  "rootCause": "Repair planner expects legacy recommendation array output",
+  "repair": [
+    "Consume AfriDebugRecommendationEngine new schema",
+    "Reuse verified historical resolution",
+    "Preserve human approval gate"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:20:33.730Z"
+}

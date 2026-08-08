@@ -11,7 +11,7 @@ const AfriDebugRepairPlanningEngine = {
 
 
     const best =
-      recommendation.recommendations[0] || null;
+      recommendation.recommendation?.recommendation || null;
 
 
     return {
@@ -26,7 +26,7 @@ const AfriDebugRepairPlanningEngine = {
         best?.diagnosis || "unknown",
 
       action:
-        best?.fix || "manual investigation required",
+        best?.resolution || "manual investigation required",
 
       files:
         input.files || [],
@@ -38,6 +38,9 @@ const AfriDebugRepairPlanningEngine = {
 
       confidence:
         recommendation.confidence,
+
+      source:
+        "AfriDebugKnowledgeMemory",
 
       createdAt:
         Date.now()
