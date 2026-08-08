@@ -1,0 +1,13 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-PLAN-VALIDATION-GATE-VALIDATION-001",
+  "mode": "REPAIR_PLAN_VALIDATION_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Plan structure validated",
+    "Recommendation reference verified",
+    "Evidence trace verified",
+    "Approval context verified",
+    "Execution remains gated"
+  ],
+  "timestamp": "2026-08-08T10:38:39.950Z"
+}

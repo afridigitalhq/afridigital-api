@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-PLAN-VALIDATION-GATE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js",
+  "issue": "REPAIR_PLAN_STRUCTURE_NOT_VALIDATED_BEFORE_EXECUTION",
+  "rootCause": "Repair plans can be created but no dedicated validation gate checks readiness before execution handoff",
+  "repair": [
+    "Validate repair plan completeness",
+    "Verify recommendation reference",
+    "Verify evidence trace presence",
+    "Verify approval context",
+    "Block invalid execution handoff"
+  ],
+  "workflow": [
+    "Repair Plan Creation",
+    "Plan Validation",
+    "Approval Confirmation",
+    "Execution Handoff"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:37:08.433Z"
+}
