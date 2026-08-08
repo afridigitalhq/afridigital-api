@@ -1,0 +1,28 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-APPROVAL-FLOW-001",
+  "mode": "HUMAN_APPROVAL_GATE_VALIDATION",
+  "beforeApproval": "pending",
+  "approvalResult": {
+    "success": true,
+    "request": {
+      "approvalId": "APPROVAL-1786177567078",
+      "planId": "PLAN-TEST-001",
+      "incidentId": "INCIDENT-TEST-001",
+      "action": "Restore module export reference",
+      "status": "approved",
+      "submittedAt": 1786177567078,
+      "approvedBy": "AfriDebugAdmin",
+      "approvedAt": 1786177567079
+    }
+  },
+  "queueHealth": {
+    "service": "AfriDebugRepairApprovalQueue",
+    "status": "healthy"
+  },
+  "checks": [
+    "Patch submission",
+    "Approval blocking",
+    "Human approval transition"
+  ],
+  "timestamp": "2026-08-08T08:26:07.079Z"
+}
