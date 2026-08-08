@@ -51,6 +51,19 @@ const AfriDebugRecommendationEngine = {
           ? "Recommendation based on historical repair patterns"
           : "No verified repair history available",
 
+      evidenceTrace:{
+        matchedCases:
+          ranked.map(item => item.id || null),
+
+        verifiedCases:
+          ranked.filter(
+            item => item.verified === true
+          ).length,
+
+        source:
+          "AfriDebugKnowledgeMemory"
+      },
+
       confidence:
         ranked.length
           ? "historical_match"

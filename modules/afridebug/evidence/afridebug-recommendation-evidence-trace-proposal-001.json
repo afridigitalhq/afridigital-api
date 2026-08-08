@@ -1,0 +1,23 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-RECOMMENDATION-EVIDENCE-TRACE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+  "issue": "RECOMMENDATION_SUPPORTING_EVIDENCE_NOT_EXPOSED",
+  "rootCause": "Recommendation explanation exists but does not expose supporting repair evidence references",
+  "repair": [
+    "Attach matched case references",
+    "Expose verification evidence links",
+    "Expose reinforcement history signals",
+    "Improve recommendation auditability"
+  ],
+  "workflow": [
+    "Knowledge Match",
+    "Evidence Collection",
+    "Recommendation Generation",
+    "Audit Trace Output"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:50:08.637Z"
+}
