@@ -1,18 +1,29 @@
-import Memory from "../learning/AfriDebugLearningMemory.js";
+import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+import SolutionRecommender from "../intelligence/AfriDebugSolutionRecommender.js";
 
 const AfriDebugRecommendationEngine = {
 
   recommend(input = {}) {
 
-    const matches =
-      Memory.findByIssue(input.issue);
-
-
-    const successful =
-      matches.filter(
-        item => item.success === true
+    const result =
+      KnowledgeMemory.search(
+        input.issue || ""
       );
 
+    const matches =
+      result.matches || [];
+
+    const ranked =
+      matches.map(item => ({
+        ...item,
+        similarity:
+          item.issue &&
+          input.issue &&
+          item.issue.toLowerCase()
+          === input.issue.toLowerCase()
+            ? 1
+            : 0.5
+      }));
 
     return {
 
@@ -20,23 +31,20 @@ const AfriDebugRecommendationEngine = {
         input.issue || null,
 
       matches:
-        matches.length,
+        ranked.length,
 
-      recommendations:
-        successful.map(item=>({
+      recommendation:
+        SolutionRecommender.recommend(
+          ranked
+        ),
 
-          fix:item.fix,
-
-          diagnosis:item.diagnosis,
-
-          verification:item.verification
-
-        })),
+      source:
+        "AfriDebugKnowledgeMemory",
 
       confidence:
-        successful.length
-        ? "historical_match"
-        : "no_history"
+        ranked.length
+          ? "historical_match"
+          : "no_history"
 
     };
 
@@ -46,16 +54,12 @@ const AfriDebugRecommendationEngine = {
   health(){
 
     return {
-
       service:"AfriDebugRecommendationEngine",
-
       status:"healthy"
-
     };
 
   }
 
 };
-
 
 export default AfriDebugRecommendationEngine;

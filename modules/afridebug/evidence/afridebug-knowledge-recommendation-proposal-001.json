@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-KNOWLEDGE-RECOMMENDATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+  "issue": "RECOMMENDATION_MEMORY_PATH_DUPLICATION",
+  "current": "Uses AfriDebugLearningMemory",
+  "repair": [
+    "Connect AfriDebugKnowledgeMemory",
+    "Reuse persistent verified cases",
+    "Route through AfriDebugSolutionRecommender"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:17:58.399Z"
+}
