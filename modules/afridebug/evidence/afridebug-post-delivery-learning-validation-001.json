@@ -1,0 +1,12 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-POST-DELIVERY-LEARNING-VALIDATION-001",
+  "mode": "CLIENT_FEEDBACK_RECORDING_TEST",
+  "status": "PASSED",
+  "checks": [
+    "Delivery linked",
+    "Client outcome captured",
+    "Issue recorded",
+    "Learning record created"
+  ],
+  "timestamp": "2026-08-08T09:17:28.973Z"
+}
