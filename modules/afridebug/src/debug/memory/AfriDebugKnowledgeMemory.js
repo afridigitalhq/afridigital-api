@@ -45,6 +45,34 @@ const AfriDebugKnowledgeMemory = {
   },
 
 
+  reinforce(data={}){
+
+    if(!data.verified){
+
+      return {
+        stored:false,
+        reason:"VERIFICATION_REQUIRED"
+      };
+
+    }
+
+    return this.remember({
+
+      issue:data.issue,
+
+      resolution:data.resolution,
+
+      outcome:data.outcome,
+
+      source:"AfriDebugKnowledgeReinforcement",
+
+      verified:true
+
+    });
+
+  },
+
+
   health(){
 
     hydrate();
