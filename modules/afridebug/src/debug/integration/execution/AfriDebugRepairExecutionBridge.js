@@ -1,9 +1,22 @@
 import Planner from "../../planning/AfriDebugRepairPlanningEngine.js";
 import Controller from "../../execution/AfriDebugChangeExecutionController.js";
+import Approval from "../../approval/AfriDebugRepairApprovalQueue.js";
 
 const AfriDebugRepairExecutionBridge = {
 
   execute(input={}){
+
+    const approval =
+      Approval.list().find(
+        item => item.approvalId === input.approvalId
+      );
+
+    if(!approval || approval.status !== "approved"){
+      return {
+        bridgeStatus:"blocked",
+        reason:"APPROVAL_REQUIRED"
+      };
+    }
 
     const plan =
       Planner.plan({

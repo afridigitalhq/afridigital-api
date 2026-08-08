@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-PATCH-EXECUTION-GATE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+  "issue": "EXECUTION_APPROVAL_GATE_BYPASS",
+  "rootCause": "Execution bridge calls change controller without approval verification",
+  "repair": [
+    "Connect RepairApprovalQueue",
+    "Require approved patch request",
+    "Block unapproved execution"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:27:41.384Z"
+}
