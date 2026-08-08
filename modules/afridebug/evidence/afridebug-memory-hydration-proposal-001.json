@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-MEMORY-HYDRATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+  "issue": "RUNTIME_MEMORY_NOT_HYDRATED_FROM_PERSISTENCE",
+  "rootCause": "AfriDebugKnowledgeMemory reads only transient CaseMemory state",
+  "repair": [
+    "Load persisted cases during memory initialization",
+    "Hydrate CaseMemory before search operations",
+    "Preserve existing persistence responsibility"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:14:01.836Z"
+}
