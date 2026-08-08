@@ -1,3 +1,5 @@
+const AFRIAI_PROVIDER_TIMEOUT_MS = Number(process.env.AFRIAI_PROVIDER_TIMEOUT_MS || 60000);
+
 const AfriAIProviderResilience = {
 
   async execute(task, handler){
@@ -9,7 +11,7 @@ const AfriAIProviderResilience = {
         new Promise((_,reject)=>
           setTimeout(
             ()=>reject(new Error("AI_PROVIDER_TIMEOUT")),
-            30000
+            AFRIAI_PROVIDER_TIMEOUT_MS
           )
         )
       ]);

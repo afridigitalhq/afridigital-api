@@ -1,4 +1,5 @@
 const CoreServiceRegistry={services:{
+  approval:["CoreApprovalEngine","CoreApprovalManager","CoreApprovalPolicy","CoreApprovalRegistry","CoreApprovalRequest","CoreHumanGate"],
   storage:["CoreFileStorage","CoreAttachmentManager"],
   artifacts:["CoreArtifactManager","CorePackageBuilder","CoreExportEngine","CoreDownloadManager"],
   evidence:["CoreEvidenceVault","CoreBeforeSnapshot","CoreAfterSnapshot","CoreComparisonEngine","CoreEvidenceIdentity","CoreEvidenceIntegrity","CoreEvidenceChain","CoreEvidenceAuditBridge"],
