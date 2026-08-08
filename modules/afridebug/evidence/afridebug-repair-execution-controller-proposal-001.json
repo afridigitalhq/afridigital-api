@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-REPAIR-EXECUTION-CONTROLLER-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js",
+  "issue": "EXECUTION_HANDOFF_EXISTS_BUT_NO_CONTROLLED_EXECUTION_RECORD",
+  "rootCause": "Execution handoff validates readiness but no execution controller tracks approved repair execution lifecycle",
+  "repair": [
+    "Accept approved execution handoff",
+    "Create execution record",
+    "Preserve approval metadata",
+    "Track execution status",
+    "Prepare verification handoff"
+  ],
+  "workflow": [
+    "Execution Handoff",
+    "Execution Controller",
+    "Repair Execution",
+    "Verification"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T10:42:13.960Z"
+}
