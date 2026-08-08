@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-KNOWLEDGE-INTEGRATION-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js",
+  "issue": "KNOWLEDGE_PIPELINE_DISCONNECTED",
+  "current": "Static evidence generation only",
+  "repair": [
+    "Connect AfriDebugKnowledgeMemory",
+    "Enable historical case matching",
+    "Generate dynamic knowledge comparison evidence"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:06:32.681Z"
+}

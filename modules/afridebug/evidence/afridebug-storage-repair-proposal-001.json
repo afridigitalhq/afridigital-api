@@ -1,0 +1,12 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-STORAGE-REPAIR-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgePersistence.js",
+  "issue": "STORAGE_PATH_INITIALIZATION_FAILURE",
+  "rootCause": "Knowledge persistence write operation does not create parent directory",
+  "patch": "Add fs.mkdirSync(path.dirname(DB),{recursive:true}) before writeFileSync",
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:10:38.556Z"
+}
