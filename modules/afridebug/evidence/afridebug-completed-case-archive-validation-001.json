@@ -1,0 +1,48 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-COMPLETED-CASE-ARCHIVE-VALIDATION-001",
+  "mode": "COMPLETED_CASE_ARCHIVE_TEST",
+  "archived": {
+    "archiveId": "ARCHIVE-1786188255659",
+    "releaseId": "RELEASE-ARCHIVE-001",
+    "packageId": "PACKAGE-ARCHIVE-001",
+    "caseId": "CASE-1786188255659",
+    "status": "CASE_ARCHIVED",
+    "archived": true,
+    "knowledgeReinforcement": {
+      "enabled": true,
+      "source": "AfriDebugCompletedCaseArchive",
+      "reusablePattern": true
+    },
+    "verificationHistory": {
+      "status": "verified"
+    },
+    "approvalHistory": {
+      "status": "approved"
+    },
+    "createdAt": 1786188255659
+  },
+  "blocked": {
+    "archiveId": "ARCHIVE-1786188255659",
+    "releaseId": "RELEASE-ARCHIVE-002",
+    "packageId": null,
+    "caseId": "CASE-1786188255659",
+    "status": "ARCHIVE_BLOCKED",
+    "archived": false,
+    "knowledgeReinforcement": {
+      "enabled": false,
+      "source": "AfriDebugCompletedCaseArchive",
+      "reusablePattern": false
+    },
+    "verificationHistory": null,
+    "approvalHistory": null,
+    "createdAt": 1786188255659
+  },
+  "checks": [
+    "Completed release archived",
+    "Incomplete release blocked",
+    "Verification history preserved",
+    "Approval history preserved",
+    "Knowledge reinforcement enabled"
+  ],
+  "timestamp": "2026-08-08T11:24:15.659Z"
+}

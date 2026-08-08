@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-COMPLETED-CASE-ARCHIVE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/memory/AfriDebugCompletedCaseArchive.js",
+  "issue": "RELEASED_REPAIRS_NOT_RETURNED_TO_KNOWLEDGE_MEMORY",
+  "rootCause": "Client release completes the repair lifecycle but final outcomes are not archived as reusable knowledge patterns",
+  "repair": [
+    "Accept completed release records",
+    "Archive repair outcome",
+    "Store verification history",
+    "Store approval history",
+    "Reinforce future recommendation matching"
+  ],
+  "workflow": [
+    "Client Release",
+    "Completed Case Archive",
+    "Knowledge Reinforcement",
+    "Future Recommendation Improvement"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T11:23:17.916Z"
+}
