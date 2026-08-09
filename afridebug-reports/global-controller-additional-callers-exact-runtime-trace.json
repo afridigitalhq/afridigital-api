@@ -1,0 +1,34 @@
+{
+  "generated": "2026-08-09T10:09:11.819Z",
+  "phase": "AFRIDEBUG_CONTROLLER_ADDITIONAL_CALLERS_EXACT_RUNTIME_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "controller": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+  "totalCallers": 3,
+  "canonicalBridgeCallers": [
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 32,
+      "text": "Controller.execute({",
+      "canonicalBridge": true
+    }
+  ],
+  "additionalCallers": [
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js",
+      "line": 27,
+      "text": "const result = Controller.execute({",
+      "canonicalBridge": false
+    },
+    {
+      "file": "src/afridebug/platform/execution/AfriDebugChangeFailureTest.js",
+      "line": 27,
+      "text": "const result = Controller.execute({",
+      "canonicalBridge": false
+    }
+  ],
+  "decision": "ADDITIONAL_CONTROLLER_CALLERS_IDENTIFIED_REQUIRES_PER_CALLER_AUTHORIZATION_TRACE"
+}

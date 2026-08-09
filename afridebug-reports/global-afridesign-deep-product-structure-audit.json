@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-08-09T11:22:36.064Z",
+  "products": [
+    {
+      "name": "AfriAI",
+      "files": 918,
+      "topDirectories": [
+        "workspace.contract.json",
+        "../AfriDigital-api/afri-kernel-check.js",
+        "../AfriDigital-api/afriai",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/bootstrap",
+        "../AfriDigital-api/core",
+        "../AfriDigital-api/docs",
+        "../AfriDigital-api/hot.reload.validate.js",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/routes",
+        "../AfriDigital-api/snapshots",
+        "../AfriDigital-api/src",
+        "../AfriDigital-api/test-render-ollama.js",
+        "../AfriDigital-hub/.afri",
+        "../AfriDigital-hub/.afrinucchain",
+        "../AfriDigital-hub/_archive_b2",
+        "../AfriDigital-hub/architecture-locks",
+        "../AfriDigital-hub/architecture-work",
+        "../AfriDigital-hub/scripts",
+        "../AfriDigital-hub/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriDebug",
+      "files": 802,
+      "topDirectories": [
+        "workspace.contract.json",
+        "../AfriDigital-api/.afridebug-runtime",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/package.json",
+        "../AfriDigital-api/src",
+        "../AfriDigital-hub/.afridebug",
+        "../AfriDigital-hub/AfriDebug",
+        "../AfriDigital-hub/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriFix",
+      "files": 187,
+      "topDirectories": [
+        "workspace.contract.json",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriScan",
+      "files": 40,
+      "topDirectories": [
+        "workspace.contract.json",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/src",
+        "../AfriDigital-hub/architecture-locks",
+        "../AfriDigital-hub/architecture-work",
+        "../AfriDigital-hub/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriNucChain",
+      "files": 203,
+      "topDirectories": [
+        "workspace.contract.json",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/src",
+        "../AfriDigital-hub/.afrinucchain",
+        "../AfriDigital-hub/AfriDebug",
+        "../AfriDigital-hub/AfriDigital-api",
+        "../AfriDigital-hub/AfriDigital-hub",
+        "../AfriDigital-hub/AfriNucChainMigrationExecutor",
+        "../AfriDigital-hub/architecture-work",
+        "../AfriDigital-hub/scripts",
+        "../AfriDigital-hub/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriDesign",
+      "files": 288,
+      "topDirectories": [
+        ".afridesign-workspace.json",
+        "eslint.config.js",
+        "package-lock.json",
+        "src/App.jsx",
+        "src/main.jsx",
+        "src/pages/admin",
+        "src/pages/auth",
+        "src/pages/landing",
+        "workspace.contract.json",
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules",
+        "../AfriDigital-api/snapshots",
+        "../AfriDigital-api/src",
+        "../AfriDigital-hub/.afridebug",
+        "../AfriDigital-hub/AfriDigital-hub",
+        "../AfriDigital-hub/src"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriBuild",
+      "files": 6,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriCode",
+      "files": 11,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriApp",
+      "files": 13,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriUI",
+      "files": 10,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriGraphics",
+      "files": 6,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriVideo",
+      "files": 6,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    },
+    {
+      "name": "AfriTemplate",
+      "files": 6,
+      "topDirectories": [
+        "../AfriDigital-api/afridebug-reports",
+        "../AfriDigital-api/modules"
+      ],
+      "capabilities": [],
+      "exports": [],
+      "imports": []
+    }
+  ],
+  "architecture": {
+    "parentPlatform": "AfriDigital",
+    "frontend": "AfriDesign-Studio",
+    "sharedBackend": "AfriDigital-api",
+    "sharedAI": "AfriAI",
+    "mainEcosystemFrontend": "AfriDigital-hub"
+  },
+  "safety": {
+    "humanApprovalRequired": true,
+    "patchAllowed": false,
+    "paystackBoundary": "AfriDigital-hub-only"
+  },
+  "decision": "DEEP_PRODUCT_STRUCTURE_AUDIT_COMPLETE_READY_FOR_CANONICAL_PRODUCT_DESCRIPTIONS"
+}

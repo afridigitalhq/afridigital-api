@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js",
+  "issue": "CERTIFIED_REPAIR_NOT_ASSEMBLED_FOR_CLIENT_HANDOFF",
+  "rootCause": "Certification exists but no final delivery artifact generator",
+  "repair": [
+    "Consume certified evidence package",
+    "Generate client delivery artifact",
+    "Include repair summary",
+    "Include verification proof",
+    "Preserve approval audit trail"
+  ],
+  "workflow": [
+    "Certification",
+    "Client Delivery Assembly",
+    "Human Review",
+    "Client Handoff"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T09:11:56.373Z"
+}

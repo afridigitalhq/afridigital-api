@@ -1,0 +1,23 @@
+{
+  "generated": "2026-08-09T09:42:39.462Z",
+  "phase": "AFRIDEBUG_GLOBAL_REFERENCED_GATE_BEHAVIORAL_RUNTIME_VERIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+  "modificationMode": "VERIFICATION_ONLY",
+  "afrifixAllowed": false,
+  "diskState": {
+    "gateExists": true,
+    "contractExists": true,
+    "canonicalImportPresent": true,
+    "canonicalFactoryInvocationPresent": true,
+    "legacyBlockedReturnRemoved": true,
+    "contractFactoryPresent": true
+  },
+  "runtimeResolution": {},
+  "runtime": {
+    "error": "Cannot find module '/data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/core/afridebug/contracts/BlockExplanationContract.js' imported from /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js"
+  },
+  "invariants": {},
+  "decision": "ACTIVE_GATE_BEHAVIORAL_VERIFICATION_FAILED"
+}

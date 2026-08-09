@@ -1,0 +1,39 @@
+{
+  "generated": "2026-08-09T10:05:33.493Z",
+  "phase": "AFRIDEBUG_CANONICAL_APPROVED_REPAIR_EXECUTION_SEMANTIC_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "gate": {
+    "approvedBranch": true,
+    "forwardsApprovalId": false,
+    "forwardsInput": true
+  },
+  "bridge": {
+    "checksApproved": true,
+    "controllerCall": true,
+    "forwardsApprovalId": true,
+    "recordsHistory": true,
+    "recordsResolution": true,
+    "returnsExecutionStatus": true,
+    "exposesExecutedState": true
+  },
+  "controller": {
+    "exists": true,
+    "executeMethod": true,
+    "approvalReference": true,
+    "blockedState": false,
+    "executedState": false
+  },
+  "auditArtifacts": {
+    "historyModuleExists": true,
+    "resolutionModuleExists": true,
+    "approvalQueueExists": true
+  },
+  "safety": {
+    "patchAllowed": false,
+    "afrifixAllowed": false
+  },
+  "decision": "APPROVED_EXECUTION_BOUNDARY_SEMANTICS_PASS_CONTINUE_TO_CONTROLLER_AUDIT"
+}

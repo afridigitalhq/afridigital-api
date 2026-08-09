@@ -52,6 +52,7 @@ const AfriDebugKnowledgeMemory = {
       return {
         stored:false,
         reason:"VERIFICATION_REQUIRED"
+
       };
 
     }

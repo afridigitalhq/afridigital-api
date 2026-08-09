@@ -1,0 +1,377 @@
+{
+  "generated": "2026-08-09T09:53:04.222Z",
+  "phase": "AFRIDEBUG_GLOBAL_REFERENCED_CANDIDATES_PREPATCH_SEMANTIC_EXECUTION_BOUNDARY_REVIEW",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "candidates": [
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exists": true,
+      "lineCount": 108,
+      "semanticSignals": [
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 13,
+          "text": "item => item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 18,
+          "text": "bridgeStatus:\"blocked\","
+        },
+        {
+          "line": 19,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        },
+        {
+          "line": 57,
+          "text": "approvalId: input.approvalId,"
+        },
+        {
+          "line": 63,
+          "text": "rollbackStatus: execution.rollback ? \"required\" : \"none\","
+        },
+        {
+          "line": 85,
+          "text": "bridgeStatus:\"executed\""
+        },
+        {
+          "line": 107,
+          "text": "export default AfriDebugRepairExecutionBridge;"
+        }
+      ],
+      "contractUsage": [],
+      "executionBoundary": [
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        }
+      ],
+      "decision": "SEMANTIC_REVIEW_REQUIRED"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "lineCount": 76,
+      "semanticSignals": [
+        {
+          "line": 6,
+          "text": "export class SOCAutopilotEngine {"
+        },
+        {
+          "line": 49,
+          "text": "if (!guard.allowed || policy?.blocked) {"
+        },
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 61,
+          "text": "status: \"EXECUTED\","
+        },
+        {
+          "line": 75,
+          "text": "export const socAutopilotEngine = new SOCAutopilotEngine();"
+        }
+      ],
+      "contractUsage": [],
+      "executionBoundary": [],
+      "decision": "SEMANTIC_REVIEW_REQUIRED"
+    },
+    {
+      "file": "src/core/afridebug/contracts/BlockExplanationContract.js",
+      "exists": true,
+      "lineCount": 69,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "export const REQUIRED_FIELDS = ["
+        },
+        {
+          "line": 7,
+          "text": "\"requiredAction\","
+        },
+        {
+          "line": 12,
+          "text": "export function validateBlockedResponse(response = {}) {"
+        },
+        {
+          "line": 20,
+          "text": "if (response.status !== \"BLOCKED\") {"
+        },
+        {
+          "line": 21,
+          "text": "errors.push(\"status_must_be_BLOCKED\");"
+        },
+        {
+          "line": 34,
+          "text": "export function createBlockedResponse(input = {}) {"
+        },
+        {
+          "line": 36,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 40,
+          "text": "\"A required system gate prevented execution.\","
+        },
+        {
+          "line": 45,
+          "text": "requiredAction:"
+        },
+        {
+          "line": 46,
+          "text": "input.requiredAction ||"
+        },
+        {
+          "line": 47,
+          "text": "\"Review the blocking evidence and satisfy the required gate.\","
+        },
+        {
+          "line": 52,
+          "text": "const validation = validateBlockedResponse(response);"
+        },
+        {
+          "line": 64,
+          "text": "export default {"
+        },
+        {
+          "line": 66,
+          "text": "createBlockedResponse,"
+        },
+        {
+          "line": 67,
+          "text": "validateBlockedResponse"
+        }
+      ],
+      "contractUsage": [
+        {
+          "line": 12,
+          "text": "export function validateBlockedResponse(response = {}) {"
+        },
+        {
+          "line": 34,
+          "text": "export function createBlockedResponse(input = {}) {"
+        },
+        {
+          "line": 52,
+          "text": "const validation = validateBlockedResponse(response);"
+        },
+        {
+          "line": 66,
+          "text": "createBlockedResponse,"
+        },
+        {
+          "line": 67,
+          "text": "validateBlockedResponse"
+        }
+      ],
+      "executionBoundary": [],
+      "decision": "SEMANTIC_REVIEW_REQUIRED"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "lineCount": 119,
+      "semanticSignals": [
+        {
+          "line": 11,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 18,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 27,
+          "text": "return BlockExplanationContract.createBlockedResponse({"
+        },
+        {
+          "line": 28,
+          "text": "reasonCode:\"APPROVAL_REQUIRED\","
+        },
+        {
+          "line": 29,
+          "text": "technicalReason:\"Approved repair authorization was not found for the supplied approvalId.\","
+        },
+        {
+          "line": 30,
+          "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+        },
+        {
+          "line": 31,
+          "text": "evidenceReference:input.approvalId"
+        },
+        {
+          "line": 32,
+          "text": "? `approvalId:${input.approvalId}`"
+        },
+        {
+          "line": 33,
+          "text": ": \"approvalId:missing\","
+        },
+        {
+          "line": 34,
+          "text": "requiredAction:\"Obtain valid human approval before repair execution.\","
+        },
+        {
+          "line": 43,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 50,
+          "text": "approvalId:"
+        },
+        {
+          "line": 51,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 53,
+          "text": "status:\"EXECUTED\","
+        },
+        {
+          "line": 76,
+          "text": "approvalId:"
+        },
+        {
+          "line": 77,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 86,
+          "text": "status:\"executed\","
+        },
+        {
+          "line": 118,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ],
+      "contractUsage": [
+        {
+          "line": 5,
+          "text": "import BlockExplanationContract from \"../../../core/afridebug/contracts/BlockExplanationContract.js\";"
+        },
+        {
+          "line": 27,
+          "text": "return BlockExplanationContract.createBlockedResponse({"
+        }
+      ],
+      "executionBoundary": [
+        {
+          "line": 11,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 43,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "decision": "SEMANTIC_REVIEW_REQUIRED"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "lineCount": 65,
+      "semanticSignals": [
+        {
+          "line": 3,
+          "text": "import { createBlockedResponse } from \"../../../../../src/core/afridebug/contracts/BlockExplanationContract.js\";"
+        },
+        {
+          "line": 7,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 13,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 17,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 19,
+          "text": "return createBlockedResponse({"
+        },
+        {
+          "line": 20,
+          "text": "reasonCode:\"APPROVAL_REQUIRED\","
+        },
+        {
+          "line": 21,
+          "text": "technicalReason:\"Approved repair authorization was not found for the supplied approvalId.\","
+        },
+        {
+          "line": 22,
+          "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+        },
+        {
+          "line": 23,
+          "text": "evidenceReference:`approvalId:${input.approvalId || \"MISSING\"}`,"
+        },
+        {
+          "line": 24,
+          "text": "requiredAction:\"Obtain valid human approval before repair execution.\","
+        },
+        {
+          "line": 33,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 38,
+          "text": "status:\"executed\","
+        },
+        {
+          "line": 64,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ],
+      "contractUsage": [
+        {
+          "line": 3,
+          "text": "import { createBlockedResponse } from \"../../../../../src/core/afridebug/contracts/BlockExplanationContract.js\";"
+        },
+        {
+          "line": 19,
+          "text": "return createBlockedResponse({"
+        }
+      ],
+      "executionBoundary": [
+        {
+          "line": 7,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 33,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "decision": "SEMANTIC_REVIEW_REQUIRED"
+    }
+  ],
+  "globalQuestions": [
+    "Does every blocking return at an execution boundary use createBlockedResponse?",
+    "Does any downstream bridge/controller execute after an unauthorized request?",
+    "Does SOCAutopilotEngine execute actions directly or only after its guard/policy boundary?",
+    "Is src/afridebug/platform/governance/AfriDebugExecutionGate.js a duplicate runtime gate or an intentional platform adapter?",
+    "Which gate is canonical for AfriDebug repair execution?"
+  ]
+}

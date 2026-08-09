@@ -1,0 +1,80 @@
+{
+  "generated": "2026-08-09T09:44:30.165Z",
+  "phase": "AFRIDEBUG_GLOBAL_POST_CONTRACT_PATCH_RECURSIVE_GATE_REGRESSION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "sourceReport": "afridebug-reports/global-referenced-gate-contract-import-corrective-verification.json",
+  "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+  "scan": {
+    "filesScanned": 4281,
+    "blockedStatusCandidates": 15,
+    "activeCandidates": 8,
+    "unresolvedActiveCandidates": 8
+  },
+  "targetVerification": {
+    "exists": true,
+    "canonicalContractUsage": true,
+    "legacyBlockedReturnRemoved": true,
+    "approvalReasonPreserved": true
+  },
+  "unresolvedActiveCandidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    },
+    {
+      "file": "src/core/afridebug/contracts/BlockExplanationContract.js",
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false
+    }
+  ],
+  "decision": "GLOBAL_GATE_CONTRACT_COVERAGE_REQUIRES_FURTHER_REVIEW",
+  "afrifixAllowed": false
+}

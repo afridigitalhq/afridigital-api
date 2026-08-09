@@ -3,29 +3,98 @@ const AfriDebugPatchGenerator = {
   generate(input = {}) {
 
     const recommendation = input.recommendation || {};
+    const repairPlan = input.repairPlan || {};
+
+    const findings = Array.isArray(repairPlan.confirmedFindings)
+      ? repairPlan.confirmedFindings
+      : [];
+
+    const affectedFiles = [...new Set(
+      findings.flatMap(f => [
+        ...(Array.isArray(f.locations) ? f.locations : []),
+        ...(Array.isArray(f.files) ? f.files : []),
+        ...(Array.isArray(f.affectedFiles) ? f.affectedFiles : []),
+        ...(typeof f.location === "string" ? [f.location] : [])
+      ])
+    )];
+
+    const actionMap = {
+      "WS-001": "CANONICALIZE_SERVER_WS_OWNER",
+      "WS-002": "WIRE_WS_KERNEL_INTO_LIVE_BOOT",
+      "WS-003": "CANONICALIZE_AFRIAI_WS_ROUTE_OWNER",
+      "WS-004": "REPAIR_UNREACHABLE_BROADCAST_ATTACHMENT",
+      "WS-005": "ESTABLISH_AFRIAI_RUNTIME_MOUNT"
+    };
+
+    const findingOperations = findings.map(f => ({
+      action: "REPAIR_FINDING",
+      findingId: f.id || null,
+      repairAction: actionMap[f.id] || "TARGETED_RUNTIME_REPAIR",
+      target:
+        f.locations ||
+        f.files ||
+        f.affectedFiles ||
+        (f.location ? [f.location] : []),
+      risk: f.risk || null,
+      description: f.finding || f.description || ""
+    }));
 
     return {
+
       patchId: `PATCH-${Date.now()}`,
-      strategy: input.patchStrategy || "TARGETED_RUNTIME_REPAIR",
-      issue: input.issue || "",
-      diagnosis: input.diagnosis || "",
-      source: input.source || "AfriDebugRepairPlanningEngine",
+
+      strategy:
+        input.patchStrategy ||
+        "TARGETED_RUNTIME_REPAIR",
+
+      issue:
+        input.issue || "",
+
+      diagnosis:
+        input.diagnosis || "",
+
+      source:
+        input.source ||
+        "AfriDebugRepairPlanningEngine",
+
       recommendation,
-      repairPlan: input.repairPlan || null,
+
+      repairPlan,
+
+      affectedFiles,
+
+      findings:
+        findings.map(f => f.id).filter(Boolean),
+
       operations: [
         {
           action: "INSPECT",
-          target: recommendation.issue || input.issue || ""
+          target:
+            recommendation.issue ||
+            input.issue ||
+            ""
         },
+
+        ...findingOperations,
+
         {
           action: "PATCH",
-          description: recommendation.resolution || "Generate runtime repair"
+          description:
+            recommendation.resolution ||
+            "Generate finding-aware runtime repair"
         }
       ],
+
       requiresHumanApproval: true,
-      approvalStatus: "HUMAN_APPROVAL_REQUIRED",
-      status: "PROPOSED",
-      generatedAt: Date.now()
+
+      approvalStatus:
+        "HUMAN_APPROVAL_REQUIRED",
+
+      status:
+        "PROPOSED",
+
+      generatedAt:
+        Date.now()
     };
 
   },

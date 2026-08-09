@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-08-09T11:24:15.623Z",
+  "architecture": {
+    "parentPlatform": "AfriDigital",
+    "standaloneFrontend": "AfriDesign-Studio",
+    "mainFrontend": "AfriDigital-hub",
+    "sharedBackend": "AfriDigital-api",
+    "sharedAI": "AfriAI"
+  },
+  "boundaries": {
+    "paystack": "AfriDigital-hub-only",
+    "humanApprovalRequired": true,
+    "patchAllowed": false
+  },
+  "products": [
+    "AfriAI",
+    "AfriDebug",
+    "AfriFix",
+    "AfriScan",
+    "AfriNucChain",
+    "AfriDesign",
+    "AfriBuild",
+    "AfriCode",
+    "AfriApp",
+    "AfriUI",
+    "AfriGraphics",
+    "AfriVideo",
+    "AfriTemplate"
+  ],
+  "catalog": [
+    {
+      "product": "AfriAI",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriDebug",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriFix",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriScan",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriNucChain",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriDesign",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriBuild",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriCode",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriApp",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriUI",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriGraphics",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriVideo",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    },
+    {
+      "product": "AfriTemplate",
+      "matchedFiles": 0,
+      "directories": [],
+      "evidence": []
+    }
+  ],
+  "decision": "AFRIDESIGN_PRODUCT_EVIDENCE_AUDIT_COMPLETE_READY_FOR_CANONICAL_CATALOG_MODEL"
+}

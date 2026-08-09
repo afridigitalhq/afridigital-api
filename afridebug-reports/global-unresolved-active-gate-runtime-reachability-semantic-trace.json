@@ -1,0 +1,561 @@
+{
+  "generated": "2026-08-09T09:37:53.248Z",
+  "phase": "AFRIDEBUG_GLOBAL_UNRESOLVED_ACTIVE_GATE_RUNTIME_REACHABILITY_SEMANTIC_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "candidates": [
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { SOCZeroTrustEngine } from \"./socZeroTrustEngine\";"
+        },
+        {
+          "line": 2,
+          "text": "import { SOCSandbox } from \"./socExecutionSandbox\";"
+        },
+        {
+          "line": 3,
+          "text": "import { SOCAuditLogger } from \"./socAuditLogger\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 21,
+          "text": "        status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [],
+      "executionCalls": [
+        {
+          "line": 13,
+          "text": "  async run(command, user) {"
+        },
+        {
+          "line": 30,
+          "text": "    const result = await this.sandbox.execute(command);"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 2,
+          "text": "import { SOCSandbox } from \"./socExecutionSandbox\";"
+        },
+        {
+          "line": 9,
+          "text": "    this.sandbox = new SOCSandbox();"
+        },
+        {
+          "line": 13,
+          "text": "  async run(command, user) {"
+        },
+        {
+          "line": 18,
+          "text": "    if (!validation.allowed) {"
+        },
+        {
+          "line": 21,
+          "text": "        status: \"BLOCKED\","
+        },
+        {
+          "line": 22,
+          "text": "        reason: validation.reason,"
+        },
+        {
+          "line": 26,
+          "text": "      return { error: validation.reason };"
+        },
+        {
+          "line": 29,
+          "text": "    // STEP 2: sandbox execution"
+        },
+        {
+          "line": 30,
+          "text": "    const result = await this.sandbox.execute(command);"
+        },
+        {
+          "line": 35,
+          "text": "      status: \"EXECUTED\","
+        }
+      ],
+      "reachability": "UNREFERENCED_DIRECTLY",
+      "classification": "EXECUTABLE_BLOCKING_GATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Delivery from \"../workers/AfriDebugDeliveryPackageWorker.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Events from \"../events/AfriDebugEventStream.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import ResolutionRecorder from \"../learning/AfriDebugResolutionRecorder.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import KnowledgeMemory from \"../memory/AfriDebugKnowledgeMemory.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 19,
+          "text": "        status:\"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 1,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        },
+        {
+          "line": 8,
+          "text": "const AfriDebugApprovalResumeService = {"
+        },
+        {
+          "line": 12,
+          "text": "    const approval ="
+        },
+        {
+          "line": 13,
+          "text": "      ApprovalGate.canDeliver(input.approvalId);"
+        },
+        {
+          "line": 16,
+          "text": "    if (!approval.allowed) {"
+        },
+        {
+          "line": 20,
+          "text": "        approval"
+        },
+        {
+          "line": 51,
+          "text": "      actor:\"ApprovalResumeService\","
+        },
+        {
+          "line": 53,
+          "text": "      details:\"Delivery released after human approval\""
+        },
+        {
+          "line": 97,
+          "text": "      approval,"
+        },
+        {
+          "line": 111,
+          "text": "      service:\"AfriDebugApprovalResumeService\","
+        },
+        {
+          "line": 120,
+          "text": "export default AfriDebugApprovalResumeService;"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 27,
+          "text": "      Delivery.execute({"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 2,
+          "text": "import Delivery from \"../workers/AfriDebugDeliveryPackageWorker.js\";"
+        },
+        {
+          "line": 13,
+          "text": "      ApprovalGate.canDeliver(input.approvalId);"
+        },
+        {
+          "line": 16,
+          "text": "    if (!approval.allowed) {"
+        },
+        {
+          "line": 18,
+          "text": "      return {"
+        },
+        {
+          "line": 19,
+          "text": "        status:\"BLOCKED\","
+        },
+        {
+          "line": 26,
+          "text": "    const delivery ="
+        },
+        {
+          "line": 27,
+          "text": "      Delivery.execute({"
+        },
+        {
+          "line": 41,
+          "text": "      \"DELIVERED\""
+        },
+        {
+          "line": 49,
+          "text": "      type:\"DELIVERY_READY\","
+        },
+        {
+          "line": 53,
+          "text": "      details:\"Delivery released after human approval\""
+        },
+        {
+          "line": 71,
+          "text": "        deliveryId:"
+        },
+        {
+          "line": 72,
+          "text": "          delivery.id"
+        },
+        {
+          "line": 91,
+          "text": "    return {"
+        },
+        {
+          "line": 93,
+          "text": "      status:\"DELIVERY_READY\","
+        },
+        {
+          "line": 95,
+          "text": "      delivery,"
+        },
+        {
+          "line": 110,
+          "text": "    return {"
+        }
+      ],
+      "reachability": "UNREFERENCED_DIRECTLY",
+      "classification": "EXECUTABLE_BLOCKING_GATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "importerCount": 2,
+      "importers": [
+        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 20,
+          "text": "        status:\"blocked\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 8,
+          "text": "    const approval ="
+        },
+        {
+          "line": 12,
+          "text": "        item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "    if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 22,
+          "text": "        reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 37,
+          "text": "      approval,"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 6,
+          "text": "  execute(input={}){"
+        },
+        {
+          "line": 30,
+          "text": "      Bridge.execute(input);"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 6,
+          "text": "  execute(input={}){"
+        },
+        {
+          "line": 16,
+          "text": "    if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 18,
+          "text": "      return {"
+        },
+        {
+          "line": 20,
+          "text": "        status:\"blocked\","
+        },
+        {
+          "line": 22,
+          "text": "        reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 30,
+          "text": "      Bridge.execute(input);"
+        },
+        {
+          "line": 33,
+          "text": "    return {"
+        },
+        {
+          "line": 35,
+          "text": "      status:\"executed\","
+        },
+        {
+          "line": 48,
+          "text": "    return {"
+        }
+      ],
+      "reachability": "REFERENCED",
+      "classification": "EXECUTABLE_BLOCKING_GATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [],
+      "blockedReturns": [
+        {
+          "line": 9,
+          "text": "        status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 7,
+          "text": "    if (!input.approved) {"
+        },
+        {
+          "line": 10,
+          "text": "        reason: \"Human approval required\""
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 5,
+          "text": "  execute(input = {}) {"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 5,
+          "text": "  execute(input = {}) {"
+        },
+        {
+          "line": 7,
+          "text": "    if (!input.approved) {"
+        },
+        {
+          "line": 8,
+          "text": "      return {"
+        },
+        {
+          "line": 9,
+          "text": "        status: \"BLOCKED\","
+        },
+        {
+          "line": 10,
+          "text": "        reason: \"Human approval required\""
+        },
+        {
+          "line": 14,
+          "text": "    if (!input.patch?.patchId) {"
+        },
+        {
+          "line": 15,
+          "text": "      return {"
+        },
+        {
+          "line": 17,
+          "text": "        reason: \"Invalid patch\""
+        },
+        {
+          "line": 24,
+          "text": "      status: \"EXECUTED\","
+        },
+        {
+          "line": 26,
+          "text": "      executedBy: input.executedBy || \"SYSTEM\","
+        },
+        {
+          "line": 27,
+          "text": "      executedAt: Date.now()"
+        },
+        {
+          "line": 40,
+          "text": "    return {"
+        }
+      ],
+      "reachability": "UNREFERENCED_DIRECTLY",
+      "classification": "EXECUTABLE_BLOCKING_GATE"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "importerCount": 4,
+      "importers": [
+        "src/control-room/autopilot/index.js",
+        "src/control-room/forensics/ForensicCaseExporter.js",
+        "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+        "src/control-room/response/AutonomousThreatResponseAgent.js"
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { rootCauseAnalyzer } from \"../rca/RootCauseAnalyzer.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import { cameraActionGuard } from \"../../cameras/guard/CameraActionGuard.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { socPolicyEngine } from \"../policy/SOCPolicyEngine.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import { socDashboardAPI } from \"../dashboard/SOCDashboardAPI.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 52,
+          "text": "          status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [],
+      "executionCalls": [
+        {
+          "line": 69,
+          "text": "  async run(timeWindowMs = 300000, userId = \"system\") {"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 2,
+          "text": "import { cameraActionGuard } from \"../../cameras/guard/CameraActionGuard.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { socPolicyEngine } from \"../policy/SOCPolicyEngine.js\";"
+        },
+        {
+          "line": 14,
+          "text": "      if (h.hypothesis.includes(\"STREAM\")) {"
+        },
+        {
+          "line": 18,
+          "text": "          reason: h.hypothesis"
+        },
+        {
+          "line": 22,
+          "text": "      if (h.hypothesis.includes(\"ALERT\")) {"
+        },
+        {
+          "line": 26,
+          "text": "          reason: h.hypothesis"
+        },
+        {
+          "line": 30,
+          "text": "      if (h.hypothesis.includes(\"LOAD\")) {"
+        },
+        {
+          "line": 34,
+          "text": "          reason: h.hypothesis"
+        },
+        {
+          "line": 42,
+          "text": "  async executeActions(actions = [], userId = \"system\") {"
+        },
+        {
+          "line": 46,
+          "text": "      const guard = cameraActionGuard.validate(userId, action);"
+        },
+        {
+          "line": 47,
+          "text": "      const policy = socPolicyEngine.evaluate(action);"
+        },
+        {
+          "line": 49,
+          "text": "      if (!guard.allowed || policy?.blocked) {"
+        },
+        {
+          "line": 52,
+          "text": "          status: \"BLOCKED\","
+        },
+        {
+          "line": 53,
+          "text": "          reason: \"Guard or policy rejection\""
+        },
+        {
+          "line": 61,
+          "text": "        status: \"EXECUTED\","
+        },
+        {
+          "line": 69,
+          "text": "  async run(timeWindowMs = 300000, userId = \"system\") {"
+        },
+        {
+          "line": 71,
+          "text": "    return this.executeActions(actions, userId);"
+        }
+      ],
+      "reachability": "REFERENCED",
+      "classification": "EXECUTABLE_BLOCKING_GATE"
+    }
+  ],
+  "decisions": {
+    "nextAction": "NO_PATCH",
+    "reason": "Prove runtime reachability and semantic ownership before any additional contract integration."
+  },
+  "globalLearning": {
+    "capabilityId": "GLOBAL_GATE_RUNTIME_REACHABILITY_SEMANTIC_OWNERSHIP",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "A blocking return plus an execute/run method is insufficient to establish canonical gate ownership; runtime reachability and semantic purpose must be proven.",
+    "reusePolicy": "Every unresolved gate candidate must pass reachability and semantic ownership tracing before modification.",
+    "afriaiPolicy": "AfriAI must distinguish execution authorization gates from ordinary blocked-status producers and subsystem policy responses."
+  }
+}

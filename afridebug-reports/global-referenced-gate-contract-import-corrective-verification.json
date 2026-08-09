@@ -1,0 +1,50 @@
+{
+  "generated": "2026-08-09T09:43:10.136Z",
+  "phase": "AFRIDEBUG_GLOBAL_REFERENCED_GATE_CONTRACT_IMPORT_CORRECTIVE_PATCH_AND_RUNTIME_VERIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+  "patch": {
+    "mode": "MINIMAL_IMPORT_PATH_CORRECTION",
+    "corrected": true
+  },
+  "diskState": {
+    "correctedImportPersisted": true,
+    "incorrectImportRemoved": true
+  },
+  "runtimeResolution": {
+    "resolvedGate": "file:///data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+    "gateExecuteAvailable": true
+  },
+  "runtime": {
+    "blockedResponse": {
+      "status": "BLOCKED",
+      "reasonCode": "APPROVAL_REQUIRED",
+      "technicalReason": "Approved repair authorization was not found for the supplied approvalId.",
+      "userExplanation": "AfriFix execution is blocked because the required human repair approval is missing or not approved.",
+      "evidenceReference": "approvalId:GLOBAL-CONTRACT-BEHAVIORAL-VERIFY",
+      "requiredAction": "Obtain valid human approval before repair execution.",
+      "blockingGate": "AFRIDEBUG_EXECUTION_GATE",
+      "afrifixAllowed": false
+    }
+  },
+  "invariants": {
+    "statusPresent": true,
+    "reasonCodePresent": true,
+    "technicalReasonPresent": true,
+    "userExplanationPresent": true,
+    "evidenceReferencePresent": true,
+    "requiredActionPresent": true,
+    "blockingGatePresent": true,
+    "afrifixAllowedPresent": true,
+    "statusBlocked": true,
+    "reasonCodeCorrect": true,
+    "blockingGateCorrect": true,
+    "afrifixDenied": true,
+    "evidenceCorrect": true,
+    "legacyShapeGone": true,
+    "canonicalContractBehaviorObserved": true
+  },
+  "afrifixAllowed": true,
+  "decision": "ACTIVE_GATE_CONTRACT_RUNTIME_VERIFIED"
+}

@@ -1,9 +1,11 @@
 {
   "component": "Knowledge Comparison",
   "status": "PASSED",
-  "matches": 0,
-  "patternsChecked": 0,
-  "confidence": "NONE",
+  "matches": 3,
+  "patternsChecked": 3,
+  "confidence": "HIGH",
+  "reinforcedPatterns": 3,
+  "reinforcementAware": true,
   "source": "AfriDebugKnowledgeMemory",
-  "timestamp": "2026-08-08T08:08:12.807Z"
+  "timestamp": "2026-08-08T09:27:27.429Z"
 }

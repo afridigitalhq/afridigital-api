@@ -1,0 +1,219 @@
+{
+  "generated": "2026-08-09T09:30:41.906Z",
+  "phase": "AFRIDEBUG_GLOBAL_RUNTIME_ENTRYPOINT_OWNERSHIP_AUDIT",
+  "scope": "GLOBAL",
+  "runtimeClassification": {
+    "moduleTree": [
+      {
+        "file": "modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js",
+        "target": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "lines": [
+          {
+            "line": 1,
+            "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+        "target": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "lines": [
+          {
+            "line": 1,
+            "text": "import Orchestrator from \"../../orchestrator/AfriDebugOrchestrator.js\";"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": [
+          {
+            "line": 2,
+            "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js",
+        "target": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "lines": [
+          {
+            "line": 5,
+            "text": "orchestrator:\"../orchestrator/AfriDebugOrchestrator.js\","
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "lines": [
+          {
+            "line": 3,
+            "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+        "target": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "lines": [
+          {
+            "line": 7,
+            "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+          }
+        ]
+      },
+      {
+        "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": [
+          {
+            "line": 2,
+            "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+          }
+        ]
+      },
+      {
+        "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+        "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "lines": [
+          {
+            "line": 3,
+            "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+          }
+        ]
+      }
+    ],
+    "platformTree": [
+      {
+        "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "target": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": [
+          {
+            "line": 2,
+            "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "lines": [
+          {
+            "line": 3,
+            "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+          }
+        ]
+      },
+      {
+        "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "target": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": [
+          {
+            "line": 2,
+            "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+          }
+        ]
+      },
+      {
+        "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "target": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+        "lines": [
+          {
+            "line": 1,
+            "text": "import Orchestrator from \"../../orchestration/AfriDebugExecutionOrchestrator.js\";"
+          }
+        ]
+      },
+      {
+        "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+        "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "lines": [
+          {
+            "line": 3,
+            "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+          }
+        ]
+      }
+    ],
+    "entrypointEvidence": [
+      {
+        "file": "package.json",
+        "exists": true,
+        "relevantLines": [
+          {
+            "line": 7,
+            "text": "\"dev\": \"node src/bootstrap/index.js\","
+          },
+          {
+            "line": 10,
+            "text": "\"validate\": \"node modules/afridebug/src/certification/AfriDebugValidationEngine.js\""
+          },
+          {
+            "line": 19,
+            "text": "\"type\": \"module\","
+          }
+        ]
+      },
+      {
+        "file": "src/bootstrap/AfriDigitalBootstrap.js",
+        "exists": true,
+        "relevantLines": [
+          {
+            "line": 2,
+            "text": "import { initAfriCCTV } from \"../africctv/bootstrap/initAfriCCTV.js\";"
+          },
+          {
+            "line": 3,
+            "text": "import { init as initAfriAI } from \"../../modules/afriai/bootstrap/index.js\";"
+          },
+          {
+            "line": 9,
+            "text": "export async function initAfriDigitalBootstrap(server) {"
+          },
+          {
+            "line": 38,
+            "text": "console.log(\"🚀 AfriDigital Bootstrap ACTIVE (Kernel Mode)\");"
+          }
+        ]
+      },
+      {
+        "file": "src/bootstrap/discovery/ProductDiscovery.js",
+        "exists": true,
+        "relevantLines": [
+          {
+            "line": 11,
+            "text": "const p=path.join(base,dir,\"bootstrap/index.js\");"
+          }
+        ]
+      },
+      {
+        "file": "modules/afridebug/src/index.js",
+        "exists": false
+      },
+      {
+        "file": "modules/afridebug/index.js",
+        "exists": false
+      },
+      {
+        "file": "src/afridebug/index.js",
+        "exists": false
+      },
+      {
+        "file": "src/afridebug/platform/index.js",
+        "exists": false
+      }
+    ]
+  },
+  "decision": "CANONICAL_RUNTIME_ENTRYPOINT_RESOLUTION_REQUIRED",
+  "rule": "Canonical governance integration must target the executable AfriDebug runtime path. Duplicate implementations must not be modified until their runtime ownership is established.",
+  "globalLearning": {
+    "capabilityId": "GLOBAL_RUNTIME_ENTRYPOINT_OWNERSHIP",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "When multiple governance implementations exist, resolve actual runtime entrypoints and execution paths before remediation.",
+    "reusePolicy": "Every future AfriDebug job must establish canonical runtime ownership before changing shared gates or repair execution logic.",
+    "afriaiPolicy": "AfriAI must not describe an implementation as canonical solely because its path or naming appears newer."
+  },
+  "status": "ENTRYPOINT_AUDIT_COMPLETE"
+}

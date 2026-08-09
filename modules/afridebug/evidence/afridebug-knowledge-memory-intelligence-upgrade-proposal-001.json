@@ -1,0 +1,24 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-KNOWLEDGE-MEMORY-INTELLIGENCE-UPGRADE-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+  "issue": "KNOWLEDGE_MEMORY_STORES_PATTERNS_WITHOUT_INTELLIGENCE_WEIGHTING",
+  "rootCause": "Reinforced cases are stored but historical success signals are not calculated during matching",
+  "repair": [
+    "Add reinforcement scoring",
+    "Calculate confidence from success history",
+    "Merge duplicate patterns",
+    "Rank verified solutions",
+    "Improve recommendation accuracy"
+  ],
+  "workflow": [
+    "Knowledge Memory Search",
+    "Pattern Weight Calculation",
+    "Confidence Evaluation",
+    "Recommendation Ranking"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T11:27:34.523Z"
+}

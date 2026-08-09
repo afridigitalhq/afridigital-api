@@ -1,0 +1,47 @@
+{
+  "generated": "2026-08-09T10:41:39.319Z",
+  "phase": "AFRIDESIGN_STUDIO_PRODUCT_BOUNDARY_ARCHITECTURE",
+  "decision": "APPROVED_FOR_ARCHITECTURAL_PLANNING_ONLY",
+  "frontendModel": {
+    "frontendA": "AfriDigital-hub",
+    "role": "Standalone developer product experience",
+    "frontendB": "AfriDesign Studio"
+  },
+  "backendModel": {
+    "canonicalRepository": "AfriDigital-api",
+    "role": "Shared backend and global capability platform",
+    "sharedBackend": true
+  },
+  "afriDesignStudio": {
+    "standaloneProduct": true,
+    "developerFocused": true,
+    "products": [
+      "AfriDebug",
+      "AfriCode",
+      "AfriApp"
+    ],
+    "futureProductsAllowed": true
+  },
+  "afriDebug": {
+    "productOf": "AfriDesign Studio",
+    "backendLocation": "AfriDigital-api",
+    "developerExperience": true,
+    "sharedInfrastructure": true
+  },
+  "architectureRules": [
+    "Do not duplicate backend capabilities between frontends",
+    "Do not move AfriDebug backend out of AfriDigital-api",
+    "Products consume shared global core capabilities through contracts/adapters",
+    "Frontend presentation remains separate from backend business logic",
+    "AfriNucChain remains the dependency-aware execution coordinator",
+    "Human approval remains mandatory before AI-generated repair/build changes"
+  ],
+  "deploymentModel": {
+    "frontendA": "AfriDigital ecosystem deployment",
+    "frontendB": "Standalone AfriDesign Studio deployment",
+    "backend": "Shared AfriDigital-api deployment"
+  },
+  "modificationMode": "ARCHITECTURE_ONLY",
+  "patchAllowed": false,
+  "humanApprovalRequired": true
+}

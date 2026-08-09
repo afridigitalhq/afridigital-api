@@ -1,0 +1,80 @@
+{
+  "generated": "2026-08-09T10:44:13.045Z",
+  "phase": "AFRINUCCHAIN_GLOBAL_ARCHITECTURE_BATCH_REGISTRATION",
+  "orchestrator": "AfriNucChain",
+  "batch": {
+    "batchId": "AFRIDESIGN_SHARED_AFRAI_ARCHITECTURE_001",
+    "type": "ARCHITECTURE",
+    "scope": "GLOBAL",
+    "status": "PLANNED",
+    "frontendTargets": [
+      "AfriDigital-hub",
+      "AfriDesign Studio"
+    ],
+    "backendTarget": "AfriDigital-api",
+    "dependencies": {
+      "AfriAI": [
+        "AfriDigital-hub",
+        "AfriDesign Studio",
+        "AfriDebug",
+        "AfriFix",
+        "AfriScan",
+        "AfriNucChain"
+      ],
+      "AfriStatus": [
+        "AfriAI",
+        "AfriDebug",
+        "AfriFix",
+        "AfriScan",
+        "AfriNucChain"
+      ]
+    },
+    "executionGroups": [
+      {
+        "group": 1,
+        "mode": "VERIFY",
+        "targets": [
+          "AfriStatus",
+          "AfriAI"
+        ]
+      },
+      {
+        "group": 2,
+        "mode": "PARALLEL_INSPECTION",
+        "targets": [
+          "AfriDebug",
+          "AfriFix",
+          "AfriScan",
+          "AfriNucChain"
+        ]
+      },
+      {
+        "group": 3,
+        "mode": "FRONTEND_CONTRACT_PLANNING",
+        "targets": [
+          "AfriDigital-hub",
+          "AfriDesign Studio"
+        ]
+      },
+      {
+        "group": 4,
+        "mode": "INTEGRATION_VERIFICATION",
+        "targets": [
+          "AfriDigital-hub",
+          "AfriDesign Studio",
+          "AfriDigital-api"
+        ]
+      }
+    ],
+    "artifacts": [
+      "architecture decision",
+      "dependency graph",
+      "consumer contracts",
+      "integration verification",
+      "evidence report"
+    ],
+    "humanApprovalRequired": true,
+    "patchAllowed": false
+  },
+  "decision": "AFRINUCCHAIN_ARCHITECTURE_BATCH_REGISTERED_PLANNING_ONLY"
+}

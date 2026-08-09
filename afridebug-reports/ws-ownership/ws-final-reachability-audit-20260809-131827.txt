@@ -1,0 +1,275 @@
+--- WS-FIX REFERENCES ---
+./server.js.backup.1782737274:35:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+./server.js.BROKEN.1782737520:35:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+./bootstrap/ws-fix/inject-ws.js:16:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+./bootstrap/ws-fix/lock-ws.js:18:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+./bootstrap/ws-fix/clean-ws.js:18:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+./server.js.LEGACY.1782737658:35:const { mountWS } = require("./bootstrap/ws-fix/mount-ws");
+--- WS-V2 REFERENCES ---
+./bootstrap/ws-fix/mount-ws.js:1:const { createWSGateway } = require("../ws-v2/output/ws-gateway");
+./bootstrap/ws-fix/mount-ws.js:9:  createWSGateway(server, kernel);
+./bootstrap/ws-v2/builders/build-ws-v2.js:3:const OUT = "bootstrap/ws-v2/output";
+./bootstrap/ws-v2/builders/build-ws-v2.js:14:function createWSGateway(server, kernel) {
+./bootstrap/ws-v2/builders/build-ws-v2.js:35:module.exports = { createWSGateway };
+./bootstrap/ws-v2/output/ws-gateway.js:3:function createWSGateway(server, kernel) {
+./bootstrap/ws-v2/output/ws-gateway.js:40:module.exports = { createWSGateway };
+./bootstrap/ws-integration/bridge/ws-registry-bridge.js:39:      mod.createWSGateway ||
+--- WS-KERNEL REFERENCES ---
+./bootstrap/ws-kernel/ws-kernel.js:9:function bootstrapWSKernel(server) {
+./bootstrap/ws-kernel/ws-kernel.js:44:module.exports = { bootstrapWSKernel };
+--- STREAM BRIDGE REFERENCES ---
+bootstrap/kernel-generators/generate-kernel-index.js:14:  broadcaster: require("../realtime/ws/broadcaster")
+bootstrap/ws-integration/builders/build-streambridge-bootstrap.js:11:  registerService("stream.bridge",service);
+bootstrap/ws-integration/builders/build-streambridge-backup-bootstrap.js:11:  registerService("stream.bridge.backup",service);
+bootstrap/ws-integration/output/streambridge-bootstrap.cjs:5:  registerService("stream.bridge",service);
+bootstrap/ws-integration/output/streambridge-backup-bootstrap.cjs:5:  registerService("stream.bridge.backup",service);
+bootstrap/ws-integration/install-realtime-hub.js:3:const file="core/realtime/ws/stream.bridge.cjs";
+bootstrap/ws-integration/install-streambridge.js:3:const file="core/realtime/ws/stream.bridge.cjs";
+bootstrap/ws-integration/install-streambridge-backup.js:3:const file="core/realtime/ws/stream.bridge.backup.js";
+bootstrap/ws-cleanup/disable-legacy-ws.js:6:  "core/realtime/ws/stream.bridge.cjs",
+bootstrap/ws-cleanup/disable-legacy-ws.js:8:  "core/realtime/ws/stream.bridge.cjs",
+bootstrap/ws-cleanup/disable-legacy-ws.js:9:  "core/realtime/ws/stream.bridge.backup.js",
+bootstrap/ws-cleanup/disable-legacy-ws.js:10:  "core/realtime/ws/stream.bridge.backup.stable.js"
+bootstrap/ws-cleanup/disable-legacy-ws.js:22:  s = s.replace(/function initWS/g, "function initWS_DISABLED");
+bootstrap/ws-cleanup/disable-legacy-ws.js:25:  s = s.replace(/module\.exports\s*=\s*initWS/g, "module.exports = function(){ return null }");
+bootstrap/ws-runtime.boot.js:6:  const { initWS } = require("../core/realtime/ws/stream.bridge.cjs");
+bootstrap/ws-runtime.boot.js:7:  return initWS(server);
+core/simulation/diff.engine.js:43:    broadcast({
+core/simulation/sim.loop.full.backup.js:18:function startSimulationLoop(broadcast) {
+core/simulation/sim.loop.full.backup.js:27:      broadcast({
+core/simulation/sim.loop.js:26:      broadcast({
+core/ui/flowgraph-stream/index.js:64:function broadcastGraph(data) {
+core/ui/flowgraph-stream/index.js:81:    broadcastGraph(data);
+core/realtime/index.js:18:function broadcast(event) {
+core/realtime/index.js:28:    broadcast({
+core/realtime/index.js:36:    broadcast({
+core/realtime/index.js:46:  broadcast,
+core/realtime/dag.stream.js:11:function broadcastDAG(event) {
+core/realtime/dag.stream.js:22:module.exports = { registerDAGSocket, broadcastDAG };
+core/realtime/flags.stream.js:11:function broadcastFlags(flags) {
+core/realtime/flags.stream.js:22:module.exports = { registerFlagSocket, broadcastFlags };
+core/realtime/stabilizer/ws.throttle.js:11:function throttleBroadcast(broadcast, payload) {
+core/realtime/stabilizer/ws.throttle.js:19:        broadcast(pending);
+core/realtime/ws/stream.bridge.cjs:8:function initWS(server) {
+core/realtime/ws/stream.bridge.cjs:17:  wss.broadcast = attachDiffBroadcast(broadcast);
+core/realtime/ws/stream.bridge.cjs:26:function broadcast(payload) {
+core/realtime/ws/stream.bridge.cjs:48:  initWS,
+core/realtime/ws/stream.bridge.cjs:49:  broadcast
+core/realtime/ws/diff.throttle.cjs:10:function attachDiffBroadcast(broadcast, interval = 40) {
+core/realtime/ws/diff.throttle.cjs:21:        broadcast(buffer);
+core/event-engine/engine.backup.consolidation.js:51:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.backup.consolidation.js:52:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.backup.consolidation.js:54:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.clean.backup.js:43:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.clean.backup.js:44:  broadcast(event);
+core/event-engine/engine.clean.backup.js:45:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.corrupt.backup.js:51:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.corrupt.backup.js:52:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.corrupt.backup.js:56:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.corrupt.final.backup.js:51:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.corrupt.final.backup.js:52:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.corrupt.final.backup.js:56:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.js.backup_1782001266:1:const { broadcast } = require("../realtime/flowgraph-ws");
+core/event-engine/engine.js.backup_1782001266:13:  // OLD: raw broadcast
+core/event-engine/engine.js.backup_1782001266:14:  broadcast(event);
+core/event-engine/engine.physics.backup.js:43:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.physics.backup.js:44:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.physics.backup.js:46:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.pre-sim.backup.js:52:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.pre-sim.backup.js:53:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.pre-sim.backup.js:57:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.ws.backup.js:43:  const { broadcast } = require("../realtime/ws/stream.bridge");
+core/event-engine/engine.ws.backup.js:44:  try { const { broadcast } = require("../realtime/ws/stream.bridge"); broadcast(event); } catch (e) {}
+core/event-engine/engine.ws.repair.js:43:  const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+core/event-engine/engine.ws.repair.js:44:  broadcast(event);
+core/event-engine/pipeline.js:4:const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+core/event-engine/pipeline.js:11:  broadcast(e);
+core/feature-flags/store.js:1:const { broadcastFlags } = require("../realtime/flags.stream");
+core/feature-flags/store.js:27:    broadcastFlags(FLAGS);
+core/hud/bridge.js:1:const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+core/hud/bridge.js:12:  broadcast(normalized);
+core/hud/hud.stream.js:10:function broadcastHUD(payload) {
+core/hud/hud.stream.js:18:module.exports = { registerHUD, broadcastHUD };
+core/kernel/_deprecated/event.spine.js:11:  // optional hook for future WS broadcast
+core/kernel/federation/kernel.federation.mesh.js:13:  broadcast(event) {
+core/kernel/interface/control/ws/dashboard.ws.feed.js:5: * Read-only real-time state broadcaster
+core/kernel/reactive/ReactiveKernel.js:3:  constructor({ ledger, router, validator, broadcaster, policyEngine }) {
+core/kernel/reactive/ReactiveKernel.js:7:    this.broadcaster = broadcaster;
+core/kernel/reactive/ReactiveKernel.js:53:      this.broadcaster?.emit?.(routed);
+core/kernel/runtime/kernel.bridge.js:31:    this.hud?.broadcast?.({
+core/kernel/state/StateMachineKernel.js:3:  constructor({ ledger, router, validator, broadcaster }) {
+core/kernel/state/StateMachineKernel.js:7:    this.broadcaster = broadcaster;
+core/kernel/state/StateMachineKernel.js:49:          this.broadcaster?.emit?.(routed);
+core/neural-grid/index.js:1:const { broadcast } = require("../realtime/flowgraph-ws");
+core/neural-grid/index.js:24:    broadcast({
+core/sim/engine.core.js:52:  const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+core/sim/engine.core.js:53:  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
+core/sim/engine.core.js:57:  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
+core/sim/engine.snapshot.js:52:  const { broadcast } = require("../realtime/ws/stream.bridge.cjs");
+core/sim/engine.snapshot.js:53:  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
+core/sim/engine.snapshot.js:57:  try { const { broadcast } = require("../realtime/ws/stream.bridge.cjs"); broadcast(event); } catch (e) {}
+core/soc/bootstrap/socMultiEngineBootstrap.sh:52:  broadcast(event) {
+core/soc/cluster/socCluster.js:6:  broadcast(event) {
+core/afriai/observer/inject.ws.observer.js:4:  const file = "core/realtime/ws/stream.bridge.cjs";
+core/afriai/control/center/control.bus.js:26:    // broadcast
+core/afriai/control/center/control.bus.v2.js:22:    // realtime broadcast
+src/realtime/EventBusWS.js:23:export function broadcast(event) {
+src/realtime/EventBusWS.js:40:  broadcast({
+src/realtime/EventBusServer.js:28:      broadcast({ ...event, direction: "client->server" });
+src/realtime/EventBusServer.js:33:export function broadcast(event) {
+src/realtime/EventBusServer.js:45:  broadcast({
+src/legacy/ui/flowgraph-stream/index.js:64:function broadcastGraph(data) {
+src/legacy/ui/flowgraph-stream/index.js:81:    broadcastGraph(data);
+src/legacy/realtime/index.js:18:function broadcast(event) {
+src/legacy/realtime/index.js:28:    broadcast({
+src/legacy/realtime/index.js:36:    broadcast({
+src/legacy/realtime/index.js:46:  broadcast,
+src/legacy/realtime/event.stream.cjs:29:  broadcast(packet) {
+src/legacy/realtime/socket.server.js:18:    broadcast({ type: "WALLET_UPDATED", data });
+src/legacy/realtime/socket.server.js:22:    broadcast({ type: "NOTIFICATION_CREATED", data });
+src/legacy/realtime/socket.server.js:26:    broadcast({ type: "ACTIVITY_LOGGED", data });
+src/legacy/realtime/socket.server.js:29:  function broadcast(msg) {
+src/legacy/africore/runtime/brain.v14.sync.js:6:  await federation.broadcast(event, payload);
+src/legacy/africore/runtime/brain.v5.loop.js:23:    // broadcast system heartbeat
+src/legacy/africore/runtime/memory.swarm.js:8:async function broadcast(event, payload) {
+src/legacy/africore/runtime/memory.swarm.js:34:module.exports = { broadcast, listen };
+src/legacy/africore/runtime/swarm.memory.worker.js:13:    await swarm.broadcast("memory.processed", {
+src/legacy/afridigital-core/kernel/v20/agent.mesh.v4.cjs:12:  broadcast(from, message) {
+src/legacy/afridigital-core/kernel/v20/agent.mesh.v4.cjs:41:      broadcast: (msg) => this.broadcast(agentName, msg)
+src/legacy/afridigital-core/realtime/event.stream.cjs:19:    // poll tap buffer and broadcast
+src/bootstrap/runtime/PluginLifecycle.js:34:  broadcast(event) {
+src/control-room/federation/SOCFederationNetwork.js:16:  broadcast(context) {
+src/control-room/global-federation/SOCGlobalFederationController.js:14:  broadcast(context) {
+src/control-room/global-federation/SOCGlobalFederationController.js:18:      const res = f.federation.broadcast(context);
+src/soc/dashboard/SOCDashboard.js:20:      this.broadcast();
+src/soc/dashboard/SOCDashboard.js:29:    this.broadcast();
+src/soc/dashboard/SOCDashboard.js:47:  broadcast() {
+src/africctv/events/AfriCCTVEventPipeline.js:13:  broadcast(event){
+src/africctv/events/AfriCCTVEventPipeline.validate.js:14:afriCCTVEventPipeline.broadcast({
+src/africctv/control-plane/websocket/OperationsWebSocketHub.js:11: broadcast(event){
+src/africctv/control-plane/websocket/OperationsWebSocketHub.validate.js:10:operationsWebSocketHub.broadcast(
+--- AFRIAI INDEX REFERENCES ---
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:9:function bootstrapAfriAI(handler){
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:14:    bootstrapAfriAI
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:9:function bootstrapAfriAIStream(handler){
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:14:    bootstrapAfriAIStream
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:4:function bootstrapAfriAI(handler){
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:9:    bootstrapAfriAI
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:4:function bootstrapAfriAIStream(handler){
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:9:    bootstrapAfriAIStream
+bootstrap/ws-integration/install-afriai-ws.js:3:const target="core/afriai/index.js";
+bootstrap/ws-integration/install-afriai-ws.js:7:if(s.includes("bootstrapAfriAI(")){
+bootstrap/ws-integration/install-afriai-ws.js:12:const anchor='const attachAfriAIWebSocket = require("./ws/afriai.ws");';
+bootstrap/ws-integration/install-afriai-ws.js:15:const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap");
+bootstrap/ws-integration/install-afriai-ws.js:16:bootstrapAfriAI(attachAfriAIWebSocket);
+bootstrap/ws-integration/install-afriai-stream.js:3:const file="core/afriai/ws/afriai.stream.js";
+bootstrap/ws-integration/install-afriai-stream.js:6:if(!s.includes("bootstrapAfriAIStream")){
+bootstrap/ws-integration/install-afriai-stream.js:7:  s='const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");\nbootstrapAfriAIStream(module.exports);\n\n'+s;
+bootstrap/ws-integration/fix-afriai-stream-registration.js:3:const file="core/afriai/ws/afriai.stream.js";
+bootstrap/ws-integration/fix-afriai-stream-registration.js:7:/const \{ bootstrapAfriAIStream \} = require\([^)]+\);\s*bootstrapAfriAIStream\(module\.exports\);\s*/m,
+bootstrap/ws-integration/fix-afriai-stream-registration.js:8:'const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");\n'
+bootstrap/ws-integration/fix-afriai-stream-registration.js:11:if(!s.includes("bootstrapAfriAIStream(module.exports);")){
+bootstrap/ws-integration/fix-afriai-stream-registration.js:12:    s += '\n\nbootstrapAfriAIStream(module.exports);\n';
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:44:      mod.bootstrapAfriAI ||
+bootstrap/ws-cleanup/disable-legacy-ws.js:4:  "core/afriai/ws/afriai.ws.js",
+bootstrap/ws-cleanup/disable-legacy-ws.js:5:  "core/afriai/ws/afriai.stream.js",
+core/afriai/ws/afriai.ws.js:1:module.exports = function attachAfriAIWebSocket(server, WebSocketServer) {
+core/afriai/ws/afriai.stream.js:1:const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");
+core/afriai/ws/afriai.stream.js:2:module.exports = function attachAfriAIStream(server, WebSocketServer) {
+core/afriai/ws/afriai.stream.js:32:bootstrapAfriAIStream(module.exports);
+core/afriai/index.js:1:const attachAfriAIWebSocket = require("./ws/afriai.ws");
+core/afriai/index.js:3:const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap");
+core/afriai/index.js:4:bootstrapAfriAI(attachAfriAIWebSocket);
+core/afriai/index.js:10:    attachAfriAIWebSocket(server, WebSocketServer);
+core/afriai/observer/inject.ws.observer.js:10:      'const WebSocket = require("ws");\nconst observer = require("../../../core/afriai/observer/ws.afriai.observer");'
+core/afriai/anomaly/ws.anomaly.cooldown.patch.js:4:  const file = "./core/afriai/anomaly/ws.anomaly.engine.js";
+core/OWNERSHIP.contract:3:CANONICAL_AI=core/afriai
+src/legacy/ws/client.js:1:import { _validateAfriAIResponse, _safeParseAfriAI } from "../core/afriai/bootstrap.js";
+src/clients/client.js:1:import { _validateAfriAIResponse, _safeParseAfriAI } from "../core/afriai/bootstrap.js";
+src/afridebug/platform/security/AfriDebugRepositoryIntegrityGuard.js:4:  "src/core/afriai",
+--- BUILDER/INSTALLER REFERENCES ---
+bootstrap/ws-fix/inject-ws.js:20:s = s.replace(anchor, anchor + "\n" + injection);
+bootstrap/ws-fix/inject-ws.js:22:fs.writeFileSync(file, s);
+bootstrap/ws-fix/lock-ws.js:22:s = s.replace(anchor, anchor + "\n" + patch);
+bootstrap/ws-fix/lock-ws.js:24:fs.writeFileSync(file, s);
+bootstrap/ws-fix/clean-ws.js:9:s = s.replace(/const\s+\{\s*mountWS\s*\}\s*=\s*require\([^)]+\);\s*/g, "");
+bootstrap/ws-fix/clean-ws.js:10:s = s.replace(/mountWS\(server,\s*kernel\);\s*/g, "");
+bootstrap/ws-fix/clean-ws.js:11:s = s.replace(/WS_LOCK_V2_ACTIVE[\s\S]*?mountWS\(server,\s*kernel\);\s*/g, "");
+bootstrap/ws-fix/clean-ws.js:23:  s = s.replace(anchor, anchor + "\n" + inject);
+bootstrap/ws-fix/clean-ws.js:26:fs.writeFileSync(file, s);
+bootstrap/ws-v2/builders/build-ws-v2.js:4:fs.mkdirSync(OUT, { recursive: true });
+bootstrap/ws-v2/builders/build-ws-v2.js:11:fs.writeFileSync(`${OUT}/ws-gateway.js`, `
+bootstrap/ws-v2/builders/build-ws-v2.js:41:fs.writeFileSync(`${OUT}/ws-afriai-channel.js`, `
+bootstrap/ws-v2/builders/build-ws-v2.js:62:fs.writeFileSync(`${OUT}/ws-heartbeat.js`, `
+bootstrap/ws-v2/builders/build-ws-v2.js:78:fs.writeFileSync(`${OUT}/ws-router.js`, `
+bootstrap/ws-eventbus/builders/build-eventbus.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-eventbus/builders/build-eventbus.js:29:fs.writeFileSync(path.join(OUT,"eventbus.js"),src);
+bootstrap/ws-eventbus/builders/build-ws-adapter.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-eventbus/builders/build-ws-adapter.js:7:fs.writeFileSync(path.join(OUT,"ws-adapter.js"),`
+bootstrap/ws-eventbus/builders/build-ws-topology.js:6:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-eventbus/builders/build-ws-topology.js:8:fs.writeFileSync(path.join(OUT,"ws-topology.js"),`
+bootstrap/ws-eventbus/install-eventbus.js:11:    s=s.replace(anchor,anchor+"\n"+importLine);
+bootstrap/ws-eventbus/install-eventbus.js:20:    s=s.replace(anchor,anchor+"\n"+bootLine);
+bootstrap/ws-eventbus/install-eventbus.js:24:fs.writeFileSync(file,s);
+bootstrap/ws-integration/builders/build-ws-registry.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-integration/builders/build-ws-registry.js:7:fs.writeFileSync(path.join(OUT,"ws-registry.js"),`
+bootstrap/ws-integration/builders/build-ws-integration.js:6:fs.writeFileSync(path.join(OUT,"ws-integration.js"),`
+bootstrap/ws-integration/builders/build-ws-registrar.js:6:fs.writeFileSync(path.join(OUT,"ws-registrar.js"),`
+bootstrap/ws-integration/builders/build-ws-discovery.js:6:fs.writeFileSync(path.join(OUT,"ws-discovery.js"),`
+bootstrap/ws-integration/builders/build-ws-manifest.js:6:fs.writeFileSync(path.join(OUT,"ws-manifest.js"),`
+bootstrap/ws-integration/builders/build-ws-runtime.js:6:fs.writeFileSync(path.join(OUT,"ws-runtime.js"),`
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:6:fs.writeFileSync(path.join(OUT,"afriai-ws-bootstrap.js"),`
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:6:fs.writeFileSync(path.join(OUT,"afriai-stream-bootstrap.js"),`
+bootstrap/ws-integration/builders/build-realtime-hub-bootstrap.js:6:fs.writeFileSync(path.join(OUT,"realtime-hub-bootstrap.js"),`
+bootstrap/ws-integration/builders/build-flowgraph-bootstrap.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-integration/builders/build-flowgraph-bootstrap.js:7:fs.writeFileSync(path.join(OUT,"flowgraph-bootstrap.js"),`
+bootstrap/ws-integration/builders/build-streambridge-bootstrap.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-integration/builders/build-streambridge-bootstrap.js:7:fs.writeFileSync(path.join(OUT,"streambridge-bootstrap.js"),`
+bootstrap/ws-integration/builders/build-streambridge-backup-bootstrap.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-integration/builders/build-streambridge-backup-bootstrap.js:7:fs.writeFileSync(path.join(OUT,"streambridge-backup-bootstrap.js"),`
+bootstrap/ws-integration/install-afriai-ws.js:24:s=s.replace(anchor,anchor+"\\n"+patch);
+bootstrap/ws-integration/install-afriai-ws.js:26:fs.writeFileSync(target,s);
+bootstrap/ws-integration/install-afriai-stream.js:8:  fs.writeFileSync(file,s);
+bootstrap/ws-integration/fix-afriai-stream-registration.js:6:s=s.replace(
+bootstrap/ws-integration/fix-afriai-stream-registration.js:15:fs.writeFileSync(file,s);
+bootstrap/ws-integration/install-realtime-hub.js:18:s=s.replace(
+bootstrap/ws-integration/install-realtime-hub.js:25:    s=s.replace(
+bootstrap/ws-integration/install-realtime-hub.js:31:fs.writeFileSync(file,s);
+bootstrap/ws-integration/install-flowgraph.js:8:    s.replace(
+bootstrap/ws-integration/install-flowgraph.js:12:  fs.writeFileSync(file,s);
+bootstrap/ws-integration/install-streambridge.js:8:    s.replace(
+bootstrap/ws-integration/install-streambridge.js:12:  fs.writeFileSync(file,s);
+bootstrap/ws-integration/install-streambridge-backup.js:8:    s.replace(
+bootstrap/ws-integration/install-streambridge-backup.js:12:  fs.writeFileSync(file,s);
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:23:      name: f.replace(".js", ""),
+bootstrap/ws-validator/builders/build-ws-validator.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-validator/builders/build-ws-validator.js:7:fs.writeFileSync(path.join(OUT,"ws-validator.js"),`
+bootstrap/ws-validator/builders/build-ws-runtime-loader.js:5:fs.mkdirSync(OUT,{recursive:true});
+bootstrap/ws-validator/builders/build-ws-runtime-loader.js:7:fs.writeFileSync(path.join(OUT,"ws-runtime-loader.js"),`
+bootstrap/ws-cleanup/disable-legacy-ws.js:19:  s = s.replace(/new WebSocket\.Server\([^)]*\)/g, "null /* DISABLED_BY_WS_KERNEL */");
+bootstrap/ws-cleanup/disable-legacy-ws.js:22:  s = s.replace(/function initWS/g, "function initWS_DISABLED");
+bootstrap/ws-cleanup/disable-legacy-ws.js:25:  s = s.replace(/module\.exports\s*=\s*initWS/g, "module.exports = function(){ return null }");
+bootstrap/ws-cleanup/disable-legacy-ws.js:27:  fs.writeFileSync(file, s);
+--- SYNTAX GATE ---
+SYNTAX_GATE=PASS
+--- GIT ---
+ M modules/afridebug/evidence/knowledge-comparison.json
+ M modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js
+ M modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js
+ M src/afridebug/platform/governance/AfriDebugExecutionGate.js
+ M src/afriscan/bootstrap/index.js
+?? afridebug-reports/
+?? modules/afridebug/evidence/afridebug-client-delivery-proposal-001.json
+?? modules/afridebug/evidence/afridebug-knowledge-memory-intelligence-upgrade-proposal-001.json
+?? modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json
+?? modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js.bak
+?? modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak
+?? modules/afridebug/src/debug/knowledge/AfriDebugKnowledgePersistence.js.bak
+?? modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js.bak
+?? modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js.bak
+?? modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js.bak
+?? modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js.bak
+?? src/core/afriai/
+?? src/core/afridebug/
+?? src/core/governance/
+?? src/core/observability/

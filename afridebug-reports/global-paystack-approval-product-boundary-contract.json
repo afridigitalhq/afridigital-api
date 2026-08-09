@@ -1,0 +1,23 @@
+{
+  "generated": "2026-08-09T10:48:52.492Z",
+  "phase": "GLOBAL_PAYSTACK_APPROVAL_PRODUCT_BOUNDARY",
+  "contract": {
+    "name": "PAYSTACK_APPROVAL_PRODUCT_BOUNDARY",
+    "status": "PROTECTED",
+    "paystackFacingProduct": "AfriDigital-hub",
+    "standaloneDeveloperProduct": "AfriDesign Studio",
+    "sharedBackend": "AfriDigital-api",
+    "rules": [
+      "AfriDigital-hub remains the primary Paystack-facing product",
+      "AfriDesign Studio is a separate developer-facing frontend",
+      "AfriDesign Studio does not replace AfriDigital-hub",
+      "Both frontends may consume AfriDigital-api",
+      "Paystack approval-facing product identity must remain stable",
+      "Payment-facing UX and business purpose must not be changed implicitly by the new frontend",
+      "No deployment or payment-contract changes are authorized by this architecture decision"
+    ],
+    "humanApprovalRequired": true,
+    "patchAllowed": false
+  },
+  "decision": "PAYSTACK_APPROVAL_BOUNDARY_PROTECTED_AFRIDESIGN_STUDIO_MAY_EXIST_AS_SEPARATE_FRONTEND"
+}

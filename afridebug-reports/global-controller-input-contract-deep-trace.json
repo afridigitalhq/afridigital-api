@@ -1,0 +1,300 @@
+{
+  "generated": "2026-08-09T10:07:00.383Z",
+  "phase": "AFRIDEBUG_CONTROLLER_INPUT_CONTRACT_DEEP_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "bridge": {
+    "controllerInvocationFound": true,
+    "invocationPayload": "incidentId:\n          input.incidentId,\n\n        issue:\n          plan.issue,\n\n        files:\n          plan.files,\n\n        action:\n          plan.action,\n\n        tests:\n          input.tests || [],\n\n        version:\n          input.version || \"v1.0\"",
+    "forwardsApprovalId": true,
+    "forwardsInput": true
+  },
+  "controller": {
+    "executeSignature": "input={}",
+    "approvalLiteralReference": false,
+    "authorizationLiteralReference": false,
+    "inputLiteralReference": true,
+    "payloadLiteralReference": false,
+    "requestLiteralReference": false,
+    "commandReference": false,
+    "planReference": false,
+    "changeReference": false
+  },
+  "evidence": {
+    "controllerSignals": [
+      {
+        "line": 3,
+        "text": "import RollbackRuntime from \"../production/rollback/AfriDebugRollbackRuntime.js\";"
+      },
+      {
+        "line": 9,
+        "text": "execute(input={}){"
+      },
+      {
+        "line": 12,
+        "text": "issue: input.issue,"
+      },
+      {
+        "line": 13,
+        "text": "files: input.files || [],"
+      },
+      {
+        "line": 14,
+        "text": "action: input.action || \"repair\""
+      },
+      {
+        "line": 18,
+        "text": "const approval = PatchRuntime.approve(patch.id);"
+      },
+      {
+        "line": 21,
+        "text": "if(!approval.success){"
+      },
+      {
+        "line": 23,
+        "text": "return {"
+      },
+      {
+        "line": 24,
+        "text": "status:\"failed\","
+      },
+      {
+        "line": 34,
+        "text": "tests:input.tests || []"
+      },
+      {
+        "line": 38,
+        "text": "let rollback=null;"
+      },
+      {
+        "line": 41,
+        "text": "if(verification.status !== \"VERIFIED\"){"
+      },
+      {
+        "line": 43,
+        "text": "rollback = RollbackRuntime.rollback({"
+      },
+      {
+        "line": 44,
+        "text": "incidentId:input.incidentId,"
+      },
+      {
+        "line": 46,
+        "text": "version:input.version,"
+      },
+      {
+        "line": 48,
+        "text": "approvalStatus:\"pending\""
+      },
+      {
+        "line": 58,
+        "text": "incidentId:input.incidentId || null,"
+      },
+      {
+        "line": 64,
+        "text": "rollback,"
+      },
+      {
+        "line": 66,
+        "text": "status:"
+      },
+      {
+        "line": 67,
+        "text": "rollback"
+      },
+      {
+        "line": 68,
+        "text": "? \"rollback_required\""
+      },
+      {
+        "line": 78,
+        "text": "return execution;"
+      },
+      {
+        "line": 85,
+        "text": "return executions;"
+      },
+      {
+        "line": 92,
+        "text": "return {"
+      },
+      {
+        "line": 94,
+        "text": "status:\"healthy\""
+      }
+    ],
+    "bridgePayload": [
+      {
+        "line": 26,
+        "text": "files:input.files || [],"
+      },
+      {
+        "line": 27,
+        "text": "risk:input.risk"
+      },
+      {
+        "line": 28,
+        "text": "});"
+      },
+      {
+        "line": 29,
+        "text": ""
+      },
+      {
+        "line": 30,
+        "text": ""
+      },
+      {
+        "line": 31,
+        "text": "const execution ="
+      },
+      {
+        "line": 32,
+        "text": "Controller.execute({"
+      },
+      {
+        "line": 33,
+        "text": ""
+      },
+      {
+        "line": 34,
+        "text": "incidentId:"
+      },
+      {
+        "line": 35,
+        "text": "input.incidentId,"
+      },
+      {
+        "line": 36,
+        "text": ""
+      },
+      {
+        "line": 37,
+        "text": "issue:"
+      },
+      {
+        "line": 38,
+        "text": "plan.issue,"
+      },
+      {
+        "line": 39,
+        "text": ""
+      },
+      {
+        "line": 40,
+        "text": "files:"
+      },
+      {
+        "line": 41,
+        "text": "plan.files,"
+      },
+      {
+        "line": 42,
+        "text": ""
+      },
+      {
+        "line": 43,
+        "text": "action:"
+      },
+      {
+        "line": 44,
+        "text": "plan.action,"
+      },
+      {
+        "line": 45,
+        "text": ""
+      },
+      {
+        "line": 46,
+        "text": "tests:"
+      },
+      {
+        "line": 47,
+        "text": "input.tests || [],"
+      },
+      {
+        "line": 48,
+        "text": ""
+      },
+      {
+        "line": 49,
+        "text": "version:"
+      },
+      {
+        "line": 50,
+        "text": "input.version || \"v1.0\""
+      },
+      {
+        "line": 51,
+        "text": ""
+      },
+      {
+        "line": 52,
+        "text": "});"
+      },
+      {
+        "line": 53,
+        "text": ""
+      },
+      {
+        "line": 54,
+        "text": ""
+      },
+      {
+        "line": 55,
+        "text": "const history = History.record({"
+      },
+      {
+        "line": 56,
+        "text": "incidentId: input.incidentId || execution.incidentId,"
+      },
+      {
+        "line": 57,
+        "text": "approvalId: input.approvalId,"
+      },
+      {
+        "line": 58,
+        "text": "issue: plan.issue,"
+      },
+      {
+        "line": 59,
+        "text": "diagnosis: plan.diagnosis,"
+      },
+      {
+        "line": 60,
+        "text": "planId: plan.planId,"
+      },
+      {
+        "line": 61,
+        "text": "executionId: execution.executionId,"
+      },
+      {
+        "line": 62,
+        "text": "verificationStatus: execution.verification?.status,"
+      },
+      {
+        "line": 63,
+        "text": "rollbackStatus: execution.rollback ? \"required\" : \"none\","
+      },
+      {
+        "line": 64,
+        "text": "outcome: execution.status"
+      },
+      {
+        "line": 65,
+        "text": "});"
+      },
+      {
+        "line": 66,
+        "text": ""
+      }
+    ]
+  },
+  "safety": {
+    "patchAllowed": false,
+    "afrifixAllowed": false
+  },
+  "decision": "CONTROLLER_USES_ALTERNATE_AUTHORIZATION_OR_INPUT_CONTRACT_REQUIRES_SEMANTIC_REVIEW"
+}

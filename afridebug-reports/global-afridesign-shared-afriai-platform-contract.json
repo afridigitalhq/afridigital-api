@@ -1,0 +1,44 @@
+{
+  "generated": "2026-08-09T10:43:00.345Z",
+  "phase": "AFRIDESIGN_SHARED_AFRAI_PLATFORM_CONTRACT",
+  "architecture": "TWO_FRONTENDS_ONE_SHARED_BACKEND",
+  "frontends": {
+    "AfriDigital": "AfriDigital-hub",
+    "AfriDesign": "Standalone AfriDesign Studio"
+  },
+  "backend": "AfriDigital-api",
+  "sharedIntelligence": {
+    "service": "AfriAI",
+    "scope": "GLOBAL",
+    "consumers": [
+      "AfriDigital",
+      "AfriDesign Studio",
+      "AfriDebug",
+      "AfriFix",
+      "AfriScan",
+      "AfriNucChain"
+    ],
+    "singleCanonicalService": true
+  },
+  "sharedCapabilities": [
+    "AfriStatus",
+    "Governance",
+    "Security",
+    "AfriScan",
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain",
+    "AfriAI"
+  ],
+  "rules": [
+    "AfriAI remains a shared backend intelligence capability",
+    "Both frontends consume the same canonical AfriAI service",
+    "No duplicated frontend-specific AfriAI backend implementations",
+    "Developer workflows are exposed through AfriDesign Studio",
+    "General ecosystem workflows remain exposed through AfriDigital",
+    "Shared core capabilities remain reusable across products"
+  ],
+  "humanApprovalRequired": true,
+  "patchAllowed": false,
+  "decision": "AFRIDESIGN_AND_AFRIDIGITAL_SHARED_AFRAI_ARCHITECTURE_CONFIRMED"
+}

@@ -1,0 +1,125 @@
+{
+  "generated": "2026-08-09T09:32:58.212Z",
+  "phase": "AFRIDEBUG_GLOBAL_ACTIVE_GATE_CONTRACT_INTEGRATION_DESIGN_INSPECTION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "activeRuntimeOwner": "src/afridebug/platform",
+  "gate": {
+    "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "blockingDecisionLines": [
+      {
+        "line": 1,
+        "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+      },
+      {
+        "line": 13,
+        "text": "    const approval ="
+      },
+      {
+        "line": 17,
+        "text": "        item.approvalId === input.approvalId"
+      },
+      {
+        "line": 22,
+        "text": "      !approval ||"
+      },
+      {
+        "line": 23,
+        "text": "      approval.status?.toUpperCase() !== \"APPROVED\""
+      },
+      {
+        "line": 28,
+        "text": "        status:\"blocked\","
+      },
+      {
+        "line": 30,
+        "text": "        reason:\"APPROVAL_REQUIRED\""
+      },
+      {
+        "line": 45,
+        "text": "      approvalId:"
+      },
+      {
+        "line": 46,
+        "text": "        input.approvalId,"
+      },
+      {
+        "line": 48,
+        "text": "      status:\"EXECUTED\","
+      },
+      {
+        "line": 71,
+        "text": "      approvalId:"
+      },
+      {
+        "line": 72,
+        "text": "        input.approvalId,"
+      },
+      {
+        "line": 81,
+        "text": "      status:\"executed\","
+      },
+      {
+        "line": 83,
+        "text": "      approval,"
+      },
+      {
+        "line": 104,
+        "text": "      status:\"healthy\""
+      }
+    ],
+    "currentContractUsage": []
+  },
+  "contract": {
+    "file": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "api": [
+      {
+        "line": 1,
+        "text": "export const REQUIRED_FIELDS = ["
+      },
+      {
+        "line": 12,
+        "text": "export function validateBlockedResponse(response = {}) {"
+      },
+      {
+        "line": 34,
+        "text": "export function createBlockedResponse(input = {}) {"
+      },
+      {
+        "line": 52,
+        "text": "  const validation = validateBlockedResponse(response);"
+      },
+      {
+        "line": 64,
+        "text": "export default {"
+      },
+      {
+        "line": 66,
+        "text": "  createBlockedResponse,"
+      },
+      {
+        "line": 67,
+        "text": "  validateBlockedResponse"
+      }
+    ]
+  },
+  "integrationDesign": {
+    "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "requiredImport": "BlockExplanationContract",
+    "blockedResponseReasonCode": "APPROVAL_REQUIRED",
+    "blockingGate": "AFRIDEBUG_EXECUTION_GATE",
+    "afrifixAllowed": false,
+    "evidenceRequirement": "Approval lookup must be represented in the canonical blocked explanation.",
+    "invariant": "No active executable gate may independently construct a BLOCKED response."
+  },
+  "globalLearning": {
+    "capabilityId": "GLOBAL_ACTIVE_GATE_BLOCK_EXPLANATION_INTEGRATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Active runtime blocking decisions must delegate blocked-response construction and validation to the canonical BlockExplanationContract.",
+    "reusePolicy": "Every future AfriDebug job must apply the same contract at every proven executable blocking gate.",
+    "afriaiPolicy": "AfriAI must surface reasonCode, technicalReason, userExplanation, evidenceReference, requiredAction, blockingGate, and AfriFix permission for every blocked state."
+  },
+  "decision": "READY_FOR_MINIMAL_CANONICAL_GATE_PATCH",
+  "afrifixAllowed": false,
+  "status": "DESIGN_INSPECTION_COMPLETE"
+}

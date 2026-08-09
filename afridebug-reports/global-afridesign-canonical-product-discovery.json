@@ -1,0 +1,481 @@
+{
+  "parentPlatform": "AfriDigital",
+  "studio": "AfriDesign-Studio",
+  "ecosystemFrontend": "AfriDigital-hub",
+  "sharedBackend": "AfriDigital-api",
+  "sharedAI": "AfriAI",
+  "paystackBoundary": "AfriDigital-hub-only",
+  "humanApprovalRequired": true,
+  "patchAllowed": false,
+  "candidates": [
+    {
+      "name": "AfriAI",
+      "files": [
+        "AfriDigital-api/.afridebug-runtime/artifacts/approvals/APPROVAL-1785848166777.json",
+        "AfriDigital-api/afriai/ws/afriai.ws.js",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-contract-integration-design-inspection.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-dependency-verification.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-patch-runtime-consistency-inspection.json",
+        "AfriDigital-api/afridebug-reports/global-afridebug-runtime-entrypoint-ownership-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridebug-runtime-entrypoint-ownership-resolution.json"
+      ],
+      "refs": 555,
+      "signals": [
+        "AfriDigital-api/.afridebug-runtime/artifacts/approvals/APPROVAL-1785848166777.json:5",
+        "AfriDigital-api/afriai/ws/afriai.ws.js:4",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json:57",
+        "AfriDigital-api/afridebug-reports/global-active-gate-contract-integration-design-inspection.json:120",
+        "AfriDigital-api/afridebug-reports/global-active-gate-dependency-verification.json:184"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriDebug",
+      "files": [
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785847181234.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785847366475.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785868782988.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/packages/PACKAGE-1785847181233.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/packages/PACKAGE-1785847366472.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/packages/PACKAGE-1785868782986.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/reports/REPORT-1785847181228.json",
+        "AfriDigital-api/.afridebug-runtime/artifacts/reports/REPORT-1785847366470.json"
+      ],
+      "refs": 351,
+      "signals": [
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785847181234.json:8",
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785847366475.json:8",
+        "AfriDigital-api/.afridebug-runtime/artifacts/deliveries/DELIVERY-PACKAGE-1785868782988.json:8",
+        "AfriDigital-api/.afridebug-runtime/artifacts/packages/PACKAGE-1785847181233.json:3",
+        "AfriDigital-api/.afridebug-runtime/artifacts/packages/PACKAGE-1785847366472.json:3"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriFix",
+      "files": [
+        "AfriDigital-api/afridebug-reports/block-explanation-gate-integration-audit.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-patch-verification.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-contract-integration-design-inspection.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-dependency-verification.json",
+        "AfriDigital-api/afridebug-reports/global-active-gate-patch-runtime-consistency-inspection.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json"
+      ],
+      "refs": 279,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/block-explanation-gate-integration-audit.json:23",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json:24",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json:56",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-corrective-verification.json:57",
+        "AfriDigital-api/afridebug-reports/global-active-gate-block-explanation-patch-verification.json:41"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriScan",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-frontend-experience-contract.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json"
+      ],
+      "refs": 96,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:21",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:28",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:47",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1038",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1046"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriNucChain",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-frontend-experience-contract.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json"
+      ],
+      "refs": 150,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:4",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:22",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:29",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:48",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1211"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriDesign",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-frontend-experience-contract.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-paystack-render-boundary-safety-audit.json"
+      ],
+      "refs": 429,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:12",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:18",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:56",
+        "AfriDigital-api/afridebug-reports/global-afridesign-afriai-architecture-batch-registration.json:64",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:5"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriBuild",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/modules/afridesign/architecture-work/final-workspace-panels/snapshot/AfriDesignDockRegistry.before.js"
+      ],
+      "refs": 15,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1741",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1749",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1758",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json:441",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json:127"
+      ],
+      "classification": "ARCHITECTURAL_OR_PARTIAL"
+    },
+    {
+      "name": "AfriCode",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-two-frontend-one-backend-architecture-decision.json"
+      ],
+      "refs": 42,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1765",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1782",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1800",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1804",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1813"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriApp",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-two-frontend-one-backend-architecture-decision.json"
+      ],
+      "refs": 42,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1837",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1854",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1872",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1876",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1885"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriUI",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js"
+      ],
+      "refs": 21,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1918",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1935",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json:566",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json:160",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json:3274"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriGraphics",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js"
+      ],
+      "refs": 21,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:1990",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:2007",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json:605",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json:171",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json:3311"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriVideo",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js"
+      ],
+      "refs": 21,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:2014",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:2031",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json:640",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json:182",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json:3316"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriTemplate",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-normalized-product-catalog.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-evidence-audit.json",
+        "AfriDigital-api/afridebug-reports/global-afridesign-product-role-capability-classification.json",
+        "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js"
+      ],
+      "refs": 21,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:2038",
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:2055",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-capability-audit.json:675",
+        "AfriDigital-api/afridebug-reports/global-afridesign-deep-product-structure-audit.json:193",
+        "AfriDigital-api/afridebug-reports/global-afridesign-existing-product-inventory.json:3321"
+      ],
+      "classification": "CONFIRMED_OR_DEEPLY_REFERENCED"
+    },
+    {
+      "name": "AfriTest",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugTestBridge.js",
+        "AfriDigital-api/modules/afridev/products/afritest/validation/AfriTestWorkflow.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 6,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugTestBridge.js:3",
+        "AfriDigital-api/modules/afridev/products/afritest/validation/AfriTestWorkflow.js:2",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:5"
+      ],
+      "classification": "ARCHITECTURAL_OR_PARTIAL"
+    },
+    {
+      "name": "AfriDeploy",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugDeployBridge.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 5,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugDeployBridge.js:3",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:6",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:15"
+      ],
+      "classification": "ARCHITECTURAL_OR_PARTIAL"
+    },
+    {
+      "name": "AfriMonitor",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugMonitorBridge.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDigital-api/src/_legacy_control/legacyRegistry.js",
+        "AfriDigital-hub/_archive_b2/_isolation_b2/afrivision/AfriMonitorWindow.jsx",
+        "AfriDigital-hub/_archive_b2/_isolation_b2/afrivision/AfriVisionLiveFeed.jsx",
+        "AfriDigital-hub/scripts/apply-brand.js"
+      ],
+      "refs": 10,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugMonitorBridge.js:3",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:7",
+        "AfriDigital-api/src/_legacy_control/legacyRegistry.js:2"
+      ],
+      "classification": "ARCHITECTURAL_OR_PARTIAL"
+    },
+    {
+      "name": "AfriDocs",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:8",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:16"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    },
+    {
+      "name": "AfriCLI",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:9",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:16"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    },
+    {
+      "name": "AfriSDK",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridesign/architecture-work/final-workspace-panels/snapshot/AfriDesignDockRegistry.before.js",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 5,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridesign/architecture-work/final-workspace-panels/snapshot/AfriDesignDockRegistry.before.js:59",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:10",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:16"
+      ],
+      "classification": "ARCHITECTURAL_OR_PARTIAL"
+    },
+    {
+      "name": "AfriAPI",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:11",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:16"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    },
+    {
+      "name": "AfriGit",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:12",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:16"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    },
+    {
+      "name": "AfriContainer",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:13",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:17"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    },
+    {
+      "name": "AfriOps",
+      "files": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs"
+      ],
+      "refs": 4,
+      "signals": [
+        "AfriDigital-api/afridebug-reports/global-afridesign-broad-product-evidence-audit.json:742",
+        "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js:1",
+        "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js:14",
+        "AfriDesign-Studio/scripts/afridesign-canonical-product-discovery.mjs:17"
+      ],
+      "classification": "LIGHT_OR_HISTORICAL_SIGNAL"
+    }
+  ],
+  "decision": "CANONICAL_PRODUCT_DISCOVERY_COMPLETE_REQUIRES_ROLE_REVIEW_BEFORE_CATALOG_REGISTRATION"
+}

@@ -1,4 +1,4 @@
-const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");
+const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs");
 module.exports = function attachAfriAIStream(server, WebSocketServer) {
   if (!server || !WebSocketServer) return;
 

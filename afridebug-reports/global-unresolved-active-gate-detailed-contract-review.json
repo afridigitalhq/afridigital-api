@@ -1,0 +1,279 @@
+{
+  "generated": "2026-08-09T09:37:11.738Z",
+  "phase": "AFRIDEBUG_GLOBAL_UNRESOLVED_ACTIVE_GATE_DETAILED_CONTRACT_REVIEW",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "candidates": [
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { SOCZeroTrustEngine } from \"./socZeroTrustEngine\";"
+        },
+        {
+          "line": 2,
+          "text": "import { SOCSandbox } from \"./socExecutionSandbox\";"
+        },
+        {
+          "line": 3,
+          "text": "import { SOCAuditLogger } from \"./socAuditLogger\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 21,
+          "text": "        status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [],
+      "executionCalls": [
+        {
+          "line": 13,
+          "text": "  async run(command, user) {"
+        },
+        {
+          "line": 30,
+          "text": "    const result = await this.sandbox.execute(command);"
+        }
+      ],
+      "contractUsage": [],
+      "classification": "EXECUTABLE_BLOCKING_GATE_CANDIDATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Delivery from \"../workers/AfriDebugDeliveryPackageWorker.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Events from \"../events/AfriDebugEventStream.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import ResolutionRecorder from \"../learning/AfriDebugResolutionRecorder.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import KnowledgeMemory from \"../memory/AfriDebugKnowledgeMemory.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 19,
+          "text": "        status:\"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 1,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        },
+        {
+          "line": 8,
+          "text": "const AfriDebugApprovalResumeService = {"
+        },
+        {
+          "line": 12,
+          "text": "    const approval ="
+        },
+        {
+          "line": 13,
+          "text": "      ApprovalGate.canDeliver(input.approvalId);"
+        },
+        {
+          "line": 16,
+          "text": "    if (!approval.allowed) {"
+        },
+        {
+          "line": 20,
+          "text": "        approval"
+        },
+        {
+          "line": 51,
+          "text": "      actor:\"ApprovalResumeService\","
+        },
+        {
+          "line": 53,
+          "text": "      details:\"Delivery released after human approval\""
+        },
+        {
+          "line": 97,
+          "text": "      approval,"
+        },
+        {
+          "line": 111,
+          "text": "      service:\"AfriDebugApprovalResumeService\","
+        },
+        {
+          "line": 120,
+          "text": "export default AfriDebugApprovalResumeService;"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 27,
+          "text": "      Delivery.execute({"
+        }
+      ],
+      "contractUsage": [],
+      "classification": "EXECUTABLE_BLOCKING_GATE_CANDIDATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 20,
+          "text": "        status:\"blocked\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 8,
+          "text": "    const approval ="
+        },
+        {
+          "line": 12,
+          "text": "        item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "    if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 22,
+          "text": "        reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 37,
+          "text": "      approval,"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 6,
+          "text": "  execute(input={}){"
+        },
+        {
+          "line": 30,
+          "text": "      Bridge.execute(input);"
+        }
+      ],
+      "contractUsage": [],
+      "classification": "EXECUTABLE_BLOCKING_GATE_CANDIDATE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [],
+      "blockedReturns": [
+        {
+          "line": 9,
+          "text": "        status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 7,
+          "text": "    if (!input.approved) {"
+        },
+        {
+          "line": 10,
+          "text": "        reason: \"Human approval required\""
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 5,
+          "text": "  execute(input = {}) {"
+        }
+      ],
+      "contractUsage": [],
+      "classification": "EXECUTABLE_BLOCKING_GATE_CANDIDATE"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { rootCauseAnalyzer } from \"../rca/RootCauseAnalyzer.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import { cameraActionGuard } from \"../../cameras/guard/CameraActionGuard.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { socPolicyEngine } from \"../policy/SOCPolicyEngine.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import { socDashboardAPI } from \"../dashboard/SOCDashboardAPI.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 52,
+          "text": "          status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [],
+      "executionCalls": [
+        {
+          "line": 69,
+          "text": "  async run(timeWindowMs = 300000, userId = \"system\") {"
+        }
+      ],
+      "contractUsage": [],
+      "classification": "EXECUTABLE_BLOCKING_GATE_CANDIDATE"
+    }
+  ],
+  "decision": "DETAILED_CONTRACT_REVIEW_COMPLETE",
+  "globalLearning": {
+    "capabilityId": "GLOBAL_UNRESOLVED_GATE_DETAILED_CONTRACT_REVIEW",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Only executable blocking gates with proven runtime ownership should enter canonical contract integration.",
+    "reusePolicy": "Trace ownership, blocking behavior, execution path, and contract usage before every future gate patch.",
+    "afriaiPolicy": "AfriAI must not recommend remediation until executable gate behavior is proven."
+  }
+}

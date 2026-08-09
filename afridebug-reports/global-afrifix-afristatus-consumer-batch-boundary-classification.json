@@ -1,0 +1,56 @@
+{
+  "generated": "2026-08-09T10:27:57.885Z",
+  "phase": "AFRIFIX_GLOBAL_AFIRSTATUS_CONSUMER_BATCH_BOUNDARY_CLASSIFICATION",
+  "scope": "GLOBAL",
+  "targets": [
+    {
+      "name": "AfriScan",
+      "files": 1,
+      "globalStatusReferences": 1,
+      "statusFiles": 0,
+      "classification": "🟡 EXISTING_OR_PARTIAL_BOUNDARY"
+    },
+    {
+      "name": "AfriDebug",
+      "files": 564,
+      "globalStatusReferences": 0,
+      "statusFiles": 0,
+      "classification": "🟡 NO_GLOBAL_AFIRSTATUS_WIRING"
+    },
+    {
+      "name": "AfriFix",
+      "files": 109,
+      "globalStatusReferences": 0,
+      "statusFiles": 0,
+      "classification": "🟡 NO_GLOBAL_AFIRSTATUS_WIRING"
+    },
+    {
+      "name": "AfriNucChain",
+      "files": 79,
+      "globalStatusReferences": 0,
+      "statusFiles": 0,
+      "classification": "🟡 NO_GLOBAL_AFIRSTATUS_WIRING"
+    },
+    {
+      "name": "AfriAI",
+      "files": 235,
+      "globalStatusReferences": 0,
+      "statusFiles": 0,
+      "classification": "🟡 NO_GLOBAL_AFIRSTATUS_WIRING"
+    },
+    {
+      "name": "Global/Core",
+      "files": 6,
+      "globalStatusReferences": 3,
+      "statusFiles": 0,
+      "classification": "🟡 EXISTING_OR_PARTIAL_BOUNDARY"
+    }
+  ],
+  "globalFoundation": true,
+  "renderer": true,
+  "exportSurface": true,
+  "humanApprovalRequired": true,
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "decision": "AFRIFIX_BATCH_BOUNDARY_CLASSIFICATION_COMPLETE_NO_PATCH_AUTHORIZATION"
+}

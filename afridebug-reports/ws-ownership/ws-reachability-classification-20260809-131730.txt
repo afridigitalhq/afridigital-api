@@ -1,0 +1,369 @@
+--- PACKAGE TYPE ---
+{
+  "name": "afridigital-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node src/bootstrap/index.js",
+    "start": "node server.js",
+    "build": "echo 🟢 API BUILD OK",
+    "validate": "node modules/afridebug/src/certification/AfriDebugValidationEngine.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afridigitalhq/afridigital-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/afridigitalhq/afridigital-api/issues"
+  },
+  "homepage": "https://github.com/afridigitalhq/afridigital-api#readme",
+  "dependencies": {
+    "axios": "^1.18.0",
+    "cors": "^2.8.6",
+    "d3-force": "^3.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "three": "^0.184.0",
+    "ws": "^8.21.0"
+  }
+}--- CANONICAL BOOT IMPORT GRAPH ---
+server.js:10:import { mountWebsocket } from "./bootstrap/websocket.boot.js";
+server.js:26:mountWebsocket(server);
+bootstrap/ws-fix/mount-ws.js:1:const { createWSGateway } = require("../ws-v2/output/ws-gateway");
+bootstrap/ws-fix/mount-ws.js:9:  createWSGateway(server, kernel);
+bootstrap/ws-v2/builders/build-ws-v2.js:14:function createWSGateway(server, kernel) {
+bootstrap/ws-v2/builders/build-ws-v2.js:35:module.exports = { createWSGateway };
+bootstrap/ws-v2/output/ws-gateway.js:3:function createWSGateway(server, kernel) {
+bootstrap/ws-v2/output/ws-gateway.js:40:module.exports = { createWSGateway };
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:9:function bootstrapAfriAI(handler){
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:14:    bootstrapAfriAI
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:9:function bootstrapAfriAIStream(handler){
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:14:    bootstrapAfriAIStream
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:4:function bootstrapAfriAI(handler){
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:9:    bootstrapAfriAI
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:4:function bootstrapAfriAIStream(handler){
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:9:    bootstrapAfriAIStream
+bootstrap/ws-integration/install-afriai-ws.js:7:if(s.includes("bootstrapAfriAI(")){
+bootstrap/ws-integration/install-afriai-ws.js:15:const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap");
+bootstrap/ws-integration/install-afriai-ws.js:16:bootstrapAfriAI(attachAfriAIWebSocket);
+bootstrap/ws-integration/install-afriai-stream.js:6:if(!s.includes("bootstrapAfriAIStream")){
+bootstrap/ws-integration/install-afriai-stream.js:7:  s='const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");\nbootstrapAfriAIStream(module.exports);\n\n'+s;
+bootstrap/ws-integration/fix-afriai-stream-registration.js:7:/const \{ bootstrapAfriAIStream \} = require\([^)]+\);\s*bootstrapAfriAIStream\(module\.exports\);\s*/m,
+bootstrap/ws-integration/fix-afriai-stream-registration.js:8:'const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");\n'
+bootstrap/ws-integration/fix-afriai-stream-registration.js:11:if(!s.includes("bootstrapAfriAIStream(module.exports);")){
+bootstrap/ws-integration/fix-afriai-stream-registration.js:12:    s += '\n\nbootstrapAfriAIStream(module.exports);\n';
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:39:      mod.createWSGateway ||
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:44:      mod.bootstrapAfriAI ||
+bootstrap/ws-kernel/ws-kernel.js:9:function bootstrapWSKernel(server) {
+bootstrap/ws-kernel/ws-kernel.js:44:module.exports = { bootstrapWSKernel };
+bootstrap/ws-cleanup/disable-legacy-ws.js:22:  s = s.replace(/function initWS/g, "function initWS_DISABLED");
+bootstrap/ws-cleanup/disable-legacy-ws.js:25:  s = s.replace(/module\.exports\s*=\s*initWS/g, "module.exports = function(){ return null }");
+bootstrap/ws/init-ws.js:1:import { mountWSRuntime } from "../ws-runtime.boot.js";
+bootstrap/ws/init-ws.js:5:  return mountWSRuntime(server);
+bootstrap/websocket.boot.js:4:export function mountWebsocket(server){
+bootstrap/ws-runtime.boot.js:5:export function mountWSRuntime(server){
+bootstrap/ws-runtime.boot.js:6:  const { initWS } = require("../core/realtime/ws/stream.bridge.cjs");
+bootstrap/ws-runtime.boot.js:7:  return initWS(server);
+core/realtime/ws/stream.bridge.cjs:8:function initWS(server) {
+core/realtime/ws/stream.bridge.cjs:48:  initWS,
+core/afriai/ws/afriai.stream.js:1:const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");
+core/afriai/ws/afriai.stream.js:32:bootstrapAfriAIStream(module.exports);
+core/afriai/index.js:3:const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap");
+core/afriai/index.js:4:bootstrapAfriAI(attachAfriAIWebSocket);
+--- /ws/afriai REFERENCES ---
+bootstrap/ws-v2/output/ws-gateway.js:4:  const wss = new WebSocket.Server({ server, path: "/ws/afriai" });
+bootstrap/ws-integration/install-afriai-ws.js:12:const anchor='const attachAfriAIWebSocket = require("./ws/afriai.ws");';
+bootstrap/ws-integration/install-afriai-stream.js:3:const file="core/afriai/ws/afriai.stream.js";
+bootstrap/ws-integration/fix-afriai-stream-registration.js:3:const file="core/afriai/ws/afriai.stream.js";
+bootstrap/ws-cleanup/disable-legacy-ws.js:4:  "core/afriai/ws/afriai.ws.js",
+bootstrap/ws-cleanup/disable-legacy-ws.js:5:  "core/afriai/ws/afriai.stream.js",
+core/afriai/afriai.contract.js:4:  websocket: "/ws/afriai",
+core/afriai/ui/afriai.ui.contract.js:4:  websocket: "/ws/afriai",
+core/afriai/ws/afriai.ws.js:4:  const wss = new WebSocketServer({ server, path: "/ws/afriai" });
+core/afriai/ws/afriai.ws.js:18:  console.log("🧠 AfriAI WS mounted → /ws/afriai");
+core/afriai/ws/afriai.stream.js:5:  const wss = new WebSocketServer({ server, path: "/ws/afriai" });
+core/afriai/ws/afriai.stream.js:28:  console.log("🧠 AfriAI UI Stream mounted → /ws/afriai");
+core/afriai/index.js:1:const attachAfriAIWebSocket = require("./ws/afriai.ws");
+core/afriai/v1_1/contract.js:6:  websocket: "/ws/afriai",
+--- WS KERNEL REGISTRY REFERENCES ---
+bootstrap/ws-integration/builders/build-ws-registry.js:7:fs.writeFileSync(path.join(OUT,"ws-registry.js"),`
+bootstrap/ws-integration/builders/build-ws-integration.js:7:const registry=require("./ws-registry");
+bootstrap/ws-integration/builders/build-ws-registrar.js:9:function registerService(name,handler){
+bootstrap/ws-integration/builders/build-ws-registrar.js:14:    return services.map(({name,handler})=>registerService(name,handler));
+bootstrap/ws-integration/builders/build-ws-registrar.js:18:    registerService,
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:7:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-afriai-ws-bootstrap.js:10:    return registerService("afriai.ws",handler);
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:7:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-afriai-stream-bootstrap.js:10:    return registerService("afriai.stream",handler);
+bootstrap/ws-integration/builders/build-realtime-hub-bootstrap.js:7:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-realtime-hub-bootstrap.js:10:    return registerService("realtime.hub",handler);
+bootstrap/ws-integration/builders/build-flowgraph-bootstrap.js:8:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-flowgraph-bootstrap.js:11:  registerService("flowgraph",service);
+bootstrap/ws-integration/builders/build-streambridge-bootstrap.js:8:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-streambridge-bootstrap.js:11:  registerService("stream.bridge",service);
+bootstrap/ws-integration/builders/build-streambridge-backup-bootstrap.js:8:const { registerService } = require("./ws-registrar");
+bootstrap/ws-integration/builders/build-streambridge-backup-bootstrap.js:11:  registerService("stream.bridge.backup",service);
+bootstrap/ws-integration/output/ws-registrar.cjs:4:function registerService(name,handler){
+bootstrap/ws-integration/output/ws-registrar.cjs:9:    return services.map(({name,handler})=>registerService(name,handler));
+bootstrap/ws-integration/output/ws-registrar.cjs:13:    registerService,
+bootstrap/ws-integration/output/flowgraph-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/flowgraph-bootstrap.cjs:5:  registerService("flowgraph",service);
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs:5:    return registerService("afriai.ws",handler);
+bootstrap/ws-integration/output/streambridge-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/streambridge-bootstrap.cjs:5:  registerService("stream.bridge",service);
+bootstrap/ws-integration/output/realtime-hub-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/realtime-hub-bootstrap.cjs:5:    return registerService("realtime.hub",handler);
+bootstrap/ws-integration/output/ws-integration.cjs:2:const registry=require("./ws-registry.cjs");
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs:5:    return registerService("afriai.stream",handler);
+bootstrap/ws-integration/output/streambridge-backup-bootstrap.cjs:2:const { registerService } = require("./ws-registrar.cjs");
+bootstrap/ws-integration/output/streambridge-backup-bootstrap.cjs:5:  registerService("stream.bridge.backup",service);
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:3:const registry = require("../output/ws-registry");
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:28:function syncRegistry() {
+bootstrap/ws-integration/bridge/ws-registry-bridge.js:59:module.exports = { syncRegistry };
+bootstrap/ws-validator/builders/build-ws-validator.js:8:const registry=require("../../ws-integration/output/ws-registry");
+bootstrap/ws-validator/builders/build-ws-runtime-loader.js:8:const registry=require("../../ws-integration/output/ws-registry");
+bootstrap/ws-validator/output/ws-validator.js:2:const registry=require("../../ws-integration/output/ws-registry");
+bootstrap/ws-validator/output/ws-runtime-loader.js:2:const registry=require("../../ws-integration/output/ws-registry");
+bootstrap/ws-kernel/ws-kernel.js:1:const { syncRegistry } = require("../ws-integration/bridge/ws-registry-bridge");
+bootstrap/ws-kernel/ws-kernel.js:2:const registry = require("../ws-integration/output/ws-registry");
+bootstrap/ws-kernel/ws-kernel.js:9:function bootstrapWSKernel(server) {
+bootstrap/ws-kernel/ws-kernel.js:12:  const report = syncRegistry();
+bootstrap/ws-kernel/ws-kernel.js:44:module.exports = { bootstrapWSKernel };
+--- GENERATED WS-V2 ---
+const WebSocket = require("ws");
+
+function createWSGateway(server, kernel) {
+  const wss = new WebSocket.Server({ server, path: "/ws/afriai" });
+
+  wss.on("connection", (ws) => {
+    ws.send(JSON.stringify({
+      type: "ws.connected",
+      ok: true,
+      timestamp: Date.now()
+    }));
+
+    ws.on("message", (msg) => {
+      let event;
+      try { event = JSON.parse(msg); } catch (e) { return; }
+
+      const result = kernel?.core?.dispatch
+        ? kernel.core.dispatch(event)
+        : { ok: false, error: "NO_KERNEL" };
+
+      ws.send(JSON.stringify({
+        type: "ws.response",
+        result
+      }));
+    });
+
+    const ping = setInterval(() => {
+      ws.send(JSON.stringify({
+        type: "ws.ping",
+        ts: Date.now()
+      }));
+    }, 5000);
+
+    ws.on("close", () => clearInterval(ping));
+  });
+
+  return wss;
+}
+
+module.exports = { createWSGateway };
+--- WS-FIX MOUNT ---
+const { createWSGateway } = require("../ws-v2/output/ws-gateway");
+
+function mountWS(server, kernel) {
+  if (!server || !kernel) {
+    console.log("❌ WS mount skipped (missing server/kernel)");
+    return;
+  }
+
+  createWSGateway(server, kernel);
+
+  console.log("🟢 WS V2 MOUNTED → /ws");
+}
+
+module.exports = { mountWS };
+--- WS INTEGRATION OUTPUT ---
+### bootstrap/ws-integration/output/afriai-stream-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapAfriAIStream(handler){
+    return registerService("afriai.stream",handler);
+}
+
+module.exports={
+    bootstrapAfriAIStream
+};
+### bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapAfriAI(handler){
+    return registerService("afriai.ws",handler);
+}
+
+module.exports={
+    bootstrapAfriAI
+};
+### bootstrap/ws-integration/output/flowgraph-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapFlowgraph(service){
+  registerService("flowgraph",service);
+  return service;
+}
+
+module.exports={ bootstrapFlowgraph };
+### bootstrap/ws-integration/output/realtime-hub-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapRealtimeHub(handler){
+    return registerService("realtime.hub",handler);
+}
+
+module.exports={
+    bootstrapRealtimeHub
+};
+### bootstrap/ws-integration/output/streambridge-backup-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapStreamBridgeBackup(service){
+  registerService("stream.bridge.backup",service);
+  return service;
+}
+
+module.exports={ bootstrapStreamBridgeBackup };
+### bootstrap/ws-integration/output/streambridge-bootstrap.cjs
+
+const { registerService } = require("./ws-registrar.cjs");
+
+function bootstrapStreamBridge(service){
+  registerService("stream.bridge",service);
+  return service;
+}
+
+module.exports={ bootstrapStreamBridge };
+### bootstrap/ws-integration/output/ws-discovery.cjs
+
+const { registerMany } = require("./ws-registrar.cjs");
+
+function discover(services=[]){
+    return registerMany(
+        services.map(service=>({
+            name:service.name,
+            handler:service.handler
+        }))
+    );
+}
+
+module.exports={
+    discover
+};
+### bootstrap/ws-integration/output/ws-integration.cjs
+
+const registry=require("./ws-registry.cjs");
+
+function integrate(name,handler){
+    const ok=registry.register(name,handler);
+
+    return{
+        ok,
+        name
+    };
+}
+
+module.exports={
+    integrate
+};
+### bootstrap/ws-integration/output/ws-manifest.cjs
+
+function createManifest(services=[]){
+    return services.map(service=>({
+        id:service.name,
+        enabled:true,
+        handler:service.handler
+    }));
+}
+
+module.exports={
+    createManifest
+};
+### bootstrap/ws-integration/output/ws-registrar.cjs
+
+const { integrate } = require("./ws-integration.cjs");
+
+function registerService(name,handler){
+    return integrate(name,handler);
+}
+
+function registerMany(services=[]){
+    return services.map(({name,handler})=>registerService(name,handler));
+}
+
+module.exports={
+    registerService,
+    registerMany
+};
+### bootstrap/ws-integration/output/ws-registry.cjs
+
+const registry=new Map();
+
+function register(name,handler){
+    if(registry.has(name)){
+        return false;
+    }
+    registry.set(name,handler);
+    return true;
+}
+
+function get(name){
+    return registry.get(name);
+}
+
+function list(){
+    return [...registry.keys()];
+}
+
+module.exports={
+    register,
+    get,
+    list
+};
+### bootstrap/ws-integration/output/ws-runtime.cjs
+
+const { createManifest } = require("./ws-manifest.cjs");
+const { discover } = require("./ws-discovery.cjs");
+
+function initializeRuntime(services=[]){
+    const manifest=createManifest(services);
+    const registered=discover(manifest);
+
+    return{
+        manifest,
+        registered
+    };
+}
+
+module.exports={
+    initializeRuntime
+};
+--- RUNTIME LOAD TEST ---
+BOOT_IMPORTS=PASS
+--- CLASSIFICATION SUMMARY ---
+LIVE_ROOT=server.js -> bootstrap/websocket.boot.js
+LIVE_DELEGATE=bootstrap/ws/init-ws.js -> bootstrap/ws-runtime.boot.js -> core/realtime/ws/stream.bridge.cjs
+KERNEL_REACHABILITY=verify_above
+AFRIAI_ROUTE_OWNERSHIP=verify_above

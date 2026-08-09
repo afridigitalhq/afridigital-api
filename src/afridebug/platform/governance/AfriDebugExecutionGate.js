@@ -2,6 +2,7 @@ import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
 import Bridge from "../integration/execution/AfriDebugRepairExecutionBridge.js";
 import Ledger from "../audit/AfriDebugImmutableAuditLedger.js";
 import ArtifactStorage from "../storage/AfriDebugArtifactStorage.js";
+import BlockExplanationContract from "../../../core/afridebug/contracts/BlockExplanationContract.js";
 
 
 const AfriDebugExecutionGate = {
@@ -23,19 +24,26 @@ const AfriDebugExecutionGate = {
       approval.status?.toUpperCase() !== "APPROVED"
     ){
 
-      return {
-
-        status:"blocked",
-
-        reason:"APPROVAL_REQUIRED"
-
-      };
+      return BlockExplanationContract.createBlockedResponse({
+        reasonCode:"APPROVAL_REQUIRED",
+        technicalReason:"Approved repair authorization was not found for the supplied approvalId.",
+        userExplanation:"AfriFix execution is blocked because the required human repair approval is missing or not approved.",
+        evidenceReference:input.approvalId
+          ? `approvalId:${input.approvalId}`
+          : "approvalId:missing",
+        requiredAction:"Obtain valid human approval before repair execution.",
+        blockingGate:"AFRIDEBUG_EXECUTION_GATE",
+        afrifixAllowed:false
+      });
 
     }
 
 
-    const execution =
+    const bridgeResult =
       Bridge.execute(input);
+
+    const execution =
+      bridgeResult?.execution || bridgeResult;
 
 
     const artifact={

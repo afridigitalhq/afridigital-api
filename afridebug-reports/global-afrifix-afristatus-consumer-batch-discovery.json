@@ -1,0 +1,346 @@
+{
+  "generated": "2026-08-09T10:26:39.631Z",
+  "phase": "AFRIFIX_GLOBAL_AFIRSTATUS_CONSUMER_BATCH_DISCOVERY",
+  "scope": "GLOBAL",
+  "executor": "AfriFix",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "humanApprovalRequired": true,
+  "canonicalCapability": "src/core/observability",
+  "batchName": "GLOBAL_AFIRSTATUS_CONSUMER_MIGRATION",
+  "consumers": [
+    {
+      "consumer": "AfriScan",
+      "roots": [
+        "src/afriscan"
+      ],
+      "files": 1,
+      "globalStatusReferences": 2,
+      "globalStatusFiles": 1,
+      "statusReferenceSamples": [
+        {
+          "file": "src/afriscan/bootstrap/index.js",
+          "line": 1,
+          "text": "import {renderStatus} from \"../../core/observability/index.js\";"
+        },
+        {
+          "file": "src/afriscan/bootstrap/index.js",
+          "line": 4,
+          "text": "console.log(renderStatus(\"AFRISCAN\", \"INFO\", \"initialized\"));"
+        }
+      ],
+      "outputReferences": 1,
+      "entryCandidates": [
+        {
+          "file": "src/afriscan/bootstrap/index.js",
+          "line": 3,
+          "text": "export function init(server){"
+        }
+      ],
+      "classification": "EXISTING_STATUS_WIRING_OR_STATUS_DEPENDENCY"
+    },
+    {
+      "consumer": "AfriDebug",
+      "roots": [
+        "modules/afridebug",
+        "src/afridebug"
+      ],
+      "files": 564,
+      "globalStatusReferences": 0,
+      "globalStatusFiles": 0,
+      "statusReferenceSamples": [],
+      "outputReferences": 764,
+      "entryCandidates": [
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+          "line": 6,
+          "text": "\"src/bootstrap/index.js\","
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+          "line": 10,
+          "text": "export function validate(){"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+          "line": 11,
+          "text": "console.log(\"\\n🔍 Bootstrap Validation\\n\");"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+          "line": 24,
+          "text": "console.log(ok?\"🟢 Bootstrap Validation PASSED\":\"🔴 Bootstrap Validation FAILED\");"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugCertificationReport.js",
+          "line": 3,
+          "text": "export function generateReport() {"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugCertificationReport.js",
+          "line": 16,
+          "text": "- ✅ Bootstrap"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugEvidenceGenerator.js",
+          "line": 3,
+          "text": "export function generateEvidence() {"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugInvestigationValidator.js",
+          "line": 1,
+          "text": "import { startAfriDebugInvestigation } from \"../orchestrator/AfriDebugInvestigationOrchestrator.js\";"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugInvestigationValidator.js",
+          "line": 3,
+          "text": "export async function validateInvestigation() {"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugModuleRegistryValidator.js",
+          "line": 4,
+          "text": "export function validate() {"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugPluginValidator.js",
+          "line": 4,
+          "text": "export function validate() {"
+        },
+        {
+          "file": "modules/afridebug/src/certification/AfriDebugRouteValidator.js",
+          "line": 4,
+          "text": "export function validate() {"
+        }
+      ],
+      "classification": "NO_GLOBAL_AFIRSTATUS_WIRING_DETECTED"
+    },
+    {
+      "consumer": "AfriFix",
+      "roots": [
+        "modules/afriai/remediation",
+        "modules/afriai"
+      ],
+      "files": 235,
+      "globalStatusReferences": 0,
+      "globalStatusFiles": 0,
+      "statusReferenceSamples": [],
+      "outputReferences": 147,
+      "entryCandidates": [
+        {
+          "file": "modules/afriai/remediation/AfriFixRemediationPlanner.js",
+          "line": 37,
+          "text": "\"Re-run investigation pipeline\","
+        },
+        {
+          "file": "modules/afriai/agents/executor/AfriAITaskExecutor.js",
+          "line": 1,
+          "text": "const AfriAITaskExecutor={execute(task={}){return{...task,status:\"EXECUTED\"};}};export default AfriAITaskExecutor;"
+        },
+        {
+          "file": "modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+          "line": 5,
+          "text": "run(task={}){"
+        },
+        {
+          "file": "modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+          "line": 7,
+          "text": "const result=AfriAITaskExecutor.execute(plan);"
+        },
+        {
+          "file": "modules/afriai/bootstrap/RuntimeDependencies.js",
+          "line": 1,
+          "text": "const RuntimeDependencies={load(){return[\"KnowledgeRuntime\",\"DecisionResolver\",\"ExecutionRuntime\",\"ResponseComposer\",\"ChannelGateway\"];}};export default RuntimeDependencies;"
+        },
+        {
+          "file": "modules/afriai/bootstrap/index.js",
+          "line": 1,
+          "text": "export function init(server){"
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 3,
+          "text": "const AfriAIBusinessGateway = {"
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 43,
+          "text": "source:\"AfriAIBusinessGateway\","
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 55,
+          "text": "export default AfriAIBusinessGateway;"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 2,
+          "text": "import AfriAIConversationOrchestrator from \"../orchestrator/AfriAIConversationOrchestrator.js\";"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 5,
+          "text": "const AfriAIChannelGateway = {"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 10,
+          "text": "await AfriAIConversationOrchestrator.process({"
+        }
+      ],
+      "classification": "NO_GLOBAL_AFIRSTATUS_WIRING_DETECTED"
+    },
+    {
+      "consumer": "AfriNucChain",
+      "roots": [
+        "modules/afrinucchain",
+        "src/afrinucchain"
+      ],
+      "files": 79,
+      "globalStatusReferences": 0,
+      "globalStatusFiles": 0,
+      "statusReferenceSamples": [],
+      "outputReferences": 150,
+      "entryCandidates": [
+        {
+          "file": "modules/afrinucchain/bin/afrinucchain.js",
+          "line": 6,
+          "text": "console.log(\"Status : BOOTSTRAPPED\");"
+        },
+        {
+          "file": "modules/afrinucchain/src/approval/AfriApprovalController.js",
+          "line": 1,
+          "text": "export class AfriApprovalController {"
+        },
+        {
+          "file": "modules/afrinucchain/src/audit/AfriJobAuditTrail.js",
+          "line": 1,
+          "text": "export class AfriJobAuditTrail {"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchExecutor.js",
+          "line": 1,
+          "text": "import { AfriFixRuntimeServiceGateway } from \"../runtime/AfriFixRuntimeServiceGateway.js\";"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchExecutor.js",
+          "line": 3,
+          "text": "export class AfriNucBatchExecutor {"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchExecutor.js",
+          "line": 5,
+          "text": "this.runtime = new AfriFixRuntimeServiceGateway();"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchExecutor.js",
+          "line": 8,
+          "text": "async execute(batch){"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchExecutor.js",
+          "line": 12,
+          "text": "const result = await this.runtime.execute({"
+        },
+        {
+          "file": "modules/afrinucchain/src/batch/AfriNucBatchPlanner.js",
+          "line": 1,
+          "text": "export class AfriNucBatchPlanner {"
+        },
+        {
+          "file": "modules/afrinucchain/src/certification/AfriNucCertificationBridge.js",
+          "line": 3,
+          "text": "export class AfriNucCertificationBridge {"
+        },
+        {
+          "file": "modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js",
+          "line": 4,
+          "text": "export class AfriClientDeliveryDispatcher {"
+        },
+        {
+          "file": "modules/afrinucchain/src/delivery/AfriClientDeliveryVerifier.js",
+          "line": 4,
+          "text": "export class AfriClientDeliveryVerifier {"
+        }
+      ],
+      "classification": "NO_GLOBAL_AFIRSTATUS_WIRING_DETECTED"
+    },
+    {
+      "consumer": "AfriAI",
+      "roots": [
+        "modules/afriai",
+        "src/afriai"
+      ],
+      "files": 235,
+      "globalStatusReferences": 0,
+      "globalStatusFiles": 0,
+      "statusReferenceSamples": [],
+      "outputReferences": 147,
+      "entryCandidates": [
+        {
+          "file": "modules/afriai/agents/executor/AfriAITaskExecutor.js",
+          "line": 1,
+          "text": "const AfriAITaskExecutor={execute(task={}){return{...task,status:\"EXECUTED\"};}};export default AfriAITaskExecutor;"
+        },
+        {
+          "file": "modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+          "line": 5,
+          "text": "run(task={}){"
+        },
+        {
+          "file": "modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+          "line": 7,
+          "text": "const result=AfriAITaskExecutor.execute(plan);"
+        },
+        {
+          "file": "modules/afriai/bootstrap/RuntimeDependencies.js",
+          "line": 1,
+          "text": "const RuntimeDependencies={load(){return[\"KnowledgeRuntime\",\"DecisionResolver\",\"ExecutionRuntime\",\"ResponseComposer\",\"ChannelGateway\"];}};export default RuntimeDependencies;"
+        },
+        {
+          "file": "modules/afriai/bootstrap/index.js",
+          "line": 1,
+          "text": "export function init(server){"
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 3,
+          "text": "const AfriAIBusinessGateway = {"
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 43,
+          "text": "source:\"AfriAIBusinessGateway\","
+        },
+        {
+          "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "line": 55,
+          "text": "export default AfriAIBusinessGateway;"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 2,
+          "text": "import AfriAIConversationOrchestrator from \"../orchestrator/AfriAIConversationOrchestrator.js\";"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 5,
+          "text": "const AfriAIChannelGateway = {"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 10,
+          "text": "await AfriAIConversationOrchestrator.process({"
+        },
+        {
+          "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+          "line": 43,
+          "text": "export default AfriAIChannelGateway;"
+        }
+      ],
+      "classification": "NO_GLOBAL_AFIRSTATUS_WIRING_DETECTED"
+    }
+  ],
+  "dependencyRule": "DISCOVER_AND_CLASSIFY_BEFORE_PATCH",
+  "decision": "AFRIFIX_BATCH_DISCOVERY_COMPLETE_REQUIRES_BOUNDARY_CLASSIFICATION_BEFORE_PATCH"
+}

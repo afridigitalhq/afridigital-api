@@ -1,0 +1,1021 @@
+{
+  "generated": "2026-08-09T09:56:50.622Z",
+  "phase": "AFRIDEBUG_GLOBAL_GATE_FINAL_RUNTIME_OWNERSHIP_CALLCHAIN_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "objective": [
+    "Identify the canonical AfriDebug repair execution entry point.",
+    "Resolve ownership between module and platform gate implementations.",
+    "Trace orchestrator-to-gate-to-bridge execution.",
+    "Detect any execution path that bypasses the canonical approval gate."
+  ],
+  "evidence": [
+    {
+      "file": "modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js",
+      "exists": true,
+      "lineCount": 57,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 8,
+          "text": "return Orchestrator.run(input);"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        }
+      ],
+      "executionCalls": [],
+      "gateCalls": []
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+      "exists": true,
+      "lineCount": 36,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Orchestrator from \"../../orchestrator/AfriDebugOrchestrator.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import State from \"../../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 8,
+          "text": "return Orchestrator.run(input);"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Orchestrator from \"../../orchestrator/AfriDebugOrchestrator.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import State from \"../../state/AfriDebugInvestigationStateManager.js\";"
+        }
+      ],
+      "executionCalls": [],
+      "gateCalls": []
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+      "exists": true,
+      "lineCount": 63,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Investigation from \"../investigation/AfriDebugInvestigationRuntime.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Evidence from \"../evidence/AfriDebugEvidenceVault.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Security from \"../security/AfriDebugFinalSecurityDecisionEngine.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Intelligence from \"../client/AfriDebugRootCauseAnalysisEngine.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Reporting from \"../client/AfriDebugIncidentReportGenerator.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import Assistant from \"../intelligence/AfriDebugAssistant.js\";"
+        },
+        {
+          "line": 7,
+          "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+        },
+        {
+          "line": 11,
+          "text": "const AfriDebugExecutionPipeline={"
+        },
+        {
+          "line": 12,
+          "text": "execute(request={}){"
+        },
+        {
+          "line": 21,
+          "text": "const investigation=safe(Investigation,{service:\"AfriDebugInvestigationRuntime\",status:\"unavailable\"});"
+        },
+        {
+          "line": 32,
+          "text": "Orchestrator.run(request.investigation);"
+        },
+        {
+          "line": 54,
+          "text": "service:\"AfriDebugExecutionPipeline\","
+        },
+        {
+          "line": 62,
+          "text": "export default AfriDebugExecutionPipeline;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Investigation from \"../investigation/AfriDebugInvestigationRuntime.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Evidence from \"../evidence/AfriDebugEvidenceVault.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Security from \"../security/AfriDebugFinalSecurityDecisionEngine.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Intelligence from \"../client/AfriDebugRootCauseAnalysisEngine.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Reporting from \"../client/AfriDebugIncidentReportGenerator.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import Assistant from \"../intelligence/AfriDebugAssistant.js\";"
+        },
+        {
+          "line": 7,
+          "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 12,
+          "text": "execute(request={}){"
+        }
+      ],
+      "gateCalls": []
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "exists": true,
+      "lineCount": 63,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 5,
+          "text": "const AfriDebugOrchestrator = {"
+        },
+        {
+          "line": 13,
+          "text": "const approval ="
+        },
+        {
+          "line": 31,
+          "text": "approval,"
+        },
+        {
+          "line": 33,
+          "text": "status:\"awaiting_approval\""
+        },
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        },
+        {
+          "line": 51,
+          "text": "service:\"AfriDebugOrchestrator\","
+        },
+        {
+          "line": 62,
+          "text": "export default AfriDebugOrchestrator;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        }
+      ],
+      "gateCalls": [
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        }
+      ]
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+      "exists": true,
+      "lineCount": 240,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Events from \"../events/AfriDebugEventStream.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Intake from \"../workers/AfriDebugRepositoryIntakeWorker.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Graph from \"../workers/AfriDebugDependencyGraphWorker.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import Runtime from \"../workers/AfriDebugRuntimeInspectorWorker.js\";"
+        },
+        {
+          "line": 7,
+          "text": "import LogAnalyzer from \"../workers/AfriDebugLogAnalyzerWorker.js\";"
+        },
+        {
+          "line": 8,
+          "text": "import Knowledge from \"../workers/AfriDebugKnowledgeMatcherWorker.js\";"
+        },
+        {
+          "line": 9,
+          "text": "import Patch from \"../workers/AfriDebugPatchPlanningWorker.js\";"
+        },
+        {
+          "line": 10,
+          "text": "import Verify from \"../workers/AfriDebugVerificationWorker.js\";"
+        },
+        {
+          "line": 11,
+          "text": "import Report from \"../workers/AfriDebugEvidenceReportWorker.js\";"
+        },
+        {
+          "line": 12,
+          "text": "import Delivery from \"../workers/AfriDebugDeliveryPackageWorker.js\";"
+        },
+        {
+          "line": 13,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        },
+        {
+          "line": 16,
+          "text": "const AfriDebugOrchestrator = {"
+        },
+        {
+          "line": 32,
+          "text": "actor:\"AfriDebugOrchestrator\","
+        },
+        {
+          "line": 43,
+          "text": "const intake = Intake.execute({"
+        },
+        {
+          "line": 63,
+          "text": "const graph = Graph.execute({"
+        },
+        {
+          "line": 69,
+          "text": "const runtime = Runtime.execute({"
+        },
+        {
+          "line": 74,
+          "text": "const logs = LogAnalyzer.execute({"
+        },
+        {
+          "line": 80,
+          "text": "const knowledge = Knowledge.execute({"
+        },
+        {
+          "line": 89,
+          "text": "actor:\"AnalysisPipeline\","
+        },
+        {
+          "line": 90,
+          "text": "details:\"Runtime and dependency analysis completed\""
+        },
+        {
+          "line": 94,
+          "text": "const patch = Patch.execute({"
+        },
+        {
+          "line": 120,
+          "text": "const verification = Verify.execute({"
+        },
+        {
+          "line": 140,
+          "text": "const report = Report.execute({"
+        },
+        {
+          "line": 145,
+          "text": "const approval = ApprovalGate.request({"
+        },
+        {
+          "line": 150,
+          "text": "if (approval.status !== \"APPROVED\") {"
+        },
+        {
+          "line": 161,
+          "text": "details:\"Delivery blocked pending human approval\""
+        },
+        {
+          "line": 170,
+          "text": "approval,"
+        },
+        {
+          "line": 189,
+          "text": "const delivery = Delivery.execute({"
+        },
+        {
+          "line": 199,
+          "text": "actor:\"DeliveryEngine\","
+        },
+        {
+          "line": 239,
+          "text": "export default AfriDebugOrchestrator;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import State from \"../state/AfriDebugInvestigationStateManager.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Events from \"../events/AfriDebugEventStream.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import Intake from \"../workers/AfriDebugRepositoryIntakeWorker.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Graph from \"../workers/AfriDebugDependencyGraphWorker.js\";"
+        },
+        {
+          "line": 6,
+          "text": "import Runtime from \"../workers/AfriDebugRuntimeInspectorWorker.js\";"
+        },
+        {
+          "line": 7,
+          "text": "import LogAnalyzer from \"../workers/AfriDebugLogAnalyzerWorker.js\";"
+        },
+        {
+          "line": 8,
+          "text": "import Knowledge from \"../workers/AfriDebugKnowledgeMatcherWorker.js\";"
+        },
+        {
+          "line": 9,
+          "text": "import Patch from \"../workers/AfriDebugPatchPlanningWorker.js\";"
+        },
+        {
+          "line": 10,
+          "text": "import Verify from \"../workers/AfriDebugVerificationWorker.js\";"
+        },
+        {
+          "line": 11,
+          "text": "import Report from \"../workers/AfriDebugEvidenceReportWorker.js\";"
+        },
+        {
+          "line": 12,
+          "text": "import Delivery from \"../workers/AfriDebugDeliveryPackageWorker.js\";"
+        },
+        {
+          "line": 13,
+          "text": "import ApprovalGate from \"../investigation/HumanApprovalGate.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 43,
+          "text": "const intake = Intake.execute({"
+        },
+        {
+          "line": 63,
+          "text": "const graph = Graph.execute({"
+        },
+        {
+          "line": 69,
+          "text": "const runtime = Runtime.execute({"
+        },
+        {
+          "line": 74,
+          "text": "const logs = LogAnalyzer.execute({"
+        },
+        {
+          "line": 80,
+          "text": "const knowledge = Knowledge.execute({"
+        },
+        {
+          "line": 94,
+          "text": "const patch = Patch.execute({"
+        },
+        {
+          "line": 120,
+          "text": "const verification = Verify.execute({"
+        },
+        {
+          "line": 140,
+          "text": "const report = Report.execute({"
+        },
+        {
+          "line": 189,
+          "text": "const delivery = Delivery.execute({"
+        }
+      ],
+      "gateCalls": []
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "lineCount": 65,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { createBlockedResponse } from \"../../../../../src/core/afridebug/contracts/BlockExplanationContract.js\";"
+        },
+        {
+          "line": 5,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 7,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 9,
+          "text": "const approval ="
+        },
+        {
+          "line": 13,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 17,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 21,
+          "text": "technicalReason:\"Approved repair authorization was not found for the supplied approvalId.\","
+        },
+        {
+          "line": 22,
+          "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+        },
+        {
+          "line": 23,
+          "text": "evidenceReference:`approvalId:${input.approvalId || \"MISSING\"}`,"
+        },
+        {
+          "line": 24,
+          "text": "requiredAction:\"Obtain valid human approval before repair execution.\","
+        },
+        {
+          "line": 33,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 40,
+          "text": "approval,"
+        },
+        {
+          "line": 53,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 64,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { createBlockedResponse } from \"../../../../../src/core/afridebug/contracts/BlockExplanationContract.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 7,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 33,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "gateCalls": [
+        {
+          "line": 5,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 53,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 64,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ]
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exists": true,
+      "lineCount": 108,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Controller from \"../../execution/AfriDebugChangeExecutionController.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import History from \"../../history/AfriDebugRepairHistoryLedger.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Resolution from \"../../learning/AfriDebugResolutionRecorder.js\";"
+        },
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 11,
+          "text": "const approval ="
+        },
+        {
+          "line": 13,
+          "text": "item => item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        },
+        {
+          "line": 57,
+          "text": "approvalId: input.approvalId,"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Controller from \"../../execution/AfriDebugChangeExecutionController.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import History from \"../../history/AfriDebugRepairHistoryLedger.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import Resolution from \"../../learning/AfriDebugResolutionRecorder.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        }
+      ],
+      "gateCalls": []
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js",
+      "exists": true,
+      "lineCount": 38,
+      "semanticSignals": [
+        {
+          "line": 3,
+          "text": "investigation:\"../investigation/AfriDebugInvestigationRuntime.js\","
+        },
+        {
+          "line": 5,
+          "text": "orchestrator:\"../orchestrator/AfriDebugOrchestrator.js\","
+        },
+        {
+          "line": 9,
+          "text": "realtime:\"../realtime/AfriDebugRealtimeRuntime.js\","
+        },
+        {
+          "line": 11,
+          "text": "enterprise:\"../enterprise/runtime/AfriDebugEnterpriseRuntime.js\","
+        }
+      ],
+      "imports": [],
+      "executionCalls": [],
+      "gateCalls": []
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "exists": true,
+      "lineCount": 63,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 5,
+          "text": "const AfriDebugExecutionOrchestrator = {"
+        },
+        {
+          "line": 13,
+          "text": "const approval ="
+        },
+        {
+          "line": 31,
+          "text": "approval,"
+        },
+        {
+          "line": 33,
+          "text": "status:\"awaiting_approval\""
+        },
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        },
+        {
+          "line": 51,
+          "text": "service:\"AfriDebugOrchestrator\","
+        },
+        {
+          "line": 62,
+          "text": "export default AfriDebugExecutionOrchestrator;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        }
+      ],
+      "gateCalls": [
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        }
+      ]
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "lineCount": 119,
+      "semanticSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Ledger from \"../audit/AfriDebugImmutableAuditLedger.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import ArtifactStorage from \"../storage/AfriDebugArtifactStorage.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import BlockExplanationContract from \"../../../core/afridebug/contracts/BlockExplanationContract.js\";"
+        },
+        {
+          "line": 8,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 11,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 14,
+          "text": "const approval ="
+        },
+        {
+          "line": 18,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 23,
+          "text": "!approval ||"
+        },
+        {
+          "line": 24,
+          "text": "approval.status?.toUpperCase() !== \"APPROVED\""
+        },
+        {
+          "line": 29,
+          "text": "technicalReason:\"Approved repair authorization was not found for the supplied approvalId.\","
+        },
+        {
+          "line": 30,
+          "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+        },
+        {
+          "line": 31,
+          "text": "evidenceReference:input.approvalId"
+        },
+        {
+          "line": 32,
+          "text": "? `approvalId:${input.approvalId}`"
+        },
+        {
+          "line": 33,
+          "text": ": \"approvalId:missing\","
+        },
+        {
+          "line": 34,
+          "text": "requiredAction:\"Obtain valid human approval before repair execution.\","
+        },
+        {
+          "line": 43,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 50,
+          "text": "approvalId:"
+        },
+        {
+          "line": 51,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 53,
+          "text": "status:\"EXECUTED\","
+        },
+        {
+          "line": 76,
+          "text": "approvalId:"
+        },
+        {
+          "line": 77,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 79,
+          "text": "actor:\"AfriDebugExecutionGate\""
+        },
+        {
+          "line": 88,
+          "text": "approval,"
+        },
+        {
+          "line": 103,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 118,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ],
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Ledger from \"../audit/AfriDebugImmutableAuditLedger.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import ArtifactStorage from \"../storage/AfriDebugArtifactStorage.js\";"
+        },
+        {
+          "line": 5,
+          "text": "import BlockExplanationContract from \"../../../core/afridebug/contracts/BlockExplanationContract.js\";"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 11,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 43,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "gateCalls": [
+        {
+          "line": 8,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 79,
+          "text": "actor:\"AfriDebugExecutionGate\""
+        },
+        {
+          "line": 103,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 118,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "importer": "modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js",
+      "line": 1,
+      "importStatement": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "importer": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+      "line": 1,
+      "importStatement": "import Orchestrator from \"../../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "importer": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+      "line": 7,
+      "importStatement": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "importer": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 3,
+      "importStatement": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+    },
+    {
+      "importer": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "line": 2,
+      "importStatement": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+    },
+    {
+      "importer": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 3,
+      "importStatement": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+    },
+    {
+      "importer": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 2,
+      "importStatement": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+    }
+  ],
+  "gateOwnership": {
+    "moduleGate": {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "directConsumers": [
+        {
+          "importer": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+          "line": 3,
+          "importStatement": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ]
+    },
+    "platformGate": {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "directConsumers": [
+        {
+          "importer": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+          "line": 3,
+          "importStatement": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ]
+    }
+  },
+  "conclusions": {
+    "moduleGateDirectConsumerCount": 1,
+    "platformGateDirectConsumerCount": 1,
+    "moduleGateRuntimeReferenced": true,
+    "platformGateRuntimeReferenced": true
+  },
+  "requiredDecisions": [
+    "Which orchestrator is reachable from the canonical AfriDebug runtime/API entry point?",
+    "Does the reachable orchestrator terminate at modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js?",
+    "Is src/afridebug/platform/governance/AfriDebugExecutionGate.js a separate platform adapter or duplicate implementation?",
+    "Does every reachable repair execution path pass through the human approval gate?",
+    "Can any reachable path invoke AfriDebugRepairExecutionBridge without prior approval validation?"
+  ],
+  "decision": "FINAL_RUNTIME_OWNERSHIP_TRACE_REQUIRED_BEFORE_ANY_FURTHER_PATCH"
+}

@@ -1,0 +1,161 @@
+{
+  "generatedAt": "2026-08-09T11:22:03.564Z",
+  "catalog": [
+    {
+      "name": "AfriAI",
+      "role": "INTELLIGENCE",
+      "files": 1159,
+      "references": 4592,
+      "capabilities": [],
+      "workspaceRoots": [
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriDebug",
+      "role": "ENGINEERING_RELIABILITY",
+      "files": 1009,
+      "references": 7359,
+      "capabilities": [],
+      "workspaceRoots": [
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriFix",
+      "role": "ENGINEERING_RELIABILITY",
+      "files": 243,
+      "references": 1372,
+      "capabilities": [],
+      "workspaceRoots": [
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriScan",
+      "role": "ENGINEERING_RELIABILITY",
+      "files": 45,
+      "references": 147,
+      "capabilities": [],
+      "workspaceRoots": [
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriNucChain",
+      "role": "ENGINEERING_RELIABILITY",
+      "files": 312,
+      "references": 589,
+      "capabilities": [],
+      "workspaceRoots": [
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriDesign",
+      "role": "DESIGN_CREATION",
+      "files": 416,
+      "references": 1537,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".afridesign-workspace.json",
+        "README.md",
+        "eslint.config.js",
+        "package-lock.json",
+        "package.json",
+        "src",
+        "vite.config.js",
+        "workspace.contract.json",
+        ".."
+      ]
+    },
+    {
+      "name": "AfriBuild",
+      "role": "DESIGN_CREATION",
+      "files": 5,
+      "references": 6,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriCode",
+      "role": "DESIGN_CREATION",
+      "files": 10,
+      "references": 50,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriApp",
+      "role": "DESIGN_CREATION",
+      "files": 12,
+      "references": 50,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriUI",
+      "role": "DESIGN_CREATION",
+      "files": 9,
+      "references": 50,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriGraphics",
+      "role": "DESIGN_CREATION",
+      "files": 5,
+      "references": 28,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriVideo",
+      "role": "DESIGN_CREATION",
+      "files": 5,
+      "references": 28,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    },
+    {
+      "name": "AfriTemplate",
+      "role": "DESIGN_CREATION",
+      "files": 5,
+      "references": 28,
+      "capabilities": [],
+      "workspaceRoots": [
+        ".."
+      ]
+    }
+  ],
+  "architecture": {
+    "parentPlatform": "AfriDigital",
+    "frontend": "AfriDesign-Studio",
+    "sharedBackend": "AfriDigital-api",
+    "sharedAI": "AfriAI",
+    "mainEcosystemFrontend": "AfriDigital-hub"
+  },
+  "safety": {
+    "humanApprovalRequired": true,
+    "patchAllowed": false,
+    "paystackBoundary": "AfriDigital-hub-only"
+  },
+  "decision": "PRODUCT_ROLE_CAPABILITY_CLASSIFICATION_COMPLETE_READY_FOR_CANONICAL_CATALOG_REGISTRATION"
+}

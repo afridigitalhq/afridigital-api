@@ -1,0 +1,61 @@
+{
+  "generated": "2026-08-09T09:34:56.486Z",
+  "phase": "AFRIDEBUG_GLOBAL_ACTIVE_GATE_BLOCK_EXPLANATION_CORRECTIVE_PATCH_AND_BEHAVIORAL_VERIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+  "patch": {
+    "mode": "MINIMAL_ACTIVE_RUNTIME_ONLY",
+    "corrected": true,
+    "snapshotsModified": false,
+    "legacyTreesModified": false,
+    "duplicateModuleModified": false
+  },
+  "contract": {
+    "path": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "consumed": true,
+    "factory": "createBlockedResponse"
+  },
+  "runtime": {
+    "blockedResponse": {
+      "status": "BLOCKED",
+      "reasonCode": "APPROVAL_REQUIRED",
+      "technicalReason": "Approved repair authorization was not found for the supplied approvalId.",
+      "userExplanation": "AfriFix execution is blocked because the required human repair approval is missing or not approved.",
+      "evidenceReference": "approvalId:GLOBAL-CONTRACT-BEHAVIORAL-VERIFY",
+      "requiredAction": "Obtain valid human approval before repair execution.",
+      "blockingGate": "AFRIDEBUG_EXECUTION_GATE",
+      "afrifixAllowed": false
+    },
+    "fieldPresence": {
+      "status": true,
+      "reasonCode": true,
+      "technicalReason": true,
+      "userExplanation": true,
+      "evidenceReference": true,
+      "requiredAction": true,
+      "blockingGate": true,
+      "afrifixAllowed": true
+    }
+  },
+  "invariants": {
+    "canonicalFactoryPersisted": true,
+    "legacyBlockedReturnRemoved": true,
+    "executableGateLoaded": true,
+    "canonicalFactoryAvailable": true,
+    "statusBlocked": true,
+    "reasonCodeCorrect": true,
+    "blockingGateCorrect": true,
+    "afrifixDenied": true,
+    "allExplanationFieldsPresent": true
+  },
+  "globalLearning": {
+    "capabilityId": "GLOBAL_PATCH_RUNTIME_CONSISTENCY_VERIFICATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Patch verification must prove source persistence, removal of the legacy decision, canonical contract invocation, executable loading, and behavioral output.",
+    "reusePolicy": "Every future AfriFix patch must pass structural and behavioral runtime verification before approval.",
+    "afriaiPolicy": "AfriAI must expose structured blocked-state evidence and preserve AfriFix denial whenever verification fails."
+  },
+  "decision": "ACTIVE_GATE_BLOCK_EXPLANATION_BEHAVIOR_VERIFIED",
+  "afrifixAllowed": true
+}

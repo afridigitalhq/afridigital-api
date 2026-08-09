@@ -1,0 +1,330 @@
+{
+  "generated": "2026-08-09T09:36:24.396Z",
+  "phase": "AFRIDEBUG_GLOBAL_UNRESOLVED_ACTIVE_GATE_RUNTIME_OWNERSHIP_AND_CONTRACT_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "sourceReport": "afridebug-reports/global-recursive-gate-coverage-regression.json",
+  "policy": {
+    "modificationMode": "AUDIT_ONLY",
+    "rule": "No additional candidate may be patched until executable gate behavior and runtime ownership are proven.",
+    "afrifixAllowed": false
+  },
+  "summary": {
+    "total": 7,
+    "activeGateCandidates": 5,
+    "contractAware": 0,
+    "noProvenRuntimeGate": 2,
+    "referencedStatusProducers": 0,
+    "contractReviewRequired": 5
+  },
+  "candidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "exists": true,
+      "category": "CORE_RUNTIME",
+      "importerCount": 0,
+      "importers": [],
+      "imports": [],
+      "decisionSignals": [
+        {
+          "line": 42,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 42,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": false,
+      "decision": "NO_PROVEN_RUNTIME_GATE"
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "exists": true,
+      "category": "CORE_RUNTIME",
+      "importerCount": 0,
+      "importers": [],
+      "imports": [],
+      "decisionSignals": [
+        {
+          "line": 38,
+          "text": "return { status: \"BLOCKED\", decision };"
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 38,
+          "text": "return { status: \"BLOCKED\", decision };"
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": false,
+      "decision": "NO_PROVEN_RUNTIME_GATE"
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "exists": true,
+      "category": "CORE_RUNTIME",
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "specifier": "./socZeroTrustEngine",
+          "resolvedTarget": "core/security/socZeroTrustEngine.js",
+          "internal": true
+        },
+        {
+          "specifier": "./socExecutionSandbox",
+          "resolvedTarget": "core/security/socExecutionSandbox.js",
+          "internal": true
+        },
+        {
+          "specifier": "./socAuditLogger",
+          "resolvedTarget": "core/security/socAuditLogger.js",
+          "internal": true
+        }
+      ],
+      "decisionSignals": [
+        {
+          "line": 21,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 21,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [
+        {
+          "line": 30,
+          "text": "const result = await this.sandbox.execute(command);"
+        }
+      ],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": true,
+      "decision": "ACTIVE_GATE_CANDIDATE_REQUIRES_CONTRACT_REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "exists": true,
+      "category": "AFRIDEBUG_RUNTIME",
+      "importerCount": 0,
+      "importers": [],
+      "imports": [
+        {
+          "specifier": "../investigation/HumanApprovalGate.js",
+          "resolvedTarget": "modules/afridebug/src/debug/investigation/HumanApprovalGate.js",
+          "internal": true
+        },
+        {
+          "specifier": "../workers/AfriDebugDeliveryPackageWorker.js",
+          "resolvedTarget": "modules/afridebug/src/debug/workers/AfriDebugDeliveryPackageWorker.js",
+          "internal": true
+        },
+        {
+          "specifier": "../state/AfriDebugInvestigationStateManager.js",
+          "resolvedTarget": "modules/afridebug/src/debug/state/AfriDebugInvestigationStateManager.js",
+          "internal": true
+        },
+        {
+          "specifier": "../events/AfriDebugEventStream.js",
+          "resolvedTarget": "modules/afridebug/src/debug/events/AfriDebugEventStream.js",
+          "internal": true
+        },
+        {
+          "specifier": "../learning/AfriDebugResolutionRecorder.js",
+          "resolvedTarget": "modules/afridebug/src/debug/learning/AfriDebugResolutionRecorder.js",
+          "internal": true
+        },
+        {
+          "specifier": "../memory/AfriDebugKnowledgeMemory.js",
+          "resolvedTarget": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+          "internal": true
+        }
+      ],
+      "decisionSignals": [
+        {
+          "line": 19,
+          "text": "status:\"BLOCKED\","
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 19,
+          "text": "status:\"BLOCKED\","
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [
+        {
+          "line": 27,
+          "text": "Delivery.execute({"
+        }
+      ],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": true,
+      "decision": "ACTIVE_GATE_CANDIDATE_REQUIRES_CONTRACT_REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "category": "AFRIDEBUG_RUNTIME",
+      "importerCount": 1,
+      "importers": [
+        {
+          "importer": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+          "specifier": "../governance/AfriDebugExecutionGate.js"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../approval/AfriDebugRepairApprovalQueue.js",
+          "resolvedTarget": "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+          "internal": true
+        },
+        {
+          "specifier": "../integration/execution/AfriDebugRepairExecutionBridge.js",
+          "resolvedTarget": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+          "internal": true
+        }
+      ],
+      "decisionSignals": [
+        {
+          "line": 20,
+          "text": "status:\"blocked\","
+        },
+        {
+          "line": 22,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 20,
+          "text": "status:\"blocked\","
+        }
+      ],
+      "approvalLogic": [
+        {
+          "line": 22,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 30,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": true,
+      "decision": "ACTIVE_GATE_CANDIDATE_REQUIRES_CONTRACT_REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "exists": true,
+      "category": "AFRIDEBUG_RUNTIME",
+      "importerCount": 0,
+      "importers": [],
+      "imports": [],
+      "decisionSignals": [
+        {
+          "line": 9,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 9,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": true,
+      "decision": "ACTIVE_GATE_CANDIDATE_REQUIRES_CONTRACT_REVIEW"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "category": "CONTROL_ROOM_RUNTIME",
+      "importerCount": 4,
+      "importers": [
+        {
+          "importer": "src/control-room/autopilot/index.js",
+          "specifier": "./SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/forensics/ForensicCaseExporter.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/response/AutonomousThreatResponseAgent.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        }
+      ],
+      "imports": [
+        {
+          "specifier": "../rca/RootCauseAnalyzer.js",
+          "resolvedTarget": "src/control-room/rca/RootCauseAnalyzer.js",
+          "internal": true
+        },
+        {
+          "specifier": "../../cameras/guard/CameraActionGuard.js",
+          "resolvedTarget": "src/cameras/guard/CameraActionGuard.js",
+          "internal": true
+        },
+        {
+          "specifier": "../policy/SOCPolicyEngine.js",
+          "resolvedTarget": "src/control-room/policy/SOCPolicyEngine.js",
+          "internal": true
+        },
+        {
+          "specifier": "../dashboard/SOCDashboardAPI.js",
+          "resolvedTarget": "src/control-room/dashboard/SOCDashboardAPI.js",
+          "internal": true
+        }
+      ],
+      "decisionSignals": [
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "blockedReturnLines": [
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "approvalLogic": [],
+      "executionCalls": [],
+      "usesCanonicalBlockExplanationContract": false,
+      "likelyExecutableGate": true,
+      "decision": "ACTIVE_GATE_CANDIDATE_REQUIRES_CONTRACT_REVIEW"
+    }
+  ],
+  "globalLearning": {
+    "capabilityId": "GLOBAL_UNRESOLVED_GATE_RUNTIME_OWNERSHIP_TRACE",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Recursive gate coverage must distinguish executable blocking gates from referenced status producers before contract integration.",
+    "reusePolicy": "Every future AfriDebug job must trace unresolved candidates through import ownership, blocking logic, approval logic, and execution calls before patching.",
+    "afriaiPolicy": "AfriAI must never interpret a BLOCKED_STATUS signal alone as proof of an executable gate."
+  },
+  "decision": "ACTIVE_GATE_CANDIDATES_REQUIRE_DETAILED_CONTRACT_REVIEW"
+}

@@ -1,0 +1,145 @@
+{
+  "generated": "2026-08-09T09:32:21.242Z",
+  "phase": "AFRIDEBUG_GLOBAL_PLATFORM_RUNTIME_GATE_CONTRACT_INSPECTION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "runtimeOwner": "src/afridebug/platform",
+  "targets": [
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Ledger from \"../audit/AfriDebugImmutableAuditLedger.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import ArtifactStorage from \"../storage/AfriDebugArtifactStorage.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 28,
+          "text": "        status:\"blocked\","
+        },
+        {
+          "line": 30,
+          "text": "        reason:\"APPROVAL_REQUIRED\""
+        }
+      ],
+      "contractUsage": [],
+      "executionCalls": [
+        {
+          "line": 38,
+          "text": "      Bridge.execute(input);"
+        }
+      ],
+      "classification": "BLOCKING_LOGIC_WITHOUT_CONTRACT"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "exists": true,
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ],
+      "blockedReturns": [],
+      "contractUsage": [],
+      "executionCalls": [
+        {
+          "line": 42,
+          "text": "    return Gate.execute(input);"
+        }
+      ],
+      "classification": "NO_DIRECT_BLOCKING_DECISION"
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exists": true,
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Orchestrator from \"../../orchestration/AfriDebugExecutionOrchestrator.js\";"
+        }
+      ],
+      "blockedReturns": [],
+      "contractUsage": [],
+      "executionCalls": [
+        {
+          "line": 28,
+          "text": "    return Orchestrator.execute(input);"
+        }
+      ],
+      "classification": "NO_DIRECT_BLOCKING_DECISION"
+    },
+    {
+      "file": "src/core/afridebug/contracts/BlockExplanationContract.js",
+      "exists": true,
+      "imports": [],
+      "blockedReturns": [
+        {
+          "line": 36,
+          "text": "    status: \"BLOCKED\","
+        }
+      ],
+      "contractUsage": [
+        {
+          "line": 12,
+          "text": "export function validateBlockedResponse(response = {}) {"
+        },
+        {
+          "line": 34,
+          "text": "export function createBlockedResponse(input = {}) {"
+        },
+        {
+          "line": 52,
+          "text": "  const validation = validateBlockedResponse(response);"
+        },
+        {
+          "line": 66,
+          "text": "  createBlockedResponse,"
+        },
+        {
+          "line": 67,
+          "text": "  validateBlockedResponse"
+        }
+      ],
+      "executionCalls": [],
+      "classification": "CONTRACT_AWARE"
+    }
+  ],
+  "chain": {
+    "gate": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "orchestrator": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+    "bridge": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js"
+  },
+  "decision": "PLATFORM_GATE_REQUIRES_BLOCK_EXPLANATION_INTEGRATION",
+  "afrifixAllowed": false,
+  "globalLearning": {
+    "capabilityId": "GLOBAL_RUNTIME_GATE_CONTRACT_INTEGRATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Once runtime ownership is proven, blocking decisions must be inspected at the executable gate boundary and normalized through the canonical BlockExplanationContract.",
+    "reusePolicy": "Future AfriDebug jobs must inspect the active runtime gate boundary before AfriFix integration.",
+    "afriaiPolicy": "AfriAI must explain the exact active runtime gate and its contract-backed blocking reason."
+  },
+  "status": "INSPECTION_COMPLETE"
+}

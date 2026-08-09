@@ -1,0 +1,25 @@
+{
+  "generated": "2026-08-09T09:10:28.844Z",
+  "phase": "AFRIDEBUG_GLOBAL_BLOCK_EXPLANATION_GATE_INTEGRATION_AUDIT",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "contract": {
+    "path": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "exists": true,
+    "apiPresent": true
+  },
+  "gateFiles": [
+    "src/core/afridebug/contracts/BlockExplanationContract.js"
+  ],
+  "contractConsumers": [
+    "src/core/afridebug/contracts/BlockExplanationContract.js"
+  ],
+  "summary": {
+    "gateFilesDetected": 1,
+    "contractConsumersDetected": 1,
+    "integrationRequired": 0
+  },
+  "decision": "CONTRACT_CONSUMED_BY_DETECTED_GATES",
+  "rule": "Every executable AfriDebug/AfriFix blocking gate must produce a validated BlockExplanationContract response.",
+  "status": "AUDIT_COMPLETE"
+}

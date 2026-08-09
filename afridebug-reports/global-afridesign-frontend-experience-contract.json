@@ -1,0 +1,47 @@
+{
+  "product": "AfriDesign Studio",
+  "status": "PLANNING_ONLY",
+  "frontend": {
+    "landing": {
+      "required": true,
+      "route": "/"
+    },
+    "auth": {
+      "required": true,
+      "route": "/auth"
+    },
+    "application": {
+      "required": true,
+      "route": "/app",
+      "mainApp": true,
+      "adminControlCenter": true
+    }
+  },
+  "backend": {
+    "canonical": "AfriDigital-api",
+    "duplicated": false
+  },
+  "sharedCapabilities": [
+    "AfriAI",
+    "AfriDebug",
+    "AfriFix",
+    "AfriScan",
+    "AfriNucChain",
+    "Global Core"
+  ],
+  "boundaries": {
+    "AfriDigitalHub": {
+      "status": "PROTECTED",
+      "paystackFacing": true
+    },
+    "AfriDesignStudio": {
+      "status": "STANDALONE",
+      "developerFacing": true
+    }
+  },
+  "safety": {
+    "humanApprovalRequired": true,
+    "patchAllowed": false
+  },
+  "decision": "AFRIDESIGN_STUDIO_THREE_EXPERIENCE_FRONTEND_CONTRACT_REGISTERED_PLANNING_ONLY"
+}

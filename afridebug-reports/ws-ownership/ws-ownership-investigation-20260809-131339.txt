@@ -1,0 +1,368 @@
+=== AFRIFIX WS OWNERSHIP INVESTIGATION ===
+timestamp:
+2026-08-09T13:13:39+01:00
+repo:
+/data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api
+--- LIVE BOOT ---
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import http from "http";
+
+import { mountPublic } from "./bootstrap/public.boot.js";
+import { mountRuntime } from "./bootstrap/runtime.boot.js";
+import { mountWebsocket } from "./bootstrap/websocket.boot.js";
+
+const app = express();
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://afridigital-hub.onrender.com"
+  ],
+  credentials: true
+}));
+
+mountPublic(app);
+
+const server = http.createServer(app);
+
+mountWebsocket(server);
+
+mountRuntime(app);
+
+const PORT = process.env.PORT || 10000;
+
+server.listen(PORT, () => {
+  console.log("🚀 AfriDigital API running on port", PORT);
+});
+--- WEBSOCKET BOOT ---
+import { WebSocketServer } from "ws";
+import { mountWS } from "./ws/init-ws.js";
+
+export function mountWebsocket(server){
+
+  const wss = new WebSocketServer({
+    server
+  });
+
+  mountWS(server);
+
+  return wss;
+
+}
+--- WS RUNTIME ---
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+
+export function mountWSRuntime(server){
+  const { initWS } = require("../core/realtime/ws/stream.bridge.cjs");
+  return initWS(server);
+}
+--- STREAM BRIDGE ---
+const { bootstrapStreamBridge } = require("../../../bootstrap/ws-integration/output/streambridge-bootstrap.cjs");
+const WebSocket = require("ws");
+
+let wss;
+let lastPayload = null;
+let lastSent = 0;
+
+function initWS(server) {
+const { attachDiffBroadcast } = require("./diff.throttle.cjs");
+  wss = new WebSocket.Server({ server });
+
+  wss.on("connection", (ws) => {
+    ws.send(JSON.stringify({ type: "system", msg: "connected" }));
+  });
+
+  return wss;
+  wss.broadcast = attachDiffBroadcast(broadcast);
+}
+
+/**
+ * 🚀 THROTTLED BROADCASTER
+ * - prevents WS flooding
+ * - sends only latest meaningful update
+ * - enforces 30ms minimum interval
+ */
+function broadcast(payload) {
+  if (!wss) return;
+
+  const now = Date.now();
+
+  lastPayload = payload;
+
+  if (now - lastSent < 30) return; // throttle render pressure
+  lastSent = now;
+
+  const msg = JSON.stringify(lastPayload);
+
+  wss.clients.forEach(c => {
+    if (c.readyState === 1) {
+      c.send(msg);
+    }
+  });
+}
+
+bootstrapStreamBridge(module.exports);
+
+module.exports = {
+  initWS,
+  broadcast
+};
+--- WS KERNEL ---
+const { syncRegistry } = require("../ws-integration/bridge/ws-registry-bridge");
+const registry = require("../ws-integration/output/ws-registry");
+
+/**
+ * 🧠 WS KERNEL
+ * Central orchestrator for ALL websocket systems
+ */
+
+function bootstrapWSKernel(server) {
+
+  // 1. Sync all services into registry
+  const report = syncRegistry();
+
+  console.log("🧠 WS KERNEL INITIALIZED");
+  console.log("📦 Registry Report:", report);
+
+  // 2. Load all registered services
+  const services = registry.list();
+
+  console.log("📡 Mounting WS Services:", services.length);
+
+  // 3. Attach services dynamically (SAFE MODE)
+  services.forEach(name => {
+    const handler = registry.get(name);
+
+    try {
+      if (typeof handler === "function") {
+        handler(server);
+        console.log(`🟢 Mounted WS Service → ${name}`);
+      }
+    } catch (e) {
+      console.log(`🟡 Failed mounting ${name}:`, e.message);
+    }
+  });
+
+  console.log("🚀 WS KERNEL READY");
+
+  return {
+    servicesMounted: services.length,
+    report
+  };
+}
+
+module.exports = { bootstrapWSKernel };
+--- REGISTRY BRIDGE ---
+const fs = require("fs");
+const path = require("path");
+const registry = require("../output/ws-registry");
+
+const OUTPUT_DIR = path.join(__dirname, "../output");
+
+// Safe dynamic loader
+function safeRequire(file) {
+  try {
+    return require(file);
+  } catch (e) {
+    return null;
+  }
+}
+
+function discoverOutputs() {
+  if (!fs.existsSync(OUTPUT_DIR)) return [];
+
+  return fs
+    .readdirSync(OUTPUT_DIR)
+    .filter(f => f.endsWith(".js"))
+    .map(f => ({
+      name: f.replace(".js", ""),
+      path: path.join(OUTPUT_DIR, f)
+    }));
+}
+
+function syncRegistry() {
+  const files = discoverOutputs();
+
+  let count = 0;
+
+  for (const file of files) {
+    const mod = safeRequire(file.path);
+
+    if (!mod) continue;
+
+    const handler =
+      mod.createWSGateway ||
+      mod.createWSAdapter ||
+      mod.bootstrapStreamBridge ||
+      mod.bootstrapFlowgraph ||
+      mod.bootstrapRealtimeHub ||
+      mod.bootstrapAfriAI ||
+      mod;
+
+    const ok = registry.register(file.name, handler);
+
+    if (ok) count++;
+  }
+
+  return {
+    scanned: files.length,
+    registered: count,
+    total: registry.list().length
+  };
+}
+
+module.exports = { syncRegistry };
+--- AFRIAI OWNERS ---
+module.exports = function attachAfriAIWebSocket(server, WebSocketServer) {
+  if (!server || !WebSocketServer) return;
+
+  const wss = new WebSocketServer({ server, path: "/ws/afriai" });
+
+  wss.on("connection", (ws) => {
+    ws.send(JSON.stringify({ type: "afriai", status: "connected" }));
+
+    ws.on("message", (msg) => {
+      ws.send(JSON.stringify({
+        type: "afriai-response",
+        input: msg.toString(),
+        reply: "AfriAI v1 read-only active"
+      }));
+    });
+  });
+
+  console.log("🧠 AfriAI WS mounted → /ws/afriai");
+};
+const { bootstrapAfriAIStream } = require("../../../bootstrap/ws-integration/output/afriai-stream-bootstrap");
+module.exports = function attachAfriAIStream(server, WebSocketServer) {
+  if (!server || !WebSocketServer) return;
+
+  const wss = new WebSocketServer({ server, path: "/ws/afriai" });
+
+  wss.on("connection", (ws) => {
+    ws.send(JSON.stringify({
+      type: "afriai-ui",
+      status: "connected",
+      mode: "stream-v1.1"
+    }));
+
+    ws.on("message", (msg) => {
+      const input = msg.toString();
+
+      ws.send(JSON.stringify({
+        success: true,
+        layer: "afriai-ui-v1.1",
+        intent: "STREAM_CHAT",
+        reply: "processed",
+        input,
+        ts: Date.now()
+      }));
+    });
+  });
+
+  console.log("🧠 AfriAI UI Stream mounted → /ws/afriai");
+};
+
+
+bootstrapAfriAIStream(module.exports);
+--- WS V2 GATEWAY ---
+const WebSocket = require("ws");
+
+function createWSGateway(server, kernel) {
+  const wss = new WebSocket.Server({ server, path: "/ws/afriai" });
+
+  wss.on("connection", (ws) => {
+    ws.send(JSON.stringify({
+      type: "ws.connected",
+      ok: true,
+      timestamp: Date.now()
+    }));
+
+    ws.on("message", (msg) => {
+      let event;
+      try { event = JSON.parse(msg); } catch (e) { return; }
+
+      const result = kernel?.core?.dispatch
+        ? kernel.core.dispatch(event)
+        : { ok: false, error: "NO_KERNEL" };
+
+      ws.send(JSON.stringify({
+        type: "ws.response",
+        result
+      }));
+    });
+
+    const ping = setInterval(() => {
+      ws.send(JSON.stringify({
+        type: "ws.ping",
+        ts: Date.now()
+      }));
+    }, 5000);
+
+    ws.on("close", () => clearInterval(ping));
+  });
+
+  return wss;
+}
+
+module.exports = { createWSGateway };
+--- REACHABILITY ---
+bootstrap/ws-fix/mount-ws.js:9:  createWSGateway(server, kernel);
+bootstrap/ws-v2/builders/build-ws-v2.js:14:function createWSGateway(server, kernel) {
+bootstrap/ws-v2/output/ws-gateway.js:3:function createWSGateway(server, kernel) {
+bootstrap/ws-kernel/ws-kernel.js:9:function bootstrapWSKernel(server) {
+bootstrap/ws-runtime.boot.js:7:  return initWS(server);
+core/realtime/ws/stream.bridge.cjs:8:function initWS(server) {
+core/afriai/ws/afriai.ws.js:1:module.exports = function attachAfriAIWebSocket(server, WebSocketServer) {
+core/afriai/ws/afriai.stream.js:2:module.exports = function attachAfriAIStream(server, WebSocketServer) {
+core/afriai/index.js:10:    attachAfriAIWebSocket(server, WebSocketServer);
+--- SERVER STARTUP ---
+◇ injected env (1) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+node:events:487
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::10000
+    at Server.setupListenHandle [as _listen2] (node:net:2008:16)
+    at listenInCluster (node:net:2065:12)
+    at Server.listen (node:net:2170:7)
+    at file:///data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/server.js:32:8
+Emitted 'error' event on WebSocketServer instance at:
+    at Server.emit (node:events:521:24)
+    at emitErrorNT (node:net:2044:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 10000
+}
+
+Node.js v26.2.0
+--- SYNTAX ---
+--- GIT STATUS ---
+ M modules/afridebug/evidence/knowledge-comparison.json
+ M modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js
+ M modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js
+ M src/afridebug/platform/governance/AfriDebugExecutionGate.js
+ M src/afriscan/bootstrap/index.js
+?? afridebug-reports/
+?? modules/afridebug/evidence/afridebug-client-delivery-proposal-001.json
+?? modules/afridebug/evidence/afridebug-knowledge-memory-intelligence-upgrade-proposal-001.json
+?? modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json
+?? modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js.bak
+?? modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak
+?? modules/afridebug/src/debug/knowledge/AfriDebugKnowledgePersistence.js.bak
+?? modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js.bak
+?? modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js.bak
+?? modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js.bak
+?? modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js.bak
+?? src/core/afriai/
+?? src/core/afridebug/
+?? src/core/governance/
+?? src/core/observability/

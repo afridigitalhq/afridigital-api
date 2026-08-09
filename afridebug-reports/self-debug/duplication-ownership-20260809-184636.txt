@@ -1,0 +1,113 @@
+===== AfriDebugOrchestrator =====
+modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js
+--- IMPORT REFERENCES ---
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:16:const AfriDebugOrchestrator = {
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:32:      actor:"AfriDebugOrchestrator",
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:239:export default AfriDebugOrchestrator;
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+modules/afrifix/evidence/consolidation/discovery.json:77:        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afrifix/evidence/consolidation/discovery.json:78:        "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afrifix/evidence/consolidation/mapping.json:88:        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afrifix/evidence/consolidation/mapping.json:89:        "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afrifix/evidence/consolidation/plan.json:91:        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afrifix/evidence/consolidation/plan.json:92:        "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:15:const AfriDebugOrchestrator = {
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:31:      actor:"AfriDebugOrchestrator",
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:194:export default AfriDebugOrchestrator;
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:51:      service:"AfriDebugOrchestrator",
+
+===== AfriDebugPatchGenerator =====
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js
+modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js
+--- IMPORT REFERENCES ---
+modules/afridev/products/afridebug/runtime/AfriDebugInvestigationRuntime.js:8:import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
+modules/afridev/products/afridebug/runtime/AfriDebugInvestigationRuntime.js:42:    const patch=AfriDebugPatchGenerator.generate(plan);
+modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js:1:const AfriDebugPatchGenerator={
+modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js:7:export default AfriDebugPatchGenerator;
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:1:const AfriDebugPatchGenerator = {
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:105:      service: "AfriDebugPatchGenerator",
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:113:export default AfriDebugPatchGenerator;
+modules/afridebug/evidence/afridebug-patch-planning-proposal-001.json:5:    "modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js",
+modules/afrifix/evidence/consolidation/discovery.json:243:        "modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js",
+modules/afrifix/evidence/consolidation/mapping.json:278:        "modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js",
+modules/afrifix/evidence/consolidation/plan.json:304:        "modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js",
+
+===== AfriDebugExecutionGate =====
+modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js
+src/afridebug/platform/governance/AfriDebugExecutionGate.js
+--- IMPORT REFERENCES ---
+modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js:1:export { default } from "../../../../../src/afridebug/platform/governance/AfriDebugExecutionGate.js";
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:8:const AfriDebugExecutionGate = {
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:82:      actor:"AfriDebugExecutionGate"
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:106:      service:"AfriDebugExecutionGate",
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:121:export default AfriDebugExecutionGate;
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:3:import Gate from "../governance/AfriDebugExecutionGate.js";
+
+===== AfriDebugRepairApprovalQueue =====
+modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js
+--- IMPORT REFERENCES ---
+modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js:1:export { default } from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:3:import Approval from "../../approval/AfriDebugRepairApprovalQueue.js";
+modules/afridebug/evidence/afridebug-patch-planning-proposal-001.json:6:    "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js"
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:19:    "service": "AfriDebugRepairApprovalQueue",
+modules/afrifix/evidence/consolidation/discovery.json:109:        "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+modules/afrifix/evidence/consolidation/mapping.json:126:        "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+modules/afrifix/evidence/consolidation/plan.json:134:        "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:7:const AfriDebugRepairApprovalQueue = {
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:60:        "AfriDebugRepairApprovalQueue"
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:118:        "AfriDebugRepairApprovalQueue"
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:145:      service:"AfriDebugRepairApprovalQueue",
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:160:export default AfriDebugRepairApprovalQueue;
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:1:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:2:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js:1:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+
+===== AfriDebugRepairExecutionBridge =====
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js
+--- IMPORT REFERENCES ---
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:7:const AfriDebugRepairExecutionBridge = {
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:96:      service:"AfriDebugRepairExecutionBridge",
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:107:export default AfriDebugRepairExecutionBridge;
+modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json:4:  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json:4:  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+modules/afridebug/evidence/afridebug-audit-context-proposal-001.json:4:  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:5:const AfriDebugRepairExecutionBridge = {
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:100:        "AfriDebugRepairExecutionBridge",
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:114:export default AfriDebugRepairExecutionBridge;
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:2:import Bridge from "../integration/execution/AfriDebugRepairExecutionBridge.js";
+
+===== AfriDebugKnowledgeMemory =====
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js
+--- IMPORT REFERENCES ---
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:6:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:8:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:21:const AfriDebugKnowledgeMemory = {
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:82:      service:"AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:92:export default AfriDebugKnowledgeMemory;
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeReinforcementBridge.js:1:import KnowledgeMemory from "./AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js:43:        "AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:1:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:42:        "AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:64:          "AfriDebugKnowledgeMemory"
+modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js:2:import KnowledgeMemory from "../../debug/memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js:34:      "AfriDebugKnowledgeMemory",
+modules/afridebug/evidence/knowledge-comparison.json:9:  "source": "AfriDebugKnowledgeMemory",
+modules/afridebug/evidence/afridebug-knowledge-integration-proposal.json:8:    "Connect AfriDebugKnowledgeMemory",
+modules/afridebug/evidence/afridebug-auto-debug-knowledge-validation-001.json:7:    "AfriDebugKnowledgeMemory",
+modules/afridebug/evidence/afridebug-memory-hydration-proposal-001.json:4:  "target": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+modules/afridebug/evidence/afridebug-memory-hydration-proposal-001.json:6:  "rootCause": "AfriDebugKnowledgeMemory reads only transient CaseMemory state",
+modules/afridebug/evidence/afridebug-knowledge-recommendation-proposal-001.json:8:    "Connect AfriDebugKnowledgeMemory",
+modules/afridebug/evidence/afridebug-knowledge-memory-sync-proposal-001.json:4:  "target": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+modules/afridebug/evidence/afridebug-knowledge-memory-intelligence-upgrade-proposal-001.json:4:  "target": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+

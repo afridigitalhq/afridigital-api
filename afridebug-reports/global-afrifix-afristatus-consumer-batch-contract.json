@@ -1,0 +1,40 @@
+{
+  "generated": "2026-08-09T10:25:58.998Z",
+  "phase": "AFRIFIX_GLOBAL_AFIRSTATUS_CONSUMER_BATCH_CONTRACT",
+  "scope": "GLOBAL",
+  "executor": "AfriFix",
+  "targets": [
+    {
+      "target": "modules/afridebug",
+      "exists": true
+    },
+    {
+      "target": "src/afridebug",
+      "exists": true
+    },
+    {
+      "target": "modules/afriai",
+      "exists": true
+    },
+    {
+      "target": "modules/afriai/remediation/AfriFixRemediationPlanner.js",
+      "exists": true
+    },
+    {
+      "target": "modules/afrinucchain",
+      "exists": true
+    },
+    {
+      "target": "src/core",
+      "exists": true
+    }
+  ],
+  "globalStatusFoundation": true,
+  "statusRenderer": true,
+  "exportSurface": true,
+  "humanApprovalRequired": true,
+  "modificationMode": "AUDIT_AND_APPROVAL_REQUIRED",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "decision": "AFRIFIX_BATCH_TRAINING_CONTRACT_READY_FOR_BOUNDARY_DISCOVERY"
+}

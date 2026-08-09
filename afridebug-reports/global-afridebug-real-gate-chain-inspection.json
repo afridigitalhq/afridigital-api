@@ -1,0 +1,485 @@
+{
+  "generated": "2026-08-09T09:28:40.294Z",
+  "phase": "AFRIDEBUG_GLOBAL_AFRIDEBUG_REAL_GATE_CHAIN_INSPECTION",
+  "scope": "GLOBAL",
+  "targets": [
+    "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+    "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+    "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+    "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+    "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js"
+  ],
+  "result": [
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "imports": [
+        "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";",
+        "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugExecutionGate;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 4,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 6,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 8,
+          "text": "const approval ="
+        },
+        {
+          "line": 12,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 18,
+          "text": "return {"
+        },
+        {
+          "line": 20,
+          "text": "status:\"blocked\","
+        },
+        {
+          "line": 22,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 30,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 33,
+          "text": "return {"
+        },
+        {
+          "line": 35,
+          "text": "status:\"executed\","
+        },
+        {
+          "line": 37,
+          "text": "approval,"
+        },
+        {
+          "line": 48,
+          "text": "return {"
+        },
+        {
+          "line": 50,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 52,
+          "text": "status:\"healthy\""
+        },
+        {
+          "line": 61,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ]
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "imports": [
+        "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";",
+        "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";",
+        "import Ledger from \"../audit/AfriDebugImmutableAuditLedger.js\";",
+        "import ArtifactStorage from \"../storage/AfriDebugArtifactStorage.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugExecutionGate;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        },
+        {
+          "line": 7,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 10,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 13,
+          "text": "const approval ="
+        },
+        {
+          "line": 17,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 22,
+          "text": "!approval ||"
+        },
+        {
+          "line": 23,
+          "text": "approval.status?.toUpperCase() !== \"APPROVED\""
+        },
+        {
+          "line": 26,
+          "text": "return {"
+        },
+        {
+          "line": 28,
+          "text": "status:\"blocked\","
+        },
+        {
+          "line": 30,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 38,
+          "text": "Bridge.execute(input);"
+        },
+        {
+          "line": 45,
+          "text": "approvalId:"
+        },
+        {
+          "line": 46,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 48,
+          "text": "status:\"EXECUTED\","
+        },
+        {
+          "line": 71,
+          "text": "approvalId:"
+        },
+        {
+          "line": 72,
+          "text": "input.approvalId,"
+        },
+        {
+          "line": 74,
+          "text": "actor:\"AfriDebugExecutionGate\""
+        },
+        {
+          "line": 79,
+          "text": "return {"
+        },
+        {
+          "line": 81,
+          "text": "status:\"executed\","
+        },
+        {
+          "line": 83,
+          "text": "approval,"
+        },
+        {
+          "line": 96,
+          "text": "return {"
+        },
+        {
+          "line": 98,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 104,
+          "text": "status:\"healthy\""
+        },
+        {
+          "line": 113,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ]
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "exists": true,
+      "imports": [
+        "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";",
+        "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";",
+        "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugOrchestrator;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 13,
+          "text": "const approval ="
+        },
+        {
+          "line": 27,
+          "text": "return {"
+        },
+        {
+          "line": 31,
+          "text": "approval,"
+        },
+        {
+          "line": 33,
+          "text": "status:\"awaiting_approval\""
+        },
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        },
+        {
+          "line": 49,
+          "text": "return {"
+        },
+        {
+          "line": 53,
+          "text": "status:\"healthy\""
+        }
+      ]
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "exists": true,
+      "imports": [
+        "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";",
+        "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";",
+        "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugExecutionOrchestrator;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "line": 13,
+          "text": "const approval ="
+        },
+        {
+          "line": 27,
+          "text": "return {"
+        },
+        {
+          "line": 31,
+          "text": "approval,"
+        },
+        {
+          "line": 33,
+          "text": "status:\"awaiting_approval\""
+        },
+        {
+          "line": 40,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 42,
+          "text": "return Gate.execute(input);"
+        },
+        {
+          "line": 49,
+          "text": "return {"
+        },
+        {
+          "line": 53,
+          "text": "status:\"healthy\""
+        }
+      ]
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exists": true,
+      "imports": [
+        "import Planner from \"../../planning/AfriDebugRepairPlanningEngine.js\";",
+        "import Controller from \"../../execution/AfriDebugChangeExecutionController.js\";",
+        "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";",
+        "import History from \"../../history/AfriDebugRepairHistoryLedger.js\";",
+        "import Resolution from \"../../learning/AfriDebugResolutionRecorder.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugRepairExecutionBridge;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 1,
+          "text": "import Planner from \"../../planning/AfriDebugRepairPlanningEngine.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import History from \"../../history/AfriDebugRepairHistoryLedger.js\";"
+        },
+        {
+          "line": 7,
+          "text": "const AfriDebugRepairExecutionBridge = {"
+        },
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 11,
+          "text": "const approval ="
+        },
+        {
+          "line": 12,
+          "text": "Approval.list().find("
+        },
+        {
+          "line": 13,
+          "text": "item => item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 17,
+          "text": "return {"
+        },
+        {
+          "line": 18,
+          "text": "bridgeStatus:\"blocked\","
+        },
+        {
+          "line": 19,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        },
+        {
+          "line": 57,
+          "text": "approvalId: input.approvalId,"
+        },
+        {
+          "line": 62,
+          "text": "verificationStatus: execution.verification?.status,"
+        },
+        {
+          "line": 63,
+          "text": "rollbackStatus: execution.rollback ? \"required\" : \"none\","
+        },
+        {
+          "line": 72,
+          "text": "status: execution.status"
+        },
+        {
+          "line": 75,
+          "text": "return {"
+        },
+        {
+          "line": 85,
+          "text": "bridgeStatus:\"executed\""
+        },
+        {
+          "line": 94,
+          "text": "return {"
+        },
+        {
+          "line": 96,
+          "text": "service:\"AfriDebugRepairExecutionBridge\","
+        },
+        {
+          "line": 98,
+          "text": "status:\"healthy\""
+        },
+        {
+          "line": 107,
+          "text": "export default AfriDebugRepairExecutionBridge;"
+        }
+      ]
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exists": true,
+      "imports": [
+        "import Orchestrator from \"../../orchestration/AfriDebugExecutionOrchestrator.js\";"
+      ],
+      "exports": [
+        "export default AfriDebugRepairExecutionBridge;"
+      ],
+      "decisionSignals": [
+        {
+          "line": 3,
+          "text": "const AfriDebugRepairExecutionBridge = {"
+        },
+        {
+          "line": 26,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 28,
+          "text": "return Orchestrator.execute(input);"
+        },
+        {
+          "line": 35,
+          "text": "return {"
+        },
+        {
+          "line": 38,
+          "text": "\"AfriDebugRepairExecutionBridge\","
+        },
+        {
+          "line": 40,
+          "text": "status:"
+        },
+        {
+          "line": 44,
+          "text": "\"governed-repair-execution\""
+        },
+        {
+          "line": 52,
+          "text": "export default AfriDebugRepairExecutionBridge;"
+        }
+      ]
+    }
+  ],
+  "rule": "Before modifying any blocking gate, establish which implementation owns the executable decision and where the canonical BlockExplanationContract must be consumed.",
+  "status": "INSPECTION_COMPLETE"
+}

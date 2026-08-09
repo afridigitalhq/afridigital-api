@@ -1,0 +1,37 @@
+{
+  "generated": "2026-08-09T10:03:20.356Z",
+  "phase": "AFRIDEBUG_CANONICAL_GATE_RUNTIME_ENTRYPOINT_CONFIRMATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "canonicalEntrypoints": {
+    "investigationAPI": true,
+    "investigationAPISecondary": true,
+    "executionPipeline": true
+  },
+  "moduleChain": {
+    "orchestratorImportsGate": true,
+    "orchestratorCallsGate": true,
+    "gateImportsBridge": true,
+    "gateCallsBridge": true
+  },
+  "platformChain": {
+    "orchestratorImportsGate": true,
+    "orchestratorCallsGate": true,
+    "gateImportsBridge": true,
+    "gateCallsBridge": true
+  },
+  "canonicality": {
+    "moduleGateReferencedByCanonicalDebugOrchestrator": true,
+    "platformGateReferencedByPlatformOrchestrator": true,
+    "directAPIToGate": false,
+    "canonicalGate": "MODULE_GATE_FOR_AFRIDEBUG_REPAIR_RUNTIME",
+    "platformGate": "PLATFORM_IMPLEMENTATION_REQUIRES_PLATFORM_ENTRYPOINT_SCOPE"
+  },
+  "safety": {
+    "afrifixAllowed": false,
+    "patchAllowed": false
+  },
+  "decision": "MODULE_GATE_CONFIRMED_AS_CANONICAL_AFRIDEBUG_REPAIR_GATE;_PLATFORM_GATE_REMAINS_SEPARATE_PLATFORM_SCOPE"
+}

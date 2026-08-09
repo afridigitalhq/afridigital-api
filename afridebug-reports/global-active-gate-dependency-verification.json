@@ -1,0 +1,187 @@
+{
+  "generated": "2026-08-09T09:18:00.464Z",
+  "phase": "AFRIDEBUG_ACTIVE_GATE_DEPENDENCY_VERIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "sourceReport": "afridebug-reports/global-gate-candidate-classification.json",
+  "policy": {
+    "modificationMode": "AUDIT_ONLY",
+    "rule": "No gate may be patched until active runtime reachability is established.",
+    "afrifixAllowed": false
+  },
+  "scan": {
+    "filesScanned": 4281,
+    "candidatesTraced": 11,
+    "activeReachableCandidates": 6,
+    "unresolvedCandidates": 5
+  },
+  "traces": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "referencesFound": 70,
+      "directRuntimeReferences": 42,
+      "sampleReferences": [
+        "bootstrap/kernel-generators/build-kernel.js",
+        "bootstrap/kernel-generators/generate-kernel-index.js",
+        "bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "bootstrap/kernel-generators/generate-syscallguard.js",
+        "bootstrap/kernel-v2/builders/build-kernel-v2.js",
+        "bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "bootstrap/ws-integration/install-afriai-ws.js",
+        "control-plane/adapter/soc.bridge.js",
+        "control-plane/replay/replay.engine.js",
+        "control-plane/timeline/indexer.js",
+        "core/ai/decision-heatmap/index.js",
+        "core/ai/strategy-dashboard/index.js",
+        "core/governance/pr.state.js",
+        "core/kernel/_enforce/syscallgate.guard.cjs",
+        "core/kernel-interface/bridge.js",
+        "core/runtime/kernel.eventbus.cjs",
+        "core/soc/simulation/socAttackSim.js",
+        "modules/afriai/knowledge-governance/indexing/AfriAIKnowledgeIndex.js",
+        "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "referencesFound": 0,
+      "directRuntimeReferences": 0,
+      "sampleReferences": [],
+      "executionEvidence": "NO_ACTIVE_REFERENCE_FOUND",
+      "nextAction": "VERIFY_ENTRYPOINT_OR_MARK_INACTIVE"
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "referencesFound": 0,
+      "directRuntimeReferences": 0,
+      "sampleReferences": [],
+      "executionEvidence": "NO_ACTIVE_REFERENCE_FOUND",
+      "nextAction": "VERIFY_ENTRYPOINT_OR_MARK_INACTIVE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "category": "AFRIDEBUG_RUNTIME",
+      "referencesFound": 0,
+      "directRuntimeReferences": 0,
+      "sampleReferences": [],
+      "executionEvidence": "NO_ACTIVE_REFERENCE_FOUND",
+      "nextAction": "VERIFY_ENTRYPOINT_OR_MARK_INACTIVE"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "category": "AFRIDEBUG_RUNTIME",
+      "referencesFound": 3,
+      "directRuntimeReferences": 3,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "category": "AFRIDEBUG_RUNTIME",
+      "referencesFound": 3,
+      "directRuntimeReferences": 3,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "category": "AFRIDEBUG_RUNTIME",
+      "referencesFound": 0,
+      "directRuntimeReferences": 0,
+      "sampleReferences": [],
+      "executionEvidence": "NO_ACTIVE_REFERENCE_FOUND",
+      "nextAction": "VERIFY_ENTRYPOINT_OR_MARK_INACTIVE"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "category": "AFRIDEBUG_RUNTIME",
+      "referencesFound": 3,
+      "directRuntimeReferences": 3,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "category": "CONTROL_ROOM_RUNTIME",
+      "referencesFound": 4,
+      "directRuntimeReferences": 4,
+      "sampleReferences": [
+        "src/control-room/autopilot/index.js",
+        "src/control-room/forensics/ForensicCaseExporter.js",
+        "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+        "src/control-room/response/AutonomousThreatResponseAgent.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    },
+    {
+      "file": "src/core/governance/block-explanation/block-explanation.contract.js",
+      "category": "CANONICAL_CORE",
+      "referencesFound": 0,
+      "directRuntimeReferences": 0,
+      "sampleReferences": [],
+      "executionEvidence": "NO_ACTIVE_REFERENCE_FOUND",
+      "nextAction": "VERIFY_ENTRYPOINT_OR_MARK_INACTIVE"
+    },
+    {
+      "file": "src/legacy/ai/execution-pipeline/index.js",
+      "category": "LEGACY",
+      "referencesFound": 70,
+      "directRuntimeReferences": 43,
+      "sampleReferences": [
+        "bootstrap/kernel-generators/build-kernel.js",
+        "bootstrap/kernel-generators/generate-kernel-index.js",
+        "bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "bootstrap/kernel-generators/generate-syscallguard.js",
+        "bootstrap/kernel-v2/builders/build-kernel-v2.js",
+        "bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "bootstrap/ws-integration/install-afriai-ws.js",
+        "control-plane/adapter/soc.bridge.js",
+        "control-plane/replay/replay.engine.js",
+        "control-plane/timeline/indexer.js",
+        "core/ai/decision-heatmap/index.js",
+        "core/ai/execution-pipeline/index.js",
+        "core/ai/strategy-dashboard/index.js",
+        "core/governance/pr.state.js",
+        "core/kernel/_enforce/syscallgate.guard.cjs",
+        "core/kernel-interface/bridge.js",
+        "core/runtime/kernel.eventbus.cjs",
+        "core/soc/simulation/socAttackSim.js",
+        "modules/afriai/knowledge-governance/indexing/AfriAIKnowledgeIndex.js"
+      ],
+      "executionEvidence": "REFERENCED_BY_ACTIVE_CODE",
+      "nextAction": "TRACE_CALL_CHAIN"
+    }
+  ],
+  "decision": "ACTIVE_GATE_REACHABILITY_REVIEW_REQUIRED",
+  "globalLearning": {
+    "capabilityId": "GLOBAL_ACTIVE_GATE_DEPENDENCY_VERIFICATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "A detected blocking signal is not automatically an active gate; AfriDebug must establish runtime reachability before remediation.",
+    "reusePolicy": "Every future job must trace detected gates to active execution paths before AfriFix integration.",
+    "afriaiPolicy": "AfriAI must distinguish active runtime blockers from unreachable, legacy, or historical evidence."
+  },
+  "status": "DEPENDENCY_VERIFICATION_COMPLETE"
+}

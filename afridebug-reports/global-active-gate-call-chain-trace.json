@@ -1,0 +1,121 @@
+{
+  "generated": "2026-08-09T09:27:06.748Z",
+  "phase": "AFRIDEBUG_GLOBAL_ACTIVE_GATE_CALL_CHAIN_TRACE",
+  "scope": "GLOBAL",
+  "candidates": [
+    "core/ai/execution-pipeline/index.js",
+    "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+    "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+    "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "src/control-room/autopilot/SOCAutopilotEngine.js",
+    "src/legacy/ai/execution-pipeline/index.js"
+  ],
+  "traces": [
+    {
+      "candidate": "core/ai/execution-pipeline/index.js",
+      "references": 26,
+      "sampleReferences": [
+        "bootstrap/kernel-generators/build-kernel.js",
+        "bootstrap/kernel-generators/generate-kernel-index.js",
+        "bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "bootstrap/kernel-generators/generate-syscallguard.js",
+        "bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "bootstrap/ws-integration/install-afriai-ws.js",
+        "core/kernel/_enforce/syscallgate.guard.cjs",
+        "core/runtime/kernel.eventbus.cjs",
+        "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+        "modules/afridebug/src/certification/AfriDebugRuntimeValidator.js",
+        "modules/afritick/index.js",
+        "modules/platform/modules/AfriDevStudioPlatformModule.js",
+        "snapshots/current/bootstrap/kernel-generators/build-kernel.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-kernel-index.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-syscallguard.js",
+        "snapshots/current/bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "snapshots/current/bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "snapshots/current/core/kernel/_enforce/syscallgate.guard.js",
+        "snapshots/system/current/core/kernel/_enforce/syscallgate.guard.js",
+        "src/bootstrap/AfriDigitalBootstrap.js",
+        "src/bootstrap/discovery/ProductDiscovery.js",
+        "src/bootstrap/soc.mount.js",
+        "src/cameras/discovery/DiscoveryScanner.js",
+        "src/legacy/bootstrap/entry.lock.cjs"
+      ],
+      "status": "REFERENCED"
+    },
+    {
+      "candidate": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "references": 2,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      ],
+      "status": "REFERENCED"
+    },
+    {
+      "candidate": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "references": 2,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "src/afridebug/platform/governance/AfriDebugExecutionGate.js"
+      ],
+      "status": "REFERENCED"
+    },
+    {
+      "candidate": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "references": 2,
+      "sampleReferences": [
+        "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      ],
+      "status": "REFERENCED"
+    },
+    {
+      "candidate": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "references": 4,
+      "sampleReferences": [
+        "src/control-room/autopilot/index.js",
+        "src/control-room/forensics/ForensicCaseExporter.js",
+        "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+        "src/control-room/response/AutonomousThreatResponseAgent.js"
+      ],
+      "status": "REFERENCED"
+    },
+    {
+      "candidate": "src/legacy/ai/execution-pipeline/index.js",
+      "references": 26,
+      "sampleReferences": [
+        "bootstrap/kernel-generators/build-kernel.js",
+        "bootstrap/kernel-generators/generate-kernel-index.js",
+        "bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "bootstrap/kernel-generators/generate-syscallguard.js",
+        "bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "bootstrap/ws-integration/install-afriai-ws.js",
+        "core/kernel/_enforce/syscallgate.guard.cjs",
+        "core/runtime/kernel.eventbus.cjs",
+        "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+        "modules/afridebug/src/certification/AfriDebugRuntimeValidator.js",
+        "modules/afritick/index.js",
+        "modules/platform/modules/AfriDevStudioPlatformModule.js",
+        "snapshots/current/bootstrap/kernel-generators/build-kernel.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-kernel-index.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-syscallguard-v2.js",
+        "snapshots/current/bootstrap/kernel-generators/generate-syscallguard.js",
+        "snapshots/current/bootstrap/kernel-v2/builders/generate-kernel-index-v2.js",
+        "snapshots/current/bootstrap/kernel-v2/builders/promote-kernel-v2.js",
+        "snapshots/current/core/kernel/_enforce/syscallgate.guard.js",
+        "snapshots/system/current/core/kernel/_enforce/syscallgate.guard.js",
+        "src/bootstrap/AfriDigitalBootstrap.js",
+        "src/bootstrap/discovery/ProductDiscovery.js",
+        "src/bootstrap/soc.mount.js",
+        "src/cameras/discovery/DiscoveryScanner.js",
+        "src/legacy/bootstrap/entry.lock.cjs"
+      ],
+      "status": "REFERENCED"
+    }
+  ],
+  "rule": "Active blocking candidates must be traced to their real execution call chains before contract integration or remediation.",
+  "status": "TRACE_COMPLETE"
+}

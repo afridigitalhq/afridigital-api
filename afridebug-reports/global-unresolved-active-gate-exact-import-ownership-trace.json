@@ -1,0 +1,86 @@
+{
+  "generated": "2026-08-09T09:38:46.764Z",
+  "phase": "AFRIDEBUG_GLOBAL_UNRESOLVED_ACTIVE_GATE_EXACT_IMPORT_OWNERSHIP_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "resolutionMethod": "EXACT_RELATIVE_IMPORT_RESOLUTION",
+  "candidates": [
+    {
+      "target": "core/security/socCommandOrchestrator.js",
+      "exists": true,
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE"
+    },
+    {
+      "target": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "exists": true,
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE"
+    },
+    {
+      "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "exactImporterCount": 1,
+      "exactImporters": [
+        {
+          "importer": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+          "specifier": "../governance/AfriDebugExecutionGate.js",
+          "resolvedTarget": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+          "line": 3
+        }
+      ],
+      "runtimeOwnership": "EXACTLY_REFERENCED"
+    },
+    {
+      "target": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "exists": true,
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE"
+    },
+    {
+      "target": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "exactImporterCount": 4,
+      "exactImporters": [
+        {
+          "importer": "src/control-room/autopilot/index.js",
+          "specifier": "./SOCAutopilotEngine.js",
+          "resolvedTarget": "src/control-room/autopilot/SOCAutopilotEngine.js",
+          "line": 1
+        },
+        {
+          "importer": "src/control-room/forensics/ForensicCaseExporter.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js",
+          "resolvedTarget": "src/control-room/autopilot/SOCAutopilotEngine.js",
+          "line": 3
+        },
+        {
+          "importer": "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js",
+          "resolvedTarget": "src/control-room/autopilot/SOCAutopilotEngine.js",
+          "line": 2
+        },
+        {
+          "importer": "src/control-room/response/AutonomousThreatResponseAgent.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js",
+          "resolvedTarget": "src/control-room/autopilot/SOCAutopilotEngine.js",
+          "line": 3
+        }
+      ],
+      "runtimeOwnership": "EXACTLY_REFERENCED"
+    }
+  ],
+  "decision": "EXACT_RUNTIME_OWNERSHIP_TRACE_COMPLETE",
+  "globalLearning": {
+    "capabilityId": "GLOBAL_EXACT_IMPORT_RUNTIME_OWNERSHIP",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Runtime ownership must be established by resolving actual import specifiers to exact files; basename matching is insufficient.",
+    "reusePolicy": "Every future gate audit must use exact import resolution before classifying a duplicate implementation as active.",
+    "afriaiPolicy": "AfriAI must not infer runtime ownership from matching filenames or directory names."
+  }
+}

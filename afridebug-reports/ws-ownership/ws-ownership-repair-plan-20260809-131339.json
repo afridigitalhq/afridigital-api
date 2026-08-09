@@ -1,0 +1,73 @@
+{
+  "type": "AfriFixRepairPlan",
+  "issue": "websocket-runtime-ownership-fragmentation",
+  "evidenceFile": "afridebug-reports/ws-ownership/ws-ownership-investigation-20260809-131339.txt",
+  "classification": "RUNTIME_OWNERSHIP_ARCHITECTURE_DEFECT",
+  "severity": "HIGH",
+  "confirmedFindings": [
+    {
+      "id": "WS-001",
+      "finding": "Canonical server boot creates a WebSocketServer and then delegates to stream.bridge, which creates another server-attached WebSocketServer.",
+      "locations": [
+        "bootstrap/websocket.boot.js",
+        "core/realtime/ws/stream.bridge.cjs"
+      ],
+      "risk": "duplicate WebSocket ownership on the same HTTP server"
+    },
+    {
+      "id": "WS-002",
+      "finding": "WS Kernel exists but has no live caller from server.js.",
+      "location": "bootstrap/ws-kernel/ws-kernel.js",
+      "risk": "registry/kernel architecture is disconnected from canonical boot"
+    },
+    {
+      "id": "WS-003",
+      "finding": "Multiple /ws/afriai constructors exist.",
+      "locations": [
+        "core/afriai/ws/afriai.ws.js",
+        "core/afriai/ws/afriai.stream.js",
+        "bootstrap/ws-v2/output/ws-gateway.js"
+      ],
+      "risk": "route ownership ambiguity and possible duplicate upgrade handling"
+    },
+    {
+      "id": "WS-004",
+      "finding": "stream.bridge contains unreachable broadcast attachment after return wss.",
+      "location": "core/realtime/ws/stream.bridge.cjs",
+      "risk": "diff throttle integration never attaches"
+    },
+    {
+      "id": "WS-005",
+      "finding": "AfriAI websocket modules are registration-capable but live mounting has not been established.",
+      "locations": [
+        "core/afriai/ws/afriai.ws.js",
+        "core/afriai/ws/afriai.stream.js"
+      ],
+      "risk": "registration mistaken for runtime ownership"
+    }
+  ],
+  "repairConstraints": [
+    "Do not delete legacy or generated WS implementations before reachability classification.",
+    "Preserve unrelated working-tree changes.",
+    "Establish exactly one canonical server-attached WebSocket ownership layer.",
+    "Establish exactly one canonical /ws/afriai route owner.",
+    "Move registry/kernel integration into the live boot chain only after verifying service contracts.",
+    "Fix unreachable broadcast attachment without changing unrelated behavior.",
+    "Require syntax verification before runtime verification.",
+    "Require runtime verification after repair.",
+    "Generate evidence before commit."
+  ],
+  "proposedPhases": [
+    "TRACE",
+    "CLASSIFY",
+    "PLAN",
+    "PATCH",
+    "SYNTAX_VERIFY",
+    "RUNTIME_VERIFY",
+    "EVIDENCE",
+    "HUMAN_APPROVAL",
+    "COMMIT"
+  ],
+  "approvalRequired": true,
+  "automaticPatchAuthorized": false
+}

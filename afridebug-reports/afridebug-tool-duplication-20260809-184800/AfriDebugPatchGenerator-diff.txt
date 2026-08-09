@@ -1,0 +1,119 @@
+--- modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js	2026-08-09 17:28:42.689332348 +0100
++++ modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js	2026-08-05 20:05:32.479229816 +0100
+@@ -1,113 +1,7 @@
+-const AfriDebugPatchGenerator = {
+-
+-  generate(input = {}) {
+-
+-    const recommendation = input.recommendation || {};
+-    const repairPlan = input.repairPlan || {};
+-
+-    const findings = Array.isArray(repairPlan.confirmedFindings)
+-      ? repairPlan.confirmedFindings
+-      : [];
+-
+-    const affectedFiles = [...new Set(
+-      findings.flatMap(f => [
+-        ...(Array.isArray(f.locations) ? f.locations : []),
+-        ...(Array.isArray(f.files) ? f.files : []),
+-        ...(Array.isArray(f.affectedFiles) ? f.affectedFiles : []),
+-        ...(typeof f.location === "string" ? [f.location] : [])
+-      ])
+-    )];
+-
+-    const actionMap = {
+-      "WS-001": "CANONICALIZE_SERVER_WS_OWNER",
+-      "WS-002": "WIRE_WS_KERNEL_INTO_LIVE_BOOT",
+-      "WS-003": "CANONICALIZE_AFRIAI_WS_ROUTE_OWNER",
+-      "WS-004": "REPAIR_UNREACHABLE_BROADCAST_ATTACHMENT",
+-      "WS-005": "ESTABLISH_AFRIAI_RUNTIME_MOUNT"
+-    };
+-
+-    const findingOperations = findings.map(f => ({
+-      action: "REPAIR_FINDING",
+-      findingId: f.id || null,
+-      repairAction: actionMap[f.id] || "TARGETED_RUNTIME_REPAIR",
+-      target:
+-        f.locations ||
+-        f.files ||
+-        f.affectedFiles ||
+-        (f.location ? [f.location] : []),
+-      risk: f.risk || null,
+-      description: f.finding || f.description || ""
+-    }));
+-
+-    return {
+-
+-      patchId: `PATCH-${Date.now()}`,
+-
+-      strategy:
+-        input.patchStrategy ||
+-        "TARGETED_RUNTIME_REPAIR",
+-
+-      issue:
+-        input.issue || "",
+-
+-      diagnosis:
+-        input.diagnosis || "",
+-
+-      source:
+-        input.source ||
+-        "AfriDebugRepairPlanningEngine",
+-
+-      recommendation,
+-
+-      repairPlan,
+-
+-      affectedFiles,
+-
+-      findings:
+-        findings.map(f => f.id).filter(Boolean),
+-
+-      operations: [
+-        {
+-          action: "INSPECT",
+-          target:
+-            recommendation.issue ||
+-            input.issue ||
+-            ""
+-        },
+-
+-        ...findingOperations,
+-
+-        {
+-          action: "PATCH",
+-          description:
+-            recommendation.resolution ||
+-            "Generate finding-aware runtime repair"
+-        }
+-      ],
+-
+-      requiresHumanApproval: true,
+-
+-      approvalStatus:
+-        "HUMAN_APPROVAL_REQUIRED",
+-
+-      status:
+-        "PROPOSED",
+-
+-      generatedAt:
+-        Date.now()
+-    };
+-
+-  },
+-
+-  health() {
+-
+-    return {
+-      service: "AfriDebugPatchGenerator",
+-      status: "healthy"
+-    };
+-
++const AfriDebugPatchGenerator={
++  generate(issue){
++    return {issue,status:"PATCH_GENERATED"};
+   }
+-
+ };
+ 
+ export default AfriDebugPatchGenerator;

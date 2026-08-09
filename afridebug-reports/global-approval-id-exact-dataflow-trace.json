@@ -1,0 +1,122 @@
+{
+  "generated": "2026-08-09T10:06:20.133Z",
+  "phase": "AFRIDEBUG_APPROVAL_ID_DATAFLOW_EXACT_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "gate": {
+    "bridgeArgument": "input",
+    "receivesApprovalId": true,
+    "constructsApprovalId": true,
+    "passesWholeInput": true
+  },
+  "bridge": {
+    "receivesInputApprovalId": true,
+    "constructsApprovalId": true,
+    "passesApprovalIdToController": true,
+    "controllerCall": "Controller.execute({\n\n        incidentId:\n          input.incidentId,\n\n        issue:\n          plan.issue,\n\n        files:\n          plan.files,\n\n        action:\n          plan.action,\n\n        tests:\n          input.tests || [],\n\n        version:\n          input.version || \"v1.0\"\n\n      })"
+  },
+  "controller": {
+    "referencesApprovalId": false,
+    "referencesApproval": true,
+    "executionMethod": true
+  },
+  "evidence": {
+    "gateApprovalRefs": [
+      {
+        "line": 1,
+        "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+      },
+      {
+        "line": 9,
+        "text": "const approval ="
+      },
+      {
+        "line": 13,
+        "text": "item.approvalId === input.approvalId"
+      },
+      {
+        "line": 17,
+        "text": "if(!approval || approval.status !== \"approved\"){"
+      },
+      {
+        "line": 21,
+        "text": "technicalReason:\"Approved repair authorization was not found for the supplied approvalId.\","
+      },
+      {
+        "line": 22,
+        "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+      },
+      {
+        "line": 23,
+        "text": "evidenceReference:`approvalId:${input.approvalId || \"MISSING\"}`,"
+      },
+      {
+        "line": 24,
+        "text": "requiredAction:\"Obtain valid human approval before repair execution.\","
+      },
+      {
+        "line": 33,
+        "text": "Bridge.execute(input);"
+      },
+      {
+        "line": 40,
+        "text": "approval,"
+      }
+    ],
+    "bridgeApprovalRefs": [
+      {
+        "line": 3,
+        "text": "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";"
+      },
+      {
+        "line": 11,
+        "text": "const approval ="
+      },
+      {
+        "line": 13,
+        "text": "item => item.approvalId === input.approvalId"
+      },
+      {
+        "line": 16,
+        "text": "if(!approval || approval.status !== \"approved\"){"
+      },
+      {
+        "line": 32,
+        "text": "Controller.execute({"
+      },
+      {
+        "line": 57,
+        "text": "approvalId: input.approvalId,"
+      }
+    ],
+    "controllerApprovalRefs": [
+      {
+        "line": 9,
+        "text": "execute(input={}){"
+      },
+      {
+        "line": 18,
+        "text": "const approval = PatchRuntime.approve(patch.id);"
+      },
+      {
+        "line": 21,
+        "text": "if(!approval.success){"
+      },
+      {
+        "line": 25,
+        "text": "reason:\"PATCH_APPROVAL_FAILED\""
+      },
+      {
+        "line": 48,
+        "text": "approvalStatus:\"pending\""
+      }
+    ]
+  },
+  "safety": {
+    "patchAllowed": false,
+    "afrifixAllowed": false
+  },
+  "decision": "APPROVAL_ID_DATAFLOW_REQUIRES_DEEPER_CONTROLLER_TRACE"
+}

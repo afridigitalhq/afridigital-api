@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-08-09T11:20:14.032Z",
+  "parentPlatform": "AfriDigital",
+  "workspace": "AfriDesign Studio",
+  "sourceReport": "global-afridesign-existing-product-inventory.json",
+  "canonicalProducts": [
+    {
+      "order": 1,
+      "name": "AfriAI",
+      "type": "core-developer-platform",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 2,
+      "name": "AfriDebug",
+      "type": "core-developer-platform",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 3,
+      "name": "AfriFix",
+      "type": "core-developer-platform",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 4,
+      "name": "AfriScan",
+      "type": "core-developer-platform",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 5,
+      "name": "AfriNucChain",
+      "type": "core-developer-platform",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 6,
+      "name": "AfriDesign",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 7,
+      "name": "AfriBuild",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 8,
+      "name": "AfriCode",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 9,
+      "name": "AfriApp",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 10,
+      "name": "AfriUI",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 11,
+      "name": "AfriGraphics",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 12,
+      "name": "AfriVideo",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    },
+    {
+      "order": 13,
+      "name": "AfriTemplate",
+      "type": "developer-studio-product",
+      "status": "DISCOVERED",
+      "descriptionStatus": "PENDING",
+      "identity": "PRODUCT_OF_AFRIDESIGN_STUDIO",
+      "parentPlatform": "AfriDigital"
+    }
+  ],
+  "normalizationRules": {
+    "caseVariantsMerged": true,
+    "legacySignalsSeparated": true,
+    "duplicateNamesNotCountedAsProducts": true
+  },
+  "architecture": {
+    "standaloneFrontend": true,
+    "sharedBackend": "AfriDigital-api",
+    "sharedAI": "AfriAI",
+    "mainEcosystem": "AfriDigital-hub"
+  },
+  "decision": "🟡 NORMALIZED_PRODUCT_CANDIDATES_DISCOVERED_READY_FOR_DETAILED_PRODUCT_CAPABILITY_AUDIT"
+}

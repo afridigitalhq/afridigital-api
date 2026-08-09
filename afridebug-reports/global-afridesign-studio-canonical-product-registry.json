@@ -1,0 +1,195 @@
+{
+  "schema": "afridesign-studio.product-registry.v1",
+  "parentPlatform": "AfriDigital",
+  "frontend": "AfriDesign-Studio",
+  "ecosystemFrontend": "AfriDigital-hub",
+  "sharedBackend": {
+    "name": "AfriDigital-api",
+    "url": "https://afridigital-api.onrender.com"
+  },
+  "sharedAI": "AfriAI",
+  "experiences": {
+    "landing": "/",
+    "auth": "/auth",
+    "mainApp": "/app",
+    "admin": "/admin"
+  },
+  "boundaries": {
+    "paystackProductBoundary": "AfriDigital-hub-only",
+    "humanApprovalRequired": true,
+    "patchAuthorization": false
+  },
+  "workflow": [
+    "AfriScan",
+    "AfriDebug",
+    "AfriFix",
+    "HumanApproval",
+    "AfriNucChain",
+    "Verification",
+    "Evidence",
+    "Delivery"
+  ],
+  "products": [
+    {
+      "id": "afriai",
+      "name": "AfriAI",
+      "category": "intelligence",
+      "role": "Shared intelligence assistant and AI orchestration layer",
+      "status": "confirmed"
+    },
+    {
+      "id": "afridebug",
+      "name": "AfriDebug",
+      "category": "engineering-reliability",
+      "role": "Repository investigation, diagnosis, debugging and evidence generation",
+      "status": "confirmed"
+    },
+    {
+      "id": "afrifix",
+      "name": "AfriFix",
+      "category": "engineering-reliability",
+      "role": "Remediation planning, repair preparation and controlled fix workflows",
+      "status": "confirmed"
+    },
+    {
+      "id": "afriscan",
+      "name": "AfriScan",
+      "category": "engineering-reliability",
+      "role": "Repository, architecture, dependency and runtime inspection",
+      "status": "confirmed"
+    },
+    {
+      "id": "afrinucchain",
+      "name": "AfriNucChain",
+      "category": "engineering-reliability",
+      "role": "Approved execution, verification, artifact generation and audit chaining",
+      "status": "confirmed"
+    },
+    {
+      "id": "afridesign",
+      "name": "AfriDesign",
+      "category": "design-creation",
+      "role": "Design workspace and creative production orchestration",
+      "status": "confirmed"
+    },
+    {
+      "id": "afribuild",
+      "name": "AfriBuild",
+      "category": "design-creation",
+      "role": "Build-oriented development workspace",
+      "status": "architectural"
+    },
+    {
+      "id": "africode",
+      "name": "AfriCode",
+      "category": "design-creation",
+      "role": "Code creation and development workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afriapp",
+      "name": "AfriApp",
+      "category": "design-creation",
+      "role": "Application development workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afriui",
+      "name": "AfriUI",
+      "category": "design-creation",
+      "role": "UI and interface design workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afrigraphics",
+      "name": "AfriGraphics",
+      "category": "design-creation",
+      "role": "Graphics creation workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afrivideo",
+      "name": "AfriVideo",
+      "category": "design-creation",
+      "role": "Video creation workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afritemplate",
+      "name": "AfriTemplate",
+      "category": "design-creation",
+      "role": "Template creation and reusable asset workspace",
+      "status": "confirmed"
+    },
+    {
+      "id": "afritest",
+      "name": "AfriTest",
+      "category": "engineering-reliability",
+      "role": "Testing and validation workflow surface",
+      "status": "architectural"
+    },
+    {
+      "id": "afrideploy",
+      "name": "AfriDeploy",
+      "category": "engineering-reliability",
+      "role": "Deployment workflow surface",
+      "status": "architectural"
+    },
+    {
+      "id": "afrimonitor",
+      "name": "AfriMonitor",
+      "category": "engineering-reliability",
+      "role": "Runtime monitoring and operational visibility",
+      "status": "architectural"
+    },
+    {
+      "id": "afridocs",
+      "name": "AfriDocs",
+      "category": "developer-services",
+      "role": "Developer documentation workspace",
+      "status": "historical-signal"
+    },
+    {
+      "id": "africli",
+      "name": "AfriCLI",
+      "category": "developer-services",
+      "role": "Developer command-line tooling",
+      "status": "historical-signal"
+    },
+    {
+      "id": "afrisdk",
+      "name": "AfriSDK",
+      "category": "developer-services",
+      "role": "Developer SDK surface",
+      "status": "architectural"
+    },
+    {
+      "id": "afriapi",
+      "name": "AfriAPI",
+      "category": "developer-services",
+      "role": "API developer surface",
+      "status": "historical-signal"
+    },
+    {
+      "id": "afrigit",
+      "name": "AfriGit",
+      "category": "developer-services",
+      "role": "Git and repository workflow surface",
+      "status": "historical-signal"
+    },
+    {
+      "id": "africontainer",
+      "name": "AfriContainer",
+      "category": "developer-services",
+      "role": "Containerized development and execution surface",
+      "status": "historical-signal"
+    },
+    {
+      "id": "afriops",
+      "name": "AfriOps",
+      "category": "developer-services",
+      "role": "Developer operations workflow surface",
+      "status": "historical-signal"
+    }
+  ]
+}

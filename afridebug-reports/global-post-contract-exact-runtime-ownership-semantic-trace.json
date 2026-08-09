@@ -1,0 +1,366 @@
+{
+  "generated": "2026-08-09T09:46:32.302Z",
+  "phase": "AFRIDEBUG_GLOBAL_POST_CONTRACT_PATCH_EXACT_RUNTIME_OWNERSHIP_AND_SEMANTIC_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "sourceReport": "afridebug-reports/global-post-contract-patch-recursive-gate-regression.json",
+  "candidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "semanticSignals": [
+        {
+          "line": 19,
+          "text": "return {"
+        },
+        {
+          "line": 30,
+          "text": "status: \"PENDING_APPROVAL\""
+        },
+        {
+          "line": 41,
+          "text": "return {"
+        },
+        {
+          "line": 42,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 59,
+          "text": "return {"
+        },
+        {
+          "line": 60,
+          "text": "status: \"EXECUTED\","
+        },
+        {
+          "line": 73,
+          "text": "return {"
+        }
+      ],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE",
+      "decision": "NO_PROVEN_RUNTIME_OWNERSHIP"
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "semanticSignals": [
+        {
+          "line": 6,
+          "text": "return {"
+        },
+        {
+          "line": 19,
+          "text": "return { allowed: false, reason: \"QUORUM_NOT_MET\" };"
+        },
+        {
+          "line": 21,
+          "text": "return { allowed: true };"
+        },
+        {
+          "line": 38,
+          "text": "return { status: \"BLOCKED\", decision };"
+        },
+        {
+          "line": 43,
+          "text": "return {"
+        },
+        {
+          "line": 44,
+          "text": "status: \"ROUTED\","
+        }
+      ],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE",
+      "decision": "NO_PROVEN_RUNTIME_OWNERSHIP"
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "semanticSignals": [
+        {
+          "line": 21,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 26,
+          "text": "return { error: validation.reason };"
+        },
+        {
+          "line": 30,
+          "text": "const result = await this.sandbox.execute(command);"
+        },
+        {
+          "line": 35,
+          "text": "status: \"EXECUTED\","
+        }
+      ],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE",
+      "decision": "NO_PROVEN_RUNTIME_OWNERSHIP"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "semanticSignals": [
+        {
+          "line": 12,
+          "text": "const approval ="
+        },
+        {
+          "line": 13,
+          "text": "ApprovalGate.canDeliver(input.approvalId);"
+        },
+        {
+          "line": 16,
+          "text": "if (!approval.allowed) {"
+        },
+        {
+          "line": 18,
+          "text": "return {"
+        },
+        {
+          "line": 19,
+          "text": "status:\"BLOCKED\","
+        },
+        {
+          "line": 20,
+          "text": "approval"
+        },
+        {
+          "line": 27,
+          "text": "Delivery.execute({"
+        },
+        {
+          "line": 53,
+          "text": "details:\"Delivery released after human approval\""
+        },
+        {
+          "line": 91,
+          "text": "return {"
+        },
+        {
+          "line": 93,
+          "text": "status:\"DELIVERY_READY\","
+        },
+        {
+          "line": 97,
+          "text": "approval,"
+        },
+        {
+          "line": 110,
+          "text": "return {"
+        },
+        {
+          "line": 112,
+          "text": "status:\"healthy\""
+        }
+      ],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE",
+      "decision": "NO_PROVEN_RUNTIME_OWNERSHIP"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "exactImporterCount": 1,
+      "exactImporters": [
+        {
+          "importer": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+          "specifier": "../integration/execution/AfriDebugRepairExecutionBridge.js"
+        }
+      ],
+      "semanticSignals": [
+        {
+          "line": 3,
+          "text": "import Approval from \"../../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 9,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 11,
+          "text": "const approval ="
+        },
+        {
+          "line": 13,
+          "text": "item => item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 17,
+          "text": "return {"
+        },
+        {
+          "line": 18,
+          "text": "bridgeStatus:\"blocked\","
+        },
+        {
+          "line": 32,
+          "text": "Controller.execute({"
+        },
+        {
+          "line": 57,
+          "text": "approvalId: input.approvalId,"
+        },
+        {
+          "line": 72,
+          "text": "status: execution.status"
+        },
+        {
+          "line": 75,
+          "text": "return {"
+        },
+        {
+          "line": 85,
+          "text": "bridgeStatus:\"executed\""
+        },
+        {
+          "line": 94,
+          "text": "return {"
+        },
+        {
+          "line": 98,
+          "text": "status:\"healthy\""
+        }
+      ],
+      "runtimeOwnership": "EXACTLY_REFERENCED",
+      "decision": "REQUIRES_RUNTIME_SEMANTIC_REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "exactImporterCount": 0,
+      "exactImporters": [],
+      "semanticSignals": [
+        {
+          "line": 5,
+          "text": "execute(input = {}) {"
+        },
+        {
+          "line": 8,
+          "text": "return {"
+        },
+        {
+          "line": 9,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 10,
+          "text": "reason: \"Human approval required\""
+        },
+        {
+          "line": 15,
+          "text": "return {"
+        },
+        {
+          "line": 16,
+          "text": "status: \"FAILED\","
+        },
+        {
+          "line": 24,
+          "text": "status: \"EXECUTED\","
+        },
+        {
+          "line": 40,
+          "text": "return {"
+        },
+        {
+          "line": 43,
+          "text": "status: \"healthy\""
+        }
+      ],
+      "runtimeOwnership": "NO_EXACT_STATIC_IMPORT_REFERENCE",
+      "decision": "NO_PROVEN_RUNTIME_OWNERSHIP"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exactImporterCount": 4,
+      "exactImporters": [
+        {
+          "importer": "src/control-room/autopilot/index.js",
+          "specifier": "./SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/forensics/ForensicCaseExporter.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/orchestrator/SOCDecisionOrchestrator.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        },
+        {
+          "importer": "src/control-room/response/AutonomousThreatResponseAgent.js",
+          "specifier": "../autopilot/SOCAutopilotEngine.js"
+        }
+      ],
+      "semanticSignals": [
+        {
+          "line": 49,
+          "text": "if (!guard.allowed || policy?.blocked) {"
+        },
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 61,
+          "text": "status: \"EXECUTED\","
+        }
+      ],
+      "runtimeOwnership": "EXACTLY_REFERENCED",
+      "decision": "REQUIRES_RUNTIME_SEMANTIC_REVIEW"
+    },
+    {
+      "file": "src/core/afridebug/contracts/BlockExplanationContract.js",
+      "exactImporterCount": 2,
+      "exactImporters": [
+        {
+          "importer": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+          "specifier": "../../../../../src/core/afridebug/contracts/BlockExplanationContract.js"
+        },
+        {
+          "importer": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+          "specifier": "../../../core/afridebug/contracts/BlockExplanationContract.js"
+        }
+      ],
+      "semanticSignals": [
+        {
+          "line": 20,
+          "text": "if (response.status !== \"BLOCKED\") {"
+        },
+        {
+          "line": 21,
+          "text": "errors.push(\"status_must_be_BLOCKED\");"
+        },
+        {
+          "line": 28,
+          "text": "return {"
+        },
+        {
+          "line": 36,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 55,
+          "text": "return {"
+        }
+      ],
+      "runtimeOwnership": "EXACTLY_REFERENCED",
+      "decision": "REQUIRES_RUNTIME_SEMANTIC_REVIEW"
+    }
+  ],
+  "globalLearning": {
+    "capabilityId": "GLOBAL_POST_CONTRACT_EXACT_RUNTIME_OWNERSHIP_TRACE",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "After recursive contract regression, every unresolved candidate must be resolved by exact imports before semantic patch eligibility is considered.",
+    "reusePolicy": "Never patch a BLOCKED signal without proving executable runtime ownership and execution-boundary semantics.",
+    "afriaiPolicy": "AfriAI must preserve AfriFix denial until every referenced blocking boundary is semantically reviewed."
+  },
+  "decision": "EXACT_RUNTIME_OWNERSHIP_FOUND_REVIEW_REFERENCED_CANDIDATES"
+}

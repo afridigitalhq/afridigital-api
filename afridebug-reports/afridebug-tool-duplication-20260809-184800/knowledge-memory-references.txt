@@ -1,0 +1,12 @@
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:6:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:8:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:21:const AfriDebugKnowledgeMemory = {
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:82:      service:"AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js:92:export default AfriDebugKnowledgeMemory;
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeReinforcementBridge.js:1:import KnowledgeMemory from "./AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js:43:        "AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:1:import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:42:        "AfriDebugKnowledgeMemory",
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:64:          "AfriDebugKnowledgeMemory"
+modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js:2:import KnowledgeMemory from "../../debug/memory/AfriDebugKnowledgeMemory.js";
+modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js:34:      "AfriDebugKnowledgeMemory",

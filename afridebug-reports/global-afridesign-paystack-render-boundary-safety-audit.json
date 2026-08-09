@@ -1,0 +1,1165 @@
+{
+  "generated": "2026-08-09T10:46:06.796Z",
+  "phase": "AFRIDESIGN_PAYSTACK_RENDER_BOUNDARY_SAFETY_AUDIT",
+  "scope": "GLOBAL",
+  "architectureChange": "TWO_FRONTENDS_ONE_SHARED_BACKEND",
+  "existingFrontend": "AfriDigital-hub",
+  "newFrontend": "AfriDesign Studio",
+  "canonicalBackend": "AfriDigital-api",
+  "paystackBoundary": "AUDIT_ONLY",
+  "renderBoundary": "AUDIT_ONLY",
+  "hits": [
+    {
+      "file": "bootstrap/cli/deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/control-plane/physics/flow.physics.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/deploy-hook/render.deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/flowgraph3d/flowgraph.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/flowgraph3d/webgl/engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/integrations/whatsapp-afriai/index.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/telemetry/neural.cortex.flow.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/ui-server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "core/whatsapp-ci/router.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "deploy_logs/DEPLOY_RESULT.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/AfriDigital-api/core/notify/slack.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "dist/api/AfriDigital-api/core/whatsapp-ci/pr.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/control-plane/physics/flow.physics.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/deploy-hook/render.deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/flowgraph3d/flowgraph.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/flowgraph3d/webgl/engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/integrations/whatsapp-afriai/index.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/realtime/ws/stream.bridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/telemetry/neural.cortex.flow.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/ui-server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/core/whatsapp-ci/router.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/api/services/webhook.service.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "dist/kernel/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/channels/AfriDebugWhatsAppWebhookSecurityGuard.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriWebConnectorCertificationTest.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriWhatsAppConnectorCertificationTest.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/canvas-selection-overlay/CanvasObjectRenderer.before.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/canvas/CanvasGuideOverlay.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/canvas/CanvasRenderer.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/canvas/MeasurementOverlay.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/canvas/ResizeHandles.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/canvas/ResizeMeasurementOverlay.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/canvas/layers/CanvasObjectRenderer.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/canvas/workspace/CanvasWorkspace.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/canvas/layers/CanvasObjectRenderer.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/canvas/workspace/CanvasWorkspace.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/router/WorkspaceModeRouter.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/router/WorkspaceModeRouter.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/architecture-work/workspace-controller/snapshot/legacy/WorkspaceModeRouter.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/main.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/platform/ai/services/AfriAIService.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/platform/canvas/layers/CanvasObjectRenderer.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/platform/canvas/workspace/CanvasWorkspace.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/platform/router/PlatformWorkspaceRouter.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridesign/src/platform/workspace/router/WorkspaceModeRouter.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afridev/products/afridebug/intake/AfriDebugRenderConnector.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/afriwhatsapp/parsers/AfriWhatsAppWebhookParser.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppProviderGateway.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppProviderStatus.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppWebhookHandler.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/core/events/CoreWebhookManager.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "modules/core/knowledge/CoreKnowledgeEngine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "modules/core/registry/CoreServiceRegistry.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/bootstrap/cli/deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/control-plane/physics/flow.physics.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/deploy-hook/render.deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/flowgraph3d/flowgraph.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/flowgraph3d/webgl/engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/integrations/whatsapp-afriai/index.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/realtime/ws/stream.bridge.backup.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/realtime/ws/stream.bridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/telemetry/neural.cortex.flow.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/ui-server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/current/core/whatsapp-ci/router.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/control-plane/physics/flow.physics.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/deploy-hook/render.deploy.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/flowgraph3d/flowgraph.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/flowgraph3d/webgl/engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/integrations/whatsapp-afriai/index.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/deploy/hardening/HARDENING_GATE.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/control/cockpit/live.cockpit.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/control/fault/fault.overlay.hud.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/control/forecast/control.forecast.ui.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/control/ws/dashboard.ws.feed.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/os/control.shell.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/ui/DashboardBridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/interface/ui/renderer/dashboard.renderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/kernel.contract.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/registry.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/realtime/ws/stream.bridge.backup.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/realtime/ws/stream.bridge.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/telemetry/neural.cortex.flow.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/ui-server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "snapshots/system/current/core/whatsapp-ci/router.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "soc-ui/src/components/DAGView.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "soc-ui/src/gl/dag/GlowingDagRenderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "soc-ui/src/godmode/render/webgl/GodModeRenderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "soc-ui/src/warroom/SOCCockpitWarRoom.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/africctv/deployment/render/RenderRuntime.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/africctv/deployment/render/RenderRuntime.validate.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/africctv/governance/AfriCCTVArchitectureLock.json",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/africctv/infrastructure/orchestrator/InfrastructureLifecycleOrchestrator.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/afriscan/bootstrap/index.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/api/AfriAIClient.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/api/api.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/api/gateway/afriwhatsapp/afriwhatsapp.route.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "src/api/gateway/whatsapp-debug.route.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "src/clients/client.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/control-room/dashboard/SOCDashboardAPI.js",
+      "paystack": false,
+      "render": false,
+      "webhook": false,
+      "callback": true
+    },
+    {
+      "file": "src/control-room/engines/GodModeDAG.jsx",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/control-room/event-bus/SOCEventBus.js",
+      "paystack": false,
+      "render": false,
+      "webhook": false,
+      "callback": true
+    },
+    {
+      "file": "src/core/observability/AfriStatusRenderer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/core/observability/index.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/events/EventBus.js",
+      "paystack": false,
+      "render": false,
+      "webhook": false,
+      "callback": true
+    },
+    {
+      "file": "src/legacy/africore/gateway/webhook.gateway.js",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/afridigital-core/kernel/v20/locks/stream.ownership.json",
+      "paystack": false,
+      "render": false,
+      "webhook": true,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/control-plane/physics/flow.physics.engine.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/core/rest/api.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/telemetry/neural.cortex.flow.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/ui-server.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/legacy/ws/client.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    },
+    {
+      "file": "src/realtime/EventBusServer.js",
+      "paystack": false,
+      "render": true,
+      "webhook": false,
+      "callback": false
+    }
+  ],
+  "guardrails": [
+    "Do not rename AfriDigital-hub deployment",
+    "Do not alter Paystack environment variable names",
+    "Do not alter payment callback/webhook contracts",
+    "Do not replace AfriDigital-api",
+    "Do not move payment logic into AfriDesign Studio",
+    "Do not deploy architecture changes until boundary verification passes"
+  ],
+  "patchAllowed": false,
+  "humanApprovalRequired": true,
+  "decision": "PAYSTACK_RENDER_BOUNDARY_AUDIT_COMPLETE_ARCHITECTURE_CHANGE_MUST_PRESERVE_EXISTING_PAYMENT_CONTRACTS"
+}

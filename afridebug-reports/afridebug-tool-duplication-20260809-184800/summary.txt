@@ -1,0 +1,103 @@
+=== AFRIDEBUG TOOL MODE: DUPLICATION OWNERSHIP AUDIT ===
+TARGET=AfriDigital-api
+FRONTEND=https://afridigital-hub.onrender.com
+BACKEND=https://afridigital-api.onrender.com
+FMDASH=DISABLED
+
+=== AfriDebugOrchestrator ===
+A=modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js
+B=modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js
+56f38d7df82a8e36746d2e7dcff6c575359e63656f3b85d665edb03a64f877e5
+b56f487f167b568f912ae5b4e48b035dc5e4b049d940cac3dd29ca776796de05
+1
+239
+IDENTICAL=NO
+IMPORT REFERENCES:
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:16:const AfriDebugOrchestrator = {
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:32:      actor:"AfriDebugOrchestrator",
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:239:export default AfriDebugOrchestrator;
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:15:const AfriDebugOrchestrator = {
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:31:      actor:"AfriDebugOrchestrator",
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js:194:export default AfriDebugOrchestrator;
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:51:      service:"AfriDebugOrchestrator",
+
+=== AfriDebugPatchGenerator ===
+A=modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js
+B=modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js
+cb4437439cd0559188311b9ef778a907cfc566961148aed79d53bbfafeaa6261
+bedd846e964446afe2b5fd51a9c7eefd51464553391e3d98c8351614416f8eb6
+113
+7
+IDENTICAL=NO
+IMPORT REFERENCES:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:1:const AfriDebugPatchGenerator = {
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:105:      service: "AfriDebugPatchGenerator",
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:113:export default AfriDebugPatchGenerator;
+modules/afridev/products/afridebug/runtime/AfriDebugInvestigationRuntime.js:8:import AfriDebugPatchGenerator from "../patch/AfriDebugPatchGenerator.js";
+modules/afridev/products/afridebug/runtime/AfriDebugInvestigationRuntime.js:42:    const patch=AfriDebugPatchGenerator.generate(plan);
+modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js:1:const AfriDebugPatchGenerator={
+modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js:7:export default AfriDebugPatchGenerator;
+
+=== AfriDebugExecutionGate ===
+A=modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js
+B=src/afridebug/platform/governance/AfriDebugExecutionGate.js
+9c9c427e79a02c38981f35ee036952bf0179d9c0ba37b4e1abaefc5bf652a850
+e68b6239f304fb6eeb1ba2ec20b632dc239edd427c060f104562bb6b62e39f02
+1
+121
+IDENTICAL=NO
+IMPORT REFERENCES:
+modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js:1:export { default } from "../../../../../src/afridebug/platform/governance/AfriDebugExecutionGate.js";
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:8:const AfriDebugExecutionGate = {
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:82:      actor:"AfriDebugExecutionGate"
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:106:      service:"AfriDebugExecutionGate",
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:121:export default AfriDebugExecutionGate;
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:3:import Gate from "../governance/AfriDebugExecutionGate.js";
+
+=== AfriDebugRepairApprovalQueue ===
+A=modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js
+B=src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js
+4fa80c3dfef564147b2f474222efcabfd52440423727c2271b7ea351d0cce774
+f1e4342017c5d1bff28af2ad70a02dd818e8c6a4ae790837ae8aa611107ecf49
+1
+160
+IDENTICAL=NO
+IMPORT REFERENCES:
+modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js:1:export { default } from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:3:import Approval from "../../approval/AfriDebugRepairApprovalQueue.js";
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:7:const AfriDebugRepairApprovalQueue = {
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:60:        "AfriDebugRepairApprovalQueue"
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:118:        "AfriDebugRepairApprovalQueue"
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:145:      service:"AfriDebugRepairApprovalQueue",
+src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js:160:export default AfriDebugRepairApprovalQueue;
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:1:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js:2:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js:1:import Queue from "../approval/AfriDebugRepairApprovalQueue.js";
+
+=== AfriDebugRepairExecutionBridge ===
+A=modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js
+B=src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js
+0217839457332a6a7dcac6becba45c83d0aa044df6c98e1fec53411de532431e
+b99721ca7ca53f801e37c20a3a52b9c7267d18f09e83a3b70a5b6200bc514683
+107
+114
+IDENTICAL=NO
+IMPORT REFERENCES:
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:7:const AfriDebugRepairExecutionBridge = {
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:96:      service:"AfriDebugRepairExecutionBridge",
+modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js:107:export default AfriDebugRepairExecutionBridge;
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:5:const AfriDebugRepairExecutionBridge = {
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:100:        "AfriDebugRepairExecutionBridge",
+src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js:114:export default AfriDebugRepairExecutionBridge;
+src/afridebug/platform/governance/AfriDebugExecutionGate.js:2:import Bridge from "../integration/execution/AfriDebugRepairExecutionBridge.js";
+
+=== KNOWLEDGE MEMORY OWNERSHIP ===

@@ -1,0 +1,285 @@
+{
+  "generated": "2026-08-09T09:15:05.253Z",
+  "phase": "AFRIDEBUG_GLOBAL_RECURSIVE_GATE_COVERAGE_AUDIT",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "contract": {
+    "path": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "exists": true
+  },
+  "scan": {
+    "filesScanned": 4281,
+    "executableBlockCandidates": 17,
+    "unintegratedExecutableCandidates": 16
+  },
+  "executableBlockCandidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/core/governance/block-explanation/block-explanation.contract.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "AFRIFIX_PERMISSION",
+        "REASON_CODE",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": true
+    },
+    {
+      "file": "src/legacy/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    }
+  ],
+  "unintegratedExecutableCandidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "snapshots/system/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    },
+    {
+      "file": "src/legacy/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false
+    }
+  ],
+  "decision": "BLOCKED_UNINTEGRATED_GATE_DETECTED",
+  "afrifixAllowed": false,
+  "globalLearning": {
+    "capabilityId": "GLOBAL_GATE_BLOCK_EXPLANATION_COVERAGE",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Executable blocking gates must be recursively discovered and must consume the canonical BlockExplanationContract.",
+    "reusePolicy": "Future AfriDebug jobs must apply this gate-coverage capability before AfriFix approval.",
+    "afriaiPolicy": "AfriAI must explain every blocked or unverified state and must never convert missing gate evidence into approval."
+  },
+  "status": "AUDIT_COMPLETE"
+}

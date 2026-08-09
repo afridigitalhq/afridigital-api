@@ -1,0 +1,40 @@
+{
+  "generated": "2026-08-09T09:11:42.632Z",
+  "phase": "AFRIDEBUG_GLOBAL_GATE_DISCOVERY_AND_BLOCK_EXPLANATION_VERIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "contract": {
+    "path": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "exists": true
+  },
+  "discovery": {
+    "filesScanned": 5,
+    "gateFilesDetected": 1,
+    "integrationGaps": 0
+  },
+  "gateFiles": [
+    {
+      "file": "src/core/governance/block-explanation/block-explanation.contract.js",
+      "signals": [
+        "afrifixAllowed",
+        "status\\s*[:=]\\s*[\"']BLOCKED[\"']",
+        "reasonCode"
+      ],
+      "consumesBlockContract": true,
+      "containsBlockDecision": true
+    }
+  ],
+  "integrationGaps": [],
+  "decisions": {
+    "decision": "VERIFIED_ALL_DETECTED_GATES_INTEGRATED",
+    "afrifixAllowed": true
+  },
+  "rules": [
+    "Zero detected gates never constitutes approval",
+    "Unknown gate coverage must remain unverified",
+    "Every executable blocking decision must use BlockExplanationContract",
+    "AfriFix remains blocked until gate coverage and explanation integration are verified",
+    "AfriAI must explain an unverified or blocked state rather than silently approving it"
+  ],
+  "status": "VERIFICATION_COMPLETE"
+}

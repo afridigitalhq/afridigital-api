@@ -1,0 +1,2063 @@
+{
+  "generatedAt": "2026-08-09T11:25:34.066Z",
+  "architecture": {
+    "parentPlatform": "AfriDigital",
+    "frontend": "AfriDesign-Studio",
+    "ecosystemFrontend": "AfriDigital-hub",
+    "sharedBackend": "AfriDigital-api",
+    "sharedAI": "AfriAI"
+  },
+  "boundaries": {
+    "paystack": "AfriDigital-hub-only",
+    "humanApprovalRequired": true,
+    "patchAllowed": false
+  },
+  "catalog": [
+    {
+      "product": "AfriAI",
+      "matchedFiles": 538,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/actions/AfriAIActionRegistry.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIActionRegistry={load(){return[\"reply\",\"preview\",\"approve\",\"execute\"];}};export default AfriAIActionRegistry;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/actions/AfriAIActionRouter.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIActionRouter={route(intent=\"general\"){return intent;}};export default AfriAIActionRouter;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/actions/AfriAIExecutionPolicy.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIExecutionPolicy={check(){return{allow:true,mode:\"PREVIEW\"};}};export default AfriAIExecutionPolicy;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/agents/executor/AfriAITaskExecutor.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAITaskExecutor={execute(task={}){return{...task,status:\"EXECUTED\"};}};export default AfriAITaskExecutor;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/agents/planner/AfriAITaskPlanner.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAITaskPlanner={plan(task={}){return{...task,status:\"PLANNED\"};}};export default AfriAITaskPlanner;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/agents/registry/AfriAIAgentRegistry.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIAgentRegistry={load(){return[\"Web\",\"AfriWhatsApp\",\"Telegram\",\"Messenger\",\"Discord\",\"API\"];}};export default AfriAIAgentRegistry;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "import AfriAIAgentRegistry from \"../registry/AfriAIAgentRegistry.js\";"
+            },
+            {
+              "line": 2,
+              "text": "import AfriAITaskPlanner from \"../planner/AfriAITaskPlanner.js\";"
+            },
+            {
+              "line": 3,
+              "text": "import AfriAITaskExecutor from \"../executor/AfriAITaskExecutor.js\";"
+            },
+            {
+              "line": 4,
+              "text": "const AfriAIAgentRuntime={"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/bootstrap/index.js",
+          "lines": [
+            {
+              "line": 2,
+              "text": "console.log(\"🚀 afriai initialized\");"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/api/AfriAIApiAccessControl.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "import AfriAIApiKeyRegistry from \"./AfriAIApiKeyRegistry.js\";"
+            },
+            {
+              "line": 3,
+              "text": "const AfriAIApiAccessControl = {"
+            },
+            {
+              "line": 11,
+              "text": "AfriAIApiKeyRegistry.get("
+            },
+            {
+              "line": 59,
+              "text": "export default AfriAIApiAccessControl;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/api/AfriAIApiKeyRegistry.js",
+          "lines": [
+            {
+              "line": 3,
+              "text": "const AfriAIApiKeyRegistry = {"
+            },
+            {
+              "line": 72,
+              "text": "export default AfriAIApiKeyRegistry;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/billing/AfriAISubscriptionRegistry.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAISubscriptionRegistry = {"
+            },
+            {
+              "line": 7,
+              "text": "name:\"AfriAI Free\","
+            },
+            {
+              "line": 15,
+              "text": "\"AfriAI Assistant\","
+            },
+            {
+              "line": 22,
+              "text": "name:\"AfriAI Business Starter\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/billing/AfriAIUsageMeter.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIUsageMeter = {"
+            },
+            {
+              "line": 7,
+              "text": "service = \"AfriAI\","
+            },
+            {
+              "line": 63,
+              "text": "export default AfriAIUsageMeter;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/contracts/AfriAIBusinessContract.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIBusinessContract = {"
+            },
+            {
+              "line": 32,
+              "text": "createdBy:\"AfriAI\","
+            },
+            {
+              "line": 43,
+              "text": "export default AfriAIBusinessContract;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "import AfriAITenantRegistry from \"../tenants/AfriAITenantRegistry.js\";"
+            },
+            {
+              "line": 3,
+              "text": "const AfriAIBusinessGateway = {"
+            },
+            {
+              "line": 13,
+              "text": "AfriAITenantRegistry.get("
+            },
+            {
+              "line": 21,
+              "text": "message:\"AfriAI business tenant unavailable\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/business/tenants/AfriAITenantRegistry.js",
+          "lines": [
+            {
+              "line": 3,
+              "text": "const AfriAITenantRegistry = {"
+            },
+            {
+              "line": 8,
+              "text": "throw new Error(\"AfriAI tenantId required\");"
+            },
+            {
+              "line": 76,
+              "text": "export default AfriAITenantRegistry;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/channels/AfriAIChannelGateway.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "import AfriAIChannelRegistry from \"./AfriAIChannelRegistry.js\";"
+            },
+            {
+              "line": 2,
+              "text": "import AfriAIConversationOrchestrator from \"../orchestrator/AfriAIConversationOrchestrator.js\";"
+            },
+            {
+              "line": 3,
+              "text": "import AfriAIResponseComposer from \"../responses/AfriAIResponseComposer.js\";"
+            },
+            {
+              "line": 5,
+              "text": "const AfriAIChannelGateway = {"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/channels/AfriAIChannelRegistry.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIChannelRegistry = {"
+            },
+            {
+              "line": 17,
+              "text": "export default AfriAIChannelRegistry;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/channels/AfriAIChannelStatus.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIChannelStatus = {"
+            },
+            {
+              "line": 10,
+              "text": "export default AfriAIChannelStatus;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/commerce/AfriAICommerceExecutor.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAICommerceExecutor={"
+            },
+            {
+              "line": 11,
+              "text": "export default AfriAICommerceExecutor;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/commerce/AfriAIOrderAssistant.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIOrderAssistant={"
+            },
+            {
+              "line": 5,
+              "text": "assistant:\"AfriAI\","
+            },
+            {
+              "line": 11,
+              "text": "export default AfriAIOrderAssistant;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/commerce/AfriAIPurchaseFlow.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIPurchaseFlow={"
+            },
+            {
+              "line": 11,
+              "text": "export default AfriAIPurchaseFlow;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/connectors/AfriAIConnectorStatus.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIConnectorStatus = {"
+            },
+            {
+              "line": 10,
+              "text": "export default AfriAIConnectorStatus;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/connectors/AfriAIServiceConnector.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "import AfriAIServiceMap from \"./AfriAIServiceMap.js\";"
+            },
+            {
+              "line": 3,
+              "text": "const AfriAIServiceConnector = {"
+            },
+            {
+              "line": 9,
+              "text": "service:AfriAIServiceMap.resolve(intent),"
+            },
+            {
+              "line": 20,
+              "text": "export default AfriAIServiceConnector;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/connectors/AfriAIServiceMap.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIServiceMap = {"
+            },
+            {
+              "line": 21,
+              "text": "export default AfriAIServiceMap;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/context/channel/AfriAIChannelContext.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriAIChannelContext={resolve(channel=\"Web\"){return{channel};}};export default AfriAIChannelContext;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriDebug",
+      "matchedFiles": 789,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/providers/KnowledgeProvider.js",
+          "lines": [
+            {
+              "line": 52,
+              "text": "console.log(\"🛠 AFRIDEBUG KNOWLEDGE:\", JSON.stringify(Object.keys(knowledge)));"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afriai-auto-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afriai-auto-validation-003.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-VALIDATION-003\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-approval-flow-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-APPROVAL-FLOW-001\","
+            },
+            {
+              "line": 14,
+              "text": "\"approvedBy\": \"AfriDebugAdmin\","
+            },
+            {
+              "line": 19,
+              "text": "\"service\": \"AfriDebugRepairApprovalQueue\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-audit-context-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-AUDIT-CONTEXT-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-audit-context-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-AUDIT-CONTEXT-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-auto-debug-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-auto-debug-knowledge-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-KNOWLEDGE-VALIDATION-001\","
+            },
+            {
+              "line": 6,
+              "text": "\"AfriDebugKnowledgeMatcher\","
+            },
+            {
+              "line": 7,
+              "text": "\"AfriDebugKnowledgeMemory\","
+            },
+            {
+              "line": 8,
+              "text": "\"AfriDebugPatternMatcher\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-auto-repair-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-REPAIR-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-certification-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CERTIFICATION-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-certification-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CERTIFICATION-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-package-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-PACKAGE-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-package-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-PACKAGE-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-DELIVERY-VALIDATION-001\","
+            },
+            {
+              "line": 12,
+              "text": "\"approvedBy\": \"AfriDebugAdmin\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-release-controller-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-RELEASE-CONTROLLER-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-release-controller-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-CLIENT-RELEASE-CONTROLLER-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-completed-case-archive-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-COMPLETED-CASE-ARCHIVE-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/memory/AfriDebugCompletedCaseArchive.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-completed-case-archive-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-COMPLETED-CASE-ARCHIVE-VALIDATION-001\","
+            },
+            {
+              "line": 13,
+              "text": "\"source\": \"AfriDebugCompletedCaseArchive\","
+            },
+            {
+              "line": 33,
+              "text": "\"source\": \"AfriDebugCompletedCaseArchive\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-evidence-package-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-EVIDENCE-PACKAGE-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js\","
+            },
+            {
+              "line": 6,
+              "text": "\"rootCause\": \"AfriDebug stores individual repair artifacts but has no final delivery evidence assembler\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-evidence-package-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-EVIDENCE-PACKAGE-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-execution-handoff-gate-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-EXECUTION-HANDOFF-GATE-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-execution-handoff-gate-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-EXECUTION-HANDOFF-GATE-VALIDATION-001\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-human-review-gate-proposal-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-HUMAN-REVIEW-GATE-001\","
+            },
+            {
+              "line": 4,
+              "text": "\"target\": \"modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-human-review-gate-validation-001.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"batch\": \"AFRIDEBUG-AUTO-DEBUG-HUMAN-REVIEW-GATE-VALIDATION-001\","
+            },
+            {
+              "line": 7,
+              "text": "\"reviewer\": \"AfriDebugAdmin\","
+            },
+            {
+              "line": 13,
+              "text": "\"reviewer\": \"AfriDebugAdmin\","
+            },
+            {
+              "line": 22,
+              "text": "\"reviewer\": \"AfriDebugAdmin\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriFix",
+      "matchedFiles": 150,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/investigation/AfriAIInvestigator.js",
+          "lines": [
+            {
+              "line": 5,
+              "text": "import AfriFixRemediationPlanner from \"../remediation/AfriFixRemediationPlanner.js\";"
+            },
+            {
+              "line": 81,
+              "text": "? AfriFixRemediationPlanner.plan({"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/remediation/AfriFixRemediationPlanner.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriFixRemediationPlanner = {"
+            },
+            {
+              "line": 50,
+              "text": "export default AfriFixRemediationPlanner;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+          "lines": [
+            {
+              "line": 22,
+              "text": "userExplanation:\"AfriFix execution is blocked because the required human repair approval is missing or not approved.\","
+            },
+            {
+              "line": 26,
+              "text": "afrifixAllowed:false"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridev/manifest/AfriDevStudioManifest.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriDevStudio={name:\"AfriDev Studio\",version:\"1.0.0\",products:[\"AfriDebug\",\"AfriFix\",\"AfriTest\",\"AfriDeploy\",\"AfriMonitor\",\"AfriDocs\",\"AfriCLI\",\"AfriSDK\",\"AfriAPI\",\"AfriGit\",\"AfriContainer\",\"AfriOps\"]};"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridev/products/afridebug/integration/AfriDebugFixBridge.js",
+          "lines": [
+            {
+              "line": 3,
+              "text": "return {caseId,target:\"AfriFix\",status:\"FIX_REQUESTED\"};"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridev/products/afrifix/index.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const Module={name:\"AfriFix\",version:\"1.0.0\",services:{}};"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridev/products/afrifix/patch/AfriFixWorkflow.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriFixWorkflow={"
+            },
+            {
+              "line": 2,
+              "text": "name:\"AfriFix Repair Lifecycle\","
+            },
+            {
+              "line": 13,
+              "text": "export default AfriFixWorkflow;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridev/registry/AfriDevStudioProductRegistry.js",
+          "lines": [
+            {
+              "line": 4,
+              "text": "{id:\"afrifix\",name:\"AfriFix\",version:\"1.0.0\",category:\"Code Repair\",status:\"active\"},"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/bin/afrifix-verify.js",
+          "lines": [
+            {
+              "line": 4,
+              "text": "console.log(\"🛠 AfriFix Universal Verification\");"
+            },
+            {
+              "line": 19,
+              "text": "\"AfriFix Capability Validation\","
+            },
+            {
+              "line": 20,
+              "text": "\"node modules/afrifix/src/certification/AfriFixFullValidation.js\""
+            },
+            {
+              "line": 24,
+              "text": "\"AfriFix Certification\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/bin/afrifix.js",
+          "lines": [
+            {
+              "line": 5,
+              "text": "console.log(\"🛠 AfriFix Universal Command Runner\");"
+            },
+            {
+              "line": 11,
+              "text": "command: \"node modules/afrifix/src/certification/AfriFixFullValidation.js\""
+            },
+            {
+              "line": 15,
+              "text": "command: \"node modules/afrifix/src/certification/AfriFixCertificationRunner.js\""
+            },
+            {
+              "line": 19,
+              "text": "command: \"node modules/afrifix/src/certification/AfriFixEcosystemCertification.js\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/cli/AfriFixCLI.js",
+          "lines": [
+            {
+              "line": 8,
+              "text": "verify: \"node modules/afrifix/bin/afrifix-verify.js\","
+            },
+            {
+              "line": 9,
+              "text": "certify: \"node modules/afrifix/src/certification/AfriFixCertificationRunner.js\","
+            },
+            {
+              "line": 10,
+              "text": "ecosystem: \"node modules/afrifix/src/certification/AfriFixEcosystemCertification.js\","
+            },
+            {
+              "line": 11,
+              "text": "validate: \"node modules/afrifix/src/certification/AfriFixFullValidation.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/config/AfriFixConfig.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export const AfriFixConfig = {"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/contracts/AfriFixRepairContract.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export const AfriFixRepairContract = {"
+            },
+            {
+              "line": 2,
+              "text": "name: \"AfriFix Repair Contract\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/contracts/AfriFixRuntimeContract.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export const AfriFixRuntimeContract = {"
+            },
+            {
+              "line": 2,
+              "text": "name: \"AfriFix Runtime\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/api-boundary.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix API Service Boundary\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/certification-report.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Global Repair Runtime\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/certification-run-report.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Certification Runner\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/certifications/runtime-certification.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Runtime Consolidation\","
+            },
+            {
+              "line": 43,
+              "text": "\"approval\": \"modules/afrifix/evidence/consolidation/reviews/runtime-approval.json\","
+            },
+            {
+              "line": 44,
+              "text": "\"map\": \"modules/afrifix/src/runtime/adapters/AfriFixRuntimeMigrationMap.js\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/discovery.json",
+          "lines": [
+            {
+              "line": 50,
+              "text": "\"modules/afrifix/src/runtime/AfriFixRuntimeEngine.js\","
+            },
+            {
+              "line": 51,
+              "text": "\"modules/afrifix/src/runtime/admission/AfriFixRuntimeAdmissionController.js\","
+            },
+            {
+              "line": 52,
+              "text": "\"modules/afrifix/src/runtime/authorization/AfriFixAuthorizationEngine.js\","
+            },
+            {
+              "line": 53,
+              "text": "\"modules/afrifix/src/runtime/bus/AfriFixRuntimeBus.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/mapping.json",
+          "lines": [
+            {
+              "line": 3,
+              "text": "\"source\": \"modules/afrifix/evidence/consolidation/discovery.json\","
+            },
+            {
+              "line": 58,
+              "text": "\"modules/afrifix/src/runtime/AfriFixRuntimeEngine.js\","
+            },
+            {
+              "line": 59,
+              "text": "\"modules/afrifix/src/runtime/admission/AfriFixRuntimeAdmissionController.js\","
+            },
+            {
+              "line": 60,
+              "text": "\"modules/afrifix/src/runtime/authorization/AfriFixAuthorizationEngine.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/plan.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Consolidation Planner\","
+            },
+            {
+              "line": 5,
+              "text": "\"source\": \"modules/afrifix/evidence/consolidation/discovery.json\","
+            },
+            {
+              "line": 58,
+              "text": "\"modules/afrifix/src/runtime/AfriFixRuntimeEngine.js\","
+            },
+            {
+              "line": 59,
+              "text": "\"modules/afrifix/src/runtime/admission/AfriFixRuntimeAdmissionController.js\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/reviews/runtime-approval.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Runtime Consolidation Approval\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/consolidation/reviews/runtime-review.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Runtime Consolidation Review\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/decision-engine.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Decision Layer\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrifix/evidence/ecosystem-validation.json",
+          "lines": [
+            {
+              "line": 2,
+              "text": "\"component\": \"AfriFix Ecosystem Validator\","
+            },
+            {
+              "line": 10,
+              "text": "\"module\": \"afrifix\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriScan",
+      "matchedFiles": 15,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/core/scan/CoreScanEngine.js",
+          "lines": [
+            {
+              "line": 14,
+              "text": "service:\"AfriScan\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/core/scan/CoreScanReport.js",
+          "lines": [
+            {
+              "line": 10,
+              "text": "component:\"AfriScan Report\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/core/scan/CoreScanRuntime.js",
+          "lines": [
+            {
+              "line": 27,
+              "text": "\"AFRISCAN_RESULT\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/src/afriscan/bootstrap/index.js",
+          "lines": [
+            {
+              "line": 4,
+              "text": "console.log(renderStatus(\"AFRISCAN\", \"INFO\", \"initialized\"));"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/core/registry/AfriSystemContracts.js",
+          "lines": [
+            {
+              "line": 4,
+              "text": "AfriScan: \"intelligence-core\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ecosystem/edges/InteractiveEdgeEngine.js",
+          "lines": [
+            {
+              "line": 2,
+              "text": "constructor(afriScan) {"
+            },
+            {
+              "line": 3,
+              "text": "this.afriScan = afriScan;"
+            },
+            {
+              "line": 12,
+              "text": "const analysis = this.afriScan.analyzeNode(edge.target);"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ecosystem/ghost/GhostRuntimeEngine.js",
+          "lines": [
+            {
+              "line": 9,
+              "text": "\"AfriScan\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ecosystem/intelligence/afriscan/AfriScanEngine.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export class AfriScanEngine {"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ecosystem/twin/CascadeFailureModel.js",
+          "lines": [
+            {
+              "line": 6,
+              "text": "AfriBank: [\"AfriScan\", \"FraudEngine\"],"
+            },
+            {
+              "line": 8,
+              "text": "AfriScan: [\"Dashboard\"],"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ecosystem/twin/CascadeModel.js",
+          "lines": [
+            {
+              "line": 9,
+              "text": "affected: [origin, \"AfriAI\", \"AfriBank\", \"AfriScan\"],"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/pages/landing/services/PlatformServices.jsx",
+          "lines": [
+            {
+              "line": 8,
+              "text": "{ id:\"AfriScan\", icon:\"🔍\" },"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/pages/user/modules/AfriScan/index.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function AfriScan(){return null;}"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/plugins/admin/adminPluginRegistry.js",
+          "lines": [
+            {
+              "line": 3,
+              "text": "const AfriScan=lazy(()=>import(\"./wrappers/AfriScanWrapper\"));"
+            },
+            {
+              "line": 11,
+              "text": "afriScan:{"
+            },
+            {
+              "line": 13,
+              "text": "name:\"AfriScan Intelligence Engine\","
+            },
+            {
+              "line": 17,
+              "text": "component:AfriScan,"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/plugins/admin/wrappers/AfriScanWrapper.jsx",
+          "lines": [
+            {
+              "line": 3,
+              "text": "export default function AfriScanWrapper(){"
+            },
+            {
+              "line": 6,
+              "text": "<h4>🧠 AfriScan Intelligence Feed</h4>"
+            },
+            {
+              "line": 7,
+              "text": "<p>AfriScan UI module will be attached through composition.</p>"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-hub/src/ui/control-center/panels/TopStatusBar.jsx",
+          "lines": [
+            {
+              "line": 14,
+              "text": "<div>🧠 AfriScan Control Plane</div>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriNucChain",
+      "matchedFiles": 177,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-audit-context-proposal-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-auto-debug-001.json",
+          "lines": [
+            {
+              "line": 28,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-auto-repair-001.json",
+          "lines": [
+            {
+              "line": 18,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-certification-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-package-proposal-001.json",
+          "lines": [
+            {
+              "line": 22,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-package-validation-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-delivery-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-release-controller-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-client-release-controller-validation-001.json",
+          "lines": [
+            {
+              "line": 14,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            },
+            {
+              "line": 29,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-completed-case-archive-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-evidence-package-proposal-001.json",
+          "lines": [
+            {
+              "line": 25,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-execution-handoff-gate-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-human-review-gate-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-human-review-gate-validation-001.json",
+          "lines": [
+            {
+              "line": 15,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            },
+            {
+              "line": 30,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-integration-proposal.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-memory-intelligence-upgrade-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-memory-sync-proposal-001.json",
+          "lines": [
+            {
+              "line": 20,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-recommendation-proposal-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-reinforcement-bridge-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-knowledge-reinforcement-proposal-001.json",
+          "lines": [
+            {
+              "line": 20,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-memory-hydration-proposal-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-patch-planning-proposal-001.json",
+          "lines": [
+            {
+              "line": 16,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afridebug-post-delivery-learning-proposal-001.json",
+          "lines": [
+            {
+              "line": 21,
+              "text": "\"executionMode\": \"AFRINUCCHAIN_APPROVAL\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriDesign",
+      "matchedFiles": 279,
+      "evidence": [
+        {
+          "file": "AfriDesign-Studio/src/pages/admin/AdminPage.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function AdminPage(){return <main><h1>AfriDesign Studio Admin</h1></main>}"
+            }
+          ]
+        },
+        {
+          "file": "AfriDesign-Studio/src/pages/app/MainAppPage.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function MainAppPage(){return <main><h1>AfriDesign Studio App</h1></main>}"
+            }
+          ]
+        },
+        {
+          "file": "AfriDesign-Studio/src/pages/landing/LandingPage.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function LandingPage(){return <main><h1>AfriDesign Studio</h1><p>Developer platform</p></main>}"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/customer/recommendations/AfriAICustomerRecommendations.js",
+          "lines": [
+            {
+              "line": 5,
+              "text": "\"AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/HelpIntent.js",
+          "lines": [
+            {
+              "line": 13,
+              "text": "\"I am AfriAI, the intelligence assistant for the AfriDigital ecosystem. I can help you explore products, explain platform features, provide development status updates, explain AfriDesign Studio, and answer roadmap questions.\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/AfriPlatformKnowledge.js",
+          "lines": [
+            {
+              "line": 27,
+              "text": "studio: \"AfriDesign Studio\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/CapabilityKnowledge.js",
+          "lines": [
+            {
+              "line": 62,
+              "text": "AfriDesignStudio: {"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/OpportunitiesKnowledge.js",
+          "lines": [
+            {
+              "line": 17,
+              "text": "area: \"AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/RoadmapKnowledge.js",
+          "lines": [
+            {
+              "line": 28,
+              "text": "\"AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 2,
+              "text": "name: \"AfriDesign Studio\","
+            },
+            {
+              "line": 6,
+              "text": "\"AfriDesign Studio is the creative development platform within the AfriDigital ecosystem.\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/responses/SuggestionRegistry.js",
+          "lines": [
+            {
+              "line": 17,
+              "text": "id: \"AfriDesign Studio\","
+            },
+            {
+              "line": 19,
+              "text": "title: \"AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/responses/SuggestionSelector.js",
+          "lines": [
+            {
+              "line": 20,
+              "text": "\"AfriDesign Studio\","
+            },
+            {
+              "line": 66,
+              "text": "\"AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/africoin/products/AfriDesignCoinAdapter.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "const AfriDesignCoinAdapter={connect(){return {product:\"AfriDesignStudio\",currency:\"AFRICOIN\",status:\"CONNECTED\"};}};"
+            },
+            {
+              "line": 2,
+              "text": "export default AfriDesignCoinAdapter;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afriai-auto-validation-001.json",
+          "lines": [
+            {
+              "line": 51,
+              "text": "\"question\": \"Tell me about AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afriai-auto-validation-003.json",
+          "lines": [
+            {
+              "line": 52,
+              "text": "\"question\": \"Tell me about AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/evidence/afriai-knowledge-grounding-hardening.json",
+          "lines": [
+            {
+              "line": 47,
+              "text": "\"question\": \"Tell me about AfriDesign Studio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/connectors/designstudio/AfriDebugDesignStudioConnector.js",
+          "lines": [
+            {
+              "line": 2,
+              "text": "id:\"AfriDesignStudio\","
+            },
+            {
+              "line": 3,
+              "text": "name:\"AfriDesignStudio\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/ecosystem/AfriDebugEcosystemRegistry.js",
+          "lines": [
+            {
+              "line": 7,
+              "text": "\"AfriDesignStudio\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/external/AfriDesignStudioConnectorCertificationTest.js",
+          "lines": [
+            {
+              "line": 5,
+              "text": "console.log(\"========== AFDI001 AFRIDESIGNSTUDIO CONNECTOR TEST ==========\");"
+            },
+            {
+              "line": 8,
+              "text": "id:\"afridesignstudio-production\","
+            },
+            {
+              "line": 9,
+              "text": "name:\"AfriDesignStudio Connector\""
+            },
+            {
+              "line": 19,
+              "text": "repository:\"modules/afridesign\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/runtime/AfriDebugConnectorBootstrap.js",
+          "lines": [
+            {
+              "line": 11,
+              "text": "AfriDesignStudio:DesignStudio"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridebug/src/debug/runtime/AfriDebugConnectorCertificationRuntime.js",
+          "lines": [
+            {
+              "line": 8,
+              "text": "\"AfriDesignStudio\""
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/afridesign-dashboard-composition-v1/DASHBOARD-COMPOSITION-LOCK.md",
+          "lines": [
+            {
+              "line": 1,
+              "text": "# AfriDesign Dashboard Composition v1 Lock"
+            },
+            {
+              "line": 5,
+              "text": "Create the first AfriDesign Studio workspace shell."
+            },
+            {
+              "line": 44,
+              "text": "AfriDesign Engine:"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/afridesign-foundation-v1/FOUNDATION-AUDIT.md",
+          "lines": [
+            {
+              "line": 1,
+              "text": "# AfriDesign Studio Foundation v1 Audit"
+            },
+            {
+              "line": 16,
+              "text": "- AfriDesign Module"
+            },
+            {
+              "line": 17,
+              "text": "- AfriDesign Registry"
+            },
+            {
+              "line": 18,
+              "text": "- AfriDesign Routes"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/afridesign-foundation-v1/FOUNDATION-LOCK.md",
+          "lines": [
+            {
+              "line": 1,
+              "text": "# AfriDesign Studio Foundation v1 Lock"
+            },
+            {
+              "line": 23,
+              "text": "AfriDesign Dashboard Composition v1"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/afridesign-foundation-v1/SNAPSHOT.md",
+          "lines": [
+            {
+              "line": 1,
+              "text": "# AfriDesign Studio Foundation v1 Snapshot"
+            },
+            {
+              "line": 12,
+              "text": "AfriDesign Studio Foundation v1 initialized."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriBuild",
+      "matchedFiles": 2,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/final-workspace-panels/snapshot/AfriDesignDockRegistry.before.js",
+          "lines": [
+            {
+              "line": 47,
+              "text": "name: \"AfriBuild\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/platform-registry/snapshot/PlatformWorkspaceRegistry.before.js",
+          "lines": [
+            {
+              "line": 45,
+              "text": "name: \"AfriBuild\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriCode",
+      "matchedFiles": 6,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 10,
+              "text": "text.includes(\"africode\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 14,
+              "text": "ai: \"AfriCode AI\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/responses/SuggestionSelector.js",
+          "lines": [
+            {
+              "line": 16,
+              "text": "text.includes(\"africode\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/center/views/CodeEditorWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriCode Editor Workspace"
+            },
+            {
+              "line": 17,
+              "text": "💻 AfriCode Editor"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/center/views/CodeEditorWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriCode Editor Workspace"
+            },
+            {
+              "line": 17,
+              "text": "💻 AfriCode Editor"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/src/platform/workspace/center/views/CodeEditorWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriCode Editor Workspace"
+            },
+            {
+              "line": 17,
+              "text": "💻 AfriCode Editor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriApp",
+      "matchedFiles": 7,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 11,
+              "text": "text.includes(\"afriapp\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 18,
+              "text": "ai: \"AfriApp AI\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/responses/SuggestionSelector.js",
+          "lines": [
+            {
+              "line": 17,
+              "text": "text.includes(\"afriapp\")"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/center/views/MobileWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriApp Workspace"
+            },
+            {
+              "line": 17,
+              "text": "📱 AfriApp Studio"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/center/views/MobileWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriApp Workspace"
+            },
+            {
+              "line": 17,
+              "text": "📱 AfriApp Studio"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/src/platform/workspace/center/views/MobileWorkspace.jsx",
+          "lines": [
+            {
+              "line": 2,
+              "text": "* AfriApp Workspace"
+            },
+            {
+              "line": 17,
+              "text": "📱 AfriApp Studio"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afrinucchain/src/approval/AfriApprovalController.js",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export class AfriApprovalController {"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriUI",
+      "matchedFiles": 6,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 9,
+              "text": "text.includes(\"afriui\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 10,
+              "text": "ai: \"AfriUI AI\","
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/responses/SuggestionSelector.js",
+          "lines": [
+            {
+              "line": 15,
+              "text": "text.includes(\"afriui\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/studios/visual/panels/ai/AfriUIPanel.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function AfriUIPanel(){"
+            },
+            {
+              "line": 2,
+              "text": "return <div>AfriUIPanel</div>;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/studios/visual/panels/ai/AfriUIPanel.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function AfriUIPanel(){"
+            },
+            {
+              "line": 2,
+              "text": "return <div>AfriUIPanel</div>;"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afridesign/src/platform/studios/visual/panels/ai/AfriUIPanel.jsx",
+          "lines": [
+            {
+              "line": 1,
+              "text": "export default function AfriUIPanel(){"
+            },
+            {
+              "line": 2,
+              "text": "return <div>AfriUIPanel</div>;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriGraphics",
+      "matchedFiles": 2,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 12,
+              "text": "text.includes(\"afrigraphics\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 22,
+              "text": "ai: \"AfriGraphics AI\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriVideo",
+      "matchedFiles": 2,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 13,
+              "text": "text.includes(\"afrivideo\") ||"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 26,
+              "text": "ai: \"AfriVideo AI\","
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "product": "AfriTemplate",
+      "matchedFiles": 2,
+      "evidence": [
+        {
+          "file": "AfriDigital-api/modules/afriai/intents/StudioIntent.js",
+          "lines": [
+            {
+              "line": 14,
+              "text": "text.includes(\"afritemplate\")"
+            }
+          ]
+        },
+        {
+          "file": "AfriDigital-api/modules/afriai/knowledge/StudioKnowledge.js",
+          "lines": [
+            {
+              "line": 30,
+              "text": "ai: \"AfriTemplate AI\","
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "decision": "BROAD_PRODUCT_EVIDENCE_AUDIT_COMPLETE_READY_FOR_CANONICAL_PRODUCT_CATALOG"
+}

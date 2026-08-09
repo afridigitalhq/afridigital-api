@@ -1,0 +1,65 @@
+{
+  "generated": "2026-08-09T09:34:27.368Z",
+  "phase": "AFRIDEBUG_GLOBAL_ACTIVE_GATE_PATCH_RUNTIME_CONSISTENCY_INSPECTION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "target": {
+    "gate": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "contract": "src/core/afridebug/contracts/BlockExplanationContract.js"
+  },
+  "diskState": {
+    "gateExists": true,
+    "contractExists": true,
+    "gateUsesCanonicalContract": true,
+    "gateUsesCanonicalFactory": false,
+    "oldBlockedReturnPresent": true,
+    "oldApprovalReasonPresent": true,
+    "relevantLines": [
+      {
+        "line": 5,
+        "text": "import BlockExplanationContract from \"../../../core/afridebug/contracts/BlockExplanationContract.js\";"
+      },
+      {
+        "line": 29,
+        "text": "        status:\"blocked\","
+      },
+      {
+        "line": 31,
+        "text": "        reason:\"APPROVAL_REQUIRED\""
+      }
+    ]
+  },
+  "contractState": {
+    "exports": {
+      "createBlockedResponse": true,
+      "validateBlockedResponse": true
+    },
+    "sourceContainsFactory": true
+  },
+  "runtimeResolution": {
+    "resolvedGate": "file:///data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "resolvedContract": "file:///data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/src/core/afridebug/contracts/BlockExplanationContract.js",
+    "gateExecuteAvailable": true
+  },
+  "runtimeResult": {
+    "blocked": {
+      "status": "blocked",
+      "reason": "APPROVAL_REQUIRED"
+    }
+  },
+  "diagnosis": {
+    "patchPersisted": false,
+    "oldImplementationStillOnDisk": true,
+    "runtimeStillReturnsLegacyShape": true,
+    "requiresRepair": true
+  },
+  "decision": "PATCH_RUNTIME_CONSISTENCY_REQUIRES_INSPECTION",
+  "afrifixAllowed": false,
+  "globalLearning": {
+    "capabilityId": "GLOBAL_PATCH_RUNTIME_CONSISTENCY_VERIFICATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "A successful file-write operation never constitutes a successful runtime patch; AfriDebug must verify persisted source, module resolution, executable loading, and runtime output.",
+    "reusePolicy": "Every future AfriFix patch must pass disk-state, import-resolution, executable-load, and behavioral verification before approval.",
+    "afriaiPolicy": "AfriAI must report patch/runtime disagreement as unverified and must never convert a failed behavioral verification into approval."
+  }
+}

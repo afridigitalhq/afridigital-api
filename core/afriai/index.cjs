@@ -1,6 +1,6 @@
-const attachAfriAIWebSocket = require("./ws/afriai.ws");
+const attachAfriAIWebSocket = require("./ws/afriai.ws.cjs");
 
-const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap");
+const { bootstrapAfriAI } = require("../../bootstrap/ws-integration/output/afriai-ws-bootstrap.cjs");
 bootstrapAfriAI(attachAfriAIWebSocket);
 
 

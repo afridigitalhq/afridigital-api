@@ -1,0 +1,31 @@
+{
+  "generated": "2026-08-09T10:08:01.019Z",
+  "phase": "AFRIDEBUG_CONTROLLER_EXECUTE_BODY_SEMANTIC_BOUNDARY_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "target": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+  "executeBodyFound": true,
+  "signals": {
+    "executeFound": true,
+    "inputRead": true,
+    "approvalId": false,
+    "authorization": false,
+    "approved": false,
+    "command": false,
+    "plan": false,
+    "change": false,
+    "status": false,
+    "controllerExecution": true,
+    "returnStatement": false
+  },
+  "body": [
+    {
+      "line": 1,
+      "text": "execute(input={}"
+    }
+  ],
+  "decision": "CONTROLLER_ACCEPTS_INPUT_WITHOUT_EXPLICIT_AUTHORIZATION_SEMANTICS"
+}

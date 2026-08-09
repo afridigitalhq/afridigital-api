@@ -1,0 +1,440 @@
+{
+  "generated": "2026-08-09T09:56:00.301Z",
+  "phase": "AFRIDEBUG_GLOBAL_GATE_TARGETED_RUNTIME_OWNERSHIP_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "targetEvidence": [
+    {
+      "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "related": [
+        {
+          "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+          "line": 3,
+          "hits": [
+            "AfriDebugExecutionGate",
+            "Gate.",
+            "ExecutionGate",
+            "governance/AfriDebugExecutionGate"
+          ],
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+          "line": 3,
+          "hits": [
+            "AfriDebugExecutionGate",
+            "Gate.",
+            "ExecutionGate",
+            "governance/AfriDebugExecutionGate"
+          ],
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ]
+    },
+    {
+      "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "related": [
+        {
+          "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+          "line": 3,
+          "hits": [
+            "AfriDebugExecutionGate",
+            "Gate.",
+            "ExecutionGate",
+            "governance/AfriDebugExecutionGate"
+          ],
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        },
+        {
+          "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+          "line": 3,
+          "hits": [
+            "AfriDebugExecutionGate",
+            "Gate.",
+            "ExecutionGate",
+            "governance/AfriDebugExecutionGate"
+          ],
+          "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+        }
+      ]
+    }
+  ],
+  "afriDebugEvidence": [
+    {
+      "file": "core/kernel/constitution/sovereign.constitution.js",
+      "line": 22,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "dist/api/core/kernel/constitution/sovereign.constitution.js",
+      "line": 21,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "dist/api/dist/kernel/kernel/constitution/sovereign.constitution.js",
+      "line": 21,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "dist/kernel/kernel/constitution/sovereign.constitution.js",
+      "line": 21,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugValidationEngine.js",
+      "line": 16,
+      "hits": [
+        "Gate."
+      ],
+      "text": "import { requestApproval } from \"../delivery/AfriDebugApprovalGate.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js",
+      "line": 1,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+      "line": 1,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "import Orchestrator from \"../../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "line": 2,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "line": 5,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "const AfriDebugExecutionGate = {"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "line": 53,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "service:\"AfriDebugExecutionGate\","
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "line": 64,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "export default AfriDebugExecutionGate;"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 7,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "const AfriDebugRepairExecutionBridge = {"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 96,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "service:\"AfriDebugRepairExecutionBridge\","
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 107,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "export default AfriDebugRepairExecutionBridge;"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js",
+      "line": 5,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "orchestrator:\"../orchestrator/AfriDebugOrchestrator.js\","
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 3,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "Gate.",
+        "ExecutionGate",
+        "governance/AfriDebugExecutionGate"
+      ],
+      "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 5,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "const AfriDebugOrchestrator = {"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 42,
+      "hits": [
+        "Gate.execute",
+        "Gate."
+      ],
+      "text": "return Gate.execute(input);"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 51,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "service:\"AfriDebugOrchestrator\","
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "line": 62,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "export default AfriDebugOrchestrator;"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+      "line": 16,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "const AfriDebugOrchestrator = {"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+      "line": 32,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "actor:\"AfriDebugOrchestrator\","
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+      "line": 239,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "export default AfriDebugOrchestrator;"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+      "line": 7,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "import Orchestrator from \"../orchestrator/AfriDebugOrchestrator.js\";"
+    },
+    {
+      "file": "modules/afrinucchain/src/runtime/AfriNucRuntimeExecutionGateway.js",
+      "line": 3,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "export class AfriNucRuntimeExecutionGateway {"
+    },
+    {
+      "file": "snapshots/current/core/kernel/constitution/sovereign.constitution.js",
+      "line": 22,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/constitution/sovereign.constitution.js",
+      "line": 22,
+      "hits": [
+        "ExecutionGate"
+      ],
+      "text": "valid: !policy.bypassesExecutionGate &&"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 2,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 8,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "const AfriDebugExecutionGate = {"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 79,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "actor:\"AfriDebugExecutionGate\""
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 103,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "service:\"AfriDebugExecutionGate\","
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "line": 118,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "ExecutionGate"
+      ],
+      "text": "export default AfriDebugExecutionGate;"
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 1,
+      "hits": [
+        "AfriDebugExecutionOrchestrator"
+      ],
+      "text": "import Orchestrator from \"../../orchestration/AfriDebugExecutionOrchestrator.js\";"
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 3,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "const AfriDebugRepairExecutionBridge = {"
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 38,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "\"AfriDebugRepairExecutionBridge\","
+    },
+    {
+      "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 52,
+      "hits": [
+        "AfriDebugRepairExecutionBridge"
+      ],
+      "text": "export default AfriDebugRepairExecutionBridge;"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 3,
+      "hits": [
+        "AfriDebugExecutionGate",
+        "Gate.",
+        "ExecutionGate",
+        "governance/AfriDebugExecutionGate"
+      ],
+      "text": "import Gate from \"../governance/AfriDebugExecutionGate.js\";"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 5,
+      "hits": [
+        "AfriDebugExecutionOrchestrator"
+      ],
+      "text": "const AfriDebugExecutionOrchestrator = {"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 42,
+      "hits": [
+        "Gate.execute",
+        "Gate."
+      ],
+      "text": "return Gate.execute(input);"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 51,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "service:\"AfriDebugOrchestrator\","
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js",
+      "line": 62,
+      "hits": [
+        "AfriDebugExecutionOrchestrator"
+      ],
+      "text": "export default AfriDebugExecutionOrchestrator;"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js",
+      "line": 15,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "const AfriDebugOrchestrator = {"
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js",
+      "line": 31,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "actor:\"AfriDebugOrchestrator\","
+    },
+    {
+      "file": "src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js",
+      "line": 194,
+      "hits": [
+        "AfriDebugOrchestrator"
+      ],
+      "text": "export default AfriDebugOrchestrator;"
+    }
+  ],
+  "decision": "TARGETED_RUNTIME_OWNERSHIP_EVIDENCE_COLLECTED",
+  "nextQuestions": [
+    "Which exact files instantiate or invoke each gate?",
+    "Does src/afridebug/platform/governance/AfriDebugExecutionGate.js have any AfriDebug caller?",
+    "Does modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js have any AfriDebug caller after the earlier import trace?",
+    "Is the platform gate an orphaned adapter or a dynamically selected runtime implementation?"
+  ]
+}

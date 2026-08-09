@@ -1,0 +1,16 @@
+{
+  "batch": "AFRIDEBUG-AUTO-DEBUG-LEARNING-FEEDBACK-001",
+  "mode": "PATCH_PROPOSAL",
+  "target": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+  "issue": "EXECUTION_RESULTS_NOT_RECORDED",
+  "rootCause": "Execution results are not connected to repair history and resolution learning",
+  "repair": [
+    "Record execution outcomes in AfriDebugRepairHistoryLedger",
+    "Record resolved repairs in AfriDebugResolutionRecorder",
+    "Preserve approval gate before execution"
+  ],
+  "approvalRequired": true,
+  "executionMode": "AFRINUCCHAIN_APPROVAL",
+  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+  "timestamp": "2026-08-08T08:56:31.555Z"
+}

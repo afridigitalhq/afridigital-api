@@ -1,0 +1,50 @@
+[
+  {
+    "id": "CASE-1786176726826",
+    "issue": "dependency-resolution",
+    "diagnosis": "Missing module export",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786176726827
+  },
+  {
+    "id": "CASE-1786180978234",
+    "issue": "dependency-resolution",
+    "diagnosis": "",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786180978234
+  },
+  {
+    "id": "CASE-1786181247418",
+    "issue": "dependency-resolution",
+    "diagnosis": "",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786181247418
+  },
+  {
+    "id": "CASE-1786182532999",
+    "issue": "dependency-resolution",
+    "diagnosis": "",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786182532999
+  },
+  {
+    "id": "CASE-1786182660000",
+    "issue": "dependency-resolution",
+    "diagnosis": "",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786182660000
+  },
+  {
+    "id": "CASE-1786188406294",
+    "issue": "dependency-resolution",
+    "diagnosis": "",
+    "resolution": "Restore module export reference",
+    "verified": true,
+    "createdAt": 1786188406294
+  }
+]

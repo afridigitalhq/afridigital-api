@@ -1,0 +1,120 @@
+{
+  "generated": "2026-08-09T09:35:42.409Z",
+  "phase": "AFRIDEBUG_GLOBAL_RECURSIVE_GATE_COVERAGE_REGRESSION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "scan": {
+    "filesScanned": 4281,
+    "executableBlockCandidates": 19,
+    "activeCandidates": 12,
+    "unresolvedActiveBlockingCandidates": 7
+  },
+  "target": {
+    "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+    "contract": "src/core/afridebug/contracts/BlockExplanationContract.js",
+    "classification": "ACTIVE_RUNTIME_GATE",
+    "verification": {
+      "targetExists": true,
+      "contractExists": true,
+      "canonicalFactoryImported": true,
+      "canonicalFactoryUsed": true,
+      "legacyBlockedReturnRemoved": true,
+      "approvalReasonPreserved": true,
+      "afrifixPermissionPreserved": true,
+      "blockingGateIdentityPreserved": true
+    }
+  },
+  "unresolvedActiveCandidates": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "isTarget": false,
+      "isSnapshot": false,
+      "isLegacy": false,
+      "isCanonicalCore": false
+    }
+  ],
+  "exclusions": {
+    "snapshots": 6,
+    "legacy": 1
+  },
+  "globalLearning": {
+    "capabilityId": "GLOBAL_RECURSIVE_GATE_COVERAGE_REGRESSION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "After an active gate is patched, recursively rescan the repository and distinguish verified active gates from snapshots, legacy trees, and unrelated gate signals.",
+    "reusePolicy": "Every future AfriDebug repair must rerun recursive gate coverage after modifying a blocking boundary.",
+    "afriaiPolicy": "AfriAI must not grant global approval while any unresolved active blocking candidate remains."
+  },
+  "decision": "GLOBAL_GATE_CONTRACT_COVERAGE_REQUIRES_FURTHER_REVIEW",
+  "afrifixAllowed": false
+}

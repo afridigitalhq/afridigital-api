@@ -1,0 +1,28 @@
+{
+  "phase": "AFRISCAN_GLOBAL_AFIRSTATUS_RUNTIME_CONSUMER_VERIFICATION",
+  "scope": "GLOBAL",
+  "globalStatus": {
+    "exists": true,
+    "contract": true,
+    "visualContract": true,
+    "statusIcon": true,
+    "formatStatus": true
+  },
+  "renderer": {
+    "exists": true,
+    "importsStatus": true,
+    "renderStatus": true,
+    "renderDecision": true,
+    "renderReport": true
+  },
+  "exportSurface": {
+    "exists": true,
+    "exportsStatus": true,
+    "exportsRenderer": true
+  },
+  "afriScan": {
+    "exists": true,
+    "importsGlobalStatus": true,
+    "bootstrapExists": true
+  }
+}

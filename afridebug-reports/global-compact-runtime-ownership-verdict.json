@@ -1,0 +1,43 @@
+{
+  "generated": "2026-08-09T09:59:49.382Z",
+  "phase": "AFRIDEBUG_GLOBAL_COMPACT_RUNTIME_OWNERSHIP_VERDICT",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "runtimeEntryPoints": {
+    "investigationAPI": true,
+    "investigationAPISecondary": true,
+    "executionPipeline": true
+  },
+  "repairExecutionChain": {
+    "moduleOrchestratorImportsGate": true,
+    "moduleOrchestratorCallsGate": true,
+    "moduleGateImportsBridge": true,
+    "moduleGateCallsBridge": true,
+    "bridgeImportsController": true,
+    "bridgeCallsController": true,
+    "bridgeChecksApproval": true
+  },
+  "platformPath": {
+    "platformOrchestratorExists": true,
+    "platformOrchestratorImportsPlatformGate": true,
+    "platformOrchestratorCallsGate": true,
+    "platformGateExists": true,
+    "platformGateUsesBlockContract": true,
+    "platformGateCallsBridge": true
+  },
+  "ownership": {
+    "moduleRepairGate": true,
+    "platformRepairGate": true,
+    "canonicalRepairGate": "MODULE_PATH_REQUIRES_CANONICAL_RUNTIME_CONFIRMATION",
+    "platformGateStatus": "SEPARATE_IMPLEMENTATION_REQUIRES_ENTRYPOINT_CONFIRMATION"
+  },
+  "safety": {
+    "humanApprovalRequiredAtBridge": true,
+    "humanApprovalRequiredAtModuleGate": true,
+    "directControllerImportOutsideBridge": false,
+    "afrifixAllowed": false
+  },
+  "decision": "CANONICAL_RUNTIME_OWNERSHIP_CONFIRMATION_REQUIRED_BEFORE_FURTHER_PATCH"
+}

@@ -1,0 +1,220 @@
+{
+  "generated": "2026-08-09T09:16:12.561Z",
+  "phase": "AFRIDEBUG_GLOBAL_GATE_CANDIDATE_CLASSIFICATION",
+  "scope": "GLOBAL",
+  "sourceReport": "afridebug-reports/global-recursive-gate-coverage-audit.json",
+  "policy": {
+    "modificationMode": "AUDIT_ONLY",
+    "rule": "Classify before patching; snapshots and legacy trees are not automatically active gates.",
+    "afrifixAllowed": false
+  },
+  "totals": {
+    "candidates": 17,
+    "activeCandidates": 10,
+    "excludedSnapshots": 6,
+    "legacyCandidates": 1
+  },
+  "summary": {
+    "LEGACY_OR_EXTERNAL_CORE": 3,
+    "AFRIDEBUG_RUNTIME": 5,
+    "SNAPSHOT": 6,
+    "CONTROL_ROOM_RUNTIME": 1,
+    "CANONICAL_CORE": 1,
+    "LEGACY": 1
+  },
+  "classifications": [
+    {
+      "file": "core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "reason": "Non-canonical top-level core tree; verify whether executable and reachable.",
+      "action": "TRACE_OWNERSHIP_AND_RUNTIME"
+    },
+    {
+      "file": "core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "reason": "Non-canonical top-level core tree; verify whether executable and reachable.",
+      "action": "TRACE_OWNERSHIP_AND_RUNTIME"
+    },
+    {
+      "file": "core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "LEGACY_OR_EXTERNAL_CORE",
+      "reason": "Non-canonical top-level core tree; verify whether executable and reachable.",
+      "action": "TRACE_OWNERSHIP_AND_RUNTIME"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "AFRIDEBUG_RUNTIME",
+      "reason": "Potential active AfriDebug runtime gate; dependency verification required.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "AFRIDEBUG_RUNTIME",
+      "reason": "Potential active AfriDebug runtime gate; dependency verification required.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "AFRIDEBUG_RUNTIME",
+      "reason": "Potential active AfriDebug runtime gate; dependency verification required.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "AFRIDEBUG_RUNTIME",
+      "reason": "Potential active AfriDebug runtime gate; dependency verification required.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "snapshots/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "snapshots/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "snapshots/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "snapshots/system/current/core/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "snapshots/system/current/core/kernel/KERNEL_CONVERGENCE.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "snapshots/system/current/core/security/socCommandOrchestrator.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "SNAPSHOT",
+      "reason": "Historical/system snapshot; do not patch as active runtime.",
+      "action": "EXCLUDE_FROM_ACTIVE_PATCH"
+    },
+    {
+      "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "AFRIDEBUG_RUNTIME",
+      "reason": "Canonical AfriDebug runtime candidate; integration should use shared contract.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "CONTROL_ROOM_RUNTIME",
+      "reason": "Potential active control-plane gate; verify execution path.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "src/core/governance/block-explanation/block-explanation.contract.js",
+      "signals": [
+        "BLOCKED_STATUS",
+        "AFRIFIX_PERMISSION",
+        "REASON_CODE",
+        "GATE_SIGNAL"
+      ],
+      "usesBlockExplanationContract": true,
+      "category": "CANONICAL_CORE",
+      "reason": "Canonical backend/core candidate; inspect before integration.",
+      "action": "INSPECT_ACTIVE_DEPENDENCY_GRAPH"
+    },
+    {
+      "file": "src/legacy/ai/execution-pipeline/index.js",
+      "signals": [
+        "BLOCKED_STATUS"
+      ],
+      "usesBlockExplanationContract": false,
+      "category": "LEGACY",
+      "reason": "Legacy implementation; ownership and runtime usage must be verified.",
+      "action": "TRACE_RUNTIME_USAGE"
+    }
+  ],
+  "nextGate": "ACTIVE_GATE_DEPENDENCY_VERIFICATION",
+  "globalLearning": {
+    "capabilityId": "GLOBAL_GATE_CANDIDATE_CLASSIFICATION",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "Gate detection must distinguish active runtime code from snapshots, legacy trees, and historical artifacts before remediation.",
+    "reusePolicy": "Every future AfriDebug job must classify discovered blocking candidates before AfriFix modifies them.",
+    "afriaiPolicy": "AfriAI must explain whether a block originates from active runtime logic, legacy code, snapshot evidence, or an unresolved gate."
+  },
+  "status": "CLASSIFICATION_COMPLETE"
+}

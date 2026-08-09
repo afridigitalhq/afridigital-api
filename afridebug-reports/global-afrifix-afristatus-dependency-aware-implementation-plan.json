@@ -1,0 +1,112 @@
+{
+  "generated": "2026-08-09T10:36:03.763Z",
+  "phase": "AFRIFIX_GLOBAL_AFIRSTATUS_DEPENDENCY_AWARE_IMPLEMENTATION_PLAN",
+  "scope": "GLOBAL",
+  "capability": "AfriStatus",
+  "canonicalSource": "src/core/observability",
+  "executor": "AfriFix",
+  "orchestrator": "AfriNucChain",
+  "intelligence": "AfriAI",
+  "investigation": "AfriDebug",
+  "discovery": "AfriScan",
+  "plan": [
+    {
+      "consumer": "AfriScan",
+      "root": "src/afriscan",
+      "exists": true,
+      "currentState": "PARTIAL_WIRED",
+      "executionOrder": 1,
+      "dependency": "VERIFY_EXISTING_GLOBAL_STATUS_BOUNDARY",
+      "requiredActions": [
+        "inspect canonical entry boundary",
+        "identify single consumer integration point",
+        "generate minimal import/render plan",
+        "validate dependency impact",
+        "generate verification checks",
+        "generate evidence artifact"
+      ],
+      "patchAuthorization": false
+    },
+    {
+      "consumer": "AfriDebug",
+      "root": "modules/afridebug",
+      "exists": true,
+      "currentState": "NOT_WIRED",
+      "executionOrder": 2,
+      "dependency": "DEPEND_ON_GLOBAL_AFIRSTATUS_AND_APPROVED_BATCH",
+      "requiredActions": [
+        "inspect canonical entry boundary",
+        "identify single consumer integration point",
+        "generate minimal import/render plan",
+        "validate dependency impact",
+        "generate verification checks",
+        "generate evidence artifact"
+      ],
+      "patchAuthorization": false
+    },
+    {
+      "consumer": "AfriFix",
+      "root": "modules/afriai/remediation",
+      "exists": true,
+      "currentState": "NOT_WIRED",
+      "executionOrder": 2,
+      "dependency": "DEPEND_ON_GLOBAL_AFIRSTATUS_AND_APPROVED_BATCH",
+      "requiredActions": [
+        "inspect canonical entry boundary",
+        "identify single consumer integration point",
+        "generate minimal import/render plan",
+        "validate dependency impact",
+        "generate verification checks",
+        "generate evidence artifact"
+      ],
+      "patchAuthorization": false
+    },
+    {
+      "consumer": "AfriNucChain",
+      "root": "modules/afrinucchain",
+      "exists": true,
+      "currentState": "NOT_WIRED",
+      "executionOrder": 2,
+      "dependency": "DEPEND_ON_GLOBAL_AFIRSTATUS_AND_APPROVED_BATCH",
+      "requiredActions": [
+        "inspect canonical entry boundary",
+        "identify single consumer integration point",
+        "generate minimal import/render plan",
+        "validate dependency impact",
+        "generate verification checks",
+        "generate evidence artifact"
+      ],
+      "patchAuthorization": false
+    },
+    {
+      "consumer": "AfriAI",
+      "root": "modules/afriai",
+      "exists": true,
+      "currentState": "NOT_WIRED",
+      "executionOrder": 2,
+      "dependency": "DEPEND_ON_GLOBAL_AFIRSTATUS_AND_APPROVED_BATCH",
+      "requiredActions": [
+        "inspect canonical entry boundary",
+        "identify single consumer integration point",
+        "generate minimal import/render plan",
+        "validate dependency impact",
+        "generate verification checks",
+        "generate evidence artifact"
+      ],
+      "patchAuthorization": false
+    }
+  ],
+  "parallelizable": [
+    "AfriDebug",
+    "AfriFix",
+    "AfriNucChain",
+    "AfriAI"
+  ],
+  "sequential": [
+    "AfriScan verification before consumer migration"
+  ],
+  "humanApprovalRequired": true,
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "decision": "AFRIFIX_BATCH_IMPLEMENTATION_PLAN_READY_FOR_HUMAN_REVIEW_NO_PATCH_EXECUTION"
+}

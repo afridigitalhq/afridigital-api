@@ -1,0 +1,32 @@
+{
+  "generated": "2026-08-09T10:05:04.785Z",
+  "phase": "AFRIDEBUG_CANONICAL_MODULE_GATE_BLOCKED_CONTRACT_SEMANTIC_AUDIT",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "gate": {
+    "importsContract": true,
+    "usesCreateBlockedResponse": true,
+    "checksApproval": true,
+    "blockedBeforeBridge": true,
+    "callsBridge": true
+  },
+  "contract": {
+    "requiresBlockedStatus": true,
+    "createsBlockedStatus": true,
+    "validatesResponse": true,
+    "requiresAction": true,
+    "evidenceReference": true
+  },
+  "bridge": {
+    "hasIndependentApprovalCheck": true,
+    "callsController": true
+  },
+  "safety": {
+    "unauthorizedRequestBlockedBeforeBridge": true,
+    "patchAllowed": false,
+    "afrifixAllowed": false
+  },
+  "decision": "CONTRACT_GATE_SEMANTICS_PASS_NO_PATCH_REQUIRED_FROM_THIS_CHECK"
+}

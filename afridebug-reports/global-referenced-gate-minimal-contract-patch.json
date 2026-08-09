@@ -1,0 +1,21 @@
+{
+  "generated": "2026-08-09T09:41:56.474Z",
+  "phase": "AFRIDEBUG_GLOBAL_REFERENCED_GATE_MINIMAL_CONTRACT_PATCH",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+  "patch": {
+    "mode": "MINIMAL_REFERENCED_RUNTIME_ONLY",
+    "changed": true
+  },
+  "invariants": {
+    "canonicalImportPersisted": true,
+    "canonicalFactoryInvocationPersisted": true,
+    "legacyBlockedReturnRemoved": true,
+    "approvalReasonPreserved": true,
+    "blockingGatePreserved": true,
+    "afrifixDenied": true,
+    "bridgeExecutionPreserved": true
+  },
+  "decision": "PATCH_PERSISTED_READY_FOR_BEHAVIORAL_VERIFICATION"
+}

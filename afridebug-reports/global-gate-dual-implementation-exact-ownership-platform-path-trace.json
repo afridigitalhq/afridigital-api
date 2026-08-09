@@ -1,0 +1,29 @@
+{
+  "generated": "2026-08-09T09:53:57.174Z",
+  "phase": "AFRIDEBUG_GLOBAL_GATE_DUAL_IMPLEMENTATION_EXACT_OWNERSHIP_AND_PLATFORM_PATH_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "targets": [
+    {
+      "target": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": []
+    },
+    {
+      "target": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "importerCount": 0,
+      "importers": []
+    }
+  ],
+  "platformPathSignals": [],
+  "questions": [
+    "Which gate is imported by the canonical platform orchestration path?",
+    "Is src/afridebug/platform/governance/AfriDebugExecutionGate.js an adapter around the same repair execution boundary?",
+    "Does any runtime path bypass modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js?",
+    "Are both implementations intentionally active or is one a duplicate?"
+  ]
+}

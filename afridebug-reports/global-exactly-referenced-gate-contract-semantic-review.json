@@ -1,0 +1,257 @@
+{
+  "generated": "2026-08-09T09:40:16.949Z",
+  "phase": "AFRIDEBUG_GLOBAL_EXACTLY_REFERENCED_GATE_CONTRACT_SEMANTIC_REVIEW",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "policy": {
+    "rule": "Only exactly referenced runtime candidates may proceed to semantic contract review; no patching occurs during this phase."
+  },
+  "candidates": [
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "exists": true,
+      "imports": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import Bridge from \"../integration/execution/AfriDebugRepairExecutionBridge.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 20,
+          "text": "status:\"blocked\","
+        }
+      ],
+      "approvalSignals": [
+        {
+          "line": 1,
+          "text": "import Queue from \"../approval/AfriDebugRepairApprovalQueue.js\";"
+        },
+        {
+          "line": 8,
+          "text": "const approval ="
+        },
+        {
+          "line": 12,
+          "text": "item.approvalId === input.approvalId"
+        },
+        {
+          "line": 16,
+          "text": "if(!approval || approval.status !== \"approved\"){"
+        },
+        {
+          "line": 22,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 37,
+          "text": "approval,"
+        }
+      ],
+      "executionCalls": [
+        {
+          "line": 6,
+          "text": "execute(input={}){"
+        },
+        {
+          "line": 30,
+          "text": "Bridge.execute(input);"
+        }
+      ],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 4,
+          "text": "const AfriDebugExecutionGate = {"
+        },
+        {
+          "line": 18,
+          "text": "return {"
+        },
+        {
+          "line": 20,
+          "text": "status:\"blocked\","
+        },
+        {
+          "line": 22,
+          "text": "reason:\"APPROVAL_REQUIRED\""
+        },
+        {
+          "line": 33,
+          "text": "return {"
+        },
+        {
+          "line": 35,
+          "text": "status:\"executed\","
+        },
+        {
+          "line": 48,
+          "text": "return {"
+        },
+        {
+          "line": 50,
+          "text": "service:\"AfriDebugExecutionGate\","
+        },
+        {
+          "line": 52,
+          "text": "status:\"healthy\""
+        },
+        {
+          "line": 61,
+          "text": "export default AfriDebugExecutionGate;"
+        }
+      ],
+      "classification": "REFERENCED_EXECUTABLE_BLOCKING_GATE",
+      "contractDecision": {
+        "requiresCanonicalBlockExplanationContract": true,
+        "canonicalContractAlreadyUsed": false,
+        "patchAllowedAtThisPhase": false
+      }
+    },
+    {
+      "file": "src/control-room/autopilot/SOCAutopilotEngine.js",
+      "exists": true,
+      "imports": [
+        {
+          "line": 1,
+          "text": "import { rootCauseAnalyzer } from \"../rca/RootCauseAnalyzer.js\";"
+        },
+        {
+          "line": 2,
+          "text": "import { cameraActionGuard } from \"../../cameras/guard/CameraActionGuard.js\";"
+        },
+        {
+          "line": 3,
+          "text": "import { socPolicyEngine } from \"../policy/SOCPolicyEngine.js\";"
+        },
+        {
+          "line": 4,
+          "text": "import { socDashboardAPI } from \"../dashboard/SOCDashboardAPI.js\";"
+        }
+      ],
+      "blockedReturns": [
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        }
+      ],
+      "approvalSignals": [],
+      "executionCalls": [],
+      "contractUsage": [],
+      "semanticSignals": [
+        {
+          "line": 2,
+          "text": "import { cameraActionGuard } from \"../../cameras/guard/CameraActionGuard.js\";"
+        },
+        {
+          "line": 7,
+          "text": "proposeActions(timeWindowMs = 300000) {"
+        },
+        {
+          "line": 11,
+          "text": "const actions = [];"
+        },
+        {
+          "line": 15,
+          "text": "actions.push({"
+        },
+        {
+          "line": 18,
+          "text": "reason: h.hypothesis"
+        },
+        {
+          "line": 23,
+          "text": "actions.push({"
+        },
+        {
+          "line": 26,
+          "text": "reason: h.hypothesis"
+        },
+        {
+          "line": 31,
+          "text": "actions.push({"
+        },
+        {
+          "line": 33,
+          "text": "target: \"stream-gateway\","
+        },
+        {
+          "line": 34,
+          "text": "reason: h.hypothesis"
+        },
+        {
+          "line": 39,
+          "text": "return actions;"
+        },
+        {
+          "line": 42,
+          "text": "async executeActions(actions = [], userId = \"system\") {"
+        },
+        {
+          "line": 45,
+          "text": "for (const action of actions) {"
+        },
+        {
+          "line": 46,
+          "text": "const guard = cameraActionGuard.validate(userId, action);"
+        },
+        {
+          "line": 47,
+          "text": "const policy = socPolicyEngine.evaluate(action);"
+        },
+        {
+          "line": 49,
+          "text": "if (!guard.allowed || policy?.blocked) {"
+        },
+        {
+          "line": 51,
+          "text": "action,"
+        },
+        {
+          "line": 52,
+          "text": "status: \"BLOCKED\","
+        },
+        {
+          "line": 53,
+          "text": "reason: \"Guard or policy rejection\""
+        },
+        {
+          "line": 60,
+          "text": "action,"
+        },
+        {
+          "line": 61,
+          "text": "status: \"EXECUTED\","
+        },
+        {
+          "line": 70,
+          "text": "const actions = this.proposeActions(timeWindowMs);"
+        },
+        {
+          "line": 71,
+          "text": "return this.executeActions(actions, userId);"
+        }
+      ],
+      "classification": "REFERENCED_BLOCKED_STATUS_PRODUCER",
+      "contractDecision": {
+        "requiresCanonicalBlockExplanationContract": true,
+        "canonicalContractAlreadyUsed": false,
+        "patchAllowedAtThisPhase": false
+      }
+    }
+  ],
+  "globalLearning": {
+    "capabilityId": "GLOBAL_EXACTLY_REFERENCED_GATE_CONTRACT_SEMANTIC_REVIEW",
+    "scope": "REUSABLE_ACROSS_ALL_JOBS",
+    "learnedPattern": "After exact import ownership is proven, inspect only the referenced executable candidates for blocking semantics, approval authority, execution boundaries, and canonical BlockExplanationContract usage before any modification.",
+    "reusePolicy": "Future AfriDebug gate audits must separate proven referenced gates from unreferenced status producers before contract patching.",
+    "afriaiPolicy": "AfriAI must distinguish exact runtime ownership from mere BLOCKED status signals and must preserve audit-only mode until semantic ownership is verified."
+  },
+  "decision": "EXACTLY_REFERENCED_GATE_SEMANTIC_REVIEW_COMPLETE"
+}

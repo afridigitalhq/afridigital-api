@@ -1,3 +1,5 @@
+import {renderStatus} from "../../core/observability/index.js";
+
 export function init(server){
-  console.log("🚀 afriscan initialized");
+  console.log(renderStatus("AFRISCAN", "INFO", "initialized"));
 }

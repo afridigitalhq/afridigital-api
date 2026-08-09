@@ -1,0 +1,59 @@
+{
+  "generated": "2026-08-09T10:08:39.037Z",
+  "phase": "AFRIDEBUG_CONTROLLER_EXCLUSIVE_RUNTIME_OWNERSHIP_TRACE",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "target": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+  "targetExists": true,
+  "exactReferences": [],
+  "importReferences": [
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js",
+      "line": 1,
+      "text": "import Controller from \"./AfriDebugChangeExecutionController.js\";"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 2,
+      "text": "import Controller from \"../../execution/AfriDebugChangeExecutionController.js\";"
+    },
+    {
+      "file": "src/afridebug/platform/execution/AfriDebugChangeFailureTest.js",
+      "line": 1,
+      "text": "import Controller from \"./AfriDebugChangeExecutionController.js\";"
+    }
+  ],
+  "executionCalls": [
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js",
+      "line": 27,
+      "text": "const result = Controller.execute({"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 32,
+      "text": "Controller.execute({"
+    },
+    {
+      "file": "src/afridebug/platform/execution/AfriDebugChangeFailureTest.js",
+      "line": 27,
+      "text": "const result = Controller.execute({"
+    }
+  ],
+  "bridgeControllerCalls": [
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "line": 32,
+      "text": "Controller.execute({"
+    }
+  ],
+  "safety": {
+    "bridgeCallsController": true,
+    "controllerHasOtherCallers": true,
+    "controllerHasOtherImports": true
+  },
+  "decision": "CONTROLLER_HAS_ADDITIONAL_CALLERS_REQUIRES_AUTHORIZATION_BYPASS_REVIEW"
+}

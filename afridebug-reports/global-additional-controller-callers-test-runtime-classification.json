@@ -1,0 +1,70 @@
+{
+  "generated": "2026-08-09T10:09:43.480Z",
+  "phase": "AFRIDEBUG_ADDITIONAL_CONTROLLER_CALLERS_TEST_RUNTIME_CLASSIFICATION",
+  "scope": "GLOBAL",
+  "canonicalRepository": "AfriDigital-api",
+  "modificationMode": "AUDIT_ONLY",
+  "afrifixAllowed": false,
+  "patchAllowed": false,
+  "callers": [
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js",
+      "exists": true,
+      "lineCount": 55,
+      "imports": [
+        "import Controller from \"./AfriDebugChangeExecutionController.js\";",
+        "import VerificationRuntime from \"../verification/AfriDebugVerificationRuntime.js\";"
+      ],
+      "testSignalCount": 5,
+      "productionSignalCount": 4,
+      "testSignals": [
+        "    tests:input.tests || [],",
+        "console.log(\"========== AFDI001 FAILURE RECOVERY TEST ==========\");",
+        "  tests:[",
+        "    \"database reconnect test\"",
+        "console.log(\"Forced Verification Failure: VERIFIED\");"
+      ],
+      "productionSignals": [
+        "import VerificationRuntime from \"../verification/AfriDebugVerificationRuntime.js\";",
+        "const originalVerify = VerificationRuntime.verify;",
+        "VerificationRuntime.verify = (input={}) => {",
+        "      \"API regression detected\""
+      ],
+      "executeCalls": [
+        "const result = Controller.execute({"
+      ],
+      "hasMainEntrypoint": false,
+      "exported": false
+    },
+    {
+      "file": "src/afridebug/platform/execution/AfriDebugChangeFailureTest.js",
+      "exists": true,
+      "lineCount": 55,
+      "imports": [
+        "import Controller from \"./AfriDebugChangeExecutionController.js\";",
+        "import VerificationRuntime from \"../verification/AfriDebugVerificationRuntime.js\";"
+      ],
+      "testSignalCount": 5,
+      "productionSignalCount": 4,
+      "testSignals": [
+        "    tests:input.tests || [],",
+        "console.log(\"========== AFDI001 FAILURE RECOVERY TEST ==========\");",
+        "  tests:[",
+        "    \"database reconnect test\"",
+        "console.log(\"Forced Verification Failure: VERIFIED\");"
+      ],
+      "productionSignals": [
+        "import VerificationRuntime from \"../verification/AfriDebugVerificationRuntime.js\";",
+        "const originalVerify = VerificationRuntime.verify;",
+        "VerificationRuntime.verify = (input={}) => {",
+        "      \"API regression detected\""
+      ],
+      "executeCalls": [
+        "const result = Controller.execute({"
+      ],
+      "hasMainEntrypoint": false,
+      "exported": false
+    }
+  ],
+  "decision": "POTENTIAL_PRODUCTION_CALLER_REQUIRES_RUNTIME_REACHABILITY_REVIEW"
+}
