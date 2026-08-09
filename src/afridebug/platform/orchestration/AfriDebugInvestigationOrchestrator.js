@@ -9,7 +9,7 @@ import Knowledge from "../workers/AfriDebugKnowledgeMatcherWorker.js";
 import Patch from "../workers/AfriDebugPatchPlanningWorker.js";
 import Verify from "../workers/AfriDebugVerificationWorker.js";
 import Report from "../workers/AfriDebugEvidenceReportWorker.js";
-import Delivery from "../workers/AfriDebugDeliveryPackageWorker.js";
+import ApprovalQueue from "../approval/AfriDebugRepairApprovalQueue.js";
 
 
 const AfriDebugOrchestrator = {
@@ -141,50 +141,41 @@ const AfriDebugOrchestrator = {
     });
 
 
-    const delivery = Delivery.execute({
-      investigationId,
-      clientId:input.clientId || null,
-      reportId:report.id
-    });
+      const approval = ApprovalQueue.submit({
+        planId:patch.id,
+        incidentId:investigationId,
+        action:"repair"
+      });
 
+      State.update(
+        investigationId,
+        "WAITING_FOR_HUMAN_APPROVAL"
+      );
 
-    Events.emit({
-      investigationId,
-      type:"DELIVERY_READY",
-      actor:"DeliveryEngine",
-      details:"Client evidence package generated"
-    });
+      Events.emit({
+        investigationId,
+        type:"HUMAN_APPROVAL_PENDING",
+        actor:"AfriDebugRepairApprovalQueue",
+        details:"Verified investigation blocked pending human repair approval"
+      });
 
-
-    State.update(
-      investigationId,
-      "DELIVERED"
-    );
-
-
-    return {
-
-      investigationId,
-
-      status:"COMPLETED",
-
-      state:State.get(investigationId),
-
-      events:Events.list(investigationId),
-
-      artifacts:{
-        intake,
-        graph,
-        runtime,
-        logs,
-        knowledge,
-        patch,
-        verification,
-        report,
-        delivery
-      }
-
-    };
+      return {
+        investigationId,
+        status:"WAITING_FOR_HUMAN_APPROVAL",
+        approval,
+        state:State.get(investigationId),
+        events:Events.list(investigationId),
+        artifacts:{
+          intake,
+          graph,
+          runtime,
+          logs,
+          knowledge,
+          patch,
+          verification,
+          report
+        }
+      };
 
   }
 

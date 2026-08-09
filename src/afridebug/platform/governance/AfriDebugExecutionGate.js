@@ -46,6 +46,15 @@ const AfriDebugExecutionGate = {
       bridgeResult?.execution || bridgeResult;
 
 
+    if (execution?.status !== "completed") {
+      return {
+        status:"FAILED",
+        approval,
+        execution,
+        bridgeResult
+      };
+    }
+
     const artifact={
 
       id:`EXECUTION-${Date.now()}`,
