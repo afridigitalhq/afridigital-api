@@ -20,7 +20,7 @@ const CoreServiceRegistry={services:{
   investigation:["CoreInvestigationEngine","CoreInvestigationRegistry","CoreInvestigationStageManager"],
   pipeline:["CorePipelineEngine","CorePipelineRegistry","CorePipelineStageManager"],
   runtime:["CoreRuntimeEngine","CoreRuntimeRegistry"],
-  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],
+  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],delegation:["CoreDelegationEngine","CoreDelegationRegistry","CoreDelegationPlanner","CoreDelegationDispatcher"],
   case:["CoreCaseManager","CoreCaseRegistry","CoreCaseStatus","CoreCaseEvidence","CoreCaseTimeline","CoreCaseResolution","CoreCaseGateway","CoreCaseRequest","CoreCaseDecision","CoreCaseAudit"],
 
 }};
