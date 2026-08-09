@@ -16,7 +16,7 @@ const CoreIntelligenceEngine = {
       input,
       context,
       summary:{
-        repository:context.repository?.name || "unknown",
+        repository:typeof context.repository === "string" ? context.repository : context.repository?.name || "unknown",
         runtime:context.runtime?.status || "UNKNOWN",
         logCount:logs.length,
         findingCount:findings.length
