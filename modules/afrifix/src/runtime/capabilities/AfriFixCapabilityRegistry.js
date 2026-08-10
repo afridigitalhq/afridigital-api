@@ -14,6 +14,7 @@ export class AfriFixCapabilityRegistry {
         });
     }
 
+    this.capabilities.set("afriai",["repair","verify"]);
     this.capabilities.set("afridebug",["repair","verify","certify"]);
     this.capabilities.set("afrifix",["repair","verify","certify"]);
     this.capabilities.set("platform",["certify"]);

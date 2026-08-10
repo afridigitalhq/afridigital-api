@@ -16,7 +16,21 @@ export class AfriFixRuntimeSupervisor {
   execute(request = {}) {
     const execution = this.context.create(request);
 
+    const transitions = [];
+    const advance = state => {
+      const result = this.state.transition(state);
+      transitions.push(result);
+      if(result.status !== "TRANSITIONED") throw new Error(`Invalid AfriFix lifecycle transition: ${state}`);
+    };
+
+    advance("PREVIEW");
+    advance("APPROVAL");
+    advance("QUEUED");
+
     this.registry.register(execution);
+
+    advance("SCHEDULED");
+    advance("EXECUTING");
 
     const runtime = this.kernel.execute(execution);
 
@@ -27,10 +41,15 @@ export class AfriFixRuntimeSupervisor {
       runtime?.execution?.runtime?.executed ||
       null;
 
+    advance("VERIFYING");
+    advance("EVIDENCE");
+    advance("COMPLETED");
+
     const finalExecution = {
       ...execution,
       status: "COMPLETED",
       lifecycle: this.state.list(),
+      transitions,
       stagesExecuted: workerResult?.stagesExecuted || [],
       workerStatus: workerResult?.status || "UNKNOWN",
       completedAt: workerResult?.completedAt || new Date().toISOString()

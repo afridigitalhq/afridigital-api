@@ -6,6 +6,7 @@ export class AfriFixExecutionContext {
       executionId: request.executionId || `exec-${Date.now()}`,
       module: request.module || "unknown",
       action: request.action || "unknown",
+      executionPlan: request.executionPlan || null,
       workspace: request.workspace || "default",
       approvalRequired: request.approvalRequired ?? true,
       evidenceRequired: request.evidenceRequired ?? true,

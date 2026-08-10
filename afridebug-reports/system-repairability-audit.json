@@ -1,0 +1,3742 @@
+{
+  "generatedAt": "2026-08-10T13:37:54.798Z",
+  "summary": {
+    "totalJs": 727,
+    "empty": 90,
+    "incompleteMarkers": 2,
+    "nonEmpty": 635,
+    "emptyFiles": [
+      "modules/afridebug/src/debug/admin/AfriDebugAdminScaffolder.js",
+      "modules/afridebug/src/debug/intake/AfriDebugRepositoryConnector.js",
+      "modules/afridebug/src/debug/intake/AfriDebugRepositoryIntake.js",
+      "modules/afridebug/src/delivery/AfriDebugClientSummaryGenerator.js",
+      "modules/afridebug/src/delivery/AfriDebugReportPackager.js",
+      "modules/afridebug/src/investigation/knowledge/AfriDebugIncidentMemory.js",
+      "modules/afridebug/src/investigation/knowledge/AfriDebugPatternAnalyzer.js",
+      "modules/afridebug/src/investigation/logs/AfriDebugErrorClassifier.js",
+      "modules/afridebug/src/investigation/logs/AfriDebugStackTraceParser.js",
+      "modules/afridebug/src/investigation/patch/AfriDebugChangeImpactAnalyzer.js",
+      "modules/afridebug/src/investigation/patch/AfriDebugRiskAssessment.js",
+      "modules/afridebug/src/verification/AfriDebugRegressionRunner.js",
+      "modules/afridebug/src/verification/AfriDebugTestValidator.js",
+      "modules/afrifix/src/api/AfriFixServiceGateway.js",
+      "modules/afrifix/src/api/controllers/AfriFixRepairController.js",
+      "modules/afrifix/src/api/routes/AfriFixRepairRoutes.js",
+      "modules/afrifix/src/api/services/AfriFixRepairService.js",
+      "modules/afrifix/src/audit/AfriFixAuditTrail.js",
+      "modules/afrifix/src/context/AfriFixContextManager.js",
+      "modules/afrifix/src/decision/AfriFixDecisionEngine.js",
+      "modules/afrifix/src/evidence/AfriFixEvidenceManager.js",
+      "modules/afrifix/src/execution/AfriFixExecutionEngine.js",
+      "modules/afrifix/src/execution/adapter/AfriFixExecutionAdapter.js",
+      "modules/afrifix/src/execution/preview/AfriFixPreviewEngine.js",
+      "modules/afrifix/src/intake/AfriFixIntakeEngine.js",
+      "modules/afrifix/src/intelligence/AfriFixReasoningEngine.js",
+      "modules/afrifix/src/kernel/AfriFixKernel.js",
+      "modules/afrifix/src/kernel/actions/AfriFixActionResolver.js",
+      "modules/afrifix/src/kernel/state/AfriFixStateManager.js",
+      "modules/afrifix/src/patch/AfriFixPatchGenerator.js",
+      "modules/afrifix/src/planning/AfriFixRepairPlannerEngine.js",
+      "modules/afrifix/src/recommendation/AfriFixRecommendationEngine.js",
+      "modules/afrifix/src/repair/AfriFixRepairPlanner.js",
+      "modules/afrifix/src/risk/AfriFixRiskEngine.js",
+      "modules/afrifix/src/rollback/AfriFixRollbackManager.js",
+      "modules/afrifix/src/safety/AfriFixRollbackGuard.js",
+      "modules/afrifix/src/security/AfriFixSecurityManager.js",
+      "modules/afrifix/src/security/access/AfriFixAccessController.js",
+      "modules/afrifix/src/security/identity/AfriFixIdentityResolver.js",
+      "modules/afrifix/src/security/permissions/AfriFixPermissionEngine.js",
+      "modules/afrifix/src/security/policies/AfriFixSecurityPolicy.js",
+      "modules/afrifix/src/verification/AfriFixVerificationBridge.js",
+      "modules/afrifix/src/workflow/AfriFixLifecycleEngine.js",
+      "modules/afrifix/src/workspace/AfriFixWorkspaceManager.js",
+      "modules/afrifix/src/workspace/manager/AfriFixWorkspaceRegistry.js",
+      "modules/afrifix/src/workspace/sessions/AfriFixRepairSession.js",
+      "modules/afrifix/src/workspace/storage/AfriFixWorkspaceStorage.js",
+      "modules/afriai/bootstrap/RuntimeBootstrap.js",
+      "modules/afriai/bootstrap/RuntimeHealth.js",
+      "modules/afriai/bootstrap/RuntimeLoader.js",
+      "modules/afriai/bootstrap/RuntimeRegistry.js",
+      "modules/afriai/business/admin/AfriAIComplianceLog.js",
+      "modules/afriai/business/admin/AfriAILeadDashboard.js",
+      "modules/afriai/business/admin/AfriAITenantDashboard.js",
+      "modules/afriai/business/analytics/AfriAIRevenueAnalytics.js",
+      "modules/afriai/business/api/AfriAIWebhookRegistry.js",
+      "modules/afriai/business/billing/AfriAIBillingAdapter.js",
+      "modules/afriai/business/customer-success/AfriAIBusinessAdvisor.js",
+      "modules/afriai/business/customer-success/AfriAIIndustryKnowledge.js",
+      "modules/afriai/business/identity/AfriAIBusinessIdentityAdapter.js",
+      "modules/afriai/business/identity/AfriAIBusinessUserContext.js",
+      "modules/afriai/business/knowledge/AfriAIKnowledgeSync.js",
+      "modules/afriai/business/knowledge/AfriAITenantKnowledge.js",
+      "modules/afriai/business/leads/AfriAILeadCapture.js",
+      "modules/afriai/business/leads/AfriAILeadRegistry.js",
+      "modules/afriai/business/opportunities/AfriAIOpportunityEngine.js",
+      "modules/afriai/business/recommendations/AfriAIServiceRecommendation.js",
+      "modules/afriai/business/sales/AfriAIContactRouting.js",
+      "modules/afriai/business/sales/AfriAIQualificationEngine.js",
+      "modules/afriai/business/sales/AfriAISalesPipeline.js",
+      "modules/afriai/customer/preferences/AfriAICustomerPreferences.js",
+      "modules/afriai/customer/sessions/AfriAICustomerSession.js",
+      "modules/afriai/enterprise/knowledge/AfriAITenantKnowledgeManager.js",
+      "modules/afriai/experience/recommendation/AfriAIRecommendationEngine.js",
+      "modules/afriai/identity/resolver/AfriAIIdentityResolver.js",
+      "modules/afriai/identity/runtime/AfriAIIdentityContext.js",
+      "modules/afriai/integrations/AfriAIAnalyticsIntegration.js",
+      "modules/afriai/integrations/AfriAIApiIntegration.js",
+      "modules/afriai/policies/commercial/AfriAICommercialPolicy.js",
+      "modules/afriai/policies/compliance/AfriAICompliancePolicy.js",
+      "modules/afriai/policies/content/AfriAIContentPolicy.js",
+      "modules/afriai/policies/escalation/AfriAIEscalationPolicy.js",
+      "modules/afriai/policies/privacy/AfriAIPrivacyPolicy.js",
+      "modules/afriai/policies/security/AfriAISecurityPolicy.js",
+      "modules/afriai/tools/execution/AfriAIToolExecutor.js",
+      "modules/afriai/tools/planner/AfriAIToolPlanner.js",
+      "modules/afriwhatsapp/controllers/index.js",
+      "modules/afriwhatsapp/events/AfriWhatsAppEvents.js",
+      "modules/afriwhatsapp/routes/index.js",
+      "modules/afriwhatsapp/templates/AfriWhatsAppTemplates.js"
+    ],
+    "markerFiles": [
+      "modules/afriai/business/api/AfriAIApiKeyRegistry.js",
+      "modules/afriai/business/tenants/AfriAITenantRegistry.js"
+    ]
+  },
+  "files": [
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+      "bytes": 588,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugCertificationReport.js",
+      "bytes": 804,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugEvidenceGenerator.js",
+      "bytes": 589,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugInvestigationValidator.js",
+      "bytes": 397,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugModuleRegistryValidator.js",
+      "bytes": 718,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugPluginValidator.js",
+      "bytes": 1170,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugRouteValidator.js",
+      "bytes": 853,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugRuntimeValidator.js",
+      "bytes": 899,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/certification/AfriDebugValidationEngine.js",
+      "bytes": 2465,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIBuildFailureAnalyzer.js",
+      "bytes": 291,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIDebugMemory.js",
+      "bytes": 202,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIErrorAnalyzer.js",
+      "bytes": 261,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIImportTracer.js",
+      "bytes": 449,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIKnowledgeGapAnalyzer.js",
+      "bytes": 935,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIKnowledgeRegistryLocator.js",
+      "bytes": 1142,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIKnowledgeRepairMapper.js",
+      "bytes": 661,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIRuntimeEvidenceCollector.js",
+      "bytes": 617,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIRuntimeInspector.js",
+      "bytes": 213,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriAIStackTraceReader.js",
+      "bytes": 214,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/AfriDebugEngine.js",
+      "bytes": 2474,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/AfriDebugAdminController.js",
+      "bytes": 333,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/AfriDebugAdminRegistry.js",
+      "bytes": 1781,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/AfriDebugAdminScaffolder.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/adapter/AfriDebugControlCenterAdapter.js",
+      "bytes": 691,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/apikeys/AfriDebugApiKeysAdmin.js",
+      "bytes": 56,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/audit/AfriDebugAuditAdmin.js",
+      "bytes": 54,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/billing/AfriDebugBillingAdmin.js",
+      "bytes": 56,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/cases/AfriDebugCasesAdmin.js",
+      "bytes": 54,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/credits/AfriDebugCreditsAdmin.js",
+      "bytes": 56,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/dashboard/AfriDebugDashboardAdmin.js",
+      "bytes": 58,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/developers/AfriDebugDevelopersAdmin.js",
+      "bytes": 59,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/knowledge/AfriDebugKnowledgeAdmin.js",
+      "bytes": 58,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/monitoring/AfriDebugLiveMonitor.js",
+      "bytes": 514,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/monitoring/AfriDebugMonitoringAdmin.js",
+      "bytes": 59,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/notifications/AfriDebugNotificationsAdmin.js",
+      "bytes": 62,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/organizations/AfriDebugOrganizationsAdmin.js",
+      "bytes": 62,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/projects/AfriDebugProjectsAdmin.js",
+      "bytes": 57,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/queue/AfriDebugQueueAdmin.js",
+      "bytes": 54,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/registry/AfriDebugAdminDashboardRegistry.js",
+      "bytes": 465,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/repair/AfriDebugRepairAdmin.js",
+      "bytes": 55,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/repositories/AfriDebugRepositoriesAdmin.js",
+      "bytes": 61,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/runtime/AfriDebugAdminRuntime.js",
+      "bytes": 910,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/runtime/AfriDebugRuntimeAdmin.js",
+      "bytes": 56,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/security/AfriDebugSecurityAdmin.js",
+      "bytes": 57,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/settings/AfriDebugSettingsAdmin.js",
+      "bytes": 57,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/subscriptions/AfriDebugSubscriptionsAdmin.js",
+      "bytes": 62,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ai/AfriDebugAIAgentRuntime.js",
+      "bytes": 662,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ai/providers/AfriAIProvider.js",
+      "bytes": 193,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ai/providers/AfriDebugAIProviderRegistry.js",
+      "bytes": 407,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ai/providers/LocalAIProvider.js",
+      "bytes": 196,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/analytics/AfriDebugIncidentAnalyticsEngine.js",
+      "bytes": 839,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/AfriDebugAPIRequestSignatureVerifier.js",
+      "bytes": 759,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js",
+      "bytes": 865,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/admin/AfriDebugAdminAPI.js",
+      "bytes": 281,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/client/AfriDebugClientAPI.js",
+      "bytes": 433,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/dashboard/AfriDebugDashboardAPI.js",
+      "bytes": 371,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/evidence/AfriDebugEvidenceAPI.js",
+      "bytes": 546,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/health/AfriDebugAPIHealthRuntime.js",
+      "bytes": 378,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+      "bytes": 642,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/marketplace/AfriDebugMarketplaceAPI.js",
+      "bytes": 429,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/registry/AfriDebugAPIRegistry.js",
+      "bytes": 583,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/api/router/AfriDebugAPIRouter.js",
+      "bytes": 335,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/apikeys/AfriDebugApiKeyRuntime.js",
+      "bytes": 640,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+      "bytes": 2005,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js",
+      "bytes": 1212,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+      "bytes": 106,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js",
+      "bytes": 843,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/audit/AfriDebugImmutableAuditLedger.js",
+      "bytes": 123,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/billing/AfriDebugBillingBridge.js",
+      "bytes": 697,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/billing/AfriDebugUsageMeter.js",
+      "bytes": 644,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/bridge/AfriAIDebugBridge.js",
+      "bytes": 400,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/bridge/AfriDebugBridgeKnowledgeRoutingEngine.js",
+      "bytes": 78,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/certification/AfriDebugCertificationRegistry.js",
+      "bytes": 890,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js",
+      "bytes": 783,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/channels/AfriDebugWhatsAppWebhookSecurityGuard.js",
+      "bytes": 719,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugChainOfCustodyManager.js",
+      "bytes": 582,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugClientProjectEvidenceCollector.js",
+      "bytes": 1015,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugClientWorkspace.js",
+      "bytes": 664,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugEvidenceCorrelationEngine.js",
+      "bytes": 453,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugEvidenceTimelineReconstructor.js",
+      "bytes": 386,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugExecutiveComplianceReportingDashboard.js",
+      "bytes": 635,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugIncidentReportGenerator.js",
+      "bytes": 759,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugIncidentResponsePlaybookEngine.js",
+      "bytes": 851,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugIncidentSeverityScoringEngine.js",
+      "bytes": 718,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugInvestigationWorkspace.js",
+      "bytes": 952,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugRemediationRecommendationEngine.js",
+      "bytes": 886,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugRootCauseAnalysisEngine.js",
+      "bytes": 819,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/client/AfriDebugSecurityCaseManager.js",
+      "bytes": 1067,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/commerce/AfriDebugCommerceConnector.js",
+      "bytes": 232,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/contracts/AfriDebugConnectorContract.js",
+      "bytes": 440,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/designstudio/AfriDebugDesignStudioConnector.js",
+      "bytes": 246,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/events/AfriDebugConnectorEventAdapter.js",
+      "bytes": 640,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js",
+      "bytes": 880,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/handoff/AfriDebugConnectorInvestigationHandoff.js",
+      "bytes": 718,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/observability/AfriDebugConnectorObservabilityRuntime.js",
+      "bytes": 822,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/registry/AfriDebugConnectorRegistry.js",
+      "bytes": 509,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/runtime/AfriDebugConnectorRuntime.js",
+      "bytes": 613,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/runtime/AfriDebugMultiConnectorRuntime.js",
+      "bytes": 520,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/storage/AfriDebugConnectorStateStorage.js",
+      "bytes": 584,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/storage/AfriDebugPersistentStorageAdapter.js",
+      "bytes": 1111,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/web/AfriDebugWebConnector.js",
+      "bytes": 207,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/connectors/whatsapp/AfriDebugWhatsAppConnector.js",
+      "bytes": 440,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/context/AfriDebugContext.js",
+      "bytes": 323,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/AfriDebugDashboardAdapter.js",
+      "bytes": 1226,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/api/AfriDebugDashboardAPI.js",
+      "bytes": 471,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/data/AfriDebugDashboardDataProvider.js",
+      "bytes": 823,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/health/AfriDebugDashboardHealthAggregator.js",
+      "bytes": 1090,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/intelligence/AfriDebugDashboardIntelligenceProvider.js",
+      "bytes": 715,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/dashboard/runtime/AfriDebugDashboardRuntime.js",
+      "bytes": 806,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js",
+      "bytes": 751,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js",
+      "bytes": 998,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js",
+      "bytes": 1061,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js",
+      "bytes": 1021,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugDeliveryRuntime.js",
+      "bytes": 1104,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js",
+      "bytes": 880,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js",
+      "bytes": 935,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/disputes/AfriDebugDisputeRuntime.js",
+      "bytes": 1127,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/disputes/AfriDebugEvidenceTimeline.js",
+      "bytes": 572,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/disputes/AfriDebugResolutionEngine.js",
+      "bytes": 638,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/AfriDebugEcosystemRegistry.js",
+      "bytes": 562,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/AfriDebugEcosystemRuntime.js",
+      "bytes": 977,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/aggregation/AfriDebugEcosystemHealthAggregator.js",
+      "bytes": 183,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/certification/AfriDebugEcosystemCertificationRuntime.js",
+      "bytes": 195,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/dependency/AfriDebugRuntimeDependencyGraph.js",
+      "bytes": 174,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/discovery/AfriDebugEcosystemDiscoveryRuntime.js",
+      "bytes": 183,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/events/AfriDebugEcosystemEventBus.js",
+      "bytes": 159,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/health/AfriDebugConnectorHealthMonitor.js",
+      "bytes": 174,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/lifecycle/AfriDebugConnectorLifecycleManager.js",
+      "bytes": 183,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js",
+      "bytes": 204,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/audit/AfriDebugAuditRuntime.js",
+      "bytes": 487,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/billing/AfriDebugEnterpriseBillingRuntime.js",
+      "bytes": 518,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/compliance/AfriDebugComplianceRuntime.js",
+      "bytes": 506,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/identity/AfriDebugIdentityRuntime.js",
+      "bytes": 506,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/licensing/AfriDebugLicenseRuntime.js",
+      "bytes": 498,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/organizations/AfriDebugOrganizationRuntime.js",
+      "bytes": 542,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/rbac/AfriDebugRBACRuntime.js",
+      "bytes": 423,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/runtime/AfriDebugEnterpriseRuntime.js",
+      "bytes": 452,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/security/AfriDebugSecurityPolicyRuntime.js",
+      "bytes": 520,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/teams/AfriDebugTeamRuntime.js",
+      "bytes": 500,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/tokens/AfriDebugAPITokenRuntime.js",
+      "bytes": 474,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/usage/AfriDebugUsageRuntime.js",
+      "bytes": 486,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/enterprise/workspaces/AfriDebugWorkspaceRuntime.js",
+      "bytes": 533,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/events/AfriDebugEventBus.js",
+      "bytes": 587,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/events/AfriDebugEventStream.js",
+      "bytes": 856,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugCertificateOfAuthenticity.js",
+      "bytes": 891,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceArchive.js",
+      "bytes": 1368,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportManager.js",
+      "bytes": 899,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportRegistry.js",
+      "bytes": 977,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceIntegrityVerifier.js",
+      "bytes": 982,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceVault.js",
+      "bytes": 1523,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugOfflineEvidenceVerifier.js",
+      "bytes": 537,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugPortableVerificationBundle.js",
+      "bytes": 1245,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugSecureEvidencePackage.js",
+      "bytes": 669,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/AfriDebugSnapshotEngine.js",
+      "bytes": 1328,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/export/AfriDebugEvidenceExporter.js",
+      "bytes": 1527,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/exporters/AfriDebugCSVEvidenceExporter.js",
+      "bytes": 979,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/exporters/AfriDebugHTMLEvidenceExporter.js",
+      "bytes": 1629,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/evidence/exporters/AfriDebugJSONEvidenceExporter.js",
+      "bytes": 490,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+      "bytes": 113,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js",
+      "bytes": 1132,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugExecutionEngine.js",
+      "bytes": 729,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js",
+      "bytes": 731,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugExecutionState.js",
+      "bytes": 425,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js",
+      "bytes": 941,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriCommerceConnectorCertificationTest.js",
+      "bytes": 1304,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriDebugExternalConnectorTest.js",
+      "bytes": 590,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriDesignStudioConnectorCertificationTest.js",
+      "bytes": 1321,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriWebConnectorCertificationTest.js",
+      "bytes": 1275,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/external/AfriWhatsAppConnectorCertificationTest.js",
+      "bytes": 1265,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+      "bytes": 102,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/history/AfriDebugHistory.js",
+      "bytes": 301,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/history/AfriDebugRepairHistoryLedger.js",
+      "bytes": 105,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/incidents/AfriDebugClientIncidentIntakeGateway.js",
+      "bytes": 607,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ingestion/ErrorInputAdapter.js",
+      "bytes": 357,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ingestion/GitRepositoryAdapter.js",
+      "bytes": 414,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/ingestion/LogUploadAdapter.js",
+      "bytes": 232,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intake/AfriDebugIntakeValidator.js",
+      "bytes": 693,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intake/AfriDebugRepositoryConnector.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intake/AfriDebugRepositoryIntake.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/AfriDebugIntegrationTestHarness.js",
+      "bytes": 535,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/audit/AfriDebugIntegrationAudit.js",
+      "bytes": 376,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/bootstrap/AfriDebugIntegrationBootstrap.js",
+      "bytes": 205,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/events/AfriDebugIntegrationEventContract.js",
+      "bytes": 357,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/evidence/AfriDebugEvidenceArchiveAdapter.js",
+      "bytes": 581,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/evidence/AfriDebugEvidenceCollectionBridge.js",
+      "bytes": 736,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugInvestigationExecutionBridge.js",
+      "bytes": 689,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+      "bytes": 124,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/handoff/AfriDebugInvestigationHandoffRuntime.js",
+      "bytes": 597,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/intake/AfriDebugIntegrationIntakeRuntime.js",
+      "bytes": 515,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/intelligence/AfriDebugIntelligenceBridge.js",
+      "bytes": 662,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js",
+      "bytes": 594,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/runtime/AfriDebugIntegrationRuntime.js",
+      "bytes": 433,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/integration/storage/AfriDebugIncidentPersistenceBridge.js",
+      "bytes": 738,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js",
+      "bytes": 1432,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugDiagnosisEngine.js",
+      "bytes": 1147,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchAdvisor.js",
+      "bytes": 777,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js",
+      "bytes": 876,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js",
+      "bytes": 2082,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchPreview.js",
+      "bytes": 699,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchValidator.js",
+      "bytes": 642,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugPredictiveEngine.js",
+      "bytes": 984,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugRepairFeedbackEngine.js",
+      "bytes": 852,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugRiskEngine.js",
+      "bytes": 634,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugSimilarityEngine.js",
+      "bytes": 926,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/AfriDebugSolutionRecommender.js",
+      "bytes": 735,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/learning/AfriDebugAILearningEngine.js",
+      "bytes": 836,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/patch/AfriDebugAIPatchGenerator.js",
+      "bytes": 757,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/planner/AfriDebugAIInvestigationPlanner.js",
+      "bytes": 832,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intelligence/rootcause/AfriDebugAIRootCauseEngine.js",
+      "bytes": 868,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRegistry.js",
+      "bytes": 476,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRuntime.js",
+      "bytes": 762,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/AfriDebugLiveRuntime.js",
+      "bytes": 877,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/DeliveryPackager.js",
+      "bytes": 65,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/DependencyGraphBuilder.js",
+      "bytes": 71,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/EvidenceReportGenerator.js",
+      "bytes": 72,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/HumanApprovalGate.js",
+      "bytes": 1413,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/InvestigationOrchestrator.js",
+      "bytes": 74,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/KnowledgeMatcher.js",
+      "bytes": 65,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/LogAnalyzer.js",
+      "bytes": 60,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/PatchPlanner.js",
+      "bytes": 61,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/RepositoryIntake.js",
+      "bytes": 65,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/RuntimeInspector.js",
+      "bytes": 65,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/investigation/VerificationEngine.js",
+      "bytes": 67,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/kernel/AfriDebugKernel.js",
+      "bytes": 742,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgePersistence.js",
+      "bytes": 1025,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgeRuntime.js",
+      "bytes": 695,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgeStore.js",
+      "bytes": 1188,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/learning/AfriDebugClientFeedbackLearner.js",
+      "bytes": 882,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/learning/AfriDebugKnowledgeReinforcement.js",
+      "bytes": 874,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/learning/AfriDebugLearningMemory.js",
+      "bytes": 941,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/learning/AfriDebugResolutionRecorder.js",
+      "bytes": 105,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/live/AfriDebugLiveConnectorGateway.js",
+      "bytes": 756,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/AfriDebugJobMarketplaceRuntime.js",
+      "bytes": 1176,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js",
+      "bytes": 1152,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/activation/AfriDebugJobActivationRuntime.js",
+      "bytes": 1022,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/bridge/AfriDebugMarketplaceQueueBridge.js",
+      "bytes": 589,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/client/AfriDebugClientStatusRuntime.js",
+      "bytes": 1453,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/payment/AfriDebugPaymentRuntime.js",
+      "bytes": 919,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/repository/AfriDebugRepositoryBinding.js",
+      "bytes": 705,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/repository/AfriDebugRepositoryConnector.js",
+      "bytes": 697,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/marketplace/scheduler/AfriDebugMarketplaceSchedulerBridge.js",
+      "bytes": 604,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/memory/AfriDebugCaseMemory.js",
+      "bytes": 701,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/memory/AfriDebugCompletedCaseArchive.js",
+      "bytes": 1017,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeMemory.js",
+      "bytes": 1270,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/memory/AfriDebugKnowledgeReinforcementBridge.js",
+      "bytes": 1110,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/memory/AfriDebugPatternMatcher.js",
+      "bytes": 502,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+      "bytes": 113,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+      "bytes": 4410,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/patch/AfriDebugPatchRuntime.js",
+      "bytes": 753,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/pipeline/AfriDebugIncidentPipeline.js",
+      "bytes": 663,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js",
+      "bytes": 994,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/audit/AfriDebugProductionAudit.js",
+      "bytes": 333,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/bootstrap/AfriDebugProductionBootstrap.js",
+      "bytes": 439,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/certification/AfriDebugProductionCertification.js",
+      "bytes": 329,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/compliance/AfriDebugProductionCompliance.js",
+      "bytes": 349,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/config/AfriDebugProductionConfig.js",
+      "bytes": 338,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/deployment/AfriDebugDeploymentRuntime.js",
+      "bytes": 478,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/environment/AfriDebugEnvironmentRuntime.js",
+      "bytes": 314,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/features/AfriDebugFeatureFlagRuntime.js",
+      "bytes": 326,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/finalaudit/AfriDebugProductionFinalAudit.js",
+      "bytes": 308,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/health/AfriDebugProductionHealthRuntime.js",
+      "bytes": 287,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/logging/AfriDebugProductionLogger.js",
+      "bytes": 249,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/metrics/AfriDebugMetricsRuntime.js",
+      "bytes": 263,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/monitoring/AfriDebugMonitoringRuntime.js",
+      "bytes": 276,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/packaging/AfriDebugPackageBuilder.js",
+      "bytes": 328,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/policies/AfriDebugSecurityPolicy.js",
+      "bytes": 336,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/ratelimit/AfriDebugRateLimiter.js",
+      "bytes": 258,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/readiness/AfriDebugProductionReadiness.js",
+      "bytes": 304,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/registry/AfriDebugProductionRegistry.js",
+      "bytes": 345,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/release/AfriDebugReleaseManager.js",
+      "bytes": 370,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/rollback/AfriDebugManualRollbackController.js",
+      "bytes": 751,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js",
+      "bytes": 1302,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/security/AfriDebugProductionSecurity.js",
+      "bytes": 328,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/production/validation/AfriDebugEnvironmentValidator.js",
+      "bytes": 377,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/queue/AfriDebugQueue.js",
+      "bytes": 527,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/AfriDebugRealtimeIntegration.js",
+      "bytes": 1120,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/AfriDebugRealtimeRuntime.js",
+      "bytes": 585,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/channels/AfriDebugChannelManager.js",
+      "bytes": 474,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/events/AfriDebugRealtimeEventBus.js",
+      "bytes": 588,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/gateway/AfriDebugRealtimeGateway.js",
+      "bytes": 348,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/notifications/AfriDebugNotificationRuntime.js",
+      "bytes": 666,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/presence/AfriDebugPresenceRuntime.js",
+      "bytes": 492,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/stream/AfriDebugLiveStreamRuntime.js",
+      "bytes": 485,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/sync/AfriDebugStateSyncRuntime.js",
+      "bytes": 480,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/realtime/websocket/AfriDebugWebSocketRuntime.js",
+      "bytes": 527,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+      "bytes": 1795,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js",
+      "bytes": 747,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js",
+      "bytes": 2088,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/registry/AfriDebugModuleRegistry.js",
+      "bytes": 492,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/reports/AfriDebugIncidentReportGenerator.js",
+      "bytes": 754,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/resolution/AfriDebugResolutionEngine.js",
+      "bytes": 684,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugAdminRuntime.js",
+      "bytes": 443,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugConnectorBootstrap.js",
+      "bytes": 828,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugConnectorCertificationRuntime.js",
+      "bytes": 889,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugConnectorDispatcher.js",
+      "bytes": 948,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugConnectorRegistryRuntime.js",
+      "bytes": 496,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+      "bytes": 1818,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugRuntimeBootstrap.js",
+      "bytes": 465,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugRuntimeRegistry.js",
+      "bytes": 723,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/runtime/AfriDebugUnifiedRuntime.js",
+      "bytes": 676,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/scheduler/AfriDebugJobScheduler.js",
+      "bytes": 644,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugCertificateChainValidator.js",
+      "bytes": 583,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugCertificateRenewalEngine.js",
+      "bytes": 161,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugCertificateRevocationList.js",
+      "bytes": 630,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugDigitalSignatureRuntime.js",
+      "bytes": 1629,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js",
+      "bytes": 1400,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js",
+      "bytes": 603,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugExternalIntakeSecurityGateway.js",
+      "bytes": 1298,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugFinalSecurityDecisionEngine.js",
+      "bytes": 583,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js",
+      "bytes": 1041,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugHSMProvider.js",
+      "bytes": 477,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugKeyManagementRuntime.js",
+      "bytes": 1327,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugKeyRotationManager.js",
+      "bytes": 337,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugRepositoryIntegrityGuard.js",
+      "bytes": 1087,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugSafeArchiveRuntime.js",
+      "bytes": 1261,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugSecurityGuard.js",
+      "bytes": 1284,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugTrustStore.js",
+      "bytes": 587,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugTrustedTimestampRuntime.js",
+      "bytes": 1143,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/security/AfriDebugZeroTrustVerificationEngine.js",
+      "bytes": 522,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/services/AfriDebugService.js",
+      "bytes": 401,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/state/AfriDebugInvestigationStateManager.js",
+      "bytes": 1221,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/storage/AfriDebugIncidentStore.js",
+      "bytes": 1084,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/storage/AfriDebugRecoveryRuntime.js",
+      "bytes": 702,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/storage/AfriDebugStorage.js",
+      "bytes": 561,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/subscriptions/AfriDebugSubscriptionRuntime.js",
+      "bytes": 957,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/verification/AfriDebugRegressionValidator.js",
+      "bytes": 825,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/verification/AfriDebugRepairVerificationEngine.js",
+      "bytes": 825,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/verification/AfriDebugVerificationRuntime.js",
+      "bytes": 601,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugDeliveryPackageWorker.js",
+      "bytes": 747,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugDependencyGraphWorker.js",
+      "bytes": 703,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugEvidenceReportWorker.js",
+      "bytes": 811,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugKnowledgeMatcherWorker.js",
+      "bytes": 815,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugLogAnalyzerWorker.js",
+      "bytes": 823,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugPatchPlanningWorker.js",
+      "bytes": 711,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugRepositoryIntakeWorker.js",
+      "bytes": 693,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugRuntimeInspectorWorker.js",
+      "bytes": 798,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workers/AfriDebugVerificationWorker.js",
+      "bytes": 765,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workspace/DeveloperWorkspace.js",
+      "bytes": 308,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workspace/ProjectRegistry.js",
+      "bytes": 428,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/debug/workspace/RepositoryConnectionRegistry.js",
+      "bytes": 483,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugApprovalGate.js",
+      "bytes": 545,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugClientSummaryGenerator.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugDeliveryAssembler.js",
+      "bytes": 752,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugReportPackager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/intelligence/AfriDebugChangeSummaryGenerator.js",
+      "bytes": 633,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/intelligence/AfriDebugConfidenceScorer.js",
+      "bytes": 523,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/intelligence/AfriDebugImpactAnalyzer.js",
+      "bytes": 537,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/AfriDebugDependencyGraphBuilder.js",
+      "bytes": 1336,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/knowledge/AfriDebugIncidentMemory.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/knowledge/AfriDebugKnowledgeMatcher.js",
+      "bytes": 1107,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/knowledge/AfriDebugPatternAnalyzer.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/logs/AfriDebugErrorClassifier.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/logs/AfriDebugLogAnalyzer.js",
+      "bytes": 495,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/logs/AfriDebugStackTraceParser.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/patch/AfriDebugChangeImpactAnalyzer.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/patch/AfriDebugPatchPlanner.js",
+      "bytes": 618,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/patch/AfriDebugRiskAssessment.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/runtime/AfriDebugRuntimeInspector.js",
+      "bytes": 379,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/runtime/events/AfriDebugRuntimeEventCollector.js",
+      "bytes": 317,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/runtime/evidence/AfriDebugRuntimeEvidenceAdapter.js",
+      "bytes": 485,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/orchestrator/AfriDebugInvestigationOrchestrator.js",
+      "bytes": 558,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/orchestrator/AfriDebugInvestigationPipeline.js",
+      "bytes": 521,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/verification/AfriDebugRegressionRunner.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/verification/AfriDebugTestValidator.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afridebug/src/verification/AfriDebugVerificationEngine.js",
+      "bytes": 572,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/bin/afrifix-verify.js",
+      "bytes": 1146,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/bin/afrifix.js",
+      "bytes": 1033,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/cli/AfriFixCLI.js",
+      "bytes": 1039,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/config/AfriFixConfig.js",
+      "bytes": 130,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/contracts/AfriFixRepairContract.js",
+      "bytes": 237,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/contracts/AfriFixRuntimeContract.js",
+      "bytes": 288,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/api/AfriFixServiceGateway.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/api/controllers/AfriFixRepairController.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/api/routes/AfriFixRepairRoutes.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/api/services/AfriFixRepairService.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/approval/AfriFixApprovalGate.js",
+      "bytes": 544,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/audit/AfriFixAuditTrail.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/bridge/AfriFixDebugBridge.js",
+      "bytes": 170,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/bridge/AfriFixEvidenceConsumer.js",
+      "bytes": 254,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/bridge/afridebug/AfriFixDebugHandoffAdapter.js",
+      "bytes": 1479,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/certification/AfriFixCertificationRunner.js",
+      "bytes": 1586,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/certification/AfriFixEcosystemCertification.js",
+      "bytes": 575,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/certification/AfriFixFullValidation.js",
+      "bytes": 1565,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/certification/AfriFixValidationEngine.js",
+      "bytes": 137,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/consolidation/AfriFixConsolidationPlanner.js",
+      "bytes": 2604,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/context/AfriFixContextManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/decision/AfriFixDecisionEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/ecosystem/AfriFixEcosystemValidator.js",
+      "bytes": 636,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/events/AfriFixEventBus.js",
+      "bytes": 134,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/evidence/AfriFixEvidenceManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/evidence/AfriFixSessionEvidenceAdapter.js",
+      "bytes": 475,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/execution/AfriFixExecutionEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/execution/adapter/AfriFixExecutionAdapter.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/execution/approval/AfriFixExecutionApprovalAdapter.js",
+      "bytes": 854,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/execution/preview/AfriFixPreviewEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/intake/AfriFixIntakeEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/intelligence/AfriFixReasoningEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/AfriFixKernel.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/actions/AfriFixActionResolver.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/policies/AfriFixExecutionPolicy.js",
+      "bytes": 587,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/state/AfriFixStateManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/lifecycle/AfriFixRepairLifecycle.js",
+      "bytes": 1034,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+      "bytes": 271,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/patch/AfriFixPatchGenerator.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/planning/AfriFixRepairPlannerEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/platform/AfriFixCapabilityBridge.js",
+      "bytes": 376,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/recommendation/AfriFixRecommendationEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/registry/AfriFixCapabilityRegistry.js",
+      "bytes": 166,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/repair/AfriFixRepairPlanner.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/risk/AfriFixRiskEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/rollback/AfriFixRollbackManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/AfriFixRuntimeEngine.js",
+      "bytes": 203,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeEventStoreAdapter.js",
+      "bytes": 293,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeEventsAdapter.js",
+      "bytes": 263,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeEvidenceAdapter.js",
+      "bytes": 292,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeMigrationMap.js",
+      "bytes": 764,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeRegistryAdapter.js",
+      "bytes": 207,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeScanRegistryAdapter.js",
+      "bytes": 193,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeSecurityAdapter.js",
+      "bytes": 238,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/adapters/AfriFixRuntimeStorageEvidenceAdapter.js",
+      "bytes": 431,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/admission/AfriFixRuntimeAdmissionController.js",
+      "bytes": 1053,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/authorization/AfriFixAuthorizationEngine.js",
+      "bytes": 501,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/bus/AfriFixRuntimeBus.js",
+      "bytes": 808,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/capabilities/AfriFixCapabilityRegistry.js",
+      "bytes": 865,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/capabilities/AfriFixCapabilityResolver.js",
+      "bytes": 706,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/context/AfriFixExecutionContext.js",
+      "bytes": 516,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/discovery/AfriFixRuntimeModuleDiscovery.js",
+      "bytes": 985,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/dispatcher/AfriFixRuntimeDispatcher.js",
+      "bytes": 1094,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/events/AfriFixExecutionEventBus.js",
+      "bytes": 816,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/eventstore/AfriFixRuntimeEventStore.js",
+      "bytes": 777,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/executor/AfriFixExecutionExecutor.js",
+      "bytes": 1357,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/gateway/AfriFixRuntimeGateway.js",
+      "bytes": 601,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/global/AfriFixGlobalRuntimeRegistry.js",
+      "bytes": 1463,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/history/AfriFixExecutionHistory.js",
+      "bytes": 525,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/hooks/AfriFixRuntimeHooks.js",
+      "bytes": 678,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/kernel/AfriFixRuntimeKernel.js",
+      "bytes": 753,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/manager/AfriFixRuntimeManager.js",
+      "bytes": 791,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/middleware/AfriFixRuntimeMiddleware.js",
+      "bytes": 414,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/monitor/AfriFixRuntimeMonitor.js",
+      "bytes": 942,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+      "bytes": 1053,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/pipeline/AfriFixExecutionPipeline.js",
+      "bytes": 605,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/pipelines/AfriFixPipelineRegistry.js",
+      "bytes": 577,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/planner/AfriFixExecutionPlanner.js",
+      "bytes": 1070,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/policy/AfriFixPolicyEngine.js",
+      "bytes": 1024,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/queue/AfriFixJobQueue.js",
+      "bytes": 288,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/registry/AfriFixExecutionRegistry.js",
+      "bytes": 773,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/registry/AfriFixRuntimeRegistry.js",
+      "bytes": 453,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/replay/AfriFixRuntimeReplayEngine.js",
+      "bytes": 644,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/resolver/AfriFixRuntimeResolver.js",
+      "bytes": 612,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/router/AfriFixRuntimeRouter.js",
+      "bytes": 669,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/scheduler/AfriFixScheduler.js",
+      "bytes": 192,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/service/AfriFixRuntimeServiceGateway.js",
+      "bytes": 734,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/snapshots/AfriFixRuntimeSnapshotEngine.js",
+      "bytes": 875,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/state/AfriFixExecutionStateMachine.js",
+      "bytes": 652,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/storage/AfriFixExecutionStore.js",
+      "bytes": 714,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/supervisor/AfriFixRuntimeSupervisor.js",
+      "bytes": 1709,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/runtime/workers/AfriFixWorker.js",
+      "bytes": 400,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/safety/AfriFixExecutionGuard.js",
+      "bytes": 498,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/safety/AfriFixRollbackGuard.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/security/AfriFixSecurityManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/security/access/AfriFixAccessController.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/security/identity/AfriFixIdentityResolver.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/security/permissions/AfriFixPermissionEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/security/policies/AfriFixSecurityPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/sessions/AfriFixRepairSessionManager.js",
+      "bytes": 436,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/verification/AfriFixVerificationBridge.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/workflow/AfriFixLifecycleEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/AfriFixWorkspaceManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/manager/AfriFixWorkspaceRegistry.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/sessions/AfriFixRepairSession.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/storage/AfriFixWorkspaceStorage.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afrifix/tests/AfriFixRuntimeQueueTest.js",
+      "bytes": 459,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afrifix/tests/AfriFixWorkflowTest.js",
+      "bytes": 854,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/actions/AfriAIActionRegistry.js",
+      "bytes": 121,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/actions/AfriAIActionRouter.js",
+      "bytes": 102,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/actions/AfriAIExecutionPolicy.js",
+      "bytes": 112,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/agents/executor/AfriAITaskExecutor.js",
+      "bytes": 115,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/agents/planner/AfriAITaskPlanner.js",
+      "bytes": 109,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/agents/registry/AfriAIAgentRegistry.js",
+      "bytes": 141,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/agents/runtime/AfriAIAgentRuntime.js",
+      "bytes": 441,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeBootstrap.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeConfig.js",
+      "bytes": 148,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeDependencies.js",
+      "bytes": 174,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeDiscovery.js",
+      "bytes": 152,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeHealth.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeLifecycle.js",
+      "bytes": 166,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeLoader.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeRegistry.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/bootstrap/index.js",
+      "bytes": 74,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAIComplianceLog.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAILeadDashboard.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAITenantDashboard.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/analytics/AfriAIRevenueAnalytics.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/api/AfriAIApiAccessControl.js",
+      "bytes": 752,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/api/AfriAIApiKeyRegistry.js",
+      "bytes": 832,
+      "status": "INCOMPLETE_MARKERS"
+    },
+    {
+      "file": "modules/afriai/business/api/AfriAIWebhookRegistry.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/billing/AfriAIBillingAdapter.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/billing/AfriAISubscriptionRegistry.js",
+      "bytes": 1526,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/billing/AfriAIUsageMeter.js",
+      "bytes": 772,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/contracts/AfriAIBusinessContract.js",
+      "bytes": 668,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/customer-success/AfriAIBusinessAdvisor.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/customer-success/AfriAIIndustryKnowledge.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/gateway/AfriAIBusinessGateway.js",
+      "bytes": 833,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/business/identity/AfriAIBusinessIdentityAdapter.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/identity/AfriAIBusinessUserContext.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/knowledge/AfriAIKnowledgeSync.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/knowledge/AfriAITenantKnowledge.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/leads/AfriAILeadCapture.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/leads/AfriAILeadRegistry.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/opportunities/AfriAIOpportunityEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/recommendations/AfriAIServiceRecommendation.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAIContactRouting.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAIQualificationEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAISalesPipeline.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/business/tenants/AfriAITenantRegistry.js",
+      "bytes": 959,
+      "status": "INCOMPLETE_MARKERS"
+    },
+    {
+      "file": "modules/afriai/channels/AfriAIChannelGateway.js",
+      "bytes": 932,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/channels/AfriAIChannelRegistry.js",
+      "bytes": 218,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/channels/AfriAIChannelStatus.js",
+      "bytes": 159,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/commerce/AfriAICommerceExecutor.js",
+      "bytes": 154,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/commerce/AfriAIOrderAssistant.js",
+      "bytes": 143,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/commerce/AfriAIPurchaseFlow.js",
+      "bytes": 141,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/connectors/AfriAIConnectorStatus.js",
+      "bytes": 175,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/connectors/AfriAIServiceConnector.js",
+      "bytes": 373,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/connectors/AfriAIServiceMap.js",
+      "bytes": 498,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/context/channel/AfriAIChannelContext.js",
+      "bytes": 107,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/context/execution/AfriAIExecutionContext.js",
+      "bytes": 119,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/context/identity/AfriAIContextIdentity.js",
+      "bytes": 142,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/context/runtime/AfriAIContextRuntime.js",
+      "bytes": 951,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/context/tenant/AfriAITenantContext.js",
+      "bytes": 107,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/contracts/AfriAIContracts.js",
+      "bytes": 289,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/contracts/AfriAIResponseContract.js",
+      "bytes": 629,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/conversation/AfriAIConversationRuntime.js",
+      "bytes": 328,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/conversation/AfriAIConversationStatus.js",
+      "bytes": 193,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/conversation/AfriAISessionManager.js",
+      "bytes": 269,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/context/AfriAICustomerContext.js",
+      "bytes": 131,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/history/AfriAIConversationHistory.js",
+      "bytes": 155,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/journeys/AfriAICustomerJourney.js",
+      "bytes": 132,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/orders/AfriAICustomerOrders.js",
+      "bytes": 127,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/preferences/AfriAICustomerPreferences.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/profiles/AfriAICustomerProfile.js",
+      "bytes": 139,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/recommendations/AfriAICustomerRecommendations.js",
+      "bytes": 158,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/sessions/AfriAICustomerSession.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/subscriptions/AfriAICustomerSubscriptions.js",
+      "bytes": 153,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/customer/wallet/AfriAICustomerWallet.js",
+      "bytes": 147,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/classifier/AfriAIIntentClassifier.js",
+      "bytes": 2173,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/confidence/AfriAIConfidenceEngine.js",
+      "bytes": 137,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/guardrails/AfriAIGuardrails.js",
+      "bytes": 118,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/policy/AfriAIDecisionPolicy.js",
+      "bytes": 148,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/reasoning/AfriAIReasoningEngine.js",
+      "bytes": 144,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/decision/resolver/AfriAIDecisionResolver.js",
+      "bytes": 620,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/diagnosis/AfriAIDiagnosisContract.js",
+      "bytes": 894,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/diagnosis/extractor/AfriAIDiagnosisExtractor.js",
+      "bytes": 946,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/diagnosis/parser/AfriAIDiagnosisParser.js",
+      "bytes": 924,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/analytics/AfriAIUsageAnalytics.js",
+      "bytes": 127,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/billing/AfriAIUsageBilling.js",
+      "bytes": 121,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/capabilities/AfriAITenantCapabilityManager.js",
+      "bytes": 183,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/configuration/AfriAIConfigurationRuntime.js",
+      "bytes": 135,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/isolation/AfriAITenantIsolation.js",
+      "bytes": 132,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/knowledge/AfriAITenantKnowledgeManager.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/enterprise/tenants/AfriAITenantRegistry.js",
+      "bytes": 169,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/evidence/AfriInvestigationEvidence.js",
+      "bytes": 1003,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/evidence/enrichment/AfriAIEvidenceEnricher.js",
+      "bytes": 785,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/approval/AfriAIApprovalRuntime.js",
+      "bytes": 518,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/audit/AfriAIExecutionAudit.js",
+      "bytes": 156,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js",
+      "bytes": 1622,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/history/AfriAIExecutionHistory.js",
+      "bytes": 129,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/preview/AfriAIPreviewRuntime.js",
+      "bytes": 633,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/receipts/AfriAIExecutionReceipt.js",
+      "bytes": 127,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/registry/AfriAIExecutionRegistry.js",
+      "bytes": 345,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/status/AfriAIExecutionStatus.js",
+      "bytes": 294,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/execution/trace/AfriAIExecutionTrace.js",
+      "bytes": 332,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/conversation/AfriAIConversationManager.js",
+      "bytes": 142,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/handoff/AfriAIHandoffManager.js",
+      "bytes": 140,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/multichannel/AfriAIMultiChannelRuntime.js",
+      "bytes": 141,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/notifications/AfriAINotificationExperience.js",
+      "bytes": 136,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/orchestrator/AfriAIExperienceOrchestrator.js",
+      "bytes": 412,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/proactive/AfriAIProactiveAssistant.js",
+      "bytes": 136,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/recommendation/AfriAIRecommendationEngine.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/experience/response/AfriAIResponseFormatter.js",
+      "bytes": 155,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/guards/AfriAIEvidenceGuard.js",
+      "bytes": 3528,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/authorization/AfriAIAuthorizationEngine.js",
+      "bytes": 156,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/kyc/AfriAIKYCRegistry.js",
+      "bytes": 119,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/permissions/AfriAIPermissionRegistry.js",
+      "bytes": 137,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/resolver/AfriAIIdentityResolver.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/roles/AfriAIRoleRegistry.js",
+      "bytes": 154,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/runtime/AfriAIIdentityContext.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/runtime/AfriAIIdentityRuntime.js",
+      "bytes": 255,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/identity/sessions/AfriAISessionIdentity.js",
+      "bytes": 133,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIAdsIntegration.js",
+      "bytes": 128,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIAnalyticsIntegration.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIApiIntegration.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAICommerceIntegration.js",
+      "bytes": 147,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIEducationIntegration.js",
+      "bytes": 146,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAINotificationIntegration.js",
+      "bytes": 152,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIOrderIntegration.js",
+      "bytes": 131,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIPaymentIntegration.js",
+      "bytes": 137,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIWalletIntegration.js",
+      "bytes": 133,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIWhatsAppIntegration.js",
+      "bytes": 147,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/AfriAIIntentRegistry.js",
+      "bytes": 339,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/AfriAIIntentRouter.js",
+      "bytes": 236,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/AfriAIIntentStatus.js",
+      "bytes": 143,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/GreetingIntent.js",
+      "bytes": 737,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/HelpIntent.js",
+      "bytes": 591,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/PaymentIntent.js",
+      "bytes": 547,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/ProductIntent.js",
+      "bytes": 462,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/StatusIntent.js",
+      "bytes": 831,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/StudioIntent.js",
+      "bytes": 936,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/intents/UnknownIntent.js",
+      "bytes": 297,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/investigation/AfriAIEvidenceInterpreter.js",
+      "bytes": 526,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/investigation/AfriAIInvestigator.js",
+      "bytes": 3129,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/AfriPlatformKnowledge.js",
+      "bytes": 714,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/CapabilityKnowledge.js",
+      "bytes": 1462,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/OpportunitiesKnowledge.js",
+      "bytes": 709,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/PaymentsKnowledge.js",
+      "bytes": 792,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/ProductKnowledge.js",
+      "bytes": 1993,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/RoadmapKnowledge.js",
+      "bytes": 834,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/StatusKnowledge.js",
+      "bytes": 817,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge/StudioKnowledge.js",
+      "bytes": 999,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-engine/AfriAIKnowledgeRegistry.js",
+      "bytes": 837,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-engine/AfriAIKnowledgeRetriever.js",
+      "bytes": 2013,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/admin/AfriAIAdminKnowledge.js",
+      "bytes": 80,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/business/AfriAIBusinessKnowledge.js",
+      "bytes": 89,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/classification/AfriAIKnowledgeClassification.js",
+      "bytes": 138,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/indexing/AfriAIKnowledgeIndex.js",
+      "bytes": 135,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/permissions/AfriAIKnowledgePermissions.js",
+      "bytes": 129,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/premium/AfriAIPremiumKnowledge.js",
+      "bytes": 86,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/public/AfriAIPublicKnowledge.js",
+      "bytes": 83,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/knowledge-governance/retrieval/AfriAIKnowledgeRuntime.js",
+      "bytes": 633,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/llm/OllamaClient.js",
+      "bytes": 1125,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/marketplace/catalog/AfriAICatalogRuntime.js",
+      "bytes": 136,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/marketplace/fulfillment/AfriAIMarketplaceFulfillment.js",
+      "bytes": 145,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/marketplace/orders/AfriAIMarketplaceOrders.js",
+      "bytes": 152,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/marketplace/products/AfriAIProductRegistry.js",
+      "bytes": 157,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/marketplace/vendors/AfriAIVendorRegistry.js",
+      "bytes": 153,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/AfriAIContextStore.js",
+      "bytes": 244,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/AfriAIMemoryManager.js",
+      "bytes": 413,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/AfriAIMemoryStatus.js",
+      "bytes": 118,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/ConversationMemory.js",
+      "bytes": 525,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/context/AfriAIContextMemory.js",
+      "bytes": 117,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/history/AfriAIMemoryHistory.js",
+      "bytes": 112,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/learning/AfriAILearningMemory.js",
+      "bytes": 113,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/preferences/AfriAIMemoryPreferences.js",
+      "bytes": 116,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/privacy/AfriAIMemoryPrivacy.js",
+      "bytes": 95,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/memory/profile/AfriAIMemoryProfile.js",
+      "bytes": 94,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/orchestrator/AfriAIConversationOrchestrator.js",
+      "bytes": 924,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/payments/AfriAIPaymentAssistant.js",
+      "bytes": 151,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/payments/AfriAIPaymentRouter.js",
+      "bytes": 123,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/payments/AfriAIPaymentStatus.js",
+      "bytes": 116,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/payments/AfriAIWalletAssistant.js",
+      "bytes": 161,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/commercial/AfriAICommercialPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/compliance/AfriAICompliancePolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/content/AfriAIContentPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/escalation/AfriAIEscalationPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/privacy/AfriAIPrivacyPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/policies/security/AfriAISecurityPolicy.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/AfriAIProviderRegistry.js",
+      "bytes": 271,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/KnowledgeProvider.js",
+      "bytes": 2529,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/OllamaProvider.js",
+      "bytes": 197,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/bootstrap.js",
+      "bytes": 372,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/health/AfriAIProviderHealth.js",
+      "bytes": 592,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/resilience/AfriAIProviderResilience.js",
+      "bytes": 740,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/providers/retry/AfriAIProviderRetry.js",
+      "bytes": 595,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/registry/AfriAIServiceRegistry.js",
+      "bytes": 256,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/remediation/AfriFixRemediationPlanner.js",
+      "bytes": 850,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/response/AfriAIResponseNormalizer.js",
+      "bytes": 2693,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/ActionBuilder.js",
+      "bytes": 507,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/AfriAIResponseComposer.js",
+      "bytes": 1209,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/CardActionResolver.js",
+      "bytes": 651,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/ResponseBuilder.js",
+      "bytes": 441,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/SuggestionRegistry.js",
+      "bytes": 1499,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/responses/SuggestionSelector.js",
+      "bytes": 1229,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/rootcause/AfriAIRootCauseEngine.js",
+      "bytes": 916,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/router/IntentRouter.js",
+      "bytes": 751,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/AfriAIRuntime.js",
+      "bytes": 3382,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/AfriAIRuntimeStatus.js",
+      "bytes": 238,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/commercial/AfriAICommercialRuntime.js",
+      "bytes": 243,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/execution/AfriAIExecutionRuntime.js",
+      "bytes": 572,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/intents/AfriAIIntentExecutionMap.js",
+      "bytes": 148,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/intents/contracts/AfriAIIntentContract.js",
+      "bytes": 142,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/intents/executor/AfriAIIntentExecutor.js",
+      "bytes": 132,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/intents/registry/AfriAIIntentRegistry.js",
+      "bytes": 124,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/intents/router/AfriAIIntentRouter.js",
+      "bytes": 222,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+      "bytes": 798,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/planner/AfriAIExecutionPlanner.js",
+      "bytes": 25,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/resolver/AfriAIExecutionResolver.js",
+      "bytes": 118,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/sessions/AfriAISessionRuntime.js",
+      "bytes": 116,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/transactions/AfriAITransactionRuntime.js",
+      "bytes": 121,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/workflow/AfriAIWorkflowRuntime.js",
+      "bytes": 130,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/workflows/commerce/AfriAICommerceWorkflow.js",
+      "bytes": 133,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/workflows/orders/AfriAIOrderWorkflow.js",
+      "bytes": 125,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/workflows/payment/AfriAIPaymentWorkflow.js",
+      "bytes": 130,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/runtime/workflows/support/AfriAISupportWorkflow.js",
+      "bytes": 130,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/skills/executor/AfriAISkillExecutor.js",
+      "bytes": 147,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/skills/marketplace/AfriAISkillMarketplace.js",
+      "bytes": 154,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/skills/permissions/AfriAISkillPermissions.js",
+      "bytes": 136,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/skills/registry/AfriAISkillRegistry.js",
+      "bytes": 153,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/AfriAIToolExecutor.js",
+      "bytes": 713,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/AfriAIToolRegistry.js",
+      "bytes": 271,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/AfriAIToolStatus.js",
+      "bytes": 124,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/connectors/AfriAIToolConnector.js",
+      "bytes": 120,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/discovery/AfriAIToolDiscovery.js",
+      "bytes": 122,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/execution/AfriAIToolExecutor.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/permissions/AfriAIToolPermissions.js",
+      "bytes": 120,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/planner/AfriAIToolPlanner.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/registry/AfriAIToolRegistry.js",
+      "bytes": 138,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/sandbox/AfriAIToolSandbox.js",
+      "bytes": 114,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriai/tools/workflows/AfriAIToolWorkflow.js",
+      "bytes": 122,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriweb/adapters/AfriWebAIAdapter.js",
+      "bytes": 239,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriweb/processors/AfriWebMessageProcessor.js",
+      "bytes": 225,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriweb/routes/AfriWebAIRoute.js",
+      "bytes": 237,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriweb/runtime/AfriWebRuntime.js",
+      "bytes": 127,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriweb/services/AfriWebService.js",
+      "bytes": 114,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/adapters/AfriWhatsAppAIAdapter.js",
+      "bytes": 475,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/adapters/AfriWhatsAppAdapterStatus.js",
+      "bytes": 191,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/controllers/index.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/events/AfriWhatsAppEvents.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/parsers/AfriWhatsAppWebhookParser.js",
+      "bytes": 668,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppProviderGateway.js",
+      "bytes": 356,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppProviderStatus.js",
+      "bytes": 187,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/provider-runtime/AfriWhatsAppWebhookHandler.js",
+      "bytes": 564,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/providers/AfriWhatsAppProvider.js",
+      "bytes": 742,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/routes/index.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/runtime/AfriWhatsAppMessageProcessor.js",
+      "bytes": 370,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/runtime/AfriWhatsAppRuntime.js",
+      "bytes": 688,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/runtime/AfriWhatsAppRuntimeStatus.js",
+      "bytes": 191,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/services/AfriWhatsAppService.js",
+      "bytes": 248,
+      "status": "NONEMPTY"
+    },
+    {
+      "file": "modules/afriwhatsapp/templates/AfriWhatsAppTemplates.js",
+      "bytes": 0,
+      "status": "EMPTY"
+    }
+  ]
+}

@@ -1,0 +1,592 @@
+{
+  "generatedAt": "2026-08-10T13:38:41.108Z",
+  "totalEmpty": 90,
+  "referenced": 9,
+  "dormantOrScaffold": 81,
+  "files": [
+    {
+      "file": "modules/afriai/bootstrap/RuntimeRegistry.js",
+      "referencedBy": 9,
+      "referencedByFiles": [
+        "modules/afridebug/src/debug/runtime/AfriDebugRuntimeBootstrap.js",
+        "modules/afridebug/src/debug/runtime/AfriDebugRuntimeRegistry.js",
+        "modules/afrifix/src/runtime/adapters/AfriFixRuntimeMigrationMap.js",
+        "modules/afrifix/src/runtime/adapters/AfriFixRuntimeRegistryAdapter.js",
+        "modules/afrifix/src/runtime/discovery/AfriFixRuntimeModuleDiscovery.js",
+        "modules/afrifix/src/runtime/global/AfriFixGlobalRuntimeRegistry.js",
+        "modules/afrifix/src/runtime/registry/AfriFixRuntimeRegistry.js",
+        "modules/afrifix/src/runtime/resolver/AfriFixRuntimeResolver.js",
+        "modules/afriai/bootstrap/RuntimeDiscovery.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afriwhatsapp/controllers/index.js",
+      "referencedBy": 8,
+      "referencedByFiles": [
+        "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+        "modules/afridebug/src/certification/AfriDebugRuntimeValidator.js",
+        "modules/afridebug/src/debug/execution/AfriDebugExecutionEngine.js",
+        "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRuntime.js",
+        "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgeStore.js",
+        "modules/afrifix/src/runtime/state/AfriFixExecutionStateMachine.js",
+        "modules/afrifix/src/runtime/workers/AfriFixWorker.js",
+        "modules/afriai/knowledge-governance/indexing/AfriAIKnowledgeIndex.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afriwhatsapp/routes/index.js",
+      "referencedBy": 8,
+      "referencedByFiles": [
+        "modules/afridebug/src/certification/AfriDebugBootstrapValidator.js",
+        "modules/afridebug/src/certification/AfriDebugRuntimeValidator.js",
+        "modules/afridebug/src/debug/execution/AfriDebugExecutionEngine.js",
+        "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRuntime.js",
+        "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgeStore.js",
+        "modules/afrifix/src/runtime/state/AfriFixExecutionStateMachine.js",
+        "modules/afrifix/src/runtime/workers/AfriFixWorker.js",
+        "modules/afriai/knowledge-governance/indexing/AfriAIKnowledgeIndex.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intake/AfriDebugRepositoryIntake.js",
+      "referencedBy": 2,
+      "referencedByFiles": [
+        "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+        "modules/afridebug/src/debug/workers/AfriDebugRepositoryIntakeWorker.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/sessions/AfriFixRepairSession.js",
+      "referencedBy": 2,
+      "referencedByFiles": [
+        "modules/afrifix/src/lifecycle/AfriFixRepairLifecycle.js",
+        "modules/afrifix/src/sessions/AfriFixRepairSessionManager.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeBootstrap.js",
+      "referencedBy": 2,
+      "referencedByFiles": [
+        "modules/afridebug/src/debug/kernel/AfriDebugKernel.js",
+        "modules/afridebug/src/debug/runtime/AfriDebugRuntimeBootstrap.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afriai/tools/execution/AfriAIToolExecutor.js",
+      "referencedBy": 2,
+      "referencedByFiles": [
+        "modules/afriai/orchestrator/AfriAIConversationOrchestrator.js",
+        "modules/afriai/tools/AfriAIToolExecutor.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/intake/AfriDebugRepositoryConnector.js",
+      "referencedBy": 1,
+      "referencedByFiles": [
+        "modules/afridebug/src/debug/marketplace/repository/AfriDebugRepositoryConnector.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afriai/identity/resolver/AfriAIIdentityResolver.js",
+      "referencedBy": 1,
+      "referencedByFiles": [
+        "modules/afriai/identity/runtime/AfriAIIdentityRuntime.js"
+      ],
+      "priority": "REVIEW"
+    },
+    {
+      "file": "modules/afridebug/src/debug/admin/AfriDebugAdminScaffolder.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugClientSummaryGenerator.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/delivery/AfriDebugReportPackager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/knowledge/AfriDebugIncidentMemory.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/knowledge/AfriDebugPatternAnalyzer.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/logs/AfriDebugErrorClassifier.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/logs/AfriDebugStackTraceParser.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/patch/AfriDebugChangeImpactAnalyzer.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/investigation/patch/AfriDebugRiskAssessment.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/verification/AfriDebugRegressionRunner.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afridebug/src/verification/AfriDebugTestValidator.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/api/AfriFixServiceGateway.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/api/controllers/AfriFixRepairController.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/api/routes/AfriFixRepairRoutes.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/api/services/AfriFixRepairService.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/audit/AfriFixAuditTrail.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/context/AfriFixContextManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/decision/AfriFixDecisionEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/evidence/AfriFixEvidenceManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/execution/AfriFixExecutionEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/execution/adapter/AfriFixExecutionAdapter.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/execution/preview/AfriFixPreviewEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/intake/AfriFixIntakeEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/intelligence/AfriFixReasoningEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/AfriFixKernel.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/actions/AfriFixActionResolver.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/kernel/state/AfriFixStateManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/patch/AfriFixPatchGenerator.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/planning/AfriFixRepairPlannerEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/recommendation/AfriFixRecommendationEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/repair/AfriFixRepairPlanner.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/risk/AfriFixRiskEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/rollback/AfriFixRollbackManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/safety/AfriFixRollbackGuard.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/security/AfriFixSecurityManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/security/access/AfriFixAccessController.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/security/identity/AfriFixIdentityResolver.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/security/permissions/AfriFixPermissionEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/security/policies/AfriFixSecurityPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/verification/AfriFixVerificationBridge.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/workflow/AfriFixLifecycleEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/AfriFixWorkspaceManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/manager/AfriFixWorkspaceRegistry.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afrifix/src/workspace/storage/AfriFixWorkspaceStorage.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeHealth.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/bootstrap/RuntimeLoader.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAIComplianceLog.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAILeadDashboard.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/admin/AfriAITenantDashboard.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/analytics/AfriAIRevenueAnalytics.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/api/AfriAIWebhookRegistry.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/billing/AfriAIBillingAdapter.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/customer-success/AfriAIBusinessAdvisor.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/customer-success/AfriAIIndustryKnowledge.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/identity/AfriAIBusinessIdentityAdapter.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/identity/AfriAIBusinessUserContext.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/knowledge/AfriAIKnowledgeSync.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/knowledge/AfriAITenantKnowledge.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/leads/AfriAILeadCapture.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/leads/AfriAILeadRegistry.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/opportunities/AfriAIOpportunityEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/recommendations/AfriAIServiceRecommendation.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAIContactRouting.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAIQualificationEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/business/sales/AfriAISalesPipeline.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/customer/preferences/AfriAICustomerPreferences.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/customer/sessions/AfriAICustomerSession.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/enterprise/knowledge/AfriAITenantKnowledgeManager.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/experience/recommendation/AfriAIRecommendationEngine.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/identity/runtime/AfriAIIdentityContext.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIAnalyticsIntegration.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/integrations/AfriAIApiIntegration.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/commercial/AfriAICommercialPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/compliance/AfriAICompliancePolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/content/AfriAIContentPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/escalation/AfriAIEscalationPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/privacy/AfriAIPrivacyPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/policies/security/AfriAISecurityPolicy.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriai/tools/planner/AfriAIToolPlanner.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriwhatsapp/events/AfriWhatsAppEvents.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    },
+    {
+      "file": "modules/afriwhatsapp/templates/AfriWhatsAppTemplates.js",
+      "referencedBy": 0,
+      "referencedByFiles": [],
+      "priority": "DORMANT_OR_SCAFFOLD"
+    }
+  ]
+}

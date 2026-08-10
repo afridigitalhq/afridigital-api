@@ -8,7 +8,7 @@ export class AfriFixRuntimeManager{
   }
 
   execute(request={}){
-    const plan=this.planner.plan(request);
+    const plan=request.executionPlan ? {status:"PLANNED",executionPlan:request.executionPlan} : this.planner.plan(request);
 
     if(plan.status!=="PLANNED"){
       return plan;

@@ -12,7 +12,7 @@ export class AfriFixRuntimeDispatcher {
   }
 
   dispatch(request = {}) {
-    const plan=this.planner.plan(request); if(plan.status!=="PLANNED") return {component:"AfriFix Runtime Dispatcher",status:"REJECTED",plan}; const job=this.queue.enqueue({...request,executionId:plan.executionPlan.executionId,stages:plan.executionPlan.stages});
+    const plan=request.executionPlan ? {status:"PLANNED",executionPlan:request.executionPlan} : this.planner.plan(request); if(plan.status!=="PLANNED") return {component:"AfriFix Runtime Dispatcher",status:"REJECTED",plan}; const job=this.queue.enqueue({...request,executionId:plan.executionPlan.executionId,stages:plan.executionPlan.stages});
     const scheduled = this.scheduler.schedule(job);
     const executed = this.worker.execute({...job,stages:request.stages||job.stages||["Execute"]});
 

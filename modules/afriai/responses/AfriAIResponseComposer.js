@@ -6,9 +6,19 @@ const AfriAIResponseComposer = {
 
   compose(result = {}){
 
+    const rawResponse = result?.execution?.response;
+
+    let response = rawResponse;
+
+    if(typeof rawResponse === "string"){
+      try{ response = JSON.parse(rawResponse); }catch{}
+    }
+
     const reply =
-      result?.execution?.response?.reply ||
-      "Hello 👋 I'm AfriAI. How can I help you today?";
+      response?.reply ||
+      (response?.status === "NO_PROVIDER_AVAILABLE"
+        ? "AfriAI provider is currently unavailable."
+        : "Hello 👋 I'm AfriAI. How can I help you today?");
 
     const normalizedReply =
       typeof reply === "string"
@@ -31,7 +41,8 @@ const AfriAIResponseComposer = {
       actions,
       metadata:{
         intent: result?.intent || "unknown",
-        status: "AI_RESPONSE_READY"
+        provider: response?.provider || null,
+        status: response?.status || "AI_RESPONSE_READY"
       }
     });
 

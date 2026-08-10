@@ -35,6 +35,7 @@ export class AfriFixExecutionExecutor {
 
     const runtime = this.supervisor.execute({
       executionId: plan.executionPlan.executionId,
+      executionPlan: plan.executionPlan,
       ...request
     });
 

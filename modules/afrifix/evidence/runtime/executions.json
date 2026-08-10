@@ -1156,5 +1156,576 @@
     ],
     "workerStatus": "EXECUTED",
     "completedAt": "2026-08-10T09:21:00.191Z"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786372431599",
+    "module": "afriai",
+    "action": "repair",
+    "workspace": "default",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-10T14:33:51.600Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:33:51.606Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:33:51.606Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:33:51.606Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:33:51.606Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:33:51.606Z"
+      }
+    ],
+    "workerStatus": "EXECUTED",
+    "completedAt": "2026-08-10T14:33:51.606Z"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786372750403",
+    "module": "afriai",
+    "action": "repair",
+    "workspace": "default",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-10T14:39:10.404Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:10.410Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:10.410Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:10.410Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:10.410Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:10.410Z"
+      }
+    ],
+    "workerStatus": "EXECUTED",
+    "completedAt": "2026-08-10T14:39:10.410Z"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786372788173",
+    "module": "afriai",
+    "action": "repair",
+    "executionPlan": {
+      "executionId": "plan-1786372788173",
+      "module": "afriai",
+      "action": "repair",
+      "pipeline": "AfriFix Execution Pipeline",
+      "stages": [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence"
+      ]
+    },
+    "workspace": "default",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-10T14:39:48.174Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:48.180Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:48.180Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:48.180Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:48.180Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:39:48.180Z"
+      }
+    ],
+    "workerStatus": "EXECUTED",
+    "completedAt": "2026-08-10T14:39:48.180Z"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786372927227",
+    "module": "afriai",
+    "action": "repair",
+    "executionPlan": {
+      "executionId": "plan-1786372927227",
+      "module": "afriai",
+      "action": "repair",
+      "pipeline": "AfriFix Execution Pipeline",
+      "stages": [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence"
+      ]
+    },
+    "workspace": "default",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-10T14:42:07.228Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "transitions": [
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "PREVIEW",
+        "next": "APPROVAL",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW"
+        ],
+        "timestamp": "2026-08-10T14:42:07.229Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "APPROVAL",
+        "next": "QUEUED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL"
+        ],
+        "timestamp": "2026-08-10T14:42:07.229Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "QUEUED",
+        "next": "SCHEDULED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED"
+        ],
+        "timestamp": "2026-08-10T14:42:07.229Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "SCHEDULED",
+        "next": "EXECUTING",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED"
+        ],
+        "timestamp": "2026-08-10T14:42:07.230Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "EXECUTING",
+        "next": "VERIFYING",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING"
+        ],
+        "timestamp": "2026-08-10T14:42:07.230Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "VERIFYING",
+        "next": "EVIDENCE",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING"
+        ],
+        "timestamp": "2026-08-10T14:42:07.237Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "EVIDENCE",
+        "next": "COMPLETED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING",
+          "EVIDENCE"
+        ],
+        "timestamp": "2026-08-10T14:42:07.237Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "COMPLETED",
+        "next": null,
+        "completed": true,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING",
+          "EVIDENCE",
+          "COMPLETED"
+        ],
+        "timestamp": "2026-08-10T14:42:07.237Z"
+      }
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:42:07.236Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:42:07.236Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:42:07.236Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:42:07.236Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:42:07.236Z"
+      }
+    ],
+    "workerStatus": "EXECUTED",
+    "completedAt": "2026-08-10T14:42:07.236Z"
+  },
+  {
+    "component": "AfriFix Execution Context",
+    "status": "COMPLETED",
+    "executionId": "plan-1786373082428",
+    "module": "afriai",
+    "action": "repair",
+    "executionPlan": {
+      "executionId": "plan-1786373082428",
+      "module": "afriai",
+      "action": "repair",
+      "pipeline": "AfriFix Execution Pipeline",
+      "stages": [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence"
+      ]
+    },
+    "workspace": "default",
+    "approvalRequired": true,
+    "evidenceRequired": true,
+    "createdAt": "2026-08-10T14:44:42.430Z",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "transitions": [
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "PREVIEW",
+        "next": "APPROVAL",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW"
+        ],
+        "timestamp": "2026-08-10T14:44:42.431Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "APPROVAL",
+        "next": "QUEUED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL"
+        ],
+        "timestamp": "2026-08-10T14:44:42.431Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "QUEUED",
+        "next": "SCHEDULED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED"
+        ],
+        "timestamp": "2026-08-10T14:44:42.431Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "SCHEDULED",
+        "next": "EXECUTING",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED"
+        ],
+        "timestamp": "2026-08-10T14:44:42.432Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "EXECUTING",
+        "next": "VERIFYING",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING"
+        ],
+        "timestamp": "2026-08-10T14:44:42.432Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "VERIFYING",
+        "next": "EVIDENCE",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING"
+        ],
+        "timestamp": "2026-08-10T14:44:42.444Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "EVIDENCE",
+        "next": "COMPLETED",
+        "completed": false,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING",
+          "EVIDENCE"
+        ],
+        "timestamp": "2026-08-10T14:44:42.444Z"
+      },
+      {
+        "component": "AfriFix Execution State Machine",
+        "status": "TRANSITIONED",
+        "current": "COMPLETED",
+        "next": null,
+        "completed": true,
+        "history": [
+          "CREATED",
+          "PREVIEW",
+          "APPROVAL",
+          "QUEUED",
+          "SCHEDULED",
+          "EXECUTING",
+          "VERIFYING",
+          "EVIDENCE",
+          "COMPLETED"
+        ],
+        "timestamp": "2026-08-10T14:44:42.444Z"
+      }
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:44:42.442Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:44:42.442Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:44:42.442Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:44:42.442Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-10T14:44:42.442Z"
+      }
+    ],
+    "workerStatus": "EXECUTED",
+    "completedAt": "2026-08-10T14:44:42.442Z"
   }
 ]

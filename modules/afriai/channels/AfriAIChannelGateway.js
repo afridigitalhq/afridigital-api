@@ -23,7 +23,7 @@ const AfriAIChannelGateway = {
       runtime:"AfriAIConversationRuntime",
       conversation:result,
       response,
-      status:"AI_RESPONSE_READY"
+      status:response?.metadata?.status || "AI_RESPONSE_READY"
     };
 
   },
