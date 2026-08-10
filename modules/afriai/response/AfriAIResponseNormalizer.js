@@ -16,7 +16,7 @@ normalize(providerResponse){
 
        return {
          provider:"ollama",
-         answer:providerResponse,
+         reply:providerResponse,
          sources:[],
          confidence:"LOW",
          executionPath:[
@@ -64,7 +64,7 @@ normalize(providerResponse){
 
      const normalizedResponse = {
        provider:data.provider,
-       answer,
+       reply:answer,
        sources:data.sources || [
         "AfriPlatformKnowledge",
         "ProductKnowledge"
@@ -91,7 +91,7 @@ normalize(providerResponse){
 
    return {
      provider:data?.provider || "unknown",
-     answer:data?.answer || String(providerResponse),
+     reply:data?.reply || data?.answer || String(providerResponse),
      intent:data?.intent || "general",
      execution:data?.execution || null,
      availableTools:data?.availableTools || [],
@@ -105,7 +105,7 @@ normalize(providerResponse){
 
    return {
      provider:"unknown",
-     answer:String(providerResponse),
+     reply:String(providerResponse),
      sources:[],
      confidence:"LOW",
      executionPath:[

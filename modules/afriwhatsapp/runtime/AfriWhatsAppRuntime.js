@@ -12,7 +12,7 @@ const AfriWhatsAppRuntime = {
     const delivery =
       await AfriWhatsAppMessageProcessor.processOutgoing({
         to: message.from,
-        response: aiResponse?.response?.response || aiResponse?.response || "Hello 👋 I am AfriAI."
+        response: aiResponse?.response?.reply || "Hello 👋 I am AfriAI."
       });
 
     return {

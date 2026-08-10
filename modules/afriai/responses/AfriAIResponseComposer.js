@@ -7,9 +7,7 @@ const AfriAIResponseComposer = {
   compose(result = {}){
 
     const reply =
-      result?.execution?.response?.answer ||
-      result?.execution?.response?.response ||
-      result?.execution?.response ||
+      result?.execution?.response?.reply ||
       "Hello 👋 I'm AfriAI. How can I help you today?";
 
     const normalizedReply =
