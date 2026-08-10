@@ -1,4 +1,5 @@
 import AfriDebugController from "../../../../modules/afridev/products/afridebug/api/AfriDebugController.js";
+import AfriAIDebugExplainer from "../../../../modules/afriai/integrations/AfriAIDebugExplainer.js";
 
 export default function afriDebugRoute(app){
 
@@ -10,7 +11,7 @@ export default function afriDebugRoute(app){
   });
 
 
-  app.post("/api/afridebug/diagnose",(req,res)=>{
+  app.post("/api/afridebug/diagnose",async (req,res)=>{
 
     const {
       repository
@@ -21,9 +22,13 @@ export default function afriDebugRoute(app){
         repository
       );
 
+    const explanation =
+      await AfriAIDebugExplainer.explain(result);
+
     res.json({
       ok:true,
-      result
+      result,
+      explanation
     });
 
   });
