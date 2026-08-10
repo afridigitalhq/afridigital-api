@@ -20,10 +20,20 @@ export class AfriFixRuntimeSupervisor {
 
     const runtime = this.kernel.execute(execution);
 
+    const workerResult =
+      runtime?.execution?.execution?.execution?.runtime?.runtime?.executed ||
+      runtime?.execution?.execution?.execution?.runtime?.executed ||
+      runtime?.execution?.execution?.runtime?.executed ||
+      runtime?.execution?.runtime?.executed ||
+      null;
+
     const finalExecution = {
       ...execution,
       status: "COMPLETED",
-      lifecycle: this.state.list()
+      lifecycle: this.state.list(),
+      stagesExecuted: workerResult?.stagesExecuted || [],
+      workerStatus: workerResult?.status || "UNKNOWN",
+      completedAt: workerResult?.completedAt || new Date().toISOString()
     };
 
     this.store.save(finalExecution);

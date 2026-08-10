@@ -6,7 +6,8 @@ export class AfriFixCapabilityResolver {
   }
 
   resolve(request={}){
-    const supported=this.registry.supports(request.module,request.action);
+    const moduleName=String(request.module||"").toLowerCase();
+    const supported=this.registry.supports(moduleName,request.action);
 
     return {
       component:"AfriFix Capability Resolver",

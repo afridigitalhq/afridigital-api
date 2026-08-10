@@ -6,7 +6,8 @@ export class AfriFixRuntimeResolver {
   }
 
   resolve(request = {}) {
-    const pipeline = this.registry.resolve(request.module);
+    const moduleName = String(request.module || "").toLowerCase();
+    const pipeline = this.registry.resolve(moduleName);
 
     return {
       component: "AfriFix Runtime Resolver",

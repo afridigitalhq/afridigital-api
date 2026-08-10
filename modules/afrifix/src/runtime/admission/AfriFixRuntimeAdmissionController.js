@@ -19,7 +19,13 @@ export class AfriFixRuntimeAdmissionController {
       };
     }
 
-    const execution = this.executor.execute(request);
+    const executionRequest = {
+      ...request,
+      executionReady: true,
+      executionAllowed: true
+    };
+
+    const execution = this.executor.execute(executionRequest);
 
     return {
       component: "AfriFix Runtime Admission Controller",
