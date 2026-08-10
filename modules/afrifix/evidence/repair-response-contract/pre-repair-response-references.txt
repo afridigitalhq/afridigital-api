@@ -1,0 +1,25 @@
+modules/afriai/actions/AfriAIActionRegistry.js:1:const AfriAIActionRegistry={load(){return["reply","preview","approve","execute"];}};export default AfriAIActionRegistry;
+modules/afriai/contracts/AfriAIResponseContract.js:2:  reply = "",
+modules/afriai/contracts/AfriAIResponseContract.js:9:    reply,
+modules/afriai/intents/GreetingIntent.js:21:    reply: `Hello! 👋 Welcome to ${AfriPlatformKnowledge.platform.name}. I'm AfriAI, your intelligent assistant for the AfriDigital ecosystem. I can help you explore our products, explain features, provide development status updates, and answer questions about the platform.`
+modules/afriai/intents/HelpIntent.js:12:      reply:
+modules/afriai/intents/PaymentIntent.js:16:      reply: `${PaymentsKnowledge.response.unavailable} ${PaymentsKnowledge.response.future}`
+modules/afriai/intents/ProductIntent.js:10:        reply: `${name} — ${info.description} Current status: ${info.status}.`
+modules/afriai/intents/StatusIntent.js:10:        reply: `${name} is currently ${status}. New capabilities are being released progressively as development continues.`
+modules/afriai/intents/StatusIntent.js:18:      reply: `Payments are currently ${StatusKnowledge.services.Payments}. AfriCoin is ${StatusKnowledge.services.AfriCoin}. Payment services will become available in a future release.`
+modules/afriai/intents/StudioIntent.js:26:      reply:
+modules/afriai/intents/UnknownIntent.js:5:    reply:
+modules/afriai/response/AfriAIResponseNormalizer.js:94:     answer:data?.answer || String(providerResponse),
+modules/afriai/responses/AfriAIResponseComposer.js:10:      result?.execution?.response?.answer ||
+modules/afriai/responses/AfriAIResponseComposer.js:11:      result?.execution?.response?.response ||
+modules/afriai/responses/AfriAIResponseComposer.js:16:      typeof reply === "string"
+modules/afriai/responses/AfriAIResponseComposer.js:17:        ? reply
+modules/afriai/responses/AfriAIResponseComposer.js:18:        : JSON.stringify(reply);
+modules/afriai/responses/AfriAIResponseComposer.js:31:      reply: normalizedReply,
+modules/afriai/responses/AfriAIResponseComposer.js:9:    const reply =
+modules/afriai/responses/ResponseBuilder.js:13:    reply,
+modules/afriai/responses/ResponseBuilder.js:6:  reply = "",
+modules/afriai/runtime/AfriAIRuntime.js:88:        const reply =
+modules/afriai/runtime/AfriAIRuntime.js:91:        if(reply && reply.trim()){
+modules/afriai/runtime/AfriAIRuntime.js:97:            AfriAIResponseNormalizer.normalize(reply);
+modules/afriwhatsapp/runtime/AfriWhatsAppRuntime.js:15:        response: aiResponse?.response?.response || aiResponse?.response || "Hello 👋 I am AfriAI."

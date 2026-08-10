@@ -1,0 +1,195 @@
+{
+  "generatedAt": "2026-08-09T17:56:37.268Z",
+  "repository": "AfriDigital-api",
+  "objective": "AfriDebug/AfriFix ownership-learning consolidation",
+  "families": {
+    "AfriDebugRepairApprovalQueue": [
+      {
+        "file": "src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js",
+        "lines": 161,
+        "sha256": "f1e4342017c5d1bff28af2ad70a02dd818e8c6a4ae790837ae8aa611107ecf49",
+        "imports": [
+          "../storage/AfriDebugArtifactStorage.js",
+          "../audit/AfriDebugImmutableAuditLedger.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+        "lines": 2,
+        "sha256": "4fa80c3dfef564147b2f474222efcabfd52440423727c2271b7ea351d0cce774",
+        "imports": [
+          "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js"
+        ],
+        "adapterLike": true,
+        "implementationLike": false
+      }
+    ],
+    "AfriDebugChangeExecutionController": [
+      {
+        "file": "src/afridebug/platform/execution/AfriDebugChangeExecutionController.js",
+        "lines": 142,
+        "sha256": "5a3bb7d5992f9195150ffcef6d3d911749635bd95ae63b7e2a64b511477a4e84",
+        "imports": [
+          "../verification/AfriDebugVerificationRuntime.js",
+          "../production/rollback/AfriDebugRollbackRuntime.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+        "lines": 103,
+        "sha256": "aab774d4fd30570b4e2d2bd6e5dcb7ef4917ab753b3ddef0b625dd9018ccbea5",
+        "imports": [
+          "../patch/AfriDebugPatchRuntime.js",
+          "../verification/AfriDebugVerificationRuntime.js",
+          "../production/rollback/AfriDebugRollbackRuntime.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      }
+    ],
+    "AfriDebugRepairHistoryLedger": [
+      {
+        "file": "src/afridebug/services/history/AfriDebugRepairHistoryLedger.js",
+        "lines": 82,
+        "sha256": "07741943218515cc0c01cb43c1bb601df2bd9850f05c351f28d0ee66383fc79c",
+        "imports": [],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/history/AfriDebugRepairHistoryLedger.js",
+        "lines": 82,
+        "sha256": "07741943218515cc0c01cb43c1bb601df2bd9850f05c351f28d0ee66383fc79c",
+        "imports": [],
+        "adapterLike": false,
+        "implementationLike": true
+      }
+    ],
+    "AfriDebugResolutionRecorder": [
+      {
+        "file": "src/afridebug/services/learning/AfriDebugResolutionRecorder.js",
+        "lines": 81,
+        "sha256": "5c4153a57f446e1f7c37174b98a10c0cf7370817c07a117a21b8a17cc40f70ce",
+        "imports": [],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/learning/AfriDebugResolutionRecorder.js",
+        "lines": 68,
+        "sha256": "74ac4824db7eafa29d8f3cb02aaed0f58c0a11dcc2b251c4a97ceb31f5797887",
+        "imports": [],
+        "adapterLike": false,
+        "implementationLike": true
+      }
+    ],
+    "AfriDebugPatchGenerator": [
+      {
+        "file": "modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js",
+        "lines": 71,
+        "sha256": "d7bdd554b38d257e09ebbd841cefcb60fa902323bb07fcc9aaedad62f8705542",
+        "imports": [],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridev/products/afridebug/patch/AfriDebugPatchGenerator.js",
+        "lines": 2,
+        "sha256": "f581d144a3a51696d87e2d8b86363e2a32c9ca559745044351abd2bfcf451fa3",
+        "imports": [
+          "../../../../afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js"
+        ],
+        "adapterLike": true,
+        "implementationLike": false
+      }
+    ],
+    "AfriDebugRepairExecutionBridge": [
+      {
+        "file": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": 82,
+        "sha256": "1f5aae6a1ba1d739ddd1df4f5519b48237d3274c87292b4e8fdd751193cbf32e",
+        "imports": [
+          "../../approval/AfriDebugRepairApprovalQueue.js",
+          "../../execution/AfriDebugChangeExecutionController.js",
+          "../../../../services/history/AfriDebugRepairHistoryLedger.js",
+          "../../../../services/learning/AfriDebugResolutionRecorder.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "lines": 2,
+        "sha256": "2c5079274ffb554dbbd41063822a7d58e90283498814d7d6ac222d71d5da531e",
+        "imports": [
+          "../../../../../src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js"
+        ],
+        "adapterLike": true,
+        "implementationLike": false
+      }
+    ],
+    "AfriDebugExecutionGate": [
+      {
+        "file": "src/afridebug/platform/governance/AfriDebugExecutionGate.js",
+        "lines": 122,
+        "sha256": "e68b6239f304fb6eeb1ba2ec20b632dc239edd427c060f104562bb6b62e39f02",
+        "imports": [
+          "../approval/AfriDebugRepairApprovalQueue.js",
+          "../integration/execution/AfriDebugRepairExecutionBridge.js",
+          "../audit/AfriDebugImmutableAuditLedger.js",
+          "../storage/AfriDebugArtifactStorage.js",
+          "../../../core/afridebug/contracts/BlockExplanationContract.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      },
+      {
+        "file": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "lines": 2,
+        "sha256": "9c9c427e79a02c38981f35ee036952bf0179d9c0ba37b4e1abaefc5bf652a850",
+        "imports": [
+          "../../../../../src/afridebug/platform/governance/AfriDebugExecutionGate.js"
+        ],
+        "adapterLike": true,
+        "implementationLike": false
+      }
+    ],
+    "AfriDebugOrchestrator": [
+      {
+        "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "lines": 2,
+        "sha256": "56f38d7df82a8e36746d2e7dcff6c575359e63656f3b85d665edb03a64f877e5",
+        "imports": [
+          "../../../../../src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+        ],
+        "adapterLike": true,
+        "implementationLike": false
+      },
+      {
+        "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+        "lines": 240,
+        "sha256": "b56f487f167b568f912ae5b4e48b035dc5e4b049d940cac3dd29ca776796de05",
+        "imports": [
+          "../state/AfriDebugInvestigationStateManager.js",
+          "../events/AfriDebugEventStream.js",
+          "../workers/AfriDebugRepositoryIntakeWorker.js",
+          "../workers/AfriDebugDependencyGraphWorker.js",
+          "../workers/AfriDebugRuntimeInspectorWorker.js",
+          "../workers/AfriDebugLogAnalyzerWorker.js",
+          "../workers/AfriDebugKnowledgeMatcherWorker.js",
+          "../workers/AfriDebugPatchPlanningWorker.js",
+          "../workers/AfriDebugVerificationWorker.js",
+          "../workers/AfriDebugEvidenceReportWorker.js",
+          "../workers/AfriDebugDeliveryPackageWorker.js",
+          "../investigation/HumanApprovalGate.js"
+        ],
+        "adapterLike": false,
+        "implementationLike": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+
+=== modules/afriai/response/AfriAIResponseNormalizer.js ===
+746c4d18fa551b567cdf99bf9eb53bdb1f27a2f87218198dde7982b4f57f269f  modules/afriai/response/AfriAIResponseNormalizer.js
+
+=== modules/afriai/contracts/AfriAIResponseContract.js ===
+013bb473f6470390bd0807de1184b253cf36c633423c51c718cdbb681c8de60c  modules/afriai/contracts/AfriAIResponseContract.js
+
+=== modules/afriai/responses/AfriAIResponseComposer.js ===
+c9afdcc8af55cf20298174985274e001f9fcb76743f298927b44debdea33ddea  modules/afriai/responses/AfriAIResponseComposer.js
+
+=== modules/afriai/responses/ResponseBuilder.js ===
+a7c9924ff36ad726bfc0dc882ef20b320ca74dc3cb7c9f7e721ba68ba815cd16  modules/afriai/responses/ResponseBuilder.js
+
+=== modules/afriai/channels/AfriAIChannelGateway.js ===
+23afad9c0a8b5e0323d15f3acd7b9962d84051b6d78e7891eaad551387f08623  modules/afriai/channels/AfriAIChannelGateway.js
+
+=== modules/afriweb/adapters/AfriWebAIAdapter.js ===
+41452ae5b19532bad8e89d8510ab92f616d8c8c19b3b110ae80cba7dde6d9dcf  modules/afriweb/adapters/AfriWebAIAdapter.js
+
+=== modules/afriwhatsapp/adapters/AfriWhatsAppAIAdapter.js ===
+5ed0d690b378e48d1f02cc73877263ac07589e7922ec95bc5f9d3aa21dd3d156  modules/afriwhatsapp/adapters/AfriWhatsAppAIAdapter.js
+
+=== modules/afriwhatsapp/runtime/AfriWhatsAppRuntime.js ===
+7831b355d943b95fad9bff1d1d3ae25d7475e7a67e9742c8db2a43e8e2142e67  modules/afriwhatsapp/runtime/AfriWhatsAppRuntime.js
+
+=== modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js ===
+7a9f1b5404c995a5d1fc321ce12eb2e23cf740032168f9335464f8c93ae1f1ab  modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js
