@@ -1,3 +1,5 @@
+import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+
 const AfriDebugDeliveryCertification = {
 
   certify(input = {}) {
@@ -7,7 +9,7 @@ const AfriDebugDeliveryCertification = {
         !!input.evidence,
 
       approval:
-        input.approval?.status === "approved",
+        CoreApprovalContract.isApproved(input.approval),
 
       execution:
         input.execution?.status === "completed",

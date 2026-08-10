@@ -1,114 +1,81 @@
+import Queue from "../../approval/AfriDebugRepairApprovalQueue.js";
 import Controller from "../../execution/AfriDebugChangeExecutionController.js";
 import History from "../../../services/history/AfriDebugRepairHistoryLedger.js";
 import Resolution from "../../../services/learning/AfriDebugResolutionRecorder.js";
 
 const AfriDebugRepairExecutionBridge = {
+  execute(input = {}) {
+    const approvalId = input.approvalId || null;
 
-  execute(input={}){
-
-    const execution =
-      Controller.execute(input);
-
-    if(execution.status !== "completed"){
-
+    if (!approvalId) {
       return {
-        bridgeStatus:"failed",
-        execution,
-        history:null,
-        resolution:null
+        bridgeStatus: "blocked",
+        reason: "APPROVAL_REQUIRED"
       };
-
     }
 
-    const history =
-      History.record({
+    const approval = Queue.list().find(
+      (item) => item.approvalId === approvalId
+    );
 
-        incidentId:
-          input.incidentId || execution.incidentId,
+    if (!approval || approval.status !== "approved") {
+      return {
+        bridgeStatus: "blocked",
+        reason: "APPROVAL_REQUIRED",
+        approvalId
+      };
+    }
 
-        approvalId:
-          input.approvalId || null,
+    const execution = Controller.execute(input);
 
-        issue:
-          input.issue || null,
+    if (execution.status !== "completed") {
+      return {
+        bridgeStatus: "failed",
+        execution,
+        history: null,
+        resolution: null
+      };
+    }
 
-        diagnosis:
-          input.diagnosis || null,
+    const history = History.record({
+      incidentId: input.incidentId || execution.incidentId,
+      approvalId,
+      issue: input.issue || null,
+      diagnosis: input.diagnosis || null,
+      planId: input.planId || null,
+      executionId: execution.executionId,
+      verificationStatus:
+        execution.verification?.status || "unknown",
+      rollbackStatus: execution.rollback ? "required" : "none",
+      outcome: execution.status
+    });
 
-        planId:
-          input.planId || null,
-
-        executionId:
-          execution.executionId,
-
-        verificationStatus:
-          execution.verification?.status || "unknown",
-
-        rollbackStatus:
-          execution.rollback
-            ? "required"
-            : "none",
-
-        outcome:
-          execution.status
-
-      });
-
-    const resolution =
-      Resolution.record({
-
-        investigationId:
-          input.incidentId || execution.incidentId,
-
-        error:
-          input.issue || null,
-
-        diagnosis:
-          input.diagnosis || null,
-
-        patch:
-          execution.patch || input.patch || null,
-
-        deliveryId:
-          input.deliveryId || null,
-
-        status:
-          execution.status
-
-      });
+    const resolution = Resolution.record({
+      investigationId:
+        input.incidentId || execution.incidentId,
+      error: input.issue || null,
+      diagnosis: input.diagnosis || null,
+      patch: execution.patch || input.patch || null,
+      deliveryId: input.deliveryId || null,
+      status: execution.status
+    });
 
     return {
-
-      bridgeStatus:"executed",
-
+      bridgeStatus: "executed",
       execution,
-
       history,
-
       resolution
-
     };
-
   },
 
-
-  health(){
-
+  health() {
     return {
-
-      service:
-        "AfriDebugRepairExecutionBridge",
-
-      status:
-        "healthy",
-
+      service: "AfriDebugRepairExecutionBridge",
+      status: "healthy",
       responsibility:
         "governed-repair-execution-and-post-execution-recording"
-
     };
-
   }
-
 };
 
 export default AfriDebugRepairExecutionBridge;

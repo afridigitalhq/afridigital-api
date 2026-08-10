@@ -5,13 +5,11 @@ import whatsappDebugRoute from "./whatsapp-debug.route.js";
 import afriWhatsAppTestRoute from "./afriwhatsapp-test.route.js";
 import metaDebugRoute from "./meta-debug.route.js";
 import modulesRoute from "./modules.route.js";
-import healthRoute from "./health.route.js";
 import socRoute from "./soc.route.js";
 import ollamaTestRoute from "./ollama-test.route.js";
 
 export default function registerRoutes(app) {
   socRoute(app);
-  healthRoute(app);
   modulesRoute(app);
   afriWhatsAppRoute(app);
   afriWebRoute(app);

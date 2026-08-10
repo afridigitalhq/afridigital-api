@@ -1,10 +1,10 @@
+import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+
 const AfriDebugRepairExecutionController = {
 
   execute(handoff = {}){
 
-    const approved =
-      handoff.approvalContext &&
-      handoff.approvalContext.status === "approved";
+    const approved = CoreApprovalContract.canExecute(handoff.approvalContext || {});
 
     const ready =
       handoff.executionAllowed === true;
