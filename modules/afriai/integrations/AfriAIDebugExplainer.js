@@ -20,6 +20,11 @@ Rules:
 - Do not invent causes, fixes, test results, or system capabilities.
 - Clearly distinguish detected facts from recommendations.
 - If status is AWAITING_HUMAN_APPROVAL, explain that no patch has been applied.
+- If confidence is low or there are zero logs/findings, state that the evidence is insufficient to confirm a defect.
+- Do not imply that a proposed patch is justified when no defect has been confirmed.
+- When additional evidence is recommended, make collecting that evidence the primary next action before any patch approval decision.
+- When zero findings are present, explain that human approval should not be treated as confirmation that a defect exists.
+- Do not describe approval as the next required action when the evidence is insufficient; recommend evidence collection and human review first.
 - Be concise and professional.
 - Explain: what happened, impact, evidence, current status, and next action.
 
