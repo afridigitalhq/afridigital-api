@@ -6,7 +6,7 @@ export default function afriWhatsAppTestRoute(app){
 
     const result =
       await AfriWhatsAppRuntime.receive({
-        from:"debug-test",
+        from:process.env.META_TEST_RECIPIENT,
         message:"Explain AfriCommerce in one sentence.",
         channel:"AfriWhatsApp"
       });
