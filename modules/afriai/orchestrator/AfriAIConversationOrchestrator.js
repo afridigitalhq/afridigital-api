@@ -1,5 +1,5 @@
 import AfriAIConversationRuntime from "../conversation/AfriAIConversationRuntime.js";
-import AfriAIIntentRouter from "../intents/AfriAIIntentRouter.js";
+import AfriAIIntentRouter from "../runtime/intents/router/AfriAIIntentRouter.js";
 import AfriAIToolExecutor from "../tools/AfriAIToolExecutor.js";
 import afriAIRuntime from "../runtime/AfriAIRuntime.js";
 
@@ -14,7 +14,7 @@ const AfriAIConversationOrchestrator = {
       );
 
     const intent =
-      AfriAIIntentRouter.resolve(
+      AfriAIIntentRouter.route(
         request.message
       );
 
