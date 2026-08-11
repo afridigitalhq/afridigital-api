@@ -2,7 +2,7 @@ import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 const AfriAIResponseNormalizer = {
 
-normalize(providerResponse){
+normalize(providerResponse, context = {}){
 
  try{
 
@@ -43,18 +43,42 @@ normalize(providerResponse){
        knowledgeKeys:Object.keys(knowledge)
      });
 
-     let answer =
-       knowledge.platform?.description ||
-       knowledge.studio?.description ||
-       knowledge.payments?.description ||
-       knowledge.roadmap?.description ||
-       knowledge.status?.description ||
-       "AfriDigital knowledge response ready.";
+     const message =
+       String(context.message || "").toLowerCase();
 
-     if(knowledge.products?.AfriCommerce){
+     const asksPlatform =
+       message.includes("what is afridigital") ||
+       message.includes("tell me about afridigital") ||
+       message.includes("about afridigital") ||
+       message.includes("what is afri digital");
+
+     const asksCommerce =
+       message.includes("africommerce") ||
+       message.includes("afri commerce");
+
+     let answer;
+
+     if(asksPlatform && knowledge.platform?.platform?.description){
+
+       answer =
+        knowledge.platform.platform.description;
+
+     }else if(asksCommerce && knowledge.products?.AfriCommerce){
+
        answer =
         `AfriCommerce is ${knowledge.products.AfriCommerce.description} ` +
         `Current status: ${knowledge.products.AfriCommerce.status}.`;
+
+     }else{
+
+       answer =
+         knowledge.platform?.platform?.description ||
+         knowledge.studio?.description ||
+         knowledge.payments?.description ||
+         knowledge.roadmap?.description ||
+         knowledge.status?.description ||
+         "AfriDigital knowledge response ready.";
+
      }
 
      CoreTraceEngine.inspect({

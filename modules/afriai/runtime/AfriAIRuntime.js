@@ -2,6 +2,7 @@ import AfriAIProviderRegistry from "../providers/bootstrap.js";
 import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriever.js";
 import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
 import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
+import AfriAIGroundingGuard from "../guards/AfriAIGroundingGuard.js";
 import AfriAIExecutionTrace from "../execution/trace/AfriAIExecutionTrace.js";
 import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
@@ -92,6 +93,32 @@ AfriAI:
 
           trace.selectedProvider =
             provider.name;
+
+          const grounding =
+            AfriAIGroundingGuard.evaluate(
+              reply,
+              knowledge
+            );
+
+          CoreTraceEngine.event(
+            debugRequestId,
+            "GROUNDING_VALIDATION",
+            {
+              supported:grounding.supported,
+              status:grounding.status,
+              unsupportedClaims:grounding.unsupportedClaims
+            }
+          );
+
+          if(!grounding.supported){
+
+            console.log(
+              "⚠️ AfriAI grounding rejected:",
+              grounding.unsupportedClaims
+            );
+
+            continue;
+          }
 
           const normalized =
             AfriAIResponseNormalizer.normalize(reply);

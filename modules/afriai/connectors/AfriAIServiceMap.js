@@ -2,7 +2,7 @@ const AfriAIServiceMap = {
 
   mappings:{
     PROPERTY_SEARCH:"PropertyService",
-    JOB_SEARCH:"JobService",
+    JOB_SEARCH:"AfriWork",
     SPORTS_QUERY:"AfriSportsService",
     ACCOUNT_BALANCE:"WalletService",
     PAYMENT_REQUEST:"PaymentService",

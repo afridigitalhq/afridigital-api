@@ -6,6 +6,7 @@ const skillMap = {
   payments:"payments",
   commerce:"commerce",
   support:"support",
+  opportunity:"opportunity",
   automation:"automation",
   conversation:"conversation"
 };

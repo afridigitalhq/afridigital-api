@@ -5,6 +5,7 @@ return[
 "commerce",
 "payments",
 "support",
+"opportunity",
 "automation"
 ];
 }
