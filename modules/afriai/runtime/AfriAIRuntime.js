@@ -105,14 +105,6 @@ AfriAI:
             );
 
           CoreTraceEngine.event(
-            "FINAL_OUTPUT",
-            {
-              provider:normalized.provider,
-              status:normalized.status
-            }
-          );
-
-          CoreTraceEngine.event(
               debugRequestId,
               "FINAL_OUTPUT",
               {
