@@ -12,6 +12,12 @@ const AfriAICapabilityRegistry={
       payments:{skill:"payments",service:"Payments",generationProfile:"standard"},
       opportunity:{skill:"opportunity",generationProfile:"standard"},
       support:{skill:"support",generationProfile:"dynamic"},
+      build_app:{
+        skill:"build_app",
+        service:"AfriDesign",
+        integration:"AfriAIAfriDesignBridge",
+        generationProfile:"extended"
+      },
       conversation:{skill:"conversation",generationProfile:"short"}
     };
   },

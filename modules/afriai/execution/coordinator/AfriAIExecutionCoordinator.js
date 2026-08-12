@@ -18,7 +18,7 @@ approve(execution){
  return AfriAIApprovalRuntime.approve(execution);
 },
 
-execute(request={}){
+async execute(request={}){
 
  const capability =
    AfriAICapabilityRegistry.resolve(
@@ -49,7 +49,7 @@ execute(request={}){
  }
 
  const result =
-   AfriAISkillExecutor.run(
+   await AfriAISkillExecutor.run(
     skill,
     request.data || {}
    );
