@@ -1,5 +1,6 @@
 import AfriDesignBuilderCapabilityRegistry from "../capabilities/AfriDesignBuilderCapabilityRegistry.js";
 import AfriDesignProviderRuntime from "./AfriDesignProviderRuntime.js";
+import AfriDesignProviderRouter from "../router/AfriDesignProviderRouter.js";
 
 const AfriDesignBuilderRuntime={
 
@@ -19,6 +20,7 @@ generate(request={}){
 
  const provider =
   request.provider ||
+  AfriDesignProviderRouter.resolve("generate") ||
   capability.providers[0];
 
  return AfriDesignProviderRuntime.generate({

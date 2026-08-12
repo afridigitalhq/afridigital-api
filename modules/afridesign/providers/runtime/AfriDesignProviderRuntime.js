@@ -1,4 +1,5 @@
 import AfriDesignProviderRegistry from "../registry/AfriDesignProviderRegistry.js";
+import AfriDesignProviderRouter from "../router/AfriDesignProviderRouter.js";
 
 const AfriDesignProviderRuntime={
 
@@ -6,7 +7,7 @@ generate(request={}){
 
  const provider =
   AfriDesignProviderRegistry.get(
-   request.provider || "mock"
+   AfriDesignProviderRouter.resolve(request.operation || "generate") || request.provider || "mock"
   );
 
  if(!provider){
