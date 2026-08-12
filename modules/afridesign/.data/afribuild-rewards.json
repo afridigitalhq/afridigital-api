@@ -1,0 +1,17 @@
+[
+  {
+    "rewardId": "reward_1786564615969",
+    "creatorId": "creator_1786564344436",
+    "assetId": "asset_1786564382454",
+    "metrics": {
+      "usageCount": 1200,
+      "qualityScore": 100
+    },
+    "rewards": {
+      "points": 12100,
+      "currency": "AfriCoin"
+    },
+    "status": "CALCULATED",
+    "createdAt": "2026-08-12T19:56:55.969Z"
+  }
+]

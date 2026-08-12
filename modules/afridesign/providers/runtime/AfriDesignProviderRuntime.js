@@ -5,10 +5,13 @@ const AfriDesignProviderRuntime={
 
 generate(request={}){
 
+ const providerName =
+  request.provider ||
+  AfriDesignProviderRouter.resolve(request.operation || "generate") ||
+  "mock";
+
  const provider =
-  AfriDesignProviderRegistry.get(
-   AfriDesignProviderRouter.resolve(request.operation || "generate") || request.provider || "mock"
-  );
+  AfriDesignProviderRegistry.get(providerName);
 
  if(!provider){
   return {

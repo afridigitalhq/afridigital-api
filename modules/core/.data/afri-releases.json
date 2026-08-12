@@ -1,0 +1,16 @@
+[
+  {
+    "releaseId": "release_1786573050655",
+    "buildId": "apk_build_1786572917958",
+    "exportId": "apk_export_1786572845250",
+    "artifactId": "artifact_1786571343398",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "version": "1.0.0",
+    "type": "APK",
+    "checksum": "sha256_1786573050655",
+    "status": "RELEASE_CERTIFIED",
+    "createdAt": "2026-08-12T22:17:30.655Z"
+  }
+]

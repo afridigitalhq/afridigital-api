@@ -1,0 +1,14 @@
+[
+  {
+    "entitlementId": "entitlement_1786568095910",
+    "userId": "user_A",
+    "product": "AfriDesignStudio",
+    "plan": "starter",
+    "grants": {
+      "APP_BUILD": 3
+    },
+    "sourceTransaction": "txn_1786567962144",
+    "status": "GRANTED",
+    "createdAt": "2026-08-12T20:54:55.910Z"
+  }
+]

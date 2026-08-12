@@ -6,6 +6,10 @@ import AfriDesignBuildCertification from "../validation/AfriDesignBuildCertifica
 import AfriDesignEvidenceWriter from "../evidence/AfriDesignEvidenceWriter.js";
 import AfriDesignWorkspaceManager from "../workspaces/AfriDesignWorkspaceManager.js";
 import AfriDesignWorkspaceVersionManager from "../workspaces/AfriDesignWorkspaceVersionManager.js";
+import AfriBuildProjectAssembler from "../generator/AfriBuildProjectAssembler.js";
+import AfriBuildWorkspaceWriter from "../generator/AfriBuildWorkspaceWriter.js";
+import AfriBuildWorkspaceValidator from "../validation/AfriBuildWorkspaceValidator.js";
+import AfriBuildLearningEngine from "../learning/AfriBuildLearningEngine.js";
 
 const AfriDesignBuildQueue = {
 
@@ -39,6 +43,22 @@ const AfriDesignBuildQueue = {
    jobId:job.id
   });
 
+  const project =
+   AfriBuildProjectAssembler.assemble(
+    result.project || {
+     name:"afribuild-generated-app",
+     files:{}
+    }
+   );
+
+  const workspaceFiles =
+   AfriBuildWorkspaceWriter.write(project);
+
+  const validation =
+   AfriBuildWorkspaceValidator.validate(
+    workspaceFiles
+   );
+
   const receipt = AfriDesignBuildReceipt.create({
    jobId:job.id,
    artifactId:artifact.id,
@@ -50,6 +70,24 @@ const AfriDesignBuildQueue = {
    jobId:job.id,
    artifactId:artifact.id,
    provider:job.provider
+  });
+
+  const learning = AfriBuildLearningEngine.learn({
+   status:certification.status,
+   artifactId:artifact.id,
+   provider:job.provider,
+   type:"web_app",
+   features:[
+    "tasks",
+    "completion_status",
+    "categories",
+    "mobile_ui"
+   ],
+   stack:[
+    "React",
+    "Vite",
+    "CSS"
+   ]
   });
 
   const evidence = AfriDesignEvidenceWriter.create({
@@ -65,9 +103,13 @@ const AfriDesignBuildQueue = {
    workspace,
    version,
    artifact,
+   project,
+   workspaceFiles,
+   validation,
    result,
    receipt,
    certification,
+   learning,
    evidence,
    status:"SUBMITTED"
   };

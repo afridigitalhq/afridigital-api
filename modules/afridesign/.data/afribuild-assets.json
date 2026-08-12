@@ -1,0 +1,35 @@
+[
+  {
+    "id": "asset_1786564271639",
+    "name": "modern-food-icon",
+    "type": "icon",
+    "category": "food",
+    "tags": [
+      "restaurant",
+      "menu",
+      "food"
+    ],
+    "source": "AfriBuild",
+    "metadata": {
+      "style": "3d"
+    },
+    "createdAt": "2026-08-12T19:51:11.639Z"
+  },
+  {
+    "id": "asset_1786564382454",
+    "name": "AfriFinance Dashboard UI",
+    "type": "ui_component",
+    "category": "finance",
+    "tags": [
+      "banking",
+      "dashboard",
+      "charts"
+    ],
+    "source": "CREATOR",
+    "metadata": {
+      "creatorId": "creator_1786564344436",
+      "version": "1.0.0"
+    },
+    "createdAt": "2026-08-12T19:53:02.454Z"
+  }
+]

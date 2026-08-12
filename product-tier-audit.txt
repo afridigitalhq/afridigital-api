@@ -1,0 +1,315 @@
+=== PRODUCT BILLING ENTITLEMENT AUDIT ===
+modules/afriai/agents/planner/AfriAITaskPlanner.js
+modules/afriai/business/billing/AfriAIBillingAdapter.js
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js
+modules/afriai/customer/subscriptions/AfriAICustomerSubscriptions.js
+modules/afriai/enterprise/billing/AfriAIUsageBilling.js
+modules/afriai/entitlements/AfriAIEntitlementRuntime.js
+modules/afriai/entitlements/admin/AfriAIEntitlementAdminConfig.js
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js
+modules/afriai/entitlements/config/AfriAIEntitlementConfig.js
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js
+modules/afriai/entitlements/products/AfriDebugEntitlement.js
+modules/afriai/remediation/AfriFixRemediationPlanner.js
+modules/afriai/runtime/planner/AfriAIExecutionPlanner.js
+modules/afriai/tools/planner/AfriAIToolPlanner.js
+modules/afridebug/src/debug/admin/billing/AfriDebugBillingAdmin.js
+modules/afridebug/src/debug/admin/subscriptions/AfriDebugSubscriptionsAdmin.js
+modules/afridebug/src/debug/billing/AfriDebugBillingBridge.js
+modules/afridebug/src/debug/enterprise/billing/AfriDebugEnterpriseBillingRuntime.js
+modules/afridebug/src/debug/intelligence/planner/AfriDebugAIInvestigationPlanner.js
+modules/afridebug/src/debug/investigation/PatchPlanner.js
+modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js
+modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js.bak
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js
+modules/afridebug/src/debug/subscriptions/AfriDebugSubscriptionRuntime.js
+modules/afridebug/src/debug/workers/AfriDebugPatchPlanningWorker.js
+modules/afridebug/src/investigation/patch/AfriDebugPatchPlanner.js
+modules/afrifix/src/consolidation/AfriFixConsolidationPlanner.js
+modules/afrifix/src/planning/AfriFixRepairPlannerEngine.js
+modules/afrifix/src/repair/AfriFixRepairPlanner.js
+modules/afrifix/src/runtime/planner/AfriFixExecutionPlanner.js
+modules/afrinucchain/src/batch/AfriNucBatchPlanner.js
+modules/afrinucchain/src/planner/AfriNucBatchPlanner.js
+modules/afrisuper3-demo/afriai-job/fix/patch-plan.json
+modules/afrisuper3-demo/afriweb-job/fix/patch-plan.json
+modules/afrisuper3-demo/afriwhatsapp-job/fix/delivery-patch-plan.json
+modules/afrisuper3-demo/afriwhatsapp-job/fix/patch-plan.json
+modules/afrisuper3-demo/fix/AfriFixClientPlanner.js
+modules/afrisuper3-demo/fix/client-patch-plan.json
+modules/afrisuper3-demo/fix/patch-plan.json
+modules/core/billing/CoreBillingEngine.js
+modules/core/billing/CoreSubscriptionManager.js
+modules/core/billing/CoreUsageBilling.js
+modules/core/billing/usage/CoreBillingMeter.js
+modules/core/billing/usage/CoreBillingUsageRegistry.js
+modules/core/delegation/CoreDelegationPlanner.js
+modules/core/entitlement/CoreEntitlementEngine.js
+modules/core/entitlement/CoreEntitlementManager.js
+modules/core/entitlement/CoreEntitlementRegistry.js
+modules/core/subscription/CoreSubscriptionEngine.js
+modules/core/subscription/CoreSubscriptionManager.js
+modules/core/subscription/CoreSubscriptionRegistry.js
+modules/platform/observability/debug/AfriDebugPatchPlanner.js
+
+=== REGISTRY REFERENCES ===
+modules/afriai/runtime/AfriAIRuntime.js:1:import AfriAIProviderRegistry from "../providers/bootstrap.js";
+modules/afriai/runtime/AfriAIRuntime.js:3:import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
+modules/afriai/runtime/AfriAIRuntime.js:6:import AfriAIKnowledgeProjection from "../prompt/AfriAIKnowledgeProjection.js";
+modules/afriai/runtime/AfriAIRuntime.js:40:      AfriAIKnowledgeProjection.project(
+modules/afriai/runtime/AfriAIRuntime.js:64:      AfriAIProviderRegistry.get("ollama"),
+modules/afriai/runtime/AfriAIRuntime.js:65:      AfriAIProviderRegistry.get("knowledge")
+modules/afriai/runtime/AfriAIRuntime.js:73:        await AfriAIProviderHealth.check(provider);
+modules/afriai/runtime/AfriAIRuntime.js:102:          trace.selectedProvider =
+modules/afriai/runtime/AfriAIRuntime.js:138:                selectedProvider:provider.name
+modules/afriai/runtime/resolver/AfriAIExecutionResolver.js:1:const AfriAIExecutionResolver={resolve(plan){return{...plan,resolved:true};}};export default AfriAIExecutionResolver;
+modules/afriai/contracts/AfriAIContracts.js:10:    "Business logic remains inside owning backend modules",
+modules/afriai/intents/ProductIntent.js:1:import ProductKnowledge from "../knowledge/ProductKnowledge.js";
+modules/afriai/intents/ProductIntent.js:3:export function ProductIntent(message = "") {
+modules/afriai/intents/ProductIntent.js:6:  for (const [name, info] of Object.entries(ProductKnowledge)) {
+modules/afriai/intents/ProductIntent.js:18:export default ProductIntent;
+modules/afriai/intents/StudioIntent.js:37:${StudioKnowledge.plannedFeatures.join(", ")}`
+modules/afriai/connectors/AfriAIServiceMap.js:4:    PROPERTY_SEARCH:"PropertyService",
+modules/afriai/memory/profile/AfriAIMemoryProfile.js:1:const AfriAIMemoryProfile={load(id="guest"){return{id};}};export default AfriAIMemoryProfile;
+modules/afriai/knowledge-engine/AfriAIKnowledgeRegistry.js:2:import ProductKnowledge from "../knowledge/ProductKnowledge.js";
+modules/afriai/knowledge-engine/AfriAIKnowledgeRegistry.js:14:      products: ProductKnowledge,
+modules/afriai/providers/AfriAIProviderRegistry.js:1:const AfriAIProviderRegistry = {
+modules/afriai/providers/AfriAIProviderRegistry.js:19:export default AfriAIProviderRegistry;
+modules/afriai/providers/OllamaProvider.js:3:const OllamaProvider = {
+modules/afriai/providers/OllamaProvider.js:15:export default OllamaProvider;
+modules/afriai/providers/bootstrap.js:1:import AfriAIProviderRegistry from "./AfriAIProviderRegistry.js";
+modules/afriai/providers/bootstrap.js:2:import OllamaProvider from "./OllamaProvider.js";
+modules/afriai/providers/bootstrap.js:3:import KnowledgeProvider from "./KnowledgeProvider.js";
+modules/afriai/providers/bootstrap.js:5:AfriAIProviderRegistry.register(
+modules/afriai/providers/bootstrap.js:6:  OllamaProvider.name,
+modules/afriai/providers/bootstrap.js:7:  OllamaProvider
+modules/afriai/providers/bootstrap.js:10:AfriAIProviderRegistry.register(
+modules/afriai/providers/bootstrap.js:11:  KnowledgeProvider.name,
+modules/afriai/providers/bootstrap.js:12:  KnowledgeProvider
+modules/afriai/providers/bootstrap.js:15:export default AfriAIProviderRegistry;
+modules/afriai/providers/KnowledgeProvider.js:4:const KnowledgeProvider = {
+modules/afriai/providers/KnowledgeProvider.js:49:      sources.push("ProductKnowledge");
+modules/afriai/providers/KnowledgeProvider.js:105:        "KnowledgeProvider"
+modules/afriai/providers/KnowledgeProvider.js:118:export default KnowledgeProvider;
+modules/afriai/providers/health/AfriAIProviderHealth.js:3:const AfriAIProviderHealth = {
+modules/afriai/providers/health/AfriAIProviderHealth.js:44:export default AfriAIProviderHealth;
+modules/afriai/providers/resilience/AfriAIProviderResilience.js:3:const AfriAIProviderResilience = {
+modules/afriai/providers/resilience/AfriAIProviderResilience.js:9:      const result = await Promise.race([
+modules/afriai/providers/resilience/AfriAIProviderResilience.js:11:        new Promise((_,reject)=>
+modules/afriai/providers/resilience/AfriAIProviderResilience.js:38:export default AfriAIProviderResilience;
+modules/afriai/providers/retry/AfriAIProviderRetry.js:1:const AfriAIProviderRetry = {
+modules/afriai/providers/retry/AfriAIProviderRetry.js:28:      await new Promise(r=>setTimeout(r,delay));
+modules/afriai/providers/retry/AfriAIProviderRetry.js:39:   error:lastError?.message || "Provider failed"
+modules/afriai/providers/retry/AfriAIProviderRetry.js:46:export default AfriAIProviderRetry;
+modules/afriai/knowledge/CapabilityKnowledge.js:6:      "Product discovery"
+modules/afriai/knowledge/CapabilityKnowledge.js:8:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:21:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:33:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:36:      "Freelancer marketplace"
+modules/afriai/knowledge/CapabilityKnowledge.js:44:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:46:      "Business promotion",
+modules/afriai/knowledge/CapabilityKnowledge.js:55:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:66:    planned: [
+modules/afriai/knowledge/CapabilityKnowledge.js:78:    planned: [
+modules/afriai/knowledge/PaymentsKnowledge.js:10:    subscriptions: false
+modules/afriai/knowledge/PaymentsKnowledge.js:13:  planned: {
+modules/afriai/knowledge/PaymentsKnowledge.js:19:    subscriptions: "Future",
+modules/afriai/knowledge/ProductKnowledge.js:1:export const ProductKnowledge = {
+modules/afriai/knowledge/ProductKnowledge.js:91:export default ProductKnowledge;
+modules/afriai/knowledge/RoadmapKnowledge.js:31:        "Enterprise services",
+modules/afriai/knowledge/StudioKnowledge.js:35:  plannedFeatures: [
+modules/afriai/knowledge/StudioKnowledge.js:39:    "Project publishing",
+modules/afriai/business/gateway/AfriAIBusinessGateway.js:3:const AfriAIBusinessGateway = {
+modules/afriai/business/gateway/AfriAIBusinessGateway.js:43:        source:"AfriAIBusinessGateway",
+modules/afriai/business/gateway/AfriAIBusinessGateway.js:55:export default AfriAIBusinessGateway;
+modules/afriai/business/contracts/AfriAIBusinessContract.js:1:const AfriAIBusinessContract = {
+modules/afriai/business/contracts/AfriAIBusinessContract.js:43:export default AfriAIBusinessContract;
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:3:  subscriptions: [
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:7:      name:"AfriAI Free",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:21:      id:"business_starter",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:22:      name:"AfriAI Business Starter",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:37:      id:"business_pro",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:38:      name:"AfriAI Business Pro",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:48:        "Business Knowledge",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:55:      name:"AfriAI Enterprise API",
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:73:  get(subscriptionId){
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:75:    return this.subscriptions.find(
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:76:      item => item.id === subscriptionId
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:84:    return this.subscriptions;
+modules/afriai/integrations/AfriAIDebugExplainer.js:9:      plan: diagnostic.plan,
+modules/afriai/marketplace/products/AfriAIProductRegistry.js:1:const AfriAIProductRegistry={
+modules/afriai/marketplace/products/AfriAIProductRegistry.js:13:export default AfriAIProductRegistry;
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:9:        generationProfile:"extended"
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:11:      commerce:{skill:"commerce",service:"AfriCommerce",generationProfile:"standard"},
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:12:      payments:{skill:"payments",service:"Payments",generationProfile:"standard"},
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:13:      opportunity:{skill:"opportunity",generationProfile:"standard"},
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:14:      support:{skill:"support",generationProfile:"dynamic"},
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:19:        generationProfile:"extended"
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:21:      conversation:{skill:"conversation",generationProfile:"short"}
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:26:    return capabilities[intent] || {skill:"conversation",generationProfile:"short"};
+modules/afriai/skills/marketplace/AfriAISkillMarketplace.js:4:"Business Skills",
+modules/afriai/agents/runtime/AfriAIAgentRuntime.js:2:import AfriAITaskPlanner from "../planner/AfriAITaskPlanner.js";
+modules/afriai/agents/runtime/AfriAIAgentRuntime.js:6:const plan=AfriAITaskPlanner.plan(task);
+modules/afriai/agents/runtime/AfriAIAgentRuntime.js:7:const result=AfriAITaskExecutor.execute(plan);
+modules/afriai/agents/runtime/AfriAIAgentRuntime.js:8:return{agents:AfriAIAgentRegistry.load(),plan,result,status:"READY"};
+modules/afriai/agents/planner/AfriAITaskPlanner.js:1:const AfriAITaskPlanner={plan(task={}){return{...task,status:"PLANNED"};}};export default AfriAITaskPlanner;
+modules/afriai/customer/profiles/AfriAICustomerProfile.js:1:const AfriAICustomerProfile={
+modules/afriai/customer/profiles/AfriAICustomerProfile.js:11:export default AfriAICustomerProfile;
+modules/afriai/customer/subscriptions/AfriAICustomerSubscriptions.js:5:subscription:"NONE"
+modules/afriai/knowledge-governance/business/AfriAIBusinessKnowledge.js:1:const AfriAIBusinessKnowledge={scope:"business"};export default AfriAIBusinessKnowledge;
+modules/afriai/experience/proactive/AfriAIProactiveAssistant.js:1:const AfriAIProactiveAssistant={
+modules/afriai/experience/proactive/AfriAIProactiveAssistant.js:10:export default AfriAIProactiveAssistant;
+modules/afriai/response/AfriAIResponseNormalizer.js:94:        "ProductKnowledge"
+modules/afriai/response/AfriAIResponseNormalizer.js:136:       "RawProviderResponse",
+modules/afriai/execution/trace/AfriAIExecutionTrace.js:7:   selectedProvider:null,
+modules/afriai/investigation/AfriAIInvestigator.js:4:import AfriAIProviderResilience from "../providers/resilience/AfriAIProviderResilience.js";
+modules/afriai/investigation/AfriAIInvestigator.js:42:      await AfriAIProviderResilience.execute(
+modules/afriai/investigation/AfriAIInvestigator.js:81:        ? AfriFixRemediationPlanner.plan({
+modules/afriai/remediation/AfriFixRemediationPlanner.js:3: plan(diagnosis={}){
+modules/afriai/guards/AfriAIEvidenceGuard.js:131:        ? "Diagnosis may proceed to remediation planning"
+modules/afriai/guards/AfriAIGroundingGuard.js:57:      const lowerProduct =
+modules/afriai/guards/AfriAIGroundingGuard.js:61:        text.toLowerCase().includes(lowerProduct) &&
+modules/afriai/guards/AfriAIGroundingGuard.js:62:        !source.includes(lowerProduct)
+modules/afriai/prompt/AfriAIPromptContext.js:1:const AfriAIPromptContext = {
+modules/afriai/prompt/AfriAIPromptContext.js:49:export default AfriAIPromptContext;
+modules/afriai/prompt/AfriAIKnowledgeProjection.js:1:const AfriAIKnowledgeProjection = {
+modules/afriai/prompt/AfriAIKnowledgeProjection.js:99:export default AfriAIKnowledgeProjection;
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:15:  resolveProductEntitlement({product="",plan="free",context={}}={}){
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:26:        plan:"admin",
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:36:    return AfriAIEcosystemEntitlementAdapter.resolve({product,plan,context});
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:41:    plan = "free",
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:51:    const subscription =
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:53:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:85:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:91:    if(subscription.included){
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:105:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:114:        subscription,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:1:import AfriAIProductEntitlementCatalog from "../catalog/AfriAIProductEntitlementCatalog.js";
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:3:const AfriAIProductEntitlementResolver = {
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:9:    plan = "free",
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:14:      AfriAIProductEntitlementCatalog.get(
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:30:        plan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:47:    const planDefinition =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:48:      definition.plans?.[
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:49:        plan
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:53:      planDefinition?.capabilities || [];
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:91:          plan:targetPlan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:98:          item.from === plan
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:135:      plan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:143:      planDefinition,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:180:export default AfriAIProductEntitlementResolver;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:12:    plan="free",
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:30:    const entitlement =
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:35:        plan,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:46:      entitlement?.access?.capability?.supported === true;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:49:      entitlement?.access?.subscription?.included === true;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:66:      plan,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:69:      entitlement,
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:1:const plans = {
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:5:    name:"AfriAI Free",
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:30:    name:"AfriAI Starter",
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:57:    name:"AfriAI Pro",
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:89:    name:"AfriAI Enterprise",
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:115:  get(planId="free"){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:116:    return plans[planId] || null;
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:120:    return Object.values(plans);
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:123:  has(planId="free", capability=""){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:124:    const plan = this.get(planId);
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:126:    if(!plan){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:131:      plan.capabilities.includes("*") ||
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:132:      plan.capabilities.includes(capability)
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:2:  resolve({product=null,capability=null,plan="free"}={}){
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:3:    return {product,capability,plan,benefits:[]};
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:3:const AfriAIProductEntitlementCatalog = {
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:27:      plans:
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:28:        definition.plans ||
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:95:export default AfriAIProductEntitlementCatalog;
+modules/afriai/entitlements/config/AfriAIEntitlementConfig.js:6:    subscriptions:{},
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:1:import AfriAIPlanEntitlementRegistry from "../plans/AfriAIPlanEntitlementRegistry.js";
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:6:    plan = "free",
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:12:    const planDefinition =
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:14:        ? AfriAIPlanEntitlementRegistry.get(plan)
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:18:      planDefinition?.capabilities || [];
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:27:      plan,
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:41:        planDefinition?.limits || {},
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:1:import AfriAIProductEntitlementCatalog from "../catalog/AfriAIProductEntitlementCatalog.js";
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:8:    plan = "free",
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:13:      AfriAIProductEntitlementCatalog.get
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:14:        ? AfriAIProductEntitlementCatalog.get(product)
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:17:    const planDefinition =
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:18:      productDefinition?.plans?.[plan] || null;
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:26:      plan,
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:29:        planDefinition?.benefits || [],
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:32:        planDefinition
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:1:import AfriAIProductEntitlementCatalog from "../catalog/AfriAIProductEntitlementCatalog.js";
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:7:    return AfriAIProductEntitlementCatalog.register(
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:41:            description:"Generate structured repair plans and candidate patches.",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:43:              "patch_planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:68:        plans:{
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:124:              "AI patch planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:245:              "AI patch planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:258:              "Enterprise workflows",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:267:          monetization:"subscription_payg_ad_unlock",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:2:import AfriAIProductEntitlementCatalog from "../catalog/AfriAIProductEntitlementCatalog.js";
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:9:    plan = "free",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:13:    const entitlement =
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:17:        plan,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:22:      AfriAIProductEntitlementCatalog.get
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:23:        ? AfriAIProductEntitlementCatalog.get(product)
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:29:      currentPlan:plan,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:30:      entitlement,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:33:        watchAd:Boolean(entitlement?.adUnlock),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:34:        payAsYouGo:Boolean(entitlement?.payg),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:35:        upgrade:Array.isArray(entitlement?.upgradeOptions)
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:36:          ? entitlement.upgradeOptions
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:40:        status:entitlement?.status || "UNAVAILABLE",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:41:        included:Boolean(entitlement?.included),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:42:        message:entitlement?.included
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:43:          ? "This capability is included in your current plan."
+modules/afriai/entitlements/payments/AfriAIPaymentResolver.js:8:      requiresProviderConfirmation:true,
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:13:    plan = "",
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:27:        plan,
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:37:      plan,
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:3:  register(product,plans={}){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:5:    this.products[product]={product,plans:{
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:6:      free:plans.free||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:7:      starter:plans.starter||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:8:      pro:plans.pro||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:9:      enterprise:plans.enterprise||{benefits:[],capabilities:[]}
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:11:    return{status:"REGISTERED",product,plans:Object.keys(this.products[product].plans)};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:16:  resolve(product,plan="free"){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:18:    if(!entry)return{status:"PRODUCT_NOT_REGISTERED",product,plan};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:19:    const entitlement=entry.plans[plan]||{benefits:[],capabilities:[]};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:20:    return{status:"ENTITLEMENT_RESOLVED",product,plan,benefits:entitlement.benefits,capabilities:entitlement.capabilities};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:4:  resolve({product="",plan="free",context={}}={}){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:5:    const entitlement=AfriAIEcosystemEntitlementRegistry.resolve(product,plan);
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:7:      ...entitlement,
+modules/afridesign/architecture-work/afridesign-foundation-v1/FOUNDATION-AUDIT.md:35:1. AfriDigital Product Builder
+modules/afridesign/architecture-work/afridesign-foundation-v1/FOUNDATION-LOCK.md:19:- Production exports require review
+modules/afridesign/architecture-work/explorer-registry-migration/PlatformExplorer.before.jsx:8:import ProjectExplorerRegistry from "../../ecosystem/explorer/ProjectExplorerRegistry";
+modules/afridesign/architecture-work/explorer-registry-migration/PlatformExplorer.before.jsx:11:  { id:"projects", name:"Projects", icon:"📁" },
+modules/afridesign/architecture-work/explorer-registry-migration/PlatformExplorer.before.jsx:46:        {ProjectExplorerRegistry.map(section => (
+modules/afridesign/architecture-work/final-workspace-panels/snapshot/DashboardPanelRegistry.before.js:3:{id:"recent",name:"Recent Projects",icon:"📂",placeholder:"Recent projects will appear here."},
+modules/afridesign/architecture-work/final-workspace-panels/snapshot/DashboardPanelRegistry.before.js:15:{id:"activity",name:"Activity Feed",icon:"📈",placeholder:"Project activity timeline."}
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/alignment/AlignmentToolbarContainer.jsx:5: * Provides selected component
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/alignment/AlignmentToolbar.jsx:5: * Provides manual object alignment controls.
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:2: * AfriDesign Project Explorer Sidebar
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:14:import ProjectExplorerController from "../../../ecosystem/explorer/ProjectExplorerController";
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:16:export default function ProjectExplorerSidebar() {
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:22:      ProjectExplorerController.initialize()
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:30:        Project Explorer
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/explorer/ProjectExplorerSidebar.jsx:39:            ProjectExplorerController.open(
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/media/MediaToolsPanel.jsx:5: * Provides image editing actions.
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/sidebar/ShopSidebarAnchor.jsx:5: * Provides entry point into
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/RegistryPanel.jsx:34:    id: "tier-one-products",
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/RegistryPanel.jsx:35:    name: "Tier One Products",
+
+=== AUDIT COMPLETE ===

@@ -1,0 +1,46 @@
+[
+  {
+    "sandboxId": "plan_sandbox_1786568296296",
+    "product": "AfriBuild",
+    "environment": "SANDBOX",
+    "plans": {
+      "free": {
+        "APP_BUILD": 1
+      },
+      "starter": {
+        "APP_BUILD": 3
+      },
+      "pro": {
+        "APP_BUILD": 7
+      },
+      "business": {
+        "APP_BUILD": 10
+      },
+      "enterprise": {
+        "APP_BUILD": 20
+      }
+    },
+    "status": "UPDATED",
+    "createdAt": "2026-08-12T20:58:16.296Z",
+    "updatedAt": "2026-08-12T21:12:57.632Z"
+  },
+  {
+    "sandboxId": "plan_sandbox_1786568357943",
+    "product": "AfriDebug",
+    "environment": "SANDBOX",
+    "plans": {
+      "free": {
+        "DEBUG_RUNS": 5
+      },
+      "starter": {
+        "DEBUG_RUNS": 25
+      },
+      "pro": {
+        "DEBUG_RUNS": 100,
+        "CLIENT_REPORTS": true
+      }
+    },
+    "status": "CREATED",
+    "createdAt": "2026-08-12T20:59:17.943Z"
+  }
+]

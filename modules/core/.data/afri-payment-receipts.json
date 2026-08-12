@@ -1,0 +1,35 @@
+[
+  {
+    "receiptId": "receipt_1786567962149",
+    "transactionId": "txn_1786567962144",
+    "userId": "user_A",
+    "product": "AfriDesignStudio",
+    "feature": "STARTER_PLAN",
+    "amount": 9,
+    "currency": "USD",
+    "status": "RECEIPT_GENERATED",
+    "createdAt": "2026-08-12T20:52:42.149Z"
+  },
+  {
+    "receiptId": "receipt_1786570664025",
+    "transactionId": "txn_1786570664021",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "amount": 1,
+    "currency": "USD",
+    "status": "RECEIPT_GENERATED",
+    "createdAt": "2026-08-12T21:37:44.025Z"
+  },
+  {
+    "receiptId": "receipt_1786570866325",
+    "transactionId": "txn_1786570866322",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "amount": 1,
+    "currency": "USD",
+    "status": "RECEIPT_GENERATED",
+    "createdAt": "2026-08-12T21:41:06.326Z"
+  }
+]

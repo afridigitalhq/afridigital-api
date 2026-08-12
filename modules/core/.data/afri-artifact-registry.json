@@ -1,0 +1,24 @@
+[
+  {
+    "artifactId": "artifact_1786571343398",
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "name": "FirstAfriApp",
+    "type": "APP_PACKAGE",
+    "version": "1.0.0",
+    "status": "ARTIFACT_READY",
+    "createdAt": "2026-08-12T21:49:03.399Z"
+  },
+  {
+    "artifactId": "artifact_1786571435388",
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "name": "FirstAfriApp",
+    "type": "WEBVIEW_APP",
+    "version": "1.0.0",
+    "status": "ARTIFACT_READY",
+    "createdAt": "2026-08-12T21:50:35.388Z"
+  }
+]

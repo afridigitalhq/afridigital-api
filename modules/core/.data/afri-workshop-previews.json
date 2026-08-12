@@ -1,0 +1,34 @@
+[
+  {
+    "previewId": "preview_1786571889569",
+    "artifactId": "artifact_1786571435388",
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "environment": "PRIVATE_WORKSHOP",
+    "aiAdjustment": {
+      "enabled": true,
+      "changes": [],
+      "status": "READY"
+    },
+    "status": "PREVIEW_READY",
+    "createdAt": "2026-08-12T21:58:09.569Z"
+  },
+  {
+    "previewId": "preview_1786571899272",
+    "artifactId": "artifact_1786571435388",
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "environment": "PRIVATE_WORKSHOP",
+    "aiAdjustment": {
+      "enabled": true,
+      "changes": [],
+      "status": "READY"
+    },
+    "status": "PREVIEW_READY",
+    "createdAt": "2026-08-12T21:58:19.272Z"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "usageId": "usage_1786571034181",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "source": "PAYG",
+    "quantity": 1,
+    "status": "RECORDED",
+    "createdAt": "2026-08-12T21:43:54.181Z"
+  },
+  {
+    "usageId": "usage_1786571149219",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "source": "PAYG",
+    "quantity": 1,
+    "status": "RECORDED",
+    "createdAt": "2026-08-12T21:45:49.219Z"
+  }
+]

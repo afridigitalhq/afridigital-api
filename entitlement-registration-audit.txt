@@ -1,0 +1,1 @@
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:7:    return AfriAIProductEntitlementCatalog.register(

@@ -1,6 +1,7 @@
 import AfriDesignBuilderCapabilityRegistry from "../capabilities/AfriDesignBuilderCapabilityRegistry.js";
 import AfriDesignProviderRuntime from "./AfriDesignProviderRuntime.js";
 import AfriDesignProviderRouter from "../router/AfriDesignProviderRouter.js";
+import AfriBuildKnowledgeRegistry from "../../knowledge/AfriBuildKnowledgeRegistry.js";
 
 const AfriDesignBuilderRuntime={
 
@@ -18,6 +19,11 @@ generate(request={}){
   };
  }
 
+ const memory =
+  AfriBuildKnowledgeRegistry.recall({
+   type:request.buildType || "web_app"
+  });
+
  const provider =
   request.provider ||
   AfriDesignProviderRouter.resolve("generate") ||
@@ -25,7 +31,8 @@ generate(request={}){
 
  return AfriDesignProviderRuntime.generate({
   ...request,
-  provider
+  provider,
+  previousBuilds:memory
  });
 
 }

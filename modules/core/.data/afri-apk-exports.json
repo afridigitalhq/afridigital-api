@@ -1,0 +1,15 @@
+[
+  {
+    "exportId": "apk_export_1786572845250",
+    "artifactId": "artifact_1786571343398",
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "type": "APK",
+    "version": "1.0.0",
+    "status": "APK_READY",
+    "downloadPath": "/downloads/FirstAfriApp.apk",
+    "createdAt": "2026-08-12T22:14:05.250Z"
+  }
+]

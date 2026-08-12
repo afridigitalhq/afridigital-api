@@ -1,0 +1,13 @@
+
+{
+ "name":"afritodo",
+ "version":"1.0.0",
+ "scripts":{
+  "dev":"vite"
+ },
+ "dependencies":{
+  "react":"latest",
+  "react-dom":"latest",
+  "vite":"latest"
+ }
+}

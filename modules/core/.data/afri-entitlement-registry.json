@@ -1,0 +1,17 @@
+[
+  {
+    "entitlementId": "entitlement_1786569621707",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "plan": "business",
+    "grants": {
+      "APP_BUILD": 10
+    },
+    "previous": {
+      "APP_BUILD": 7
+    },
+    "status": "ACTIVE",
+    "createdAt": "2026-08-12T21:20:21.707Z",
+    "updatedAt": "2026-08-12T21:32:23.804Z"
+  }
+]

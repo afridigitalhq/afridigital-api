@@ -1,0 +1,25 @@
+[
+  {
+    "id": "creator_intel_1786564777062",
+    "creatorId": "creator_1786564344436",
+    "assets": [
+      "asset_1786564382454"
+    ],
+    "usage": {
+      "total": 1200
+    },
+    "reputation": {
+      "score": 8500
+    },
+    "rewards": {
+      "points": 12100,
+      "currency": "AfriCoin"
+    },
+    "capabilities": [
+      "UI Components",
+      "React Templates",
+      "Design Systems"
+    ],
+    "createdAt": "2026-08-12T19:59:37.066Z"
+  }
+]

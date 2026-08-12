@@ -1,0 +1,43 @@
+
+:root{
+ --primary:#2563eb;
+ --background:#eef2ff;
+ --card:#ffffff;
+}
+
+body{
+ margin:0;
+ font-family:Arial, sans-serif;
+ background:var(--background);
+}
+
+.app{
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+}
+
+.card{
+ background:var(--card);
+ padding:30px;
+ border-radius:20px;
+ box-shadow:0 10px 30px rgba(0,0,0,.12);
+ width:320px;
+}
+
+h1{
+ color:var(--primary);
+}
+
+.task{
+ margin-top:15px;
+ padding:12px;
+ border-radius:12px;
+ background:#f8fafc;
+}
+
+.done{
+ text-decoration:line-through;
+ opacity:.6;
+}

@@ -1,0 +1,3 @@
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js import AfriPlatformAuthorization from "../../../platform/authorization/AfriPlatformAuthorization.js";
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js import AfriPlatformAuthorization from "../../../platform/authorization/AfriPlatformAuthorization.js";
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js import AfriPayPaymentOrchestrator from "../../../../afripai/orchestration/AfriPayPaymentOrchestrator.js";

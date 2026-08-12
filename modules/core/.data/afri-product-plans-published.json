@@ -1,0 +1,26 @@
+[
+  {
+    "publishId": "publish_1786570229801",
+    "product": "AfriBuild",
+    "plans": {
+      "free": {
+        "APP_BUILD": 1
+      },
+      "starter": {
+        "APP_BUILD": 3
+      },
+      "pro": {
+        "APP_BUILD": 7
+      },
+      "business": {
+        "APP_BUILD": 10
+      },
+      "enterprise": {
+        "APP_BUILD": 20
+      }
+    },
+    "environment": "PRODUCTION",
+    "status": "PUBLISHED",
+    "publishedAt": "2026-08-12T21:30:29.801Z"
+  }
+]

@@ -1,0 +1,124 @@
+modules/core/registry/CoreServiceRegistry.js:13:  entitlement:["CoreEntitlementEngine","CoreEntitlementManager","CoreEntitlementRegistry"],
+modules/core/billing/CoreSubscriptionManager.js:1:const CoreSubscriptionManager={create(plan){return {plan,status:"SUBSCRIPTION_CREATED"};}};
+modules/core/subscription/CoreSubscriptionEngine.js:2: activate(account,plan){
+modules/core/subscription/CoreSubscriptionEngine.js:5:   plan,
+modules/core/subscription/CoreSubscriptionRegistry.js:2: register(plan,config={}){
+modules/core/subscription/CoreSubscriptionRegistry.js:4:   plan,
+modules/core/entitlement/CoreEntitlementManager.js:2: assign(account,plan){
+modules/core/entitlement/CoreEntitlementManager.js:3:  return {account,plan,status:"ASSIGNED"};
+modules/core/entitlement/CoreEntitlementRegistry.js:2: register(plan,rules){
+modules/core/entitlement/CoreEntitlementRegistry.js:3:  return {plan,rules,status:"REGISTERED"};
+modules/core/delegation/CoreDelegationPlanner.js:2:  plan(request = {}) {
+modules/core/delegation/CoreDelegationDispatcher.js:2:  async dispatch(provider, plan) {
+modules/core/delegation/CoreDelegationDispatcher.js:7:        plan
+modules/core/delegation/CoreDelegationDispatcher.js:15:        result: await provider(plan)
+modules/core/delegation/CoreDelegationDispatcher.js:23:        result: await provider.execute(plan)
+modules/core/delegation/CoreDelegationDispatcher.js:31:        result: await provider.run(plan)
+modules/core/delegation/CoreDelegationDispatcher.js:38:      plan
+modules/core/delegation/CoreDelegationEngine.js:7:    const plan = CoreDelegationPlanner.plan(request);
+modules/core/delegation/CoreDelegationEngine.js:9:    if (plan.status !== "PLANNED") {
+modules/core/delegation/CoreDelegationEngine.js:13:        plan
+modules/core/delegation/CoreDelegationEngine.js:17:    const provider = CoreDelegationRegistry.resolve(plan.capability);
+modules/core/delegation/CoreDelegationEngine.js:23:        plan,
+modules/core/delegation/CoreDelegationEngine.js:28:    const dispatch = await CoreDelegationDispatcher.dispatch(provider, plan);
+modules/core/delegation/CoreDelegationEngine.js:33:      delegationId: plan.id,
+modules/core/delegation/CoreDelegationEngine.js:34:      capability: plan.capability,
+modules/core/delegation/CoreDelegationEngine.js:35:      plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:2:import AfriAIEcosystemCatalogBootstrap from "../ecosystem/AfriAIEcosystemCatalogBootstrap.js";
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:3:import AfriAIEcosystemEntitlementAdapter from "../ecosystem/AfriAIEcosystemEntitlementAdapter.js";
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:15:  resolveProductEntitlement({product="",plan="free",context={}}={}){
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:26:        plan:"admin",
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:29:        limits:{aiRequests:"unlimited",productUsage:"unlimited",ecosystemAccess:"unlimited"},
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:36:    return AfriAIEcosystemEntitlementAdapter.resolve({product,plan,context});
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:41:    plan = "free",
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:51:    const subscription =
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:53:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:85:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:91:    if(subscription.included){
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:105:        plan,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:114:        subscription,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:9:    plan = "free",
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:30:        plan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:47:    const planDefinition =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:48:      definition.plans?.[
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:49:        plan
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:53:      planDefinition?.capabilities || [];
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:91:          plan:targetPlan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:98:          item.from === plan
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:135:      plan,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:143:      planDefinition,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:12:    plan="free",
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:30:    const entitlement =
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:35:        plan,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:46:      entitlement?.access?.capability?.supported === true;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:49:      entitlement?.access?.subscription?.included === true;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:66:      plan,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:69:      entitlement,
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:1:const plans = {
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:115:  get(planId="free"){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:116:    return plans[planId] || null;
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:120:    return Object.values(plans);
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:123:  has(planId="free", capability=""){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:124:    const plan = this.get(planId);
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:126:    if(!plan){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:131:      plan.capabilities.includes("*") ||
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:132:      plan.capabilities.includes(capability)
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:2:  resolve({product=null,capability=null,plan="free"}={}){
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:3:    return {product,capability,plan,benefits:[]};
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:27:      plans:
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:28:        definition.plans ||
+modules/afriai/entitlements/config/AfriAIEntitlementConfig.js:6:    subscriptions:{},
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:1:import AfriAIPlanEntitlementRegistry from "../plans/AfriAIPlanEntitlementRegistry.js";
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:6:    plan = "free",
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:12:    const planDefinition =
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:14:        ? AfriAIPlanEntitlementRegistry.get(plan)
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:18:      planDefinition?.capabilities || [];
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:27:      plan,
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:41:        planDefinition?.limits || {},
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:8:    plan = "free",
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:17:    const planDefinition =
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:18:      productDefinition?.plans?.[plan] || null;
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:26:      plan,
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:29:        planDefinition?.benefits || [],
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:32:        planDefinition
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:41:            description:"Generate structured repair plans and candidate patches.",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:43:              "patch_planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:68:        plans:{
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:124:              "AI patch planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:245:              "AI patch planning",
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:267:          monetization:"subscription_payg_ad_unlock",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:9:    plan = "free",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:13:    const entitlement =
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:17:        plan,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:29:      currentPlan:plan,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:30:      entitlement,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:33:        watchAd:Boolean(entitlement?.adUnlock),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:34:        payAsYouGo:Boolean(entitlement?.payg),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:35:        upgrade:Array.isArray(entitlement?.upgradeOptions)
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:36:          ? entitlement.upgradeOptions
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:40:        status:entitlement?.status || "UNAVAILABLE",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:41:        included:Boolean(entitlement?.included),
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:42:        message:entitlement?.included
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:43:          ? "This capability is included in your current plan."
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:13:    plan = "",
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:27:        plan,
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:37:      plan,
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:3:  register(product,plans={}){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:5:    this.products[product]={product,plans:{
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:6:      free:plans.free||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:7:      starter:plans.starter||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:8:      pro:plans.pro||{benefits:[],capabilities:[]},
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:9:      enterprise:plans.enterprise||{benefits:[],capabilities:[]}
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:11:    return{status:"REGISTERED",product,plans:Object.keys(this.products[product].plans)};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:16:  resolve(product,plan="free"){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:18:    if(!entry)return{status:"PRODUCT_NOT_REGISTERED",product,plan};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:19:    const entitlement=entry.plans[plan]||{benefits:[],capabilities:[]};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js:20:    return{status:"ENTITLEMENT_RESOLVED",product,plan,benefits:entitlement.benefits,capabilities:entitlement.capabilities};
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:4:  resolve({product="",plan="free",context={}}={}){
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:5:    const entitlement=AfriAIEcosystemEntitlementRegistry.resolve(product,plan);
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementAdapter.js:7:      ...entitlement,
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:3:  subscriptions: [
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:73:  get(subscriptionId){
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:75:    return this.subscriptions.find(
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:76:      item => item.id === subscriptionId
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js:84:    return this.subscriptions;

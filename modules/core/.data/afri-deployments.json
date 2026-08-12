@@ -1,0 +1,15 @@
+[
+  {
+    "deploymentId": "deploy_1786572169025",
+    "previewId": "preview_1786571899272",
+    "artifactId": "artifact_1786571435388",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "deploymentType": "WEBVIEW",
+    "environment": "PUBLIC",
+    "url": "https://apps.afridigital.app/1786572169026",
+    "status": "DEPLOYED",
+    "createdAt": "2026-08-12T22:02:49.026Z"
+  }
+]

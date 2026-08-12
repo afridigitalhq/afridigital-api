@@ -1,0 +1,40 @@
+[
+  {
+    "syncId": "sync_1786568796928",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "plan": "pro",
+    "previous": null,
+    "updated": {
+      "APP_BUILD": 10,
+      "APK_EXPORT": true
+    },
+    "status": "SYNC_COMPLETED",
+    "createdAt": "2026-08-12T21:06:36.929Z"
+  },
+  {
+    "syncId": "sync_1786569399811",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "plan": "pro",
+    "previous": null,
+    "updated": {
+      "APP_BUILD": 10,
+      "APK_EXPORT": true
+    },
+    "status": "SYNC_COMPLETED",
+    "createdAt": "2026-08-12T21:16:39.811Z"
+  },
+  {
+    "syncId": "sync_1786570343806",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "plan": "business",
+    "grants": {
+      "APP_BUILD": 10
+    },
+    "entitlementId": "entitlement_1786569621707",
+    "status": "SYNC_COMPLETED",
+    "createdAt": "2026-08-12T21:32:23.806Z"
+  }
+]

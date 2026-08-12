@@ -1,0 +1,12 @@
+[
+  {
+    "approvalId": "approval_1786571982221",
+    "previewId": "preview_1786571899272",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "approvalType": "WORKSHOP_REVIEW",
+    "reviewer": "OWNER",
+    "status": "PENDING_APPROVAL",
+    "createdAt": "2026-08-12T21:59:42.221Z"
+  }
+]

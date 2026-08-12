@@ -1,0 +1,18 @@
+[
+  {
+    "jobId": "build_1786571233357",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "plan": "business",
+    "status": "BUILD_COMPLETED",
+    "createdAt": "2026-08-12T21:47:13.357Z",
+    "sourceGenerated": true,
+    "artifact": {
+      "type": "APP_PACKAGE",
+      "name": "FirstAfriApp",
+      "version": "1.0.0"
+    },
+    "completedAt": "2026-08-12T21:48:15.625Z"
+  }
+]

@@ -1,0 +1,10 @@
+modules/afriai/business/leads/AfriAILeadCapture.js
+modules/afriai/business/leads/AfriAILeadRegistry.js
+modules/afriai/integrations/AfriAIAdsIntegration.js
+modules/africoin/rewards/AfriCoinRewardEngine.js
+modules/afridebug/src/debug/admin/credits/AfriDebugCreditsAdmin.js
+modules/afridesign/node_modules/rolldown/dist/shared/watch-B1b0gmVh.mjs
+modules/afripai/wallet/AfriPayWalletCreditService.js
+modules/core/credits/CoreCreditEngine.js
+modules/core/credits/CoreCreditManager.js
+modules/core/credits/CoreCreditRegistry.js

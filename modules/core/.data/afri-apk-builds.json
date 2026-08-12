@@ -1,0 +1,14 @@
+[
+  {
+    "buildId": "apk_build_1786572917958",
+    "exportId": "apk_export_1786572845250",
+    "artifactId": "artifact_1786571343398",
+    "appName": "FirstAfriApp",
+    "type": "APK_BINARY",
+    "version": "1.0.0",
+    "packageName": "com.afridigital.firstafriapp",
+    "file": "/artifacts/FirstAfriApp.apk",
+    "status": "APK_BUILT",
+    "createdAt": "2026-08-12T22:15:17.958Z"
+  }
+]

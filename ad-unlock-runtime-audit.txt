@@ -1,0 +1,28 @@
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:38:      adUnlock:
+modules/afriai/entitlements/catalog/AfriAIProductEntitlementCatalog.js:39:        definition.adUnlock ||
+modules/afriai/entitlements/config/AfriAIEntitlementConfig.js:9:    adUnlock:{},
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:118:      unlock:{
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:120:        adUnlock
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:135:        requiresUnlock:
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:137:          decision === "AD_UNLOCK_AVAILABLE",
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:6:import AfriAIAdUnlockPolicy from "../policies/AfriAIAdUnlockPolicy.js";
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:74:    const adUnlock =
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:75:      AfriAIAdUnlockPolicy.resolve({
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:95:    }else if(adUnlock.enabled){
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:96:      decision = "AD_UNLOCK_AVAILABLE";
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:117:      adUnlockDefinition?.enabled
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:121:        "AD_UNLOCK_AVAILABLE";
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:145:      unlockOptions:{
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:157:        adUnlock:{
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:160:              adUnlockDefinition?.enabled
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:164:            adUnlockDefinition || null
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:77:    const adUnlockDefinition =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:78:      definition.adUnlock
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:14:        ?.adUnlock
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:3:const AfriAIAdUnlockPolicy = {
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:54:export default AfriAIAdUnlockPolicy;
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:33:        watchAd:Boolean(entitlement?.adUnlock),
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:196:        adUnlock:{
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:267:          monetization:"subscription_payg_ad_unlock",
+modules/afriai/entitlements/unlock/AfriAIUnlockPolicy.js:1:const AfriAIUnlockPolicy={
+modules/afriai/entitlements/unlock/AfriAIUnlockPolicy.js:6:export default AfriAIUnlockPolicy;

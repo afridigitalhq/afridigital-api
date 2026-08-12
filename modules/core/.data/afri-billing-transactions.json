@@ -1,0 +1,50 @@
+[
+  {
+    "transactionId": "txn_1786567922749",
+    "userId": "user_A",
+    "product": "AfriDesignStudio",
+    "feature": "STARTER_PLAN",
+    "plan": "starter",
+    "paymentType": "SUBSCRIPTION",
+    "currency": "USD",
+    "amount": 9,
+    "status": "PAYMENT_RECORDED",
+    "createdAt": "2026-08-12T20:52:02.752Z"
+  },
+  {
+    "transactionId": "txn_1786567962144",
+    "userId": "user_A",
+    "product": "AfriDesignStudio",
+    "feature": "STARTER_PLAN",
+    "plan": "starter",
+    "paymentType": "SUBSCRIPTION",
+    "currency": "USD",
+    "amount": 9,
+    "status": "PAYMENT_RECORDED",
+    "createdAt": "2026-08-12T20:52:42.144Z"
+  },
+  {
+    "transactionId": "txn_1786570664021",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "plan": null,
+    "paymentType": "PAYG",
+    "currency": "USD",
+    "amount": 1,
+    "status": "PAYMENT_RECORDED",
+    "createdAt": "2026-08-12T21:37:44.021Z"
+  },
+  {
+    "transactionId": "txn_1786570866322",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "feature": "APP_BUILD",
+    "plan": null,
+    "paymentType": "PAYG",
+    "currency": "USD",
+    "amount": 1,
+    "status": "PAYMENT_RECORDED",
+    "createdAt": "2026-08-12T21:41:06.322Z"
+  }
+]

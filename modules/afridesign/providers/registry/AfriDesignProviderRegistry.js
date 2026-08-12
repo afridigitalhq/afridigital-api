@@ -1,10 +1,12 @@
 import AppDeployAdapter from "../appdeploy/AppDeployAdapter.js";
 import MockBuilderAdapter from "../mock/MockBuilderAdapter.js";
+import OllamaBuilderAdapter from "../llm/OllamaBuilderAdapter.js";
 
 const AfriDesignProviderRegistry = {
   providers:{
     appdeploy:AppDeployAdapter,
-    mock:MockBuilderAdapter
+    mock:MockBuilderAdapter,
+    ollama:OllamaBuilderAdapter
   },
 
   get(provider){

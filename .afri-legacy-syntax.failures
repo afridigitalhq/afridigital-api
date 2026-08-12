@@ -1,0 +1,11 @@
+FAIL ./src/legacy/africore/runtime/brain.v15.negotiation.engine.js
+FAIL ./src/legacy/africore/runtime/brain.v17.orchestrator.js
+FAIL ./src/legacy/africore/runtime/server.boot.cjs
+FAIL ./src/legacy/africore/runtime/swarm.memory.worker.js
+FAIL ./src/legacy/africore/runtime/swarm.v2.worker.js
+FAIL ./src/legacy/africore/runtime/swarm.worker.js
+FAIL ./src/legacy/afridigital-core/kernel/v20/ai.agents.cjs
+FAIL ./src/legacy/afridigital-core/kernel/v20/debug.console.cjs
+FAIL ./src/legacy/core/rest/api.js
+FAIL ./src/legacy/services/ws/client.js
+FAIL ./src/legacy/telemetry/flow.health.bridge.js

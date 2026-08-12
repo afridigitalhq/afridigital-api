@@ -1,0 +1,3 @@
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:279:export default AfriDebugEntitlement;
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:3:const AfriDebugEntitlement = {
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:5:  register(){

@@ -1,0 +1,16 @@
+[
+  {
+    "feature": "APK_EXPORT",
+    "price": 3,
+    "currency": "USD",
+    "afriCoinEquivalent": null,
+    "status": "ACTIVE"
+  },
+  {
+    "feature": "VERSION_UPGRADE",
+    "price": 2,
+    "currency": "USD",
+    "afriCoinEquivalent": null,
+    "status": "ACTIVE"
+  }
+]
