@@ -1,0 +1,7 @@
+{
+  "audit":"legacy-runtime-isolation",
+  "files_scanned":540,
+  "syntax_failures":11,
+  "active_imports":0,
+  "status":"isolated"
+}
