@@ -38,6 +38,29 @@ const AfriAIIntentClassifier = {
       return "opportunity";
     }
 
+      if (
+        text.includes("teach me") ||
+        text.includes("lesson") ||
+        text.includes("learn") ||
+        text.includes("study") ||
+        text.includes("quiz me") ||
+        text.includes("course") ||
+        text.includes("algebra") ||
+        text.includes("mathematics") ||
+        text.includes("math") ||
+        text.includes("biology") ||
+        text.includes("physics") ||
+        text.includes("chemistry") ||
+        text.includes("photosynthesis") ||
+        text.includes("solve this") ||
+        text.includes("explain this") ||
+        text.includes("explain the") ||
+        text.includes("create a lesson") ||
+        text.includes("detailed lesson")
+      ) {
+        return "education";
+      }
+
     if (
       text.includes("help") ||
       text.includes("support") ||

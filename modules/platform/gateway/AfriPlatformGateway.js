@@ -5,6 +5,7 @@ const AfriPlatformGateway = {
     afritick:"/api/afritick",
     afridebug:"/api/afridebug",
     afridev:"/api/afridev",
+    afriwork:"/api/afriwork",
   },
 
   resolve(service){

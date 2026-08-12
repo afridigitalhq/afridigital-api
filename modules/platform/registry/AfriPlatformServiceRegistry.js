@@ -11,6 +11,7 @@ const AfriPlatformServiceRegistry={
     "Analytics",
     "AfriDebug",
     "AfriDev",
+    "AfriWork",
   ]
 };
 

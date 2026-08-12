@@ -8,6 +8,7 @@ const skillMap = {
   support:"support",
   opportunity:"opportunity",
   automation:"automation",
+  education:"education",
   conversation:"conversation"
 };
 

@@ -4,6 +4,7 @@ import AfriAIExecutionReceipt from "../receipts/AfriAIExecutionReceipt.js";
 import AfriAIExecutionAudit from "../audit/AfriAIExecutionAudit.js";
 import AfriAIExecutionStatus from "../status/AfriAIExecutionStatus.js";
 import AfriAISkillRegistry from "../../skills/registry/AfriAISkillRegistry.js";
+import AfriAICapabilityRegistry from "../../skills/registry/AfriAICapabilityRegistry.js";
 import AfriAISkillPermissions from "../../skills/permissions/AfriAISkillPermissions.js";
 import AfriAISkillExecutor from "../../skills/executor/AfriAISkillExecutor.js";
 
@@ -19,8 +20,13 @@ approve(execution){
 
 execute(request={}){
 
+ const capability =
+   AfriAICapabilityRegistry.resolve(
+    request.intent || "conversation"
+   );
+
  const skill =
-   request.skill || "conversation";
+   request.skill || capability.skill;
 
  const available =
    AfriAISkillRegistry.load();

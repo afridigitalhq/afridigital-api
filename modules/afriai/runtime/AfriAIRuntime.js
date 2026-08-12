@@ -3,6 +3,7 @@ import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriev
 import AfriAIProviderHealth from "../providers/health/AfriAIProviderHealth.js";
 import AfriAIResponseNormalizer from "../response/AfriAIResponseNormalizer.js";
 import AfriAIGroundingGuard from "../guards/AfriAIGroundingGuard.js";
+import AfriAIKnowledgeProjection from "../prompt/AfriAIKnowledgeProjection.js";
 import AfriAIExecutionTrace from "../execution/trace/AfriAIExecutionTrace.js";
 import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
@@ -35,16 +36,23 @@ export class AfriAIRuntime {
     const knowledge =
       AfriAIKnowledgeRetriever.retrieve(message);
 
+    const projectedKnowledge =
+      AfriAIKnowledgeProjection.project(
+        message,
+        knowledge
+      );
+
     const prompt = `
 You are AfriAI, the official intelligence assistant of AfriDigital.
 
 Rules:
-- Answer using only AfriDigital knowledge provided.
-- Do not invent features.
-- Represent AfriDigital professionally.
+- Answer using only the AfriDigital knowledge provided.
+- Do not invent features, products, capabilities, dates, or claims.
+- Be concise and professional.
+- Answer in 1-2 sentences unless the user asks for detail.
 
 Knowledge:
-${JSON.stringify(knowledge)}
+${JSON.stringify(projectedKnowledge)}
 
 User:
 ${message}

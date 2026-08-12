@@ -6,7 +6,7 @@ return[
 "payments",
 "support",
 "opportunity",
-"automation"
+"automation","education"
 ];
 }
 };

@@ -15,9 +15,7 @@ const AfriAIContextRuntime = {
           : request.channel,
 
       identity:
-        AfriAIContextIdentity.create
-          ? AfriAIContextIdentity.create(request)
-          : {},
+        AfriAIContextIdentity.resolve(request?.user || request),
 
       tenant:
         AfriAITenantContext.create

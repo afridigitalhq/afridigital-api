@@ -8,6 +8,9 @@ const AfriPlatformServiceContracts = {
   AfriTick:{
     endpoints:["getMembership","subscribe","renew","cancel"]
   },
+  AfriWork:{
+    endpoints:["searchJobs","getJob","apply","postJob","getApplications"]
+  },
   AfriAI:{
     endpoints:["chat","assist","summarize"]
   },
