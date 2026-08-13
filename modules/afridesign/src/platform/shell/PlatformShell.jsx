@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import PlatformWorkspaceSwitcher from './PlatformWorkspaceSwitcher';
+import AfriStudioRegistry from '../studios/AfriStudioRegistry';
+import PlatformWorkspaceController from './PlatformWorkspaceController';
 
 export default function PlatformShell() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [activeStudio, setActiveStudio] = useState('visual');
+  const [activeStudio, setActiveStudio] = useState('afridesign');
   const [activeService, setActiveService] = useState('projects');
 
   useEffect(() => {
@@ -12,20 +14,7 @@ export default function PlatformShell() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Studios in exactly 2 rows - NO WRAPPING
-  const studiosRow1 = [
-    { id: 'visual', icon: '🎨', name: 'Visual Studio' },
-    { id: 'web', icon: '💻', name: 'Web Studio' },
-    { id: 'app', icon: '📱', name: 'App Studio' },
-  ];
-
-  const studiosRow2 = [
-    { id: 'graphics', icon: '🖼', name: 'Graphics Studio' },
-    { id: 'video', icon: '🎬', name: 'Video Studio' },
-    { id: 'template', icon: '🧩', name: 'Template Studio' },
-  ];
-
-  const allStudios = [...studiosRow1, ...studiosRow2];
+  const allStudios = AfriStudioRegistry;
 
   const services = [
     { id: 'projects', icon: '📁', name: 'Projects' },
@@ -175,10 +164,10 @@ export default function PlatformShell() {
             justifyContent: "center",
             flexWrap: "nowrap"
           }}>
-            {studiosRow1.map(studio => (
+            {allStudios.slice(0, 2).map(studio => (
               <div 
                 key={studio.id}
-                onClick={() => setActiveStudio(studio.id)}
+                onClick={() => { setActiveStudio(studio.id); PlatformWorkspaceController.openStudio(studio.id); }}
                 style={{
                   padding: "6px 20px",
                   background: activeStudio === studio.id ? "rgba(233,69,96,0.2)" : "rgba(255,255,255,0.03)",
@@ -208,10 +197,10 @@ export default function PlatformShell() {
             justifyContent: "center",
             flexWrap: "nowrap"
           }}>
-            {studiosRow2.map(studio => (
+            {allStudios.slice(2).map(studio => (
               <div 
                 key={studio.id}
-                onClick={() => setActiveStudio(studio.id)}
+                onClick={() => { setActiveStudio(studio.id); PlatformWorkspaceController.openStudio(studio.id); }}
                 style={{
                   padding: "6px 20px",
                   background: activeStudio === studio.id ? "rgba(233,69,96,0.2)" : "rgba(255,255,255,0.03)",

@@ -1,3 +1,5 @@
+import AfriStudioRegistry from "../studios/AfriStudioRegistry";
+
 let activeWorkspace = "design";
 
 const listeners = new Set();
@@ -11,7 +13,6 @@ const PlatformWorkspaceController = {
   },
 
   open(workspace){
-
     activeWorkspace = workspace;
 
     listeners.forEach(listener=>{
@@ -19,6 +20,17 @@ const PlatformWorkspaceController = {
         id: activeWorkspace
       });
     });
+  },
+
+  openStudio(studioId){
+
+    const studio = AfriStudioRegistry.find(
+      item => item.id === studioId
+    );
+
+    if(studio?.workspace){
+      this.open(studio.workspace);
+    }
 
   },
 

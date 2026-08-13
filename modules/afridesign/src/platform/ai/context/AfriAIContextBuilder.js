@@ -1,5 +1,4 @@
 import PlatformWorkspaceController from "../../shell/PlatformWorkspaceController";
-import WorkspaceStateManager from "../../workspace/state/WorkspaceStateManager";
 
 const AfriAIContextBuilder = {
 
@@ -11,7 +10,7 @@ const AfriAIContextBuilder = {
     return {
       studio: "visual",
       workspace: workspace?.id || "design",
-      mode: WorkspaceStateManager.currentMode
+      workspace: PlatformWorkspaceController.current().id
     };
 
   }
