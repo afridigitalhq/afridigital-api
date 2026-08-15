@@ -6,11 +6,12 @@ export class AfriFixRuntimeServiceGateway {
   }
 
   execute(request = {}) {
+    const runtime = this.admission.admit(request);
     return {
       component: "AfriFix Runtime Service Gateway",
-      status: "READY",
+      status: runtime.status === "ADMITTED" ? "EXECUTED" : "REJECTED",
       request,
-      runtime: this.admission.admit(request),
+      runtime,
       completedAt: new Date().toISOString()
     };
   }

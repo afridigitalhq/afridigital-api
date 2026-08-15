@@ -29,10 +29,12 @@ export class AfriFixRuntimeAdmissionController {
 
     return {
       component: "AfriFix Runtime Admission Controller",
-      status: "ADMITTED",
+      status: execution.status === "EXECUTED" ? "ADMITTED" : "REJECTED",
       authorization,
       execution,
-      admittedAt: new Date().toISOString()
+      ...(execution.status === "EXECUTED"
+        ? { admittedAt: new Date().toISOString() }
+        : { rejectedAt: new Date().toISOString() })
     };
   }
 }
