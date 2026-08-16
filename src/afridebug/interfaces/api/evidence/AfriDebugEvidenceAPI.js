@@ -1,5 +1,5 @@
-import Exporter from "../../evidence/export/AfriDebugEvidenceExporter.js";
-import Archive from "../../evidence/AfriDebugEvidenceArchive.js";
+import Exporter from "../../../platform/evidence/export/AfriDebugEvidenceExporter.js";
+import Archive from "../../../platform/evidence/AfriDebugEvidenceArchive.js";
 
 const AfriDebugEvidenceAPI = {
 

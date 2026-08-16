@@ -1,4 +1,4 @@
-import Storage from "../../storage/AfriDebugStorage.js";
+import Storage from "../../../services/storage/AfriDebugStorage.js";
 
 const AfriDebugEvidenceExporter = {
 
