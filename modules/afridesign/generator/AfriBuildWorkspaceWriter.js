@@ -5,12 +5,11 @@ const AfriBuildWorkspaceWriter={
 
  write(project={}){
 
-  const root =
-   path.join(
-    "modules/afridesign/.generated",
-    project.name || "afribuild-app"
-   );
+  const generatedRoot = path.resolve("modules/afridesign/.generated");
+  const root = path.join(generatedRoot, project.name || "afribuild-app");
 
+  if (root.startsWith(generatedRoot + path.sep) === false) throw new Error("INVALID_WORKSPACE_ROOT");
+  fs.rmSync(root,{recursive:true,force:true});
   fs.mkdirSync(root,{recursive:true});
 
   Object.entries(project.files || {}).forEach(

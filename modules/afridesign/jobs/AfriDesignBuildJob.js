@@ -3,9 +3,11 @@ const AfriDesignBuildJob = {
     return {
       id:"build_"+Date.now(),
       userId:request.userId || "guest",
-      provider:request.provider || "mock",
+      provider:request.provider || ((request.type || request.buildType) === "native_android" || (request.type || request.buildType) === "native-android" ? "native_android" : "mock"),
+        type:request.type || request.buildType || "app_builder",
       prompt:request.prompt || "",
       name:request.name || "afribuild-app",
+      version:request.version || "1.0.0",
       status:"QUEUED",
       createdAt:new Date().toISOString()
     };

@@ -9,7 +9,7 @@ generate(request={}){
 
  const capability =
   AfriDesignBuilderCapabilityRegistry.resolve(
-   request.type || "app_builder"
+   request.type || request.buildType || "app_builder"
   );
 
  if(!capability){

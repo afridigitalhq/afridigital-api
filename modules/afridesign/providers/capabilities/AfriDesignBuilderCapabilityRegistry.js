@@ -22,7 +22,18 @@ builders:{
 
  mobile_app:{
   providers:[
+   "native_android",
    "appdeploy"
+  ]
+ },
+ native_android:{
+  providers:[
+   "native_android"
+  ],
+  capabilities:[
+   "generate",
+   "preview",
+   "export"
   ]
  }
 

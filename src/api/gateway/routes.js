@@ -8,6 +8,7 @@ import modulesRoute from "./modules.route.js";
 import socRoute from "./soc.route.js";
 import ollamaTestRoute from "./ollama-test.route.js";
 import healthRoute from "./health.route.js";
+import afriDesignAPKRoute from "./afridesign/afridesign-apk.route.js";
 
 export default function registerRoutes(app) {
   socRoute(app);
@@ -20,4 +21,5 @@ export default function registerRoutes(app) {
   afriDebugRoute(app);
   ollamaTestRoute(app);
   healthRoute(app);
+  afriDesignAPKRoute(app);
 }
