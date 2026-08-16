@@ -2,6 +2,11 @@ const AfriDebugRepositoryIntakeWorker = {
 
   execute(input = {}) {
 
+    const repositoryPath =
+      input.path ||
+      input.repositoryPath ||
+      process.cwd();
+
     return {
 
       investigationId:
@@ -9,10 +14,26 @@ const AfriDebugRepositoryIntakeWorker = {
 
       repository:{
         name:
-          input.name || null,
+          input.name ||
+          input.repository?.name ||
+          null,
 
         branch:
-          input.branch || "main",
+          input.branch ||
+          input.repository?.branch ||
+          "main",
+
+        type:
+          input.type ||
+          input.repository?.type ||
+          "local",
+
+        url:
+          input.url ||
+          input.repository?.url ||
+          null,
+
+        path:repositoryPath,
 
         connected:true
       },

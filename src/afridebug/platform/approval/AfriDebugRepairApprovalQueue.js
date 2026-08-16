@@ -1,46 +1,42 @@
 import ArtifactStorage from "../storage/AfriDebugArtifactStorage.js";
 import Ledger from "../audit/AfriDebugImmutableAuditLedger.js";
+import CoreApprovalContract from "../../../../modules/core/approval/CoreApprovalContract.js";
 
 const queue = [];
 
-
 const AfriDebugRepairApprovalQueue = {
 
+  submit(input = {}) {
 
-  submit(input={}){
+    const approvalId = input.approvalId || `APPROVAL-${Date.now()}`;
 
-    const request={
+    const request = CoreApprovalContract.request({
+      id: approvalId,
+      source: input.source || "AfriDebug",
+      subjectType: input.subjectType || "repair",
+      subjectId: input.subjectId || input.planId || null,
+      investigationId: input.incidentId || input.investigationId || null,
+      patchId: input.patchId || null
+    });
 
-      approvalId:
-        `APPROVAL-${Date.now()}`,
-
-      planId:
-        input.planId || null,
-
-      incidentId:
-        input.incidentId || null,
-
-      action:
-        input.action || null,
-
-      status:
-        "pending",
-
-      submittedAt:
-        Date.now()
-
+    const record = {
+      approvalId: request.id,
+      planId: input.planId || null,
+      incidentId: input.incidentId || input.investigationId || null,
+      action: input.action || "repair",
+      status: request.status,
+      approvalRequired: request.approvalRequired,
+      submittedAt: Date.now(),
+      coreApprovalId: request.id
     };
 
-
-    queue.push(request);
-
+    queue.push(record);
 
     ArtifactStorage.save(
       "approvals/repair-queue",
-      request.approvalId,
-      request
+      record.approvalId,
+      record
     );
-
 
     ArtifactStorage.save(
       "approvals",
@@ -48,48 +44,41 @@ const AfriDebugRepairApprovalQueue = {
       queue
     );
 
-
     Ledger.record({
-
-      type:"HUMAN_APPROVAL_REQUESTED",
-
-      approvalId:
-        request.approvalId,
-
-      actor:
-        "AfriDebugRepairApprovalQueue"
-
+      type: "HUMAN_APPROVAL_REQUESTED",
+      approvalId: record.approvalId,
+      actor: "AfriDebugRepairApprovalQueue"
     });
 
-
-    return request;
-
+    return record;
   },
 
+  approve(id, reviewer = "human") {
 
-  approve(id,user="AfriDebugAdmin"){
+    const request = queue.find(
+      item => item.approvalId === id
+    );
 
-
-    const request =
-      queue.find(
-        item=>item.approvalId===id
-      );
-
-
-    if(!request){
-
+    if (!request) {
       return {
-        success:false,
-        reason:"APPROVAL_NOT_FOUND"
+        success: false,
+        reason: "APPROVAL_NOT_FOUND"
       };
-
     }
 
+    const approved = CoreApprovalContract.approve(
+      {
+        ...request,
+        id: request.approvalId
+      },
+      reviewer
+    );
 
-    request.status="approved";
-    request.approvedBy=user;
-    request.approvedAt=Date.now();
-
+    Object.assign(request, {
+      ...approved,
+      approvalId: request.approvalId,
+      coreApprovalId: request.approvalId
+    });
 
     ArtifactStorage.save(
       "approvals/repair-queue",
@@ -97,6 +86,57 @@ const AfriDebugRepairApprovalQueue = {
       request
     );
 
+    ArtifactStorage.save(
+      "approvals",
+      "repair-queue",
+      queue
+    );
+
+    Ledger.record({
+      type: "HUMAN_APPROVAL_GRANTED",
+      approvalId: request.approvalId,
+      reviewer,
+      actor: "AfriDebugRepairApprovalQueue"
+    });
+
+    return {
+      success: true,
+      request
+    };
+  },
+
+  reject(id, reviewer = "human") {
+
+    const request = queue.find(
+      item => item.approvalId === id
+    );
+
+    if (!request) {
+      return {
+        success: false,
+        reason: "APPROVAL_NOT_FOUND"
+      };
+    }
+
+    const rejected = CoreApprovalContract.reject(
+      {
+        ...request,
+        id: request.approvalId
+      },
+      reviewer
+    );
+
+    Object.assign(request, {
+      ...rejected,
+      approvalId: request.approvalId,
+      coreApprovalId: request.approvalId
+    });
+
+    ArtifactStorage.save(
+      "approvals/repair-queue",
+      request.approvalId,
+      request
+    );
 
     ArtifactStorage.save(
       "approvals",
@@ -104,57 +144,32 @@ const AfriDebugRepairApprovalQueue = {
       queue
     );
 
-
     Ledger.record({
-
-      type:"HUMAN_APPROVAL_GRANTED",
-
-      approvalId:
-        request.approvalId,
-
-      reviewer:user,
-
-      actor:
-        "AfriDebugRepairApprovalQueue"
-
+      type: "HUMAN_APPROVAL_REJECTED",
+      approvalId: request.approvalId,
+      reviewer,
+      actor: "AfriDebugRepairApprovalQueue"
     });
 
-
     return {
-
-      success:true,
-
+      success: true,
       request
-
     };
-
   },
 
-
-  list(){
-
-    return queue;
-
+  list() {
+    return [...queue];
   },
 
-
-  health(){
-
+  health() {
     return {
-
-      service:"AfriDebugRepairApprovalQueue",
-
-      persistent:true,
-
-      auditBound:true,
-
-      status:"healthy"
-
+      service: "AfriDebugRepairApprovalQueue",
+      persistent: true,
+      auditBound: true,
+      coreApprovalContract: true,
+      status: "healthy"
     };
-
   }
-
 };
-
 
 export default AfriDebugRepairApprovalQueue;

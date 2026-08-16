@@ -26,36 +26,11 @@ const AfriDebugHumanApprovalWorker = {
     }
     else if(decision === "reject"){
 
-      const request =
-        Queue.list()
-        .find(
-          item =>
-          item.approvalId === input.approvalId
+      result =
+        Queue.reject(
+          input.approvalId,
+          input.reviewer || "human"
         );
-
-
-      if(request){
-
-        request.status="rejected";
-        request.rejectedBy =
-          input.reviewer || "human";
-        request.rejectedAt =
-          Date.now();
-
-        result={
-          success:true,
-          request
-        };
-
-      }
-      else{
-
-        result={
-          success:false,
-          reason:"APPROVAL_NOT_FOUND"
-        };
-
-      }
 
     }
 

@@ -1,4 +1,4 @@
-import { AfriFixRuntimeServiceGateway } from "../runtime/AfriFixRuntimeServiceGateway.js";
+import { AfriFixRuntimeServiceGateway } from "../../../afrifix/src/runtime/service/AfriFixRuntimeServiceGateway.js";
 
 export class AfriNucBatchExecutor {
   constructor(){
@@ -6,13 +6,26 @@ export class AfriNucBatchExecutor {
   }
 
   async execute(batch){
+    if(!batch.workspace){
+      return {
+        component:"AfriNuc Batch Executor",
+        status:"BLOCKED",
+        batch:batch.id,
+        strategy:batch.strategy,
+        reason:"Workspace is required for AfriFix execution.",
+        completedAt:new Date().toISOString()
+      };
+    }
     const results=[];
 
     for(const item of batch.modules){
       const result = await this.runtime.execute({
         module:item.module,
         action:item.action,
-        workspace:"workspace-001"
+        workspace:batch.workspace,
+          approvalContext:batch.approvalContext || null,
+          approvalRequired:batch.approvalRequired ?? true,
+          evidenceRequired:batch.evidenceRequired ?? true
       });
 
       results.push({
@@ -24,9 +37,11 @@ export class AfriNucBatchExecutor {
       });
     }
 
+    const blocked = results.some(item => item.status !== "EXECUTED");
+
     return {
       component:"AfriNuc Batch Executor",
-      status:"EXECUTED",
+      status:blocked ? "BLOCKED" : "EXECUTED",
       batch:batch.id,
       strategy:batch.strategy,
       results,

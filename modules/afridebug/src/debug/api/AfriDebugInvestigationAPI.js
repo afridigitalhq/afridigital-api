@@ -1,4 +1,4 @@
-import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+import Orchestrator from "../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
 import State from "../state/AfriDebugInvestigationStateManager.js";
 
 const AfriDebugInvestigationAPI = {

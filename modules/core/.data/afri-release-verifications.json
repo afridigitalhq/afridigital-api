@@ -1,0 +1,19 @@
+[
+  {
+    "verificationId": "verify_1786573316853",
+    "releaseId": "release_1786573050655",
+    "buildId": "apk_build_1786572917958",
+    "artifactId": "artifact_1786571343398",
+    "appName": "FirstAfriApp",
+    "type": "APK",
+    "checks": {
+      "artifactExists": true,
+      "packageGenerated": true,
+      "downloadAvailable": true,
+      "installPending": true,
+      "runtimePending": true
+    },
+    "status": "VERIFICATION_PENDING",
+    "createdAt": "2026-08-12T22:21:56.853Z"
+  }
+]

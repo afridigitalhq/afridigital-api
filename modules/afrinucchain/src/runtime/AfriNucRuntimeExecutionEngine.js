@@ -23,6 +23,21 @@ export class AfriNucRuntimeExecutionEngine {
       payload
     );
 
+    if(dispatch.status !== "DISPATCHED"){
+      return {
+        component:this.component,
+        status:"FAILED",
+        reason:"DISPATCH_FAILED",
+        capability,
+        dispatch,
+        execution:null,
+        telemetry:null,
+        evidence:null,
+        auditVerification:null,
+        failedAt:new Date().toISOString()
+      };
+    }
+
     const execution={
       executionId:`execution-${Date.now()}`,
       component:this.component,
@@ -35,27 +50,70 @@ export class AfriNucRuntimeExecutionEngine {
 
     this.executions.push(execution);
 
-    const telemetry=this.telemetry.record({
-      executionId:execution.executionId,
-      capability,
-      handler:dispatch.handler,
-      jobId:payload.jobId,
-      status:execution.status
-    });
+      let telemetry;
+      let evidence;
+      let auditVerification;
 
-    const evidence=this.evidence.generate({
-      executionId:execution.executionId,
-      telemetryId:telemetry.event.telemetryId,
-      jobId:payload.jobId,
-      status:execution.status
-    });
+      try{
 
-const auditVerification=this.auditVerification.verify({
-      executionId:execution.executionId,
-      telemetryId:telemetry.event.telemetryId,
-      evidenceId:evidence.evidence.evidenceId,
-      jobId:payload.jobId
-    });
+        telemetry=this.telemetry.record({
+          executionId:execution.executionId,
+          capability,
+          handler:dispatch.handler,
+          jobId:payload.jobId,
+          status:execution.status
+        });
+
+        evidence=this.evidence.generate({
+          executionId:execution.executionId,
+          telemetryId:telemetry.event.telemetryId,
+          jobId:payload.jobId,
+          status:execution.status
+        });
+
+        auditVerification=this.auditVerification.verify({
+          executionId:execution.executionId,
+          telemetryId:telemetry.event.telemetryId,
+          evidenceId:evidence.evidence.evidenceId,
+          jobId:payload.jobId
+        });
+
+      }catch(error){
+
+        execution.status="FAILED";
+
+        return {
+          component:this.component,
+          status:"FAILED",
+          reason:"EXECUTION_PIPELINE_ERROR",
+          capability,
+          dispatch,
+          execution,
+          telemetry:telemetry || null,
+          evidence:evidence || null,
+          auditVerification:auditVerification || null,
+          error:{
+            name:error?.name || "Error",
+            message:error?.message || String(error)
+          },
+          failedAt:new Date().toISOString()
+        };
+      }
+
+    if(auditVerification.status !== "VERIFIED"){
+      return {
+        component:this.component,
+        status:"FAILED",
+        reason:"AUDIT_VERIFICATION_FAILED",
+        capability,
+        dispatch,
+        execution,
+        telemetry,
+        evidence,
+        auditVerification,
+        failedAt:new Date().toISOString()
+      };
+    }
 
     return {
       component:this.component,

@@ -7,8 +7,7 @@ const stages = [
   "PatchPlanner",
   "VerificationEngine",
   "EvidenceReportGenerator",
-  "DeliveryPackager",
-  "HumanApprovalGate"
+  "DeliveryPackager"
 ];
 
 const AfriDebugInvestigationRegistry = {

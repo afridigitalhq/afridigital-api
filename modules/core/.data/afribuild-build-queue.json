@@ -1,0 +1,21 @@
+[
+  {
+    "jobId": "queue_1786574466083",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "appName": "FirstAfriApp",
+    "buildType": "APK",
+    "status": "BUILD_QUEUED",
+    "createdAt": "2026-08-12T22:41:06.083Z"
+  },
+  {
+    "jobId": "queue_1786574535107",
+    "userId": "user_A",
+    "product": "AfriDesignStudio",
+    "appName": "AfriDesignStudio",
+    "targetPlatform": "ANDROID",
+    "buildType": "APK",
+    "status": "BUILD_QUEUED",
+    "createdAt": "2026-08-12T22:42:15.107Z"
+  }
+]

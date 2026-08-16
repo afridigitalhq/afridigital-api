@@ -14,5 +14,61 @@
     "action": "repair",
     "workspace": "workspace-001",
     "state": "PASSED"
+  },
+  {
+    "snapshotId": "snap-1786817146161",
+    "createdAt": "2026-08-15T18:05:46.161Z",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "workspace": "workspace-postcommit-001",
+    "status": "COMPLETED",
+    "gatewayStatus": "EXECUTED",
+    "runtimeStatus": "READY",
+    "evidenceStatus": "STORED",
+    "lifecycle": [
+      "CREATED",
+      "PREVIEW",
+      "APPROVAL",
+      "QUEUED",
+      "SCHEDULED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE",
+      "COMPLETED"
+    ],
+    "stagesExecuted": [
+      {
+        "order": 1,
+        "stage": "Preview",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-15T18:05:46.149Z"
+      },
+      {
+        "order": 2,
+        "stage": "Approve",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-15T18:05:46.149Z"
+      },
+      {
+        "order": 3,
+        "stage": "Execute",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-15T18:05:46.149Z"
+      },
+      {
+        "order": 4,
+        "stage": "Verify",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-15T18:05:46.149Z"
+      },
+      {
+        "order": 5,
+        "stage": "Evidence",
+        "status": "COMPLETED",
+        "completedAt": "2026-08-15T18:05:46.149Z"
+      }
+    ],
+    "capturedAt": "2026-08-15T18:05:46.160Z"
   }
 ]

@@ -68,5 +68,191 @@
       "module": "afridebug",
       "action": "repair"
     }
+  },
+  {
+    "eventId": "evt-1786817146140-6",
+    "sequence": 6,
+    "type": "EXECUTION_CREATED",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-15T18:05:46.140Z",
+    "payload": {
+      "component": "AfriFix Execution Context",
+      "status": "READY",
+      "executionId": "plan-1786817146135",
+      "module": "afridebug",
+      "action": "repair",
+      "executionPlan": {
+        "executionId": "plan-1786817146135",
+        "module": "afridebug",
+        "action": "repair",
+        "pipeline": "AfriFix Execution Pipeline",
+        "stages": [
+          "Preview",
+          "Approve",
+          "Execute",
+          "Verify",
+          "Evidence"
+        ]
+      },
+      "workspace": "workspace-postcommit-001",
+      "approvalRequired": true,
+      "evidenceRequired": true,
+      "createdAt": "2026-08-15T18:05:46.138Z"
+    }
+  },
+  {
+    "eventId": "evt-1786817146148-7",
+    "sequence": 7,
+    "type": "JOB_QUEUED",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-15T18:05:46.148Z",
+    "payload": {
+      "id": "job-1786817146147",
+      "status": "READY",
+      "createdAt": "2026-08-15T18:05:46.138Z",
+      "component": "AfriFix Execution Context",
+      "executionId": "plan-1786817146135",
+      "module": "afridebug",
+      "action": "repair",
+      "executionPlan": {
+        "executionId": "plan-1786817146135",
+        "module": "afridebug",
+        "action": "repair",
+        "pipeline": "AfriFix Execution Pipeline",
+        "stages": [
+          "Preview",
+          "Approve",
+          "Execute",
+          "Verify",
+          "Evidence"
+        ]
+      },
+      "workspace": "workspace-postcommit-001",
+      "approvalRequired": true,
+      "evidenceRequired": true,
+      "stages": [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence"
+      ]
+    }
+  },
+  {
+    "eventId": "evt-1786817146150-8",
+    "sequence": 8,
+    "type": "JOB_EXECUTED",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-15T18:05:46.150Z",
+    "payload": {
+      "id": "job-1786817146147",
+      "status": "EXECUTED",
+      "createdAt": "2026-08-15T18:05:46.138Z",
+      "component": "AfriFix Execution Context",
+      "executionId": "plan-1786817146135",
+      "module": "afridebug",
+      "action": "repair",
+      "executionPlan": {
+        "executionId": "plan-1786817146135",
+        "module": "afridebug",
+        "action": "repair",
+        "pipeline": "AfriFix Execution Pipeline",
+        "stages": [
+          "Preview",
+          "Approve",
+          "Execute",
+          "Verify",
+          "Evidence"
+        ]
+      },
+      "workspace": "workspace-postcommit-001",
+      "approvalRequired": true,
+      "evidenceRequired": true,
+      "stages": [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence"
+      ],
+      "stagesExecuted": [
+        {
+          "order": 1,
+          "stage": "Preview",
+          "status": "COMPLETED",
+          "completedAt": "2026-08-15T18:05:46.149Z"
+        },
+        {
+          "order": 2,
+          "stage": "Approve",
+          "status": "COMPLETED",
+          "completedAt": "2026-08-15T18:05:46.149Z"
+        },
+        {
+          "order": 3,
+          "stage": "Execute",
+          "status": "COMPLETED",
+          "completedAt": "2026-08-15T18:05:46.149Z"
+        },
+        {
+          "order": 4,
+          "stage": "Verify",
+          "status": "COMPLETED",
+          "completedAt": "2026-08-15T18:05:46.149Z"
+        },
+        {
+          "order": 5,
+          "stage": "Evidence",
+          "status": "COMPLETED",
+          "completedAt": "2026-08-15T18:05:46.149Z"
+        }
+      ]
+    }
+  },
+  {
+    "eventId": "evt-1786817146152-9",
+    "sequence": 9,
+    "type": "VERIFICATION_COMPLETED",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-15T18:05:46.152Z",
+    "payload": {
+      "executionId": "plan-1786817146135",
+      "module": "afridebug",
+      "action": "repair",
+      "metrics": {
+        "queue": "READY",
+        "scheduler": "READY",
+        "worker": "READY",
+        "dispatcher": "READY",
+        "stagesCompleted": 5,
+        "totalStages": 5,
+        "completionRate": "100%"
+      }
+    }
+  },
+  {
+    "eventId": "evt-1786817146154-10",
+    "sequence": 10,
+    "type": "EVIDENCE_GENERATED",
+    "executionId": "plan-1786817146135",
+    "module": "afridebug",
+    "action": "repair",
+    "timestamp": "2026-08-15T18:05:46.154Z",
+    "payload": {
+      "executionId": "plan-1786817146135",
+      "module": "afridebug",
+      "action": "repair",
+      "workspace": "workspace-postcommit-001",
+      "status": "COMPLETED"
+    }
   }
 ]

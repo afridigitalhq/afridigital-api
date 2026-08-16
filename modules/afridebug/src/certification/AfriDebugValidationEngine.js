@@ -13,52 +13,85 @@ import { analyzeLogs } from "../investigation/logs/AfriDebugLogAnalyzer.js";
 import { matchKnowledge } from "../investigation/knowledge/AfriDebugKnowledgeMatcher.js";
 import { planPatch } from "../investigation/patch/AfriDebugPatchPlanner.js";
 import { verifyPatch } from "../verification/AfriDebugVerificationEngine.js";
-import { requestApproval } from "../delivery/AfriDebugApprovalGate.js";
 import { assembleDelivery } from "../delivery/AfriDebugDeliveryAssembler.js";
 import { analyzeImpact } from "../intelligence/AfriDebugImpactAnalyzer.js";
 import { generateChangeSummary } from "../intelligence/AfriDebugChangeSummaryGenerator.js";
 import { scoreConfidence } from "../intelligence/AfriDebugConfidenceScorer.js";
 import { validateIntake } from "../debug/intake/AfriDebugIntakeValidator.js";
+import CoreApprovalContract from "../../../../modules/core/approval/CoreApprovalContract.js";
 
 async function runValidation(){
 
-console.log("🚀 AfriDebug Validation Engine");
-console.log("================================");
+  console.log("🚀 AfriDebug Validation Engine");
+  console.log("================================");
 
-const results = [
-  bootstrapValidate(),
-  moduleValidate(),
-  pluginValidate(),
-  routeValidate(),
-  runtimeValidate(),
-  buildDependencyGraph(),
-  inspectRuntime(),
-  analyzeLogs(),
-  matchKnowledge(),
-  planPatch(),
-  verifyPatch(),
-  requestApproval(),
-  assembleDelivery(),
-  analyzeImpact(),
-  generateChangeSummary(),
-  scoreConfidence(),
-  validateIntake(),
-  await validateInvestigation(),
-  generateEvidence(),
-  generateReport()
-];
+  const stages = [
+    ["Bootstrap", () => bootstrapValidate()],
+    ["Module Registry", () => moduleValidate()],
+    ["Plugin", () => pluginValidate()],
+    ["Route", () => routeValidate()],
+    ["Runtime", () => runtimeValidate()],
+    ["Dependency Graph", () => buildDependencyGraph()],
+    ["Runtime Inspection", () => inspectRuntime()],
+    ["Log Analysis", () => analyzeLogs()],
+    ["Knowledge Matching", () => matchKnowledge()],
+    ["Patch Planning", () => planPatch()],
+    ["Verification", () => verifyPatch()],
+    ["Approval Contract", () => {
+      const pending = CoreApprovalContract.request({
+        source: "AfriDebugValidationEngine",
+        subjectType: "repair"
+      });
+      const approved = CoreApprovalContract.approve(
+        pending,
+        "validation-test"
+      );
+      return (
+        CoreApprovalContract.canExecute(approved) &&
+        CoreApprovalContract.canExecute(pending) === false
+      );
+    }],
+    ["Delivery Assembly", () => assembleDelivery()],
+    ["Impact Analysis", () => analyzeImpact()],
+    ["Change Summary", () => generateChangeSummary()],
+    ["Confidence", () => scoreConfidence()],
+    ["Intake", () => validateIntake()],
+    ["Investigation", () => validateInvestigation()],
+    ["Evidence", () => generateEvidence()],
+    ["Certification Report", () => generateReport()]
+  ];
 
-const passed = results.every(Boolean);
+  let passed = true;
 
-console.log("================================");
-console.log(
-  passed
-    ? "🟢 AfriDebug Certification PASSED"
-    : "🔴 AfriDebug Certification FAILED"
-);
-console.log("================================");
+  for (const [name, validator] of stages) {
+    console.log(`\\n=== ${name.toUpperCase()} ===`);
 
-process.exit(passed ? 0 : 1);
+    try {
+      const result = await validator();
+
+      if (!result) {
+        passed = false;
+        console.log(`🔴 ${name} FAILED`);
+        break;
+      }
+
+      console.log(`🟢 ${name} PASSED`);
+    } catch (error) {
+      passed = false;
+      console.error(`🔴 ${name} FAILED`);
+      console.error(error?.stack || error);
+      break;
+    }
+  }
+
+  console.log("================================");
+  console.log(
+    passed
+      ? "🟢 AfriDebug Certification PASSED"
+      : "🔴 AfriDebug Certification FAILED"
+  );
+  console.log("================================");
+
+  process.exit(passed ? 0 : 1);
 }
-
 runValidation();

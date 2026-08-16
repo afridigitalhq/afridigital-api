@@ -32,6 +32,12 @@ const AfriDebugInvestigationStateManager = {
 
     states[id]={
       investigationId:id,
+      objective:input.objective || null,
+      category:input.category || null,
+      constraints:input.constraints || [],
+      repository:input.repository || null,
+      handoffId:input.handoffId || null,
+      mode:input.mode || input.objectiveType || input.category || "ROOT_CAUSE_ANALYSIS",
       status:"CREATED",
       updatedAt:Date.now()
     };

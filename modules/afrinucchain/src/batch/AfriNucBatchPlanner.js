@@ -1,31 +1,24 @@
 export class AfriNucBatchPlanner {
-  plan(modules = []) {
-    const sequential = ["afriai","afriwhatsapp","afriweb"].filter(m => modules.includes(m));
-
+  plan(actions = [], workspace = null) {
+    const modules = actions.map((item,index)=>({
+      order:index+1,
+      module:typeof item === "string" ? item : item.module,
+      action:typeof item === "string" ? "verify" : (item.action || "verify")
+    })).filter(item=>item.module);
     return {
-      component: "AfriNuc Batch Planner",
-      status: "PLANNED",
-      dependencyAware: true,
-      workflow: [
-        "Preview",
-        "Approve",
-        "Execute",
-        "Verify",
-        "Evidence",
-        "Certification"
-      ],
-      batches: [
-        {
-          id: "Batch-001",
-          strategy: "Sequential",
-          modules: sequential.map((module,index)=>({
-            order:index+1,
-            module,
-            action:index===0?"diagnose":index===1?"repair":"verify"
-          }))
-        }
-      ],
-      plannedAt: new Date().toISOString()
+      component:"AfriNuc Batch Planner",
+      status:"PLANNED",
+      dependencyAware:true,
+      workflow:["Preview","Approve","Execute","Verify","Evidence","Certification"],
+      batches:[{
+        id:"Batch-001",
+        strategy:"Sequential",
+        workspace,
+        approvalRequired:true,
+        evidenceRequired:true,
+        modules
+      }],
+      plannedAt:new Date().toISOString()
     };
   }
 }

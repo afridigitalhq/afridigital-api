@@ -1,44 +1,39 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import GraphWorker from "../../../../src/afridebug/platform/workers/AfriDebugDependencyGraphWorker.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export function buildDependencyGraph() {
+export function buildDependencyGraph(input = {}) {
   console.log("\n🕸 AfriDebug Dependency Graph Builder\n");
 
-  const packagePath = path.resolve(process.cwd(), "package.json");
+  const graph = GraphWorker.execute({
+    investigationId: input.investigationId || `CERT-GRAPH-${Date.now()}`,
+    repository: {
+      type: input.type || "local",
+      url: input.url || null,
+      branch: input.branch || "main",
+      path: input.path || process.cwd()
+    }
+  });
 
-  if (!fs.existsSync(packagePath)) {
-    console.log("❌ package.json not found");
+  if (graph.status !== "GRAPH_COMPLETED") {
+    console.log(`❌ Dependency graph failed: ${graph.error || "unknown error"}`);
     return false;
   }
-
-  const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
-
-  const dependencies = {
-    ...pkg.dependencies,
-    ...pkg.devDependencies
-  };
-
-  const graph = {
-    project: pkg.name,
-    version: pkg.version,
-    dependencyCount: Object.keys(dependencies).length,
-    dependencies: Object.keys(dependencies)
-  };
 
   fs.mkdirSync("modules/afridebug/evidence", { recursive: true });
 
   fs.writeFileSync(
-    "modules/afridebug/evidence/dependency-graph.json",
+    path.resolve(
+      "modules/afridebug/evidence/dependency-graph.json"
+    ),
     JSON.stringify(graph, null, 2)
   );
 
-  console.log(`📦 Project: ${graph.project}`);
-  console.log(`🔗 Dependencies detected: ${graph.dependencyCount}`);
-  console.log("✅ Dependency graph generated");
+  console.log(`📦 Files: ${graph.files}`);
+  console.log(`🔗 Imports: ${graph.imports}`);
+  console.log(`🏠 Local imports: ${graph.localImports}`);
+  console.log(`🌐 External imports: ${graph.externalImports}`);
+  console.log("✅ Canonical dependency graph generated");
   console.log("📄 Saved: modules/afridebug/evidence/dependency-graph.json");
 
   return true;

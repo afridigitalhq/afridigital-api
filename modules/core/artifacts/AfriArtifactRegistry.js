@@ -40,6 +40,11 @@ const AfriArtifactRegistry={
 
  list(){
   return load();
+ },
+
+ listByUser(userId){
+  if(!userId) return [];
+  return load().filter(artifact => artifact.userId === userId);
  }
 
 };

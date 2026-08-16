@@ -2,7 +2,7 @@ const modules={
 
   investigation:"../investigation/AfriDebugInvestigationRuntime.js",
 
-  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+  orchestrator:"../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js",
 
   api:"../api/AfriDebugAPIRegistry.js",
 

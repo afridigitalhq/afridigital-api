@@ -1,0 +1,15 @@
+[
+  {
+    "deviceVerificationId": "device_verify_1786573438046",
+    "releaseId": "release_1786573050655",
+    "buildId": "apk_build_1786572917958",
+    "appName": "FirstAfriApp",
+    "device": "ANDROID_DEVICE",
+    "installStatus": "PENDING",
+    "launchStatus": "PENDING",
+    "afriAIStatus": "PENDING",
+    "webviewStatus": "PENDING",
+    "status": "DEVICE_TEST_RECORDED",
+    "createdAt": "2026-08-12T22:23:58.046Z"
+  }
+]

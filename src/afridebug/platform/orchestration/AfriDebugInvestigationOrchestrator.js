@@ -5,7 +5,7 @@ import Intake from "../workers/AfriDebugRepositoryIntakeWorker.js";
 import Graph from "../workers/AfriDebugDependencyGraphWorker.js";
 import Runtime from "../workers/AfriDebugRuntimeInspectorWorker.js";
 import LogAnalyzer from "../workers/AfriDebugLogAnalyzerWorker.js";
-import Knowledge from "../workers/AfriDebugKnowledgeMatcherWorker.js";
+import Knowledge from "../knowledge/AfriDebugKnowledgeAdapter.js";
 import Patch from "../workers/AfriDebugPatchPlanningWorker.js";
 import Verify from "../workers/AfriDebugVerificationWorker.js";
 import Report from "../workers/AfriDebugEvidenceReportWorker.js";
@@ -20,8 +20,18 @@ const AfriDebugOrchestrator = {
       `INV-${Date.now()}`;
 
 
+    const context = {
+      objective: input.objective || null,
+      category: input.category || null,
+      constraints: input.constraints || [],
+      repository: input.repository || null,
+      handoffId: input.handoffId || null,
+      mode: input.mode || input.objectiveType || input.category || "ROOT_CAUSE_ANALYSIS"
+    };
+
     State.create({
-      investigationId
+      investigationId,
+      ...context
     });
 
 
@@ -41,7 +51,8 @@ const AfriDebugOrchestrator = {
 
     const intake = Intake.execute({
       investigationId,
-      ...input.repository
+      ...input.repository,
+      context
     });
 
 
@@ -61,25 +72,27 @@ const AfriDebugOrchestrator = {
 
     const graph = Graph.execute({
       investigationId,
-      repository:intake.repository
+      repository:intake.repository,
+      context
     });
 
 
     const runtime = Runtime.execute({
-      investigationId
+      investigationId,
+      context
     });
 
 
     const logs = LogAnalyzer.execute({
       investigationId,
-      source:"runtime"
+      source:"runtime",
+      context
     });
 
 
-    const knowledge = Knowledge.execute({
-      investigationId,
-      issue:logs.errors[0].message
-    });
+    const knowledge = Knowledge.search(
+      logs.errors?.[0]?.message || "No runtime error detected"
+    );
 
 
     Events.emit({
@@ -90,9 +103,52 @@ const AfriDebugOrchestrator = {
     });
 
 
+    const mode = String(
+      input.mode || input.objectiveType || input.category || "ROOT_CAUSE_ANALYSIS"
+    ).toUpperCase();
+
+    const repairRequested =
+      mode === "REPAIR" ||
+      mode === "FIX" ||
+      mode === "PATCH";
+
+    if (!repairRequested) {
+      State.update(
+        investigationId,
+        "EVIDENCE_READY"
+      );
+
+      const report = Report.execute({
+        investigationId
+      });
+
+      Events.emit({
+        investigationId,
+        type:"AUTOMATED_DIAGNOSIS_COMPLETED",
+        actor:"AfriDebugOrchestrator",
+        details:`Automated ${mode} investigation completed without entering repair workflow`
+      });
+
+      return {
+        investigationId,
+        mode,
+        status:"AUTOMATED_DIAGNOSIS_COMPLETED",
+        state:State.get(investigationId),
+        events:Events.list(investigationId),
+        artifacts:{
+          intake,
+          graph,
+          runtime,
+          logs,
+          knowledge,
+          report
+        }
+      };
+    }
+
     const patch = Patch.execute({
       investigationId,
-      issue:logs.errors[0].message
+      issue:(logs.errors?.[0]?.message || "No runtime error detected")
     });
 
 

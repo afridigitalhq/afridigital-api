@@ -14,26 +14,39 @@ export class AfriNucExecutionAuditVerificationBridge {
 
   verify({executionId,telemetryId,evidenceId,jobId}){
 
-    const verification={
+    const executionExists=Boolean(executionId);
+    const telemetryLinked=Boolean(telemetryId);
+    const evidenceLinked=Boolean(evidenceId);
+    const jobLinked=Boolean(jobId);
 
+    const evidenceFile=path.resolve(
+      "modules/afrinucchain/.data/execution-evidence",
+      `${evidenceId || "missing"}.json`
+    );
+
+    const evidenceExists=evidenceLinked && fs.existsSync(evidenceFile);
+
+    const integrity={
+      executionExists,
+      telemetryLinked,
+      evidenceLinked,
+      evidenceExists,
+      jobLinked
+    };
+
+    const verified=Object.values(integrity).every(Boolean);
+
+    const verification={
       verificationId:`verification-${Date.now()}`,
       component:this.component,
-
       executionId,
       telemetryId,
       evidenceId,
       jobId,
-
-      integrity:{
-        executionExists:true,
-        telemetryLinked:true,
-        evidenceLinked:true,
-        jobLinked:true
-      },
-
-      status:"VERIFIED",
+      integrity,
+      status:verified ? "VERIFIED" : "FAILED",
+      reason:verified ? null : "EXECUTION_AUDIT_INTEGRITY_FAILED",
       verifiedAt:new Date().toISOString()
-
     };
 
     const file=path.join(
@@ -47,14 +60,11 @@ export class AfriNucExecutionAuditVerificationBridge {
     );
 
     return {
-
       component:this.component,
-      status:"VERIFIED",
+      status:verification.status,
       verification,
       file
-
     };
 
   }
-
 }

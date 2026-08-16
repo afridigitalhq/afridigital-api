@@ -5,7 +5,7 @@ export class AfriNucPipelineRegistryBridge {
 
     this.registry = {
       RecoveryPipeline:"AfriNucRecoveryOrchestrator",
-      ExecutionPipeline:"AfriNucExecutionRuntime",
+      ExecutionPipeline:"AfriNucRuntimeExecutionEngine",
       LifecyclePersistence:"AfriNucPersistenceOrchestrator",
       AuditVerification:"AfriNucRecoveryAuditVerificationGate",
       CertificateGeneration:"AfriNucRecoveryCertificateGenerator",
