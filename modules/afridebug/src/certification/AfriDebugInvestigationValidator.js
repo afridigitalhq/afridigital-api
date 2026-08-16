@@ -1,5 +1,5 @@
-import AfriDebugOrchestrator from "../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
-import InvestigationRegistry from "../debug/investigation/AfriDebugInvestigationRegistry.js";
+import AfriDebugOrchestrator from "../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
+import InvestigationRegistry from "../../../../src/afridebug/platform/investigation/AfriDebugInvestigationRegistry.js";
 
 export async function validateInvestigation() {
   console.log("\n🧠 Investigation Validation\n");

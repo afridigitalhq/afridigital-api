@@ -1,8 +1,8 @@
 import Registry from "../registry/AfriDebugConnectorRegistry.js";
-import WhatsApp from "../connectors/whatsapp/AfriDebugWhatsAppConnector.js";
-import Commerce from "../connectors/commerce/AfriDebugCommerceConnector.js";
-import Web from "../connectors/web/AfriDebugWebConnector.js";
-import DesignStudio from "../connectors/designstudio/AfriDebugDesignStudioConnector.js";
+import WhatsApp from "../../connectors/whatsapp/AfriDebugWhatsAppConnector.js";
+import Commerce from "../../connectors/commerce/AfriDebugCommerceConnector.js";
+import Web from "../../connectors/web/AfriDebugWebConnector.js";
+import DesignStudio from "../../connectors/designstudio/AfriDebugDesignStudioConnector.js";
 
 const connectors={
 AfriWhatsApp:WhatsApp,

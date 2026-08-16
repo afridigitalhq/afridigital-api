@@ -1,4 +1,4 @@
-import AfriDebugEngine from "../AfriDebugEngine.js";
+import AfriDebugEngine from "../platform/AfriDebugEngine.js";
 
 const AfriDebugService = {
   analyze(payload = {}) {
