@@ -118,5 +118,125 @@
       "provider": "mock"
     },
     "createdAt": "2026-08-12T20:02:46.833Z"
+  },
+  {
+    "id": "knowledge_1786895915606",
+    "type": "native_android",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "Kotlin",
+      "Android",
+      "Gradle"
+    ],
+    "artifact": {
+      "id": "artifact_1786895915574",
+      "provider": "native_android"
+    },
+    "createdAt": "2026-08-16T15:58:35.606Z"
+  },
+  {
+    "id": "knowledge_1786895943290",
+    "type": "native_android",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "Kotlin",
+      "Android",
+      "Gradle"
+    ],
+    "artifact": {
+      "id": "artifact_1786895943275",
+      "provider": "native_android"
+    },
+    "createdAt": "2026-08-16T15:59:03.290Z"
+  },
+  {
+    "id": "knowledge_1786896027131",
+    "type": "native_android",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "Kotlin",
+      "Android",
+      "Gradle"
+    ],
+    "artifact": {
+      "id": "artifact_1786896027109",
+      "provider": "native_android"
+    },
+    "createdAt": "2026-08-16T16:00:27.131Z"
+  },
+  {
+    "id": "knowledge_1786896269619",
+    "type": "web_app",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "React",
+      "Vite",
+      "CSS"
+    ],
+    "artifact": {
+      "id": "artifact_1786896269607",
+      "provider": "afribuild"
+    },
+    "createdAt": "2026-08-16T16:04:29.619Z"
+  },
+  {
+    "id": "knowledge_1786901343360",
+    "type": "native_android",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "Kotlin",
+      "Android",
+      "Gradle"
+    ],
+    "artifact": {
+      "id": "artifact_1786901303362",
+      "provider": "native_android"
+    },
+    "createdAt": "2026-08-16T17:29:03.360Z"
+  },
+  {
+    "id": "knowledge_1786901574397",
+    "type": "native_android",
+    "features": [
+      "tasks",
+      "completion_status",
+      "categories",
+      "mobile_ui"
+    ],
+    "stack": [
+      "Kotlin",
+      "Android",
+      "Gradle"
+    ],
+    "artifact": {
+      "id": "artifact_1786901561570",
+      "provider": "native_android"
+    },
+    "createdAt": "2026-08-16T17:32:54.397Z"
   }
 ]

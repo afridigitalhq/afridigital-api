@@ -21,7 +21,7 @@ const AfriDesignArtifactManager = {
     return artifact;
   },
 
-  update(id,status) {
+  update(id,status,metadata={}) {
     const artifact = artifacts.find(a=>a.id===id);
 
     if(!artifact) {
@@ -32,6 +32,7 @@ const AfriDesignArtifactManager = {
     }
 
     artifact.status=status;
+    Object.assign(artifact,metadata);
     return artifact;
   },
 
