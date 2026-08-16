@@ -1,5 +1,5 @@
 import KnowledgeMemory from "../../../../src/afridebug/platform/knowledge/AfriDebugKnowledgeAdapter.js";
-import SolutionRecommender from "../intelligence/AfriDebugSolutionRecommender.js";
+import SolutionRecommender from "../../../../src/afridebug/platform/intelligence/AfriDebugSolutionRecommender.js";
 
 const AfriDebugRecommendationEngine = {
 

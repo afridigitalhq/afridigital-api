@@ -3,7 +3,7 @@ import Evidence from "../evidence/AfriDebugEvidenceVault.js";
 import Security from "../security/AfriDebugFinalSecurityDecisionEngine.js";
 import Intelligence from "../client/AfriDebugRootCauseAnalysisEngine.js";
 import Reporting from "../client/AfriDebugIncidentReportGenerator.js";
-import Assistant from "../intelligence/AfriDebugAssistant.js";
+import Assistant from "../../../../src/afridebug/platform/intelligence/AfriDebugAssistant.js";
 import Orchestrator from "../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
 
 const safe=(module,fallback)=>{try{return module?.health?module.health():fallback;}catch{return fallback;}};
