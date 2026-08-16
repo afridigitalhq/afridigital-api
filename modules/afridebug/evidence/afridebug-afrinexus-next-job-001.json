@@ -1,0 +1,44 @@
+{
+  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+  "source": "AfriDebug Certification",
+  "target": "AfriDebug/AfriNexus",
+  "status": "READY_FOR_NEXT_JOB",
+  "certification": "PASSED",
+  "objective": "Resume AfriDigital engineering from the completed AfriDebug certification and execute the next highest-priority bounded job.",
+  "completed": [
+    "Repository Intake",
+    "Dependency Graph Analysis",
+    "Runtime Inspection",
+    "Log & Stack Trace Analysis",
+    "Knowledge Base Comparison",
+    "AI Patch Planning",
+    "Verification & Regression",
+    "Evidence Generation",
+    "Delivery Assembly",
+    "Impact Analysis",
+    "Change Summary",
+    "Confidence Scoring",
+    "Certification Report",
+    "Investigation Runtime Contract",
+    "Core Approval Contract"
+  ],
+  "nextJobRules": [
+    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+    "Select the next highest-priority unfinished engineering task",
+    "Do not reopen completed certification stages unless evidence requires it",
+    "Preserve existing Global Core architecture",
+    "Do not create parallel V2 engines where an existing shared engine can be upgraded",
+    "Maintain ONE FILE = ONE RESPONSIBILITY",
+    "Respect human approval before repair execution or client delivery",
+    "Generate validation/evidence artifacts for the completed job",
+    "Return a concise execution result and next recommended job"
+  ],
+  "handoffEvidence": [
+    "modules/afridebug/evidence/certification-report.md",
+    "modules/afridebug/evidence/latest-certification.json",
+    "modules/afridebug/evidence/dependency-graph.json",
+    "modules/afridebug/evidence/verification-report.json",
+    "modules/afridebug/evidence/patch-plan.json"
+  ],
+  "createdAt": "2026-08-15T11:42:03.795Z"
+}

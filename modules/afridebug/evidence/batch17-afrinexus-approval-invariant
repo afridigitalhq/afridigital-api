@@ -1,0 +1,289 @@
+=== BATCH17 AFRINEXUS APPROVAL INVARIANT TRACE ===
+--- CORE APPROVAL CONTRACT ---
+const APPROVAL_STATUS = Object.freeze({
+  REQUESTED: "REQUESTED",
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED"
+});
+
+const CoreApprovalContract = {
+
+  name: "Core Human Approval Contract",
+  version: "1.0.0",
+
+  statuses: APPROVAL_STATUS,
+
+  request(input = {}) {
+    return {
+      id: input.id || `APR-${Date.now()}`,
+      source: input.source || "unknown",
+      subjectType: input.subjectType || "repair",
+      subjectId: input.subjectId || null,
+      investigationId: input.investigationId || null,
+      patchId: input.patchId || null,
+      status: APPROVAL_STATUS.PENDING,
+      approvalRequired: true,
+      requestedAt: new Date().toISOString()
+    };
+  },
+
+  approve(record = {}, reviewer = "human") {
+    return {
+      ...record,
+      status: APPROVAL_STATUS.APPROVED,
+      approved: true,
+      reviewer,
+      approvedAt: new Date().toISOString()
+    };
+  },
+
+  reject(record = {}, reviewer = "human") {
+    return {
+      ...record,
+      status: APPROVAL_STATUS.REJECTED,
+      approved: false,
+      reviewer,
+      rejectedAt: new Date().toISOString()
+    };
+  },
+
+  isApproved(record = {}) {
+    return record.status === APPROVAL_STATUS.APPROVED &&
+      record.approved === true;
+  },
+
+  canExecute(record = {}) {
+    return this.isApproved(record);
+  }
+
+};
+
+export { APPROVAL_STATUS };
+export default CoreApprovalContract;
+--- APPROVAL CONTROLLER ---
+export class AfriApprovalController {
+
+  approve(delivery){
+
+    if(
+      !delivery.approval ||
+      delivery.approval.status !== "PENDING_HUMAN_REVIEW"
+    ){
+      return {
+        component:"AfriNuc Approval Controller",
+        status:"REJECTED",
+        reason:"Invalid approval state"
+      };
+    }
+
+    return {
+      component:"AfriNuc Approval Controller",
+      status:"APPROVED",
+      previousStatus:
+        delivery.approval.status,
+      currentStatus:
+        "READY_FOR_CLIENT_DELIVERY",
+      approvedBy:"HUMAN_REVIEW",
+      approvedAt:new Date().toISOString()
+    };
+  }
+}
+--- HUMAN REVIEW GATE ---
+const AfriDebugHumanReviewGate = {
+
+  review(input = {}){
+
+    const approved =
+      input.deliveryReady === true &&
+      input.reviewerDecision === "approved";
+
+    return {
+
+      reviewId:
+        "REVIEW-" + Date.now(),
+
+      packageId:
+        input.packageId || null,
+
+      reviewer:
+        input.reviewer || null,
+
+      decision:
+        input.reviewerDecision || "pending",
+
+      status:
+        approved
+          ? "APPROVED_FOR_RELEASE"
+          : "RELEASE_BLOCKED",
+
+      approved,
+
+      approvalContext:{
+        required:true,
+        reviewer:
+          input.reviewer || null,
+        decision:
+          input.reviewerDecision || "pending",
+        executionMode:
+          "AFRINUCCHAIN_APPROVAL"
+      },
+
+      createdAt:
+        Date.now()
+
+    };
+
+  },
+
+  health(){
+
+    return {
+      service:"AfriDebugHumanReviewGate",
+      status:"healthy"
+    };
+
+  }
+
+};
+
+export default AfriDebugHumanReviewGate;
+--- CLIENT RELEASE CONTROLLER ---
+const AfriDebugClientReleaseController = {
+
+  release(input = {}){
+
+    const approved =
+      input.reviewApproved === true &&
+      input.deliveryReady === true;
+
+    return {
+
+      releaseId:
+        "RELEASE-" + Date.now(),
+
+      packageId:
+        input.packageId || null,
+
+      reviewId:
+        input.reviewId || null,
+
+      certificationId:
+        input.certificationId || null,
+
+      status:
+        approved
+          ? "CLIENT_RELEASE_COMPLETED"
+          : "CLIENT_RELEASE_BLOCKED",
+
+      released:
+        approved,
+
+      approvalContext:{
+        required:true,
+        reviewStatus:
+          input.reviewApproved
+            ? "approved"
+            : "pending",
+        executionMode:
+          "AFRINUCCHAIN_APPROVAL"
+      },
+
+      lifecycle:
+        approved
+          ? "COMPLETED"
+          : "WAITING_APPROVAL",
+
+      createdAt:
+        Date.now()
+
+    };
+
+  },
+
+  health(){
+
+    return {
+      service:"AfriDebugClientReleaseController",
+      status:"healthy"
+    };
+
+  }
+
+};
+
+export default AfriDebugClientReleaseController;
+--- CLIENT DELIVERY GATE ---
+import fs from "fs";
+import path from "path";
+
+export class AfriClientDeliveryDispatcher {
+
+  constructor(){
+    this.base =
+      "modules/afrinucchain/.data/client-delivery";
+
+    fs.mkdirSync(this.base,{recursive:true});
+  }
+
+  dispatch(delivery,approval){
+
+    if(
+      !approval ||
+      approval.currentStatus !== "READY_FOR_CLIENT_DELIVERY"
+    ){
+      return {
+        component:"AfriNuc Client Delivery Dispatcher",
+        status:"REJECTED",
+        reason:"Human approval required"
+      };
+    }
+
+    const record = {
+      workspace:delivery.workspace,
+      project:delivery.project,
+      status:"DELIVERED",
+      approval:"HUMAN_APPROVED",
+      deliveredAt:new Date().toISOString()
+    };
+
+    const file =
+      path.join(
+        this.base,
+        `${delivery.workspace.id}.json`
+      );
+
+    fs.writeFileSync(
+      file,
+      JSON.stringify(record,null,2)
+    );
+
+    return {
+      component:"AfriNuc Client Delivery Dispatcher",
+      status:"DELIVERED",
+      file,
+      record
+    };
+  }
+}
+--- INVARIANT REFERENCES ---
+modules/core/approval/CoreHumanGate.js:1:const CoreHumanGate={approve(item){return {item,status:"HUMAN_APPROVED"};}};
+modules/core/approval/CoreApprovalContract.js:24:      approvalRequired: true,
+modules/core/approval/CoreApprovalContract.js:49:  isApproved(record = {}) {
+modules/core/approval/CoreApprovalContract.js:54:  canExecute(record = {}) {
+modules/core/approval/CoreApprovalContract.js:55:    return this.isApproved(record);
+modules/afrinucchain/src/approval/AfriApprovalController.js:7:      delivery.approval.status !== "PENDING_HUMAN_REVIEW"
+modules/afrinucchain/src/approval/AfriApprovalController.js:22:        "READY_FOR_CLIENT_DELIVERY",
+modules/afrinucchain/src/delivery/AfriDeliveryPackage.js:25:        status:"PENDING_HUMAN_REVIEW"
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:17:      approval.currentStatus !== "READY_FOR_CLIENT_DELIVERY"
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:22:        reason:"Human approval required"
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:30:      approval:"HUMAN_APPROVED",
+modules/afrinucchain/src/delivery/AfriDeliveryEvidenceBundleGenerator.js:24:        approval:"HUMAN_APPROVED",
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:36:        approvalRequired:true
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:12:        CoreApprovalContract.isApproved(input.approval),
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:43:      approvalRequired:true,
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:30:      approvalRequired:true,
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:7:    const approved = CoreApprovalContract.canExecute(handoff.approvalContext || {});
+--- SYNTAX CHECK ---
+--- DIFF CHECK ---
+=== APPROVAL INVARIANT TRACE COMPLETE ===

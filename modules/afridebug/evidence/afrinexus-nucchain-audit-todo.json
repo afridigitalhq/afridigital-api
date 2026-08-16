@@ -1,0 +1,34 @@
+{
+  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+  "jobId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+  "source": "AfriDebug Certification",
+  "target": "AfriDebug/AfriNexus",
+  "status": "READY_FOR_EXECUTION",
+  "priority": "P0",
+  "objective": "Audit and certify the canonical NucChain job-to-execution path without reopening completed AfriDebug certification stages.",
+  "tasks": [
+    "Verify canonical job creation and registration path",
+    "Verify lifecycle state authority and transition enforcement",
+    "Verify human approval gate before execution",
+    "Verify execution admission boundary",
+    "Verify AfriDebug queue admission and scheduler handoff",
+    "Verify AfriNucRuntimeExecutionGateway integration",
+    "Verify AfriNucRuntimeExecutionEngine dispatch path",
+    "Verify execution telemetry, evidence and audit verification linkage",
+    "Verify certification and delivery-ready boundaries",
+    "Identify disconnected components or duplicate authorities",
+    "Produce bounded findings and recommended remediation only; do not execute repairs or client delivery"
+  ],
+  "constraints": [
+    "Preserve Global Core architecture",
+    "Do not create parallel V2 engines",
+    "ONE FILE = ONE RESPONSIBILITY",
+    "Do not reopen completed certification stages unless evidence requires it",
+    "Human approval required before repair execution or client delivery"
+  ],
+  "expectedArtifacts": [
+    "modules/afridebug/evidence/afrinexus-nucchain-audit-todo.json",
+    "modules/afridebug/evidence/afrinexus-nucchain-audit-report.json"
+  ],
+  "nextAction": "AfriDebug executes this bounded audit and returns findings, evidence, and the single highest-priority remediation job."
+}

@@ -1,0 +1,35 @@
+{
+  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+  "source": "AfriDebug",
+  "target": "AfriDesign",
+  "status": "READY_FOR_EXECUTION",
+  "objective": "Continue the next bounded AfriDesign job using the verified AfriDebug certification state.",
+  "preconditions": [
+    "AfriDebug Certification PASSED",
+    "Investigation Runtime Contract PASSED",
+    "Approval Contract PASSED",
+    "git diff --check PASSED"
+  ],
+  "todo": [
+    "Inspect current AfriDesign workspace/build architecture before modification",
+    "Identify the next highest-priority unfinished AfriDesign job from existing architecture-work locks/snapshots",
+    "Execute only that bounded job",
+    "Preserve ONE FILE = ONE RESPONSIBILITY and existing AfriDigital shared-core architecture",
+    "Do not create parallel V2 engines or duplicate existing Global Core capabilities",
+    "Generate AfriDesign evidence/validation artifacts",
+    "Return execution result and evidence paths to AfriNexus"
+  ],
+  "handoffSurfaces": [
+    "modules/afridesign/architecture-work",
+    "modules/afridesign/jobs",
+    "modules/afridesign/builders",
+    "modules/afridesign/providers",
+    "modules/afridesign/workspaces",
+    "modules/afridesign/validation",
+    "modules/afridesign/evidence",
+    "modules/afriai/integrations/afridesign/AfriAIAfriDesignBridge.js",
+    "modules/afridebug/src/debug/connectors/handoff/AfriDebugConnectorInvestigationHandoff.js"
+  ],
+  "approvalBoundary": "AfriDebug repair execution remains human-approval gated; AfriDesign may execute its assigned build/design task but must not bypass the core approval contract for repair actions.",
+  "createdAt": "2026-08-15T11:39:59.173Z"
+}

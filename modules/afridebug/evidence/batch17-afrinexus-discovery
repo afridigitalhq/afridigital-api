@@ -1,0 +1,46 @@
+=== BATCH17 AFRINEXUS DISCOVERY ===
+--- PATH DISCOVERY ---
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+--- SYMBOL DISCOVERY ---
+modules/afridebug/evidence/batch17-afrinexus-discovery:1:=== BATCH17 AFRINEXUS DISCOVERY ===
+modules/afridebug/evidence/batch17-afrinexus-discovery:3:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:4:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:5:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-discovery:6:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:2:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:20:    "Return execution result and evidence paths to AfriNexus"
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:2:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:4:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:26:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:1:=== BATCH17 AFRINEXUS ORCHESTRATION TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:3:MISSING src/core/afrinexus/mission/AfriNexusMissionIntentClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:4:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityScanner.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:5:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:6:MISSING src/core/afrinexus/contracts/AfriNexusHandoverContract.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:7:MISSING src/core/afrinexus/batches/AfriNexusBatchRegistry.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:8:MISSING src/core/afrinexus/mission/AfriNexusMissionRouter.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:9:MISSING src/core/afrinexus/handover/AfriNexusEvidencePackage.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:10:MISSING src/core/afrinexus/approval/AfriNexusApprovalDecision.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:178:afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:238:afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:240:batch17-afrinexus-orchestration-trace
+modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+--- AFRINEXUS EVIDENCE ARTIFACTS ---
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json
+modules/afridebug/evidence/afridebug-execution-handoff-gate-proposal-001.json
+modules/afridebug/evidence/afridebug-execution-handoff-gate-validation-001.json
+modules/afridebug/evidence/afridebug-recommendation-approval-context-proposal-001.json
+modules/afridebug/evidence/afridebug-recommendation-approval-context-validation-001.json
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-proposal-001.json
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-validation-001.json
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/approval-gate.json
+modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/core/.data/afri-approval-records.json
+--- PACKAGE/EXPORT SIGNALS ---
+=== DISCOVERY COMPLETE ===

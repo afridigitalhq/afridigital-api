@@ -14,7 +14,16 @@ const read = () => {
 };
 
 const write = (records) => {
-  fs.writeFileSync(DB, JSON.stringify(records, null, 2));
+
+  fs.mkdirSync(
+    path.dirname(DB),
+    { recursive:true }
+  );
+
+  fs.writeFileSync(
+    DB,
+    JSON.stringify(records, null, 2)
+  );
 };
 
 const AfriDebugKnowledgePersistence = {

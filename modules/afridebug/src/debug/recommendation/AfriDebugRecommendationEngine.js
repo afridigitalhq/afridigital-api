@@ -1,4 +1,4 @@
-import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+import KnowledgeMemory from "../../../../src/afridebug/platform/knowledge/AfriDebugKnowledgeAdapter.js";
 import SolutionRecommender from "../intelligence/AfriDebugSolutionRecommender.js";
 
 const AfriDebugRecommendationEngine = {
@@ -39,7 +39,7 @@ const AfriDebugRecommendationEngine = {
         ),
 
       source:
-        "AfriDebugKnowledgeMemory",
+        "AfriDebugKnowledgeMemoryService",
 
       verifiedPatterns:
         ranked.filter(
@@ -61,7 +61,7 @@ const AfriDebugRecommendationEngine = {
           ).length,
 
         source:
-          "AfriDebugKnowledgeMemory"
+          "AfriDebugKnowledgeMemoryService"
       },
 
       approvalContext:{

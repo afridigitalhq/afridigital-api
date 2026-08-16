@@ -1,0 +1,590 @@
+=== BATCH17 AFRINEXUS EXECUTION CHAIN ===
+--- AFRIDEBUG EXECUTION HANDOFF GATE ---
+const AfriDebugExecutionHandoffGate = {
+
+  handoff(plan = {}){
+
+    const validated =
+      plan.validationStatus === "VALID";
+
+    return {
+
+      handoffId:
+        "HANDOFF-" + Date.now(),
+
+      planId:
+        plan.planId || null,
+
+      approvalContext:
+        plan.approvalContext || null,
+
+      evidenceTrace:
+        plan.evidenceTrace || null,
+
+      executionAllowed:
+        validated,
+
+      status:
+        validated
+          ? "READY_FOR_EXECUTION"
+          : "BLOCKED",
+
+      approvalRequired:true,
+
+      createdAt:
+        Date.now()
+
+    };
+
+  },
+
+  health(){
+
+    return {
+      service:"AfriDebugExecutionHandoffGate",
+      status:"healthy"
+    };
+
+  }
+
+};
+
+export default AfriDebugExecutionHandoffGate;
+--- AFRIDEBUG REPAIR EXECUTION CONTROLLER ---
+import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+
+const AfriDebugRepairExecutionController = {
+
+  execute(handoff = {}){
+
+    const approved = CoreApprovalContract.canExecute(handoff.approvalContext || {});
+
+    const ready =
+      handoff.executionAllowed === true;
+
+    return {
+
+      executionId:
+        "EXECUTION-" + Date.now(),
+
+      handoffId:
+        handoff.handoffId || null,
+
+      planId:
+        handoff.planId || null,
+
+      approvalContext:
+        handoff.approvalContext || null,
+
+      status:
+        approved && ready
+          ? "EXECUTION_STARTED"
+          : "BLOCKED",
+
+      executionAllowed:
+        approved && ready,
+
+      verificationRequired:true,
+
+      createdAt:
+        Date.now()
+
+    };
+
+  },
+
+  health(){
+
+    return {
+      service:"AfriDebugRepairExecutionController",
+      status:"healthy"
+    };
+
+  }
+
+};
+
+export default AfriDebugRepairExecutionController;
+--- AFRIDEBUG APPROVAL RESUME ---
+import Queue from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+import CoreApprovalContract from "../../../../../modules/core/approval/CoreApprovalContract.js";
+import Delivery from "../../../../../src/afridebug/platform/workers/AfriDebugDeliveryPackageWorker.js";
+import State from "../state/AfriDebugInvestigationStateManager.js";
+import Events from "../events/AfriDebugEventStream.js";
+import ResolutionRecorder from "../learning/AfriDebugResolutionRecorder.js";
+import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+
+const AfriDebugApprovalResumeService = {
+
+  resume(input = {}) {
+
+    const approval =
+      ApprovalGate.canDeliver(input.approvalId);
+
+
+    if (!approval.allowed) {
+
+      return {
+        status:"BLOCKED",
+        approval
+      };
+
+    }
+
+
+    const delivery =
+      Delivery.execute({
+        investigationId:
+          input.investigationId,
+
+        clientId:
+          input.clientId || null,
+
+        reportId:
+          input.reportId || null
+      });
+
+
+    State.update(
+      input.investigationId,
+      "DELIVERED"
+    );
+
+
+    Events.emit({
+      investigationId:
+        input.investigationId,
+
+      type:"DELIVERY_READY",
+
+      actor:"ApprovalResumeService",
+
+      details:"Delivery released after human approval"
+    });
+
+
+    const resolution =
+      ResolutionRecorder.record({
+        investigationId:
+          input.investigationId,
+
+        error:
+          input.error || null,
+
+        diagnosis:
+          input.diagnosis || null,
+
+        patch:
+          input.patch || null,
+
+        deliveryId:
+          delivery.id
+      });
+
+
+    const knowledge =
+      KnowledgeMemory.remember({
+        issue:
+          input.error || "unknown",
+
+        diagnosis:
+          input.diagnosis || null,
+
+        resolution:
+          resolution.id,
+
+        verified:true
+      });
+
+
+    return {
+
+      status:"DELIVERY_READY",
+
+      delivery,
+
+      approval,
+
+      resolution,
+
+      knowledge
+
+    };
+
+  },
+
+
+  health(){
+
+    return {
+      service:"AfriDebugApprovalResumeService",
+      status:"healthy"
+    };
+
+  }
+
+};
+
+
+export default AfriDebugApprovalResumeService;
+--- AFRIDEBUG EXECUTION PIPELINE ---
+import Investigation from "../investigation/AfriDebugInvestigationRuntime.js";
+import Evidence from "../evidence/AfriDebugEvidenceVault.js";
+import Security from "../security/AfriDebugFinalSecurityDecisionEngine.js";
+import Intelligence from "../client/AfriDebugRootCauseAnalysisEngine.js";
+import Reporting from "../client/AfriDebugIncidentReportGenerator.js";
+import Assistant from "../intelligence/AfriDebugAssistant.js";
+import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+
+const safe=(module,fallback)=>{try{return module?.health?module.health():fallback;}catch{return fallback;}};
+
+const AfriDebugExecutionPipeline={
+execute(request={}){
+
+const assistant =
+Assistant.investigate({
+  error:
+    request.error ||
+    request.issue ||
+    "No issue supplied"
+});
+const investigation=safe(Investigation,{service:"AfriDebugInvestigationRuntime",status:"unavailable"});
+const evidence=safe(Evidence,{service:"AfriDebugEvidenceVault",status:"unavailable"});
+const security=safe(Security,{service:"AfriDebugFinalSecurityDecisionEngine",status:"unavailable"});
+const intelligence=safe(Intelligence,{service:"AfriDebugRootCauseAnalysisEngine",status:"unavailable"});
+const reporting=safe(Reporting,{service:"AfriDebugIncidentReportGenerator",status:"unavailable"});
+
+let investigationResult=null;
+
+if(request.investigation){
+
+  investigationResult =
+    Orchestrator.run(request.investigation);
+
+}
+
+return{
+requestId:"PIPE-"+Date.now(),
+target:request.target||"unknown",
+assistant,
+investigation,
+evidence,
+security,
+intelligence,
+reporting,
+investigationResult,
+status:"executed",
+executedAt:Date.now(),
+executedAtISO:new Date().toISOString()
+};
+},
+
+health(){
+return{
+service:"AfriDebugExecutionPipeline",
+mode:"production",
+stages:5,
+status:"healthy"
+};
+}
+};
+
+export default AfriDebugExecutionPipeline;
+--- NUCHAIN DEBUG BRIDGE ---
+import { AfriDebugConnector } from "../integration/AfriDebugConnector.js";
+import { AfriNucBatchPlanner } from "../batch/AfriNucBatchPlanner.js";
+import { AfriNucBatchExecutor } from "../batch/AfriNucBatchExecutor.js";
+import { AfriEvidenceGenerator } from "../evidence/AfriEvidenceGenerator.js";
+import { AfriCertificationReport } from "../evidence/AfriCertificationReport.js";
+
+export class AfriDebugToNucPipeline {
+  async run(issue = {}) {
+    const debug = new AfriDebugConnector();
+    const planner = new AfriNucBatchPlanner();
+    const executor = new AfriNucBatchExecutor();
+    const evidenceEngine = new AfriEvidenceGenerator();
+    const certification = new AfriCertificationReport();
+    const investigation = debug.investigate(issue);
+    const workspace = issue.workspace || "workspace-afrinexus";
+    const plan = planner.plan(investigation.recommendedActions, workspace);
+    const execution = await executor.execute(plan.batches[0]);
+    const evidence = evidenceEngine.generate(execution);
+    const certificate = certification.certify(evidence);
+    return { investigation, plan, execution, evidence, certificate };
+  }
+}
+--- NUCHAIN BATCH EXECUTOR ---
+import { AfriFixRuntimeServiceGateway } from "../../../afrifix/src/runtime/service/AfriFixRuntimeServiceGateway.js";
+
+export class AfriNucBatchExecutor {
+  constructor(){
+    this.runtime = new AfriFixRuntimeServiceGateway();
+  }
+
+  async execute(batch){
+    if(!batch.workspace){
+      return {
+        component:"AfriNuc Batch Executor",
+        status:"BLOCKED",
+        batch:batch.id,
+        strategy:batch.strategy,
+        reason:"Workspace is required for AfriFix execution.",
+        completedAt:new Date().toISOString()
+      };
+    }
+    const results=[];
+
+    for(const item of batch.modules){
+      const result = await this.runtime.execute({
+        module:item.module,
+        action:item.action,
+        workspace:batch.workspace,
+          approvalContext:batch.approvalContext || null,
+          approvalRequired:batch.approvalRequired ?? true,
+          evidenceRequired:batch.evidenceRequired ?? true
+      });
+
+      results.push({
+        module:item.module,
+        action:item.action,
+        runtime:"AfriFix",
+        status:result.status,
+        result
+      });
+    }
+
+    const blocked = results.some(item => item.status !== "EXECUTED");
+
+    return {
+      component:"AfriNuc Batch Executor",
+      status:blocked ? "BLOCKED" : "EXECUTED",
+      batch:batch.id,
+      strategy:batch.strategy,
+      results,
+      completedAt:new Date().toISOString()
+    };
+  }
+}
+--- APPROVAL/HANDOFF SIGNALS ---
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:1:import CoreApprovalContract from "../../../../../core/approval/CoreApprovalContract.js";
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:3:const AfriDebugApprovalAdapter = {
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:6:    return CoreApprovalContract.request({
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:15:  approve(record = {}, reviewer = "human") {
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:16:    return CoreApprovalContract.approve(record, reviewer);
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:19:  reject(record = {}, reviewer = "human") {
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:20:    return CoreApprovalContract.reject(record, reviewer);
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:23:  isApproved(record = {}) {
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:24:    return CoreApprovalContract.isApproved(record);
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:28:    return CoreApprovalContract.canExecute(record);
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:33:export default AfriDebugApprovalAdapter;
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:1:import Queue from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:2:import CoreApprovalContract from "../../../../../modules/core/approval/CoreApprovalContract.js";
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:9:const AfriDebugApprovalResumeService = {
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:13:    const approval =
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:14:      ApprovalGate.canDeliver(input.approvalId);
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:17:    if (!approval.allowed) {
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:21:        approval
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:52:      actor:"ApprovalResumeService",
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:54:      details:"Delivery released after human approval"
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:98:      approval,
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:112:      service:"AfriDebugApprovalResumeService",
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:121:export default AfriDebugApprovalResumeService;
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:1:const approvals = [];
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:4:const AfriDebugFixApprovalEngine = {
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:24:        "pending_approval",
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:32:    approvals.push(proposal);
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:43:      approvals.find(
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:55:      "approved";
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:66:      approvals.find(
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:88:    return approvals;
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:98:        "AfriDebugFixApprovalEngine",
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:111:export default AfriDebugFixApprovalEngine;
+modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js:1:export { default } from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:5:    const approved =
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:21:        approved
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:26:        approved,
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:28:      approvalContext:
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:29:        input.approvalContext || null,
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:32:        approved,
+modules/afridebug/src/debug/connectors/contracts/AfriDebugConnectorContract.js:15:      approvalRequired:true,
+modules/afridebug/src/debug/connectors/events/AfriDebugConnectorEventAdapter.js:17:      approvalRequired:true,
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:1:const approvals={};
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:3:const AfriDebugConnectorApproval = {
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:19:    approvals[connector.id]=record;
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:27:    if(!approvals[id]){
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:39:    approvals[id].status="approved";
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:41:    approvals[id].approvedAt=Date.now();
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:43:    return approvals[id];
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:49:    return approvals[id] || null;
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:55:    return Object.values(approvals);
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:63:      approvals:Object.keys(approvals).length
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:73:      service:"AfriDebugConnectorApproval",
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:83:export default AfriDebugConnectorApproval;
+modules/afridebug/src/debug/connectors/handoff/AfriDebugConnectorInvestigationHandoff.js:19:      approvalRequired:true,
+modules/afridebug/src/debug/connectors/observability/AfriDebugConnectorObservabilityRuntime.js:38:      approvalRequiredEvents:
+modules/afridebug/src/debug/connectors/observability/AfriDebugConnectorObservabilityRuntime.js:40:          e=>e.approvalRequired
+modules/afridebug/src/debug/connectors/runtime/AfriDebugConnectorRuntime.js:17:      approvalRequired:true,
+modules/afridebug/src/debug/dashboard/data/AfriDebugDashboardDataProvider.js:17:      approvalEvents:
+modules/afridebug/src/debug/dashboard/data/AfriDebugDashboardDataProvider.js:19:          e=>e.approvalRequired
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:22:      approval:
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:23:        input.approval || null,
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:35:        status:"READY_FOR_HUMAN_REVIEW",
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:36:        approvalRequired:true
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryRuntime.js:23:      status:"WAITING_APPROVAL",
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryRuntime.js:44:    delivery.status="APPROVED";
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:1:import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:11:      approval:
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:12:        CoreApprovalContract.isApproved(input.approval),
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:41:        : "HUMAN_REVIEW_REQUIRED",
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:43:      approvalRequired:true,
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js:22:      approvalTrace:
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js:23:        input.approvalTrace || null,
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js:28:      humanReviewRequired:true,
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js:32:      approvalContext:
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js:33:        input.approvalContext || null,
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:1:const AfriDebugHumanReviewGate = {
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:5:    const approved =
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:7:      input.reviewerDecision === "approved";
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:24:        approved
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:25:          ? "APPROVED_FOR_RELEASE"
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:28:      approved,
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:30:      approvalContext:{
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:37:          "AFRINUCCHAIN_APPROVAL"
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:50:      service:"AfriDebugHumanReviewGate",
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:58:export default AfriDebugHumanReviewGate;
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:5:    const approved =
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:6:      input.reviewApproved === true &&
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:24:        approved
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:29:        approved,
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:31:      approvalContext:{
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:34:          input.reviewApproved
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:35:            ? "approved"
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:38:          "AFRINUCCHAIN_APPROVAL"
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:42:        approved
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:44:          : "WAITING_APPROVAL",
+modules/afridebug/src/debug/disputes/AfriDebugResolutionEngine.js:12:      recommendation:input.recommendation || "HUMAN_REVIEW_REQUIRED",
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceVault.js:46:      approval:
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceVault.js:47:        input.approval||null,
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:10:      handoffId:
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:16:      approvalContext:
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:17:        plan.approvalContext || null,
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:30:      approvalRequired:true,
+modules/afridebug/src/debug/execution/AfriDebugExecutionState.js:6:  WAITING_APPROVAL:"WAITING_APPROVAL",
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:1:import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:7:    const approved = CoreApprovalContract.canExecute(handoff.approvalContext || {});
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:17:      handoffId:
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:18:        handoff.handoffId || null,
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:23:      approvalContext:
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:24:        handoff.approvalContext || null,
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:27:        approved && ready
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:32:        approved && ready,
+modules/afridebug/src/debug/integration/events/AfriDebugIntegrationEventContract.js:17:      approvalRequired:true
+modules/afridebug/src/debug/integration/evidence/AfriDebugEvidenceCollectionBridge.js:21:      approvalRequired:true
+modules/afridebug/src/debug/integration/execution/AfriDebugInvestigationExecutionBridge.js:17:      approvalRequired:true,
+modules/afridebug/src/debug/intelligence/patch/AfriDebugAIPatchGenerator.js:24:      requiresApproval:true,
+modules/afridebug/src/debug/intelligence/AfriDebugDiagnosisEngine.js:45:        "Require human approval before applying changes"
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:56:        "AWAIT_HUMAN_APPROVAL",
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:58:      humanApprovalRequired:true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js:7:    if (!input.approved) {
+modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js:10:        reason: "Human approval required"
+modules/afridebug/src/debug/intelligence/AfriDebugPatchAdvisor.js:31:      requiresApproval:true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:55:      requiresHumanApproval: true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:56:      approvalStatus: "HUMAN_APPROVAL_REQUIRED",
+modules/afridebug/src/debug/intelligence/AfriDebugPatchPreview.js:17:      humanApprovalRequired:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchPreview.js:18:        patch.requiresHumanApproval !== false,
+modules/afridebug/src/debug/intelligence/AfriDebugRiskEngine.js:22:        "Human approval required",
+modules/afridebug/src/debug/intelligence/AfriDebugRiskEngine.js:26:      approvedExecution:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak.repair:104:      requiresHumanApproval: true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak.repair:105:      approvalStatus:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak.repair:106:        "HUMAN_APPROVAL_REQUIRED",
+modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js:35:      status:"PENDING_APPROVAL",
+modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js:59:    quote.status="APPROVED";
+modules/afridebug/src/debug/memory/AfriDebugCompletedCaseArchive.js:42:      approvalHistory:
+modules/afridebug/src/debug/memory/AfriDebugCompletedCaseArchive.js:43:        input.approvalHistory || null,
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeReinforcementBridge.js:36:      approvalHistory:
+modules/afridebug/src/debug/memory/AfriDebugKnowledgeReinforcementBridge.js:37:        input.approvalHistory || null
+modules/afridebug/src/debug/patch/AfriDebugPatchRuntime.js:30:    patch.status="APPROVED";
+modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js:37:      approvalRequired:true,
+modules/afridebug/src/debug/production/compliance/AfriDebugProductionCompliance.js:7:      approvalRequired:true,
+modules/afridebug/src/debug/production/config/AfriDebugProductionConfig.js:10:      approvalRequired:true
+modules/afridebug/src/debug/production/features/AfriDebugFeatureFlagRuntime.js:9:      approvalRequired:true
+modules/afridebug/src/debug/production/policies/AfriDebugSecurityPolicy.js:6:      approvalRequired:true,
+modules/afridebug/src/debug/production/rollback/AfriDebugManualRollbackController.js:14:      approvalStatus:"pending"
+modules/afridebug/src/debug/production/rollback/AfriDebugManualRollbackController.js:24:      approvalStatus:"approved",
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:19:      approvedBy:input.approvedBy || null,
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:21:      approvalStatus:
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:22:        input.approvalStatus || "pending",
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:25:        input.approvalStatus === "approved"
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:27:          : "waiting_approval",
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:30:        input.approvalStatus === "approved"
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:43:  approve(rollbackId, approvedBy="system"){
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:58:    rollback.approvalStatus="approved";
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:60:    rollback.approvedBy=approvedBy;
+modules/afridebug/src/debug/production/security/AfriDebugProductionSecurity.js:7:      approvalRequired:true,
+modules/afridebug/src/debug/production/validation/AfriDebugEnvironmentValidator.js:11:        "approval-policy"
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:67:      approvalContext:{
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:69:        status:"PENDING_HUMAN_APPROVAL",
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:70:        executionMode:"AFRINUCCHAIN_APPROVAL"
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:18:      approvalContext:
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:19:        input.approvalContext || {
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:21:          status:"PENDING_HUMAN_APPROVAL",
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:22:          executionMode:"AFRINUCCHAIN_APPROVAL"
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:28:        "WAITING_FOR_APPROVAL",
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:1:import CoreApprovalContract from "../../../../core/approval/CoreApprovalContract.js";
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:8:    const approval = plan.approvalContext || {};
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:32:    const approvalRequired =
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:33:      approval.approvalRequired === true &&
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:34:      approval.status === CoreApprovalContract.statuses.PENDING;
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:40:      approvalContext: !!plan.approvalContext,
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:46:      approvalRequired
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:56:      approvalRequired: true,
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:58:        ? "Semantic repair plan validated; human approval still required."
+modules/afridebug/src/debug/security/AfriDebugExternalIntakeSecurityGateway.js:32:      status:"approved",
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js:7: approved:context.approved===true,
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js:9: riskAllowed:context.risk!=="critical" || context.approved===true
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:23:      approved:
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:33:    result.status=result.approved
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:34:      ?"approved"
+modules/afridebug/src/debug/security/AfriDebugRepositoryIntegrityGuard.js:33:          ? "approved"
+modules/afridebug/src/debug/security/AfriDebugSafeArchiveRuntime.js:57:        : "approved",
+modules/afridebug/src/debug/security/AfriDebugSecurityGuard.js:53:    if(event.approvalRequired) score+=20;
+modules/afridebug/src/debug/security/AfriDebugZeroTrustVerificationEngine.js:10: approval:context.approved===true
+modules/afridebug/src/debug/storage/knowledge.json:19:    "issue": "ApprovalGate is not defined",
+modules/afridebug/src/debug/storage/knowledge.json:21:    "resolution": "Import ApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:71:      "status": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:98:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:133:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:172:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:315:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:316:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:317:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:363:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:364:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:365:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:372:      "actor": "ApprovalResumeService",
+modules/afridebug/src/debug/storage/afridebug-state.json:373:      "details": "Delivery released after human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:419:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:420:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:421:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:428:      "actor": "ApprovalResumeService",
+modules/afridebug/src/debug/storage/afridebug-state.json:429:      "details": "Delivery released after human approval",
+modules/afridebug/src/debug/verification/AfriDebugRepairVerificationEngine.js:28:      approvalContext:
+modules/afridebug/src/debug/verification/AfriDebugRepairVerificationEngine.js:29:        execution.approvalContext || null,
+modules/afridebug/src/debug/AfriAIKnowledgeRegistryLocator.js:50:        "Review target knowledge registry before approval"
+modules/afridebug/src/debug/AfriAIKnowledgeRepairMapper.js:30:      approvalRequired:
+modules/afridebug/src/debug/AfriAIKnowledgeRepairMapper.js:34:        "AFRINUCCHAIN_APPROVAL"
+modules/afrinucchain/src/batch/AfriNucBatchPlanner.js:17:        approvalRequired:true,
+modules/afrinucchain/src/batch/AfriNucBatchExecutor.js:26:          approvalContext:batch.approvalContext || null,
+modules/afrinucchain/src/batch/AfriNucBatchExecutor.js:27:          approvalRequired:batch.approvalRequired ?? true,
+modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afrinucchain/src/evidence/AfriCertificationReport.js:9:        humanApprovalRequired:true,
+modules/afrinucchain/src/delivery/AfriDeliveryPackage.js:23:      approval:{
+modules/afrinucchain/src/delivery/AfriDeliveryPackage.js:25:        status:"PENDING_HUMAN_REVIEW"
+modules/afrinucchain/src/delivery/AfriDeliveryGateway.js:31:      approval:
+modules/afrinucchain/src/delivery/AfriDeliveryGateway.js:32:        packageData.approval.status,
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:13:  dispatch(delivery,approval){
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:16:      !approval ||
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:17:      approval.currentStatus !== "READY_FOR_CLIENT_DELIVERY"
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js:22:        reason:"Human approval required"
+--- DIFF CHECK ---
+=== EXECUTION CHAIN TRACE COMPLETE ===

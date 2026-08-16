@@ -1,0 +1,23 @@
+{
+  "jobId": "AFRIDEBUG-REMEDIATION-1786831224391",
+  "source": "AfriDebug/AfriNexus",
+  "priority": "P0",
+  "category": "INVESTIGATION_CONTEXT_PROPAGATION",
+  "repository": "AfriDigital-api",
+  "project": "AfriDebug",
+  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+  "objective": "Preserve caller-provided audit objective, category, tasks, constraints, repository and handoff metadata throughout the AfriDebug investigation pipeline and prevent audit requests from being converted into automatic repair investigations.",
+  "constraints": [
+    "Preserve Global Core architecture",
+    "Do not create parallel V2 engines",
+    "ONE FILE = ONE RESPONSIBILITY",
+    "Do not reopen completed certification stages",
+    "Human approval required before repair execution or client delivery"
+  ],
+  "evidence": [
+    "modules/afridebug/evidence/patch-plan.json",
+    "modules/afridebug/evidence/verification-report.json",
+    "modules/afridebug/evidence/afrinexus-nucchain-audit-todo.json"
+  ],
+  "status": "REMEDIATION_RECOMMENDED"
+}

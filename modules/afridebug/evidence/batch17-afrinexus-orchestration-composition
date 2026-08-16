@@ -1,0 +1,684 @@
+=== BATCH17 AFRINEXUS ORCHESTRATION COMPOSITION TRACE ===
+--- EXISTING NEXUS SYMBOLS ---
+modules/platform/authorization/AfriPlatformAuthorization.js:1:import AfriPlatformRolePermissions from "../rbac/AfriPlatformRolePermissions.js";
+modules/platform/authorization/AfriPlatformAuthorization.js:4:  authorize(identity={}, permission=""){
+modules/platform/authorization/AfriPlatformAuthorization.js:6:    const permissions = AfriPlatformRolePermissions[role] || [];
+modules/platform/authorization/AfriPlatformAuthorization.js:8:      permissions.includes("*") ||
+modules/platform/authorization/AfriPlatformAuthorization.js:9:      permissions.includes(permission);
+modules/platform/authorization/AfriPlatformAuthorization.js:15:      permission,
+modules/platform/authorization/AfriPlatformAuthorization.js:16:      permissions,
+modules/platform/authorization/AfriPlatformAuthorization.js:18:      unrestricted:permissions.includes("*")
+modules/platform/permissions/AfriPlatformPermissions.js:1:const AfriPlatformPermissions = [
+modules/platform/permissions/AfriPlatformPermissions.js:21:export default AfriPlatformPermissions;
+modules/platform/rbac/AfriPlatformRolePermissions.js:1:const AfriPlatformRolePermissions = {
+modules/platform/rbac/AfriPlatformRolePermissions.js:10:export default AfriPlatformRolePermissions;
+modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js:6:export class AfriAIRuntimeOrchestrator {
+modules/afriai/contracts/AfriAIContracts.js:9:    "AfriAI orchestrates services only",
+modules/afriai/tools/permissions/AfriAIToolPermissions.js:1:const AfriAIToolPermissions={
+modules/afriai/tools/permissions/AfriAIToolPermissions.js:10:export default AfriAIToolPermissions;
+modules/afriai/channels/AfriAIChannelGateway.js:2:import AfriAIConversationOrchestrator from "../orchestrator/AfriAIConversationOrchestrator.js";
+modules/afriai/channels/AfriAIChannelGateway.js:10:      await AfriAIConversationOrchestrator.process({
+modules/afriai/orchestrator/AfriAIConversationOrchestrator.js:6:const AfriAIConversationOrchestrator = {
+modules/afriai/orchestrator/AfriAIConversationOrchestrator.js:45:export default AfriAIConversationOrchestrator;
+modules/afriai/knowledge/CapabilityKnowledge.js:1:export const CapabilityKnowledge = {
+modules/afriai/knowledge/CapabilityKnowledge.js:88:export default CapabilityKnowledge;
+modules/afriai/business/api/AfriAIApiKeyRegistry.js:8:    permissions = [],
+modules/afriai/business/api/AfriAIApiKeyRegistry.js:19:      permissions,
+modules/afriai/business/api/AfriAIApiAccessControl.js:7:    permission = ""
+modules/afriai/business/api/AfriAIApiAccessControl.js:37:      apiKey.permissions.includes(
+modules/afriai/business/api/AfriAIApiAccessControl.js:38:        permission
+modules/afriai/business/api/AfriAIApiAccessControl.js:48:        : "PERMISSION_DENIED",
+modules/afriai/business/opportunities/AfriAIOpportunityEngine.js:14:      capability:"opportunity",
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:1:const AfriAICapabilityRegistry={
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js:29:export default AfriAICapabilityRegistry;
+modules/afriai/skills/permissions/AfriAISkillPermissions.js:1:const AfriAISkillPermissions={
+modules/afriai/skills/permissions/AfriAISkillPermissions.js:10:export default AfriAISkillPermissions;
+modules/afriai/identity/permissions/AfriAIPermissionRegistry.js:1:const AfriAIPermissionRegistry={
+modules/afriai/identity/permissions/AfriAIPermissionRegistry.js:12:export default AfriAIPermissionRegistry;
+modules/afriai/knowledge-governance/permissions/AfriAIKnowledgePermissions.js:1:const AfriAIKnowledgePermissions={resolve(level="public"){return{level,allow:true};}};export default AfriAIKnowledgePermissions;
+modules/afriai/experience/orchestrator/AfriAIExperienceOrchestrator.js:4:const AfriAIExperienceOrchestrator={
+modules/afriai/experience/orchestrator/AfriAIExperienceOrchestrator.js:14:export default AfriAIExperienceOrchestrator;
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:7:import AfriAICapabilityRegistry from "../../skills/registry/AfriAICapabilityRegistry.js";
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:8:import AfriAISkillPermissions from "../../skills/permissions/AfriAISkillPermissions.js";
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:23: const capability =
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:24:   AfriAICapabilityRegistry.resolve(
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:29:   request.skill || capability.skill;
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:41: const permission =
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:42:   AfriAISkillPermissions.check(skill);
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:44: if(!permission.allowed){
+modules/afriai/execution/coordinator/AfriAIExecutionCoordinator.js:47:   reason:"PERMISSION_DENIED"
+modules/afriai/enterprise/capabilities/AfriAITenantCapabilityManager.js:1:const AfriAITenantCapabilityManager={
+modules/afriai/enterprise/capabilities/AfriAITenantCapabilityManager.js:14:export default AfriAITenantCapabilityManager;
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:7:import AfriAICapabilityPolicy from "../policies/AfriAICapabilityPolicy.js";
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:43:    capability = null,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:54:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:59:    const capabilityPolicy =
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:60:      AfriAICapabilityPolicy.resolve({
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:62:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:69:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:76:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:84:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:107:        capability,
+modules/afriai/entitlements/engine/AfriAIEntitlementEngine.js:115:        capability:capabilityPolicy
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:7:    capability = "",
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:26:        capability,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:42:    const capabilityDefinition =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:44:        capability
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:52:    const capabilityPaths =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:55:    const exactCapability =
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:57:        ? `${capability}.${action}`
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:58:        : capability;
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:61:      capabilityPaths.includes("*") ||
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:62:      capabilityPaths.includes(
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:63:        exactCapability
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:65:      capabilityPaths.includes(
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:66:        `${capability}.*`
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:68:      capabilityPaths.includes(
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:69:        capability
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:75:        ?.[capability] || null;
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:80:        ?.[capability] || null;
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:131:      capability,
+modules/afriai/entitlements/engine/AfriAIProductEntitlementResolver.js:141:      capabilityDefinition,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:4:const AfriAICapabilityGate = {
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:10:    capability=null,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:37:        capability,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:46:      entitlement?.access?.capability?.supported === true;
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:64:      capability,
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:73:            ? "ADMIN_CAPABILITY_ALLOWED"
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:74:            : "CAPABILITY_ALLOWED"
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:75:          : "CAPABILITY_DENIED"
+modules/afriai/entitlements/engine/AfriAICapabilityGate.js:82:export default AfriAICapabilityGate;
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:123:  has(planId="free", capability=""){
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js:132:      plan.capabilities.includes(capability)
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:3:const AfriAICapabilityEntitlementRegistry = {
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:5:  register(productId, capabilityId, definition = {}){
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:10:    if(!capabilityId){
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:11:      throw new Error("AfriAI capabilityId required");
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:18:    capabilities[productId][capabilityId] = {
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:19:      capabilityId,
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:23:    return capabilities[productId][capabilityId];
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:26:  get(productId, capabilityId){
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:27:    return capabilities[productId]?.[capabilityId] || null;
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js:45:export default AfriAICapabilityEntitlementRegistry;
+modules/afriai/entitlements/unlock/AfriAIUnlockPolicy.js:2:  resolve({capability=null,product=null,context={}}={}){
+modules/afriai/entitlements/unlock/AfriAIUnlockPolicy.js:3:    return {capability,product,options:[],context};
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:2:  resolve({product=null,capability=null,plan="free"}={}){
+modules/afriai/entitlements/benefits/AfriAIBenefitResolver.js:3:    return {product,capability,plan,benefits:[]};
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:7:    capability = null,
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:22:      capabilities.includes(capability) ||
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:23:      capabilities.includes(`${capability}:${action}`);
+modules/afriai/entitlements/policies/AfriAISubscriptionPolicy.js:29:      capability,
+modules/afriai/entitlements/policies/AfriAIPAYGPolicy.js:6:    capability = null,
+modules/afriai/entitlements/policies/AfriAIPAYGPolicy.js:17:          capability
+modules/afriai/entitlements/policies/AfriAIPAYGPolicy.js:27:      capability,
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:6:    capability = null,
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:17:          capability
+modules/afriai/entitlements/policies/AfriAIAdUnlockPolicy.js:27:      capability,
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:1:import AfriAICapabilityEntitlementRegistry from "../capabilities/AfriAICapabilityEntitlementRegistry.js";
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:3:const AfriAICapabilityPolicy = {
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:7:    capability = null,
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:13:      AfriAICapabilityEntitlementRegistry.get
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:14:        ? AfriAICapabilityEntitlementRegistry.get(
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:16:            capability
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:31:      capability,
+modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js:52:export default AfriAICapabilityPolicy;
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:7:    capability = null,
+modules/afriai/entitlements/policies/AfriAIBenefitPolicy.js:24:      capability,
+modules/afriai/entitlements/products/AfriDebugEntitlement.js:144:              "Full AfriDebug capability access",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:8:    capability = "",
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:16:        capability,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:28:      capability,
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:43:          ? "This capability is included in your current plan."
+modules/afriai/entitlements/presentation/AfriAIEntitlementOfferResolver.js:44:          : "This capability isn't included in your current access."
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:1:import AfriPayPaymentOrchestrator from "../../../../afripai/orchestration/AfriPayPaymentOrchestrator.js";
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:11:    capability = "",
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:16:    const payment = AfriPayPaymentOrchestrator.createRequest({
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:25:        capability,
+modules/afriai/entitlements/payments/bridge/AfriAIAfriPayBridge.js:35:      capability,
+modules/core/registry/CoreServiceRegistry.js:8:  identity:["CoreUserManager","CoreOrganizationManager","CoreWorkspaceManager","CoreRoleManager","CorePermissionManager","CoreSessionManager","CoreAPIKeyManager","CoreIdentityAudit"],
+modules/core/registry/CoreServiceRegistry.js:23:  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],delegation:["CoreDelegationEngine","CoreDelegationRegistry","CoreDelegationPlanner","CoreDelegationDispatcher"],
+modules/core/identity/CorePermissionManager.js:1:const CorePermissionManager={check(permission){return {permission,status:"CHECKED"};}};
+modules/core/identity/CorePermissionManager.js:2:export default CorePermissionManager;
+modules/core/orchestration/CoreOrchestrationEngine.js:1:const CoreOrchestrationEngine={
+modules/core/orchestration/CoreOrchestrationEngine.js:9:   status:"ORCHESTRATION_RUNNING",
+modules/core/orchestration/CoreOrchestrationEngine.js:15:export default CoreOrchestrationEngine;
+modules/core/orchestration/CoreOrchestrationRegistry.js:1:const CoreOrchestrationRegistry={
+modules/core/orchestration/CoreOrchestrationRegistry.js:7:export default CoreOrchestrationRegistry;
+modules/core/orchestration/CoreOrchestrationStageManager.js:1:const CoreOrchestrationStageManager={
+modules/core/orchestration/CoreOrchestrationStageManager.js:2: advance(orchestration,stage){
+modules/core/orchestration/CoreOrchestrationStageManager.js:3:  orchestration.current=stage;
+modules/core/orchestration/CoreOrchestrationStageManager.js:4:  return orchestration;
+modules/core/orchestration/CoreOrchestrationStageManager.js:8:export default CoreOrchestrationStageManager;
+modules/core/access/CoreAccessEngine.js:2: check(user,permission){
+modules/core/access/CoreAccessEngine.js:5:   permission,
+modules/core/access/CoreAccessManager.js:2: grant(user,permission){
+modules/core/access/CoreAccessManager.js:3:  return {user,permission,status:"GRANTED"};
+modules/core/access/CoreAccessManager.js:5: revoke(user,permission){
+modules/core/access/CoreAccessManager.js:6:  return {user,permission,status:"REVOKED"};
+modules/core/access/CoreAccessRegistry.js:2: register(role,permissions){
+modules/core/access/CoreAccessRegistry.js:3:  return {role,permissions,status:"REGISTERED"};
+modules/core/access/AfriProductAccessPolicy.js:15:  const permissions={
+modules/core/access/AfriProductAccessPolicy.js:54:    permissions[plan]?.[request.feature]
+modules/core/access/AfriProductAccessPolicy.js:57:   permissions:permissions[plan] || permissions.free,
+modules/core/delegation/CoreDelegationPlanner.js:3:    const capability = request.capability || request.target || null;
+modules/core/delegation/CoreDelegationPlanner.js:7:      capability,
+modules/core/delegation/CoreDelegationPlanner.js:10:      status: capability ? "PLANNED" : "REJECTED",
+modules/core/delegation/CoreDelegationDispatcher.js:6:        status: "CAPABILITY_NOT_FOUND",
+modules/core/delegation/CoreDelegationEngine.js:17:    const provider = CoreDelegationRegistry.resolve(plan.capability);
+modules/core/delegation/CoreDelegationEngine.js:22:        status: "CAPABILITY_NOT_FOUND",
+modules/core/delegation/CoreDelegationEngine.js:34:      capability: plan.capability,
+modules/afridev/products/afridebug/runtime/AfriDebugInvestigationRuntime.js:12:import AfriDebugPipelineAdapter from "../orchestration/AfriDebugPipelineAdapter.js";
+modules/afridev/products/afridebug/runtime/AfriDebugRuntimeAdapter.js:10:   capability:"DEBUG_INVESTIGATION",
+modules/afridebug/src/debug/admin/runtime/AfriDebugAdminRuntime.js:12:      permissions: [
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:8:    return Orchestrator.run(input);
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:8:    return Orchestrator.run(input);
+modules/afridebug/src/debug/client/AfriDebugIncidentResponsePlaybookEngine.js:17:"Generate evidence package"
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:1:const AfriDebugEvidencePackageBuilder = {
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:50:      service:"AfriDebugEvidencePackageBuilder",
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js:58:export default AfriDebugEvidencePackageBuilder;
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js:13:      evidencePackageId:
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js:14:        input.evidencePackageId || null,
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceArchive.js:73:      format:"CLIENT_EVIDENCE_PACKAGE",
+modules/afridebug/src/debug/evidence/AfriDebugPortableVerificationBundle.js:27:packageId:evidence.packageId,
+modules/afridebug/src/debug/evidence/AfriDebugSecureEvidencePackage.js:35:service:"AfriDebugSecureEvidencePackage",
+modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/src/debug/intelligence/AfriDebugPatchAdvisor.js:27:        "orchestrator",
+modules/afridebug/src/debug/investigation/InvestigationOrchestrator.js:1:export default { module:"InvestigationOrchestrator", status:"scaffold" };
+modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js:1:export { default } from "../../../../../src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js";
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:1:import CanonicalOrchestrator from "../../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:3:const AfriDebugOrchestrator = {
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:7:    return CanonicalOrchestrator.run(input);
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:13:export default AfriDebugOrchestrator;
+modules/afridebug/src/debug/production/registry/AfriDebugProductionRegistry.js:5:  orchestrator:true,
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:32:    Orchestrator.run(request.investigation);
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js:9:const Orchestrator={
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js:42:service:"AfriDebugEnterpriseTrustOrchestrator",
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js:57:export default Orchestrator;
+modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:229:      "details": "Client evidence package generated",
+modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:1:import AfriDebugOrchestrator from "../debug/orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:7:  const orchestratorValid =
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:8:    AfriDebugOrchestrator &&
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:9:    typeof AfriDebugOrchestrator.run === "function";
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:26:    orchestratorValid &&
+modules/afridebug/src/orchestrator/AfriDebugInvestigationOrchestrator.js:4:  console.log("🧠 AfriDebug Investigation Orchestrator");
+modules/afridebug/evidence/dependency-graph.json:195:    "core/afriai/orchestrator/ws.orchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:201:    "core/afriai/plugins/bootstrap/plugin.capability.executor.js",
+modules/afridebug/evidence/dependency-graph.json:204:    "core/afriai/plugins/bootstrap/plugin.permission.executor.js",
+modules/afridebug/evidence/dependency-graph.json:212:    "core/afriai/plugins/capability/capability.resolver.js",
+modules/afridebug/evidence/dependency-graph.json:228:    "core/afriai/plugins/security/permission.engine.js",
+modules/afridebug/evidence/dependency-graph.json:266:    "core/ai/orchestrator/index.js",
+modules/afridebug/evidence/dependency-graph.json:289:    "core/cockpit/orchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:304:    "core/control-plane/permissions.js",
+modules/afridebug/evidence/dependency-graph.json:322:    "core/economy/intelligence/orchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:492:    "core/kernel/orchestration/KernelOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:493:    "core/kernel/orchestration/index.js",
+modules/afridebug/evidence/dependency-graph.json:504:    "core/kernel/rollout/multi.region.orchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:594:    "core/security/socCommandOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:767:    "modules/afriai/enterprise/capabilities/AfriAITenantCapabilityManager.js",
+modules/afridebug/evidence/dependency-graph.json:775:    "modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:781:    "modules/afriai/entitlements/engine/AfriAICapabilityGate.js",
+modules/afridebug/evidence/dependency-graph.json:790:    "modules/afriai/entitlements/policies/AfriAICapabilityPolicy.js",
+modules/afridebug/evidence/dependency-graph.json:811:    "modules/afriai/experience/orchestrator/AfriAIExperienceOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:819:    "modules/afriai/identity/permissions/AfriAIPermissionRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:849:    "modules/afriai/knowledge/CapabilityKnowledge.js",
+modules/afridebug/evidence/dependency-graph.json:862:    "modules/afriai/knowledge-governance/permissions/AfriAIKnowledgePermissions.js",
+modules/afridebug/evidence/dependency-graph.json:882:    "modules/afriai/orchestrator/AfriAIConversationOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:921:    "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:934:    "modules/afriai/skills/permissions/AfriAISkillPermissions.js",
+modules/afridebug/evidence/dependency-graph.json:935:    "modules/afriai/skills/registry/AfriAICapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:942:    "modules/afriai/tools/permissions/AfriAIToolPermissions.js",
+modules/afridebug/evidence/dependency-graph.json:1087:    "modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js",
+modules/afridebug/evidence/dependency-graph.json:1125:    "modules/afridebug/src/debug/evidence/AfriDebugSecureEvidencePackage.js",
+modules/afridebug/evidence/dependency-graph.json:1188:    "modules/afridebug/src/debug/investigation/InvestigationOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1218:    "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1219:    "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1277:    "modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1323:    "modules/afridebug/src/orchestrator/AfriDebugInvestigationOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1324:    "modules/afridebug/src/orchestrator/AfriDebugInvestigationPipeline.js",
+modules/afridebug/evidence/dependency-graph.json:1562:    "modules/afridesign/capabilities/AfriDesignCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1563:    "modules/afridesign/capabilities/AfriDesignCapabilityRouter.js",
+modules/afridebug/evidence/dependency-graph.json:1588:    "modules/afridesign/marketplace/AfriBuildAssetSubmission.js",
+modules/afridebug/evidence/dependency-graph.json:1592:    "modules/afridesign/providers/capabilities/AfriDesignBuilderCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1767:    "modules/afridev/products/afridebug/orchestration/AfriDebugPipelineAdapter.js",
+modules/afridebug/evidence/dependency-graph.json:1831:    "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1834:    "modules/afrifix/src/platform/AfriFixCapabilityBridge.js",
+modules/afridebug/evidence/dependency-graph.json:1836:    "modules/afrifix/src/registry/AfriFixCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1849:    "modules/afrifix/src/runtime/admission/AfriFixRuntimeAdmissionController.js",
+modules/afridebug/evidence/dependency-graph.json:1852:    "modules/afrifix/src/runtime/capabilities/AfriFixCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1853:    "modules/afrifix/src/runtime/capabilities/AfriFixCapabilityResolver.js",
+modules/afridebug/evidence/dependency-graph.json:1868:    "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1891:    "modules/afrifix/src/security/permissions/AfriFixPermissionEngine.js",
+modules/afridebug/evidence/dependency-graph.json:1923:    "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1924:    "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1925:    "modules/afrinucchain/src/orchestrator/AfriNucLifecyclePersistenceBridge.js",
+modules/afridebug/evidence/dependency-graph.json:1926:    "modules/afrinucchain/src/orchestrator/AfriNucPersistenceOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1927:    "modules/afrinucchain/src/orchestrator/AfriWorkspaceOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1932:    "modules/afrinucchain/src/persistence/AfriNucPersistenceOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1952:    "modules/afrinucchain/src/recovery/AfriNucRecoveryOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1955:    "modules/afrinucchain/src/registry/AfriCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1958:    "modules/afrinucchain/src/runtime/AfriFixCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1960:    "modules/afrinucchain/src/runtime/AfriNucCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:1969:    "modules/afrinucchain/src/runtime/AfriNucRuntimeCapabilityBridge.js",
+modules/afridebug/evidence/dependency-graph.json:1983:    "modules/afripai/orchestration/AfriPayPaymentOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:2161:    "modules/core/identity/CorePermissionManager.js",
+modules/afridebug/evidence/dependency-graph.json:2187:    "modules/core/orchestration/CoreOrchestrationEngine.js",
+modules/afridebug/evidence/dependency-graph.json:2188:    "modules/core/orchestration/CoreOrchestrationRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:2189:    "modules/core/orchestration/CoreOrchestrationStageManager.js",
+modules/afridebug/evidence/dependency-graph.json:2271:    "modules/platform/capabilities/contracts/AfriCapabilityContract.js",
+modules/afridebug/evidence/dependency-graph.json:2272:    "modules/platform/capabilities/registry/AfriCapabilityRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:2273:    "modules/platform/capabilities/resolver/AfriCapabilityResolver.js",
+modules/afridebug/evidence/dependency-graph.json:2287:    "modules/platform/identity/permissions/AfriPermissionResolver.js",
+modules/afridebug/evidence/dependency-graph.json:2319:    "modules/platform/permissions/AfriPlatformPermissions.js",
+modules/afridebug/evidence/dependency-graph.json:2321:    "modules/platform/rbac/AfriPlatformRolePermissions.js",
+modules/afridebug/evidence/dependency-graph.json:2339:    "snapshots/afriai-runtime-pre-orchestrator/AfriAIRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2340:    "snapshots/afriai-runtime-pre-orchestrator/runtime/AfriAIRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2341:    "snapshots/afriai-runtime-pre-orchestrator/runtime/AfriAIRuntimeStatus.js",
+modules/afridebug/evidence/dependency-graph.json:2342:    "snapshots/afriai-runtime-pre-orchestrator/runtime/commercial/AfriAICommercialRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2343:    "snapshots/afriai-runtime-pre-orchestrator/runtime/execution/AfriAIExecutionRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2344:    "snapshots/afriai-runtime-pre-orchestrator/runtime/intents/AfriAIIntentExecutionMap.js",
+modules/afridebug/evidence/dependency-graph.json:2345:    "snapshots/afriai-runtime-pre-orchestrator/runtime/intents/contracts/AfriAIIntentContract.js",
+modules/afridebug/evidence/dependency-graph.json:2346:    "snapshots/afriai-runtime-pre-orchestrator/runtime/intents/executor/AfriAIIntentExecutor.js",
+modules/afridebug/evidence/dependency-graph.json:2347:    "snapshots/afriai-runtime-pre-orchestrator/runtime/intents/registry/AfriAIIntentRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:2348:    "snapshots/afriai-runtime-pre-orchestrator/runtime/intents/router/AfriAIIntentRouter.js",
+modules/afridebug/evidence/dependency-graph.json:2349:    "snapshots/afriai-runtime-pre-orchestrator/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:2350:    "snapshots/afriai-runtime-pre-orchestrator/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/dependency-graph.json:2351:    "snapshots/afriai-runtime-pre-orchestrator/runtime/resolver/AfriAIExecutionResolver.js",
+modules/afridebug/evidence/dependency-graph.json:2352:    "snapshots/afriai-runtime-pre-orchestrator/runtime/sessions/AfriAISessionRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2353:    "snapshots/afriai-runtime-pre-orchestrator/runtime/transactions/AfriAITransactionRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2354:    "snapshots/afriai-runtime-pre-orchestrator/runtime/workflow/AfriAIWorkflowRuntime.js",
+modules/afridebug/evidence/dependency-graph.json:2355:    "snapshots/afriai-runtime-pre-orchestrator/runtime/workflows/commerce/AfriAICommerceWorkflow.js",
+modules/afridebug/evidence/dependency-graph.json:2356:    "snapshots/afriai-runtime-pre-orchestrator/runtime/workflows/orders/AfriAIOrderWorkflow.js",
+modules/afridebug/evidence/dependency-graph.json:2357:    "snapshots/afriai-runtime-pre-orchestrator/runtime/workflows/payment/AfriAIPaymentWorkflow.js",
+modules/afridebug/evidence/dependency-graph.json:2358:    "snapshots/afriai-runtime-pre-orchestrator/runtime/workflows/support/AfriAISupportWorkflow.js",
+modules/afridebug/evidence/dependency-graph.json:2438:    "snapshots/current/core/ai/orchestrator/index.js",
+modules/afridebug/evidence/dependency-graph.json:2461:    "snapshots/current/core/cockpit/orchestrator.js",
+--- EXISTING HANDOFF CONTRACTS ---
+modules/afriai/business/contracts/AfriAIBusinessContract.js
+modules/afriai/contracts/AfriAIContracts.js
+modules/afriai/contracts/AfriAIResponseContract.js
+modules/afriai/diagnosis/AfriAIDiagnosisContract.js
+modules/afriai/experience/handoff/AfriAIHandoffManager.js
+modules/afriai/runtime/intents/contracts/AfriAIIntentContract.js
+modules/afridebug/evidence/afridebug-execution-handoff-gate-proposal-001.json
+modules/afridebug/evidence/afridebug-execution-handoff-gate-validation-001.json
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-proposal-001.json
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-validation-001.json
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-contract-trace
+modules/afridebug/src/debug/connectors/contracts/AfriDebugConnectorContract.js
+modules/afridebug/src/debug/connectors/handoff/AfriDebugConnectorInvestigationHandoff.js
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js
+modules/afridebug/src/debug/integration/events/AfriDebugIntegrationEventContract.js
+modules/afridebug/src/debug/integration/handoff/AfriDebugInvestigationHandoffRuntime.js
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/contracts/ComponentSelectionContract.js
+modules/afridesign/providers/contracts/AfriDesignProviderContract.js
+modules/afrifix/contracts/AfriFixRepairContract.js
+modules/afrifix/contracts/AfriFixRuntimeContract.js
+modules/afrifix/evidence/execution-contract.json
+modules/afrifix/evidence/runtime-contract.json
+modules/afrifix/src/bridge/afridebug/AfriFixDebugHandoffAdapter.js
+modules/afrifix/src/bridge/afridebug/AfriFixDebugHandoffAdapter.js.bak
+modules/afrinucchain/.data/client-delivery/handoff-1786093296648.json
+modules/afrinucchain/src/recovery/AfriNucClientDeliveryHandoffController.js
+modules/core/approval/CoreApprovalContract.js
+modules/platform/capabilities/contracts/AfriCapabilityContract.js
+modules/platform/contracts/AfriPlatformServiceContracts.js
+modules/platform/events/contracts/AfriPlatformEventContract.js
+src/afridebug/core/contracts/AfriDebugConnectorContract.js
+src/afridebug/platform/integration/events/AfriDebugIntegrationEventContract.js
+src/afridebug/platform/integration/handoff/AfriDebugInvestigationHandoffRuntime.js
+src/core/afridebug/contracts/BlockExplanationContract.js
+src/core/governance/block-explanation/block-explanation.contract.js
+--- EXISTING ORCHESTRATORS ---
+modules/afriai/actions/AfriAIActionRouter.js
+modules/afriai/agents/planner/AfriAITaskPlanner.js
+modules/afriai/experience/orchestrator/AfriAIExperienceOrchestrator.js
+modules/afriai/orchestrator/AfriAIConversationOrchestrator.js
+modules/afriai/payments/AfriAIPaymentRouter.js
+modules/afriai/remediation/AfriFixRemediationPlanner.js
+modules/afriai/runtime/intents/router/AfriAIIntentRouter.js
+modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js
+modules/afriai/runtime/planner/AfriAIExecutionPlanner.js
+modules/afriai/tools/planner/AfriAIToolPlanner.js
+modules/afridebug/src/debug/api/router/AfriDebugAPIRouter.js
+modules/afridebug/src/debug/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js
+modules/afridebug/src/debug/intelligence/planner/AfriDebugAIInvestigationPlanner.js
+modules/afridebug/src/debug/investigation/InvestigationOrchestrator.js
+modules/afridebug/src/debug/investigation/PatchPlanner.js
+modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js
+modules/afridebug/src/debug/runtime/AfriDebugConnectorDispatcher.js
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustOrchestrator.js
+modules/afridebug/src/investigation/patch/AfriDebugPatchPlanner.js
+modules/afridebug/src/orchestrator/AfriDebugInvestigationOrchestrator.js
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/router/PlatformWorkspaceRouter.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/center/CenterWorkspaceRouter.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/router/WorkspaceModeRouter.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/router/PlatformWorkspaceRouter.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/center/CenterWorkspaceRouter.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/router/WorkspaceModeRouter.jsx
+modules/afridesign/architecture-work/workspace-controller/snapshot/PlatformWorkspaceRouter.before.jsx
+modules/afridesign/capabilities/AfriDesignCapabilityRouter.js
+modules/afridesign/changes/AfriBuildChangePlanner.js
+modules/afridesign/providers/router/AfriDesignProviderRouter.js
+modules/afridesign/src/platform/router/PlatformWorkspaceRouter.jsx
+modules/afridesign/src/platform/workspace/center/CenterWorkspaceRouter.jsx
+modules/afridesign/versioning/AfriBuildUpgradePlanner.js
+modules/afrifix/src/consolidation/AfriFixConsolidationPlanner.js
+modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js
+modules/afrifix/src/planning/AfriFixRepairPlannerEngine.js
+modules/afrifix/src/repair/AfriFixRepairPlanner.js
+modules/afrifix/src/runtime/dispatcher/AfriFixRuntimeDispatcher.js
+modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js
+modules/afrifix/src/runtime/planner/AfriFixExecutionPlanner.js
+modules/afrifix/src/runtime/router/AfriFixRuntimeRouter.js
+modules/afrinucchain/src/batch/AfriNucBatchPlanner.js
+modules/afrinucchain/src/delivery/AfriClientDeliveryDispatcher.js
+modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js
+modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js
+modules/afrinucchain/src/orchestrator/AfriNucPersistenceOrchestrator.js
+modules/afrinucchain/src/orchestrator/AfriWorkspaceOrchestrator.js
+modules/afrinucchain/src/persistence/AfriNucPersistenceOrchestrator.js
+modules/afrinucchain/src/planner/AfriNucBatchPlanner.js
+modules/afrinucchain/src/queue/AfriNucQueueDispatcher.js
+modules/afrinucchain/src/recovery/AfriNucRecoveryOrchestrator.js
+modules/afrinucchain/src/runtime/AfriNucPipelineDispatcherV2.js
+modules/afripai/orchestration/AfriPayPaymentOrchestrator.js
+modules/afrisuper3-demo/fix/AfriFixClientPlanner.js
+modules/core/delegation/CoreDelegationDispatcher.js
+modules/core/delegation/CoreDelegationPlanner.js
+modules/platform/observability/debug/AfriDebugPatchPlanner.js
+modules/platform/payments/gateway/AfriPaymentRouter.js
+modules/platform/router/AfriPlatformServiceRouter.js
+src/africctv/communication/orchestrator/EventCommunicationOrchestrator.js
+src/africctv/communication/orchestrator/EventCommunicationOrchestrator.validate.js
+src/africctv/customer/orchestrator/CustomerEcosystemOrchestrator.js
+src/africctv/customer/orchestrator/CustomerEcosystemOrchestrator.validate.js
+src/africctv/ecosystem/orchestrator/EcosystemIntelligenceOrchestrator.js
+src/africctv/ecosystem/orchestrator/EcosystemIntelligenceOrchestrator.validate.js
+src/africctv/generated/AuditReporterTest/orchestrator/AuditReporterTestOrchestrator.js
+src/africctv/generated/AuditReporterTest/orchestrator/AuditReporterTestOrchestrator.validate.js
+src/africctv/generated/BootstrapTest/orchestrator/BootstrapTestOrchestrator.js
+src/africctv/generated/BootstrapTest/orchestrator/BootstrapTestOrchestrator.validate.js
+src/africctv/generated/CommandCenterTest/orchestrator/CommandCenterTestOrchestrator.js
+src/africctv/generated/CommandCenterTest/orchestrator/CommandCenterTestOrchestrator.validate.js
+src/africctv/generated/EnforcementTest/orchestrator/EnforcementTestOrchestrator.js
+src/africctv/generated/EnforcementTest/orchestrator/EnforcementTestOrchestrator.validate.js
+src/africctv/generated/MasterIntelligenceValidation/orchestrator/MasterIntelligenceValidationOrchestrator.js
+src/africctv/generated/MasterIntelligenceValidation/orchestrator/MasterIntelligenceValidationOrchestrator.validate.js
+src/africctv/generated/PipelineTest/orchestrator/PipelineTestOrchestrator.js
+src/africctv/generated/PipelineTest/orchestrator/PipelineTestOrchestrator.validate.js
+src/africctv/generated/RegistryAutoTest/orchestrator/RegistryAutoTestOrchestrator.js
+src/africctv/generated/RegistryAutoTest/orchestrator/RegistryAutoTestOrchestrator.validate.js
+src/africctv/generated/RunnerTest/orchestrator/RunnerTestOrchestrator.js
+src/africctv/generated/RunnerTest/orchestrator/RunnerTestOrchestrator.validate.js
+src/africctv/generated/TestIntelligence/orchestrator/TestIntelligenceOrchestrator.js
+src/africctv/generated/TestIntelligence/orchestrator/TestIntelligenceOrchestrator.validate.js
+src/africctv/governance/orchestrator/GovernanceTrustOrchestrator.js
+src/africctv/governance/orchestrator/GovernanceTrustOrchestrator.validate.js
+src/africctv/infrastructure/orchestrator/InfrastructureLifecycleOrchestrator.js
+src/africctv/infrastructure/orchestrator/InfrastructureLifecycleOrchestrator.validate.js
+src/africctv/intelligence/cognitive/orchestrator/CognitiveDecisionOrchestrator.js
+src/africctv/intelligence/cognitive/orchestrator/CognitiveDecisionOrchestrator.validate.js
+src/africctv/intelligence/learning/orchestrator/AdaptiveLearningOrchestrator.js
+src/africctv/intelligence/learning/orchestrator/AdaptiveLearningOrchestrator.validate.js
+src/africctv/intelligence/master/orchestrator/MasterIntelligenceOrchestrator.js
+src/africctv/intelligence/master/orchestrator/MasterIntelligenceOrchestrator.validate.js
+src/africctv/intelligence/orchestrator/AfriAIIntelligenceOrchestrator.js
+src/africctv/intelligence/orchestrator/AfriAIIntelligenceOrchestrator.validate.js
+src/africctv/lifecycle/orchestrator/DeviceLifecycleOrchestrator.js
+src/africctv/lifecycle/orchestrator/DeviceLifecycleOrchestrator.validate.js
+src/africctv/media/orchestrator/MediaLifecycleOrchestrator.js
+src/africctv/media/orchestrator/MediaLifecycleOrchestrator.validate.js
+src/africctv/observability/orchestrator/ObservabilityIntelligenceOrchestrator.js
+src/africctv/observability/orchestrator/ObservabilityIntelligenceOrchestrator.validate.js
+src/africctv/operations/orchestrator/OperationsExecutionOrchestrator.js
+src/africctv/operations/orchestrator/OperationsExecutionOrchestrator.validate.js
+src/africctv/platform/orchestrator/PlatformExperienceOrchestrator.js
+src/africctv/platform/orchestrator/PlatformExperienceOrchestrator.validate.js
+src/africctv/resilience/orchestrator/DeviceResilienceOrchestrator.js
+src/africctv/resilience/orchestrator/DeviceResilienceOrchestrator.validate.js
+src/africctv/security/orchestrator/AccessGovernanceOrchestrator.js
+src/africctv/security/orchestrator/AccessGovernanceOrchestrator.validate.js
+src/afridebug/core/runtime/AfriDebugConnectorDispatcher.js
+src/afridebug/interfaces/api/router/AfriDebugAPIRouter.js
+src/afridebug/platform/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js
+src/afridebug/platform/intelligence/ai/AfriDebugAIInvestigationPlanner.js
+src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js
+src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js
+src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js
+src/control-room/orchestrator/SOCDecisionOrchestrator.js
+src/control-room/orchestrator/SOCExecutionOrchestrator.js
+src/core/event-domains/EventDomainRouter.js
+--- EXISTING EVIDENCE/PACKAGE SURFACES ---
+modules/admin/runtime/services/AfriAdminServiceRegistry.js
+modules/afriai/actions/AfriAIActionRegistry.js
+modules/afriai/agents/registry/AfriAIAgentRegistry.js
+modules/afriai/bootstrap/RuntimeRegistry.js
+modules/afriai/business/api/AfriAIApiKeyRegistry.js
+modules/afriai/business/api/AfriAIWebhookRegistry.js
+modules/afriai/business/billing/AfriAISubscriptionRegistry.js
+modules/afriai/business/leads/AfriAILeadRegistry.js
+modules/afriai/business/tenants/AfriAITenantRegistry.js
+modules/afriai/channels/AfriAIChannelRegistry.js
+modules/afriai/enterprise/tenants/AfriAITenantRegistry.js
+modules/afriai/entitlements/capabilities/AfriAICapabilityEntitlementRegistry.js
+modules/afriai/entitlements/ecosystem/AfriAIEcosystemEntitlementRegistry.js
+modules/afriai/entitlements/payments/AfriAIPaymentMethodRegistry.js
+modules/afriai/entitlements/plans/AfriAIPlanEntitlementRegistry.js
+modules/afriai/evidence/AfriInvestigationEvidence.js
+modules/afriai/evidence/enrichment/AfriAIEvidenceEnricher.js
+modules/afriai/execution/registry/AfriAIExecutionRegistry.js
+modules/afriai/guards/AfriAIEvidenceGuard.js
+modules/afriai/identity/kyc/AfriAIKYCRegistry.js
+modules/afriai/identity/permissions/AfriAIPermissionRegistry.js
+modules/afriai/identity/roles/AfriAIRoleRegistry.js
+modules/afriai/intents/AfriAIIntentRegistry.js
+modules/afriai/investigation/AfriAIEvidenceInterpreter.js
+modules/afriai/knowledge-engine/AfriAIKnowledgeRegistry.js
+modules/afriai/marketplace/products/AfriAIProductRegistry.js
+modules/afriai/marketplace/vendors/AfriAIVendorRegistry.js
+modules/afriai/providers/AfriAIProviderRegistry.js
+modules/afriai/registry/AfriAIServiceRegistry.js
+modules/afriai/responses/SuggestionRegistry.js
+modules/afriai/runtime/intents/registry/AfriAIIntentRegistry.js
+modules/afriai/skills/registry/AfriAICapabilityRegistry.js
+modules/afriai/skills/registry/AfriAISkillRegistry.js
+modules/afriai/tools/AfriAIToolRegistry.js
+modules/afriai/tools/registry/AfriAIToolRegistry.js
+modules/africctv/adapters/AfriCTVCEvidenceAdapter.js
+modules/africoin/governance/AfriCoinRulesRegistry.js
+modules/afridebug/evidence/afridebug-client-delivery-package-proposal-001.json
+modules/afridebug/evidence/afridebug-client-delivery-package-validation-001.json
+modules/afridebug/evidence/afridebug-evidence-package-proposal-001.json
+modules/afridebug/evidence/afridebug-evidence-package-validation-001.json
+modules/afridebug/evidence/afridebug-recommendation-evidence-trace-proposal-001.json
+modules/afridebug/evidence/afridebug-recommendation-evidence-trace-validation-001.json
+modules/afridebug/src/certification/AfriDebugEvidenceGenerator.js
+modules/afridebug/src/certification/AfriDebugModuleRegistryValidator.js
+modules/afridebug/src/debug/AfriAIKnowledgeRegistryLocator.js
+modules/afridebug/src/debug/AfriAIRuntimeEvidenceCollector.js
+modules/afridebug/src/debug/admin/AfriDebugAdminRegistry.js
+modules/afridebug/src/debug/admin/registry/AfriDebugAdminDashboardRegistry.js
+modules/afridebug/src/debug/ai/providers/AfriDebugAIProviderRegistry.js
+modules/afridebug/src/debug/api/evidence/AfriDebugEvidenceAPI.js
+modules/afridebug/src/debug/api/registry/AfriDebugAPIRegistry.js
+modules/afridebug/src/debug/certification/AfriDebugCertificationRegistry.js
+modules/afridebug/src/debug/client/AfriDebugClientProjectEvidenceCollector.js
+modules/afridebug/src/debug/client/AfriDebugEvidenceCorrelationEngine.js
+modules/afridebug/src/debug/client/AfriDebugEvidenceTimelineReconstructor.js
+modules/afridebug/src/debug/connectors/registry/AfriDebugConnectorRegistry.js
+modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js
+modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js
+modules/afridebug/src/debug/disputes/AfriDebugEvidenceTimeline.js
+modules/afridebug/src/debug/ecosystem/AfriDebugEcosystemRegistry.js
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceArchive.js
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportManager.js
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportRegistry.js
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceIntegrityVerifier.js
+modules/afridebug/src/debug/evidence/AfriDebugEvidenceVault.js
+modules/afridebug/src/debug/evidence/AfriDebugOfflineEvidenceVerifier.js
+modules/afridebug/src/debug/evidence/AfriDebugSecureEvidencePackage.js
+modules/afridebug/src/debug/evidence/export/AfriDebugEvidenceExporter.js
+modules/afridebug/src/debug/evidence/exporters/AfriDebugCSVEvidenceExporter.js
+modules/afridebug/src/debug/evidence/exporters/AfriDebugHTMLEvidenceExporter.js
+modules/afridebug/src/debug/evidence/exporters/AfriDebugJSONEvidenceExporter.js
+modules/afridebug/src/debug/integration/evidence/AfriDebugEvidenceArchiveAdapter.js
+modules/afridebug/src/debug/integration/evidence/AfriDebugEvidenceCollectionBridge.js
+modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js
+modules/afridebug/src/debug/investigation/AfriDebugInvestigationRegistry.js
+modules/afridebug/src/debug/investigation/DeliveryPackager.js
+modules/afridebug/src/debug/investigation/EvidenceReportGenerator.js
+modules/afridebug/src/debug/production/packaging/AfriDebugPackageBuilder.js
+modules/afridebug/src/debug/production/registry/AfriDebugProductionRegistry.js
+modules/afridebug/src/debug/registry/AfriDebugModuleRegistry.js
+modules/afridebug/src/debug/runtime/AfriDebugConnectorRegistryRuntime.js
+modules/afridebug/src/debug/runtime/AfriDebugRuntimeRegistry.js
+modules/afridebug/src/debug/workspace/ProjectRegistry.js
+modules/afridebug/src/debug/workspace/RepositoryConnectionRegistry.js
+modules/afridebug/src/delivery/AfriDebugReportPackager.js
+modules/afridebug/src/delivery/evidence/delivery-package.json
+modules/afridebug/src/investigation/runtime/evidence/AfriDebugRuntimeEvidenceAdapter.js
+modules/afridesign/.generated/afritodo/package.json
+modules/afridesign/android/app/build/intermediates/symbol_list_with_package_name/debug/processDebugResources/package-aware-r.txt
+modules/afridesign/architecture-work/collapse-into-afridigital-v1/package.before.json
+modules/afridesign/architecture-work/final-workspace-panels/snapshot/AfriDesignDockRegistry.before.js
+modules/afridesign/architecture-work/final-workspace-panels/snapshot/DashboardPanelRegistry.before.js
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/RegistryCompositionBridge.js
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/RegistryItem.jsx
+modules/afridesign/architecture-work/legacy-ui-audit/dashboard/partials/RegistryPanel.jsx
+modules/afridesign/architecture-work/mode-navigation/snapshot/AfriDesignModeRegistry.before.js
+modules/afridesign/architecture-work/mode-switcher/snapshot/AfriDesignModeRegistry.before.js
+modules/afridesign/architecture-work/platform-registry/snapshot/PlatformWorkspaceRegistry.before.js
+modules/afridesign/architecture-work/shell-foundation/snapshot/dashboard/partials/RegistryItem.jsx
+modules/afridesign/architecture-work/shell-foundation/snapshot/dashboard/partials/RegistryPanel.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/switcher/AfriDesignModeRegistry.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/platform/workspace/switcher/AfriDesignMoreRegistry.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/switcher/AfriDesignModeRegistry.jsx
+modules/afridesign/architecture-work/v1-shell-reorganization/snapshot/platform.before/workspace/switcher/AfriDesignMoreRegistry.jsx
+modules/afridesign/architecture-work/workspace-migration-final-audit/ArchitectureAuditRegistry.js
+modules/afridesign/architecture-work/workspace-migration-final-audit/WorkspaceMigrationRegistry.js
+modules/afridesign/architecture-work/workspace-migration-final-lock/WorkspaceMigrationRegistry.js
+modules/afridesign/assets/AfriBuildAssetRegistry.js
+modules/afridesign/capabilities/AfriDesignCapabilityRegistry.js
+modules/afridesign/creators/AfriBuildCreatorRegistry.js
+modules/afridesign/evidence/AfriDesignEvidenceWriter.js
+modules/afridesign/intelligence/AfriBuildCreatorIntelligenceRegistry.js
+modules/afridesign/knowledge/AfriBuildKnowledgeRegistry.js
+modules/afridesign/package-lock.json
+modules/afridesign/package.json
+modules/afridesign/providers/capabilities/AfriDesignBuilderCapabilityRegistry.js
+modules/afridesign/providers/registry/AfriDesignProviderRegistry.js
+modules/afridesign/src/dashboard/partials/RegistryItem.jsx
+modules/afridesign/src/platform/navigation/PlatformNavigationRegistry.jsx
+modules/afridesign/src/platform/shell/workspace/explorer/RegistryPanel.jsx
+modules/afridesign/src/platform/studios/AfriStudioRegistry.js
+modules/afridesign/versioning/AfriBuildVersionRegistry.js
+modules/afridev/products/afridebug/adapters/AfriDebugCoreEvidenceAdapter.js
+modules/afridev/products/afridebug/api/AfriDebugEvidenceAPI.js
+modules/afridev/products/afridebug/artifacts/AfriDebugPackageBuilder.js
+modules/afridev/products/afridebug/evidence/AfriDebugEvidenceAdapter.js
+modules/afridev/registry/AfriDevStudioProductRegistry.js
+modules/afrifix/evidence/session-evidence.json
+modules/afrifix/src/bridge/AfriFixEvidenceConsumer.js
+modules/afrifix/src/evidence/AfriFixEvidenceManager.js
+modules/afrifix/src/evidence/AfriFixSessionEvidenceAdapter.js
+modules/afrifix/src/runtime/adapters/AfriFixRuntimeEvidenceAdapter.js
+modules/afrifix/src/runtime/adapters/AfriFixRuntimeRegistryAdapter.js
+modules/afrifix/src/runtime/adapters/AfriFixRuntimeScanRegistryAdapter.js
+modules/afrifix/src/runtime/adapters/AfriFixRuntimeStorageEvidenceAdapter.js
+modules/afrifix/src/runtime/capabilities/AfriFixCapabilityRegistry.js
+modules/afrifix/src/runtime/global/AfriFixGlobalRuntimeRegistry.js
+modules/afrifix/src/runtime/pipelines/AfriFixPipelineRegistry.js
+modules/afrifix/src/runtime/registry/AfriFixExecutionRegistry.js
+modules/afrifix/src/runtime/registry/AfriFixRuntimeRegistry.js
+modules/afrifix/src/workspace/manager/AfriFixWorkspaceRegistry.js
+modules/afrinucchain/.data/execution-evidence/evidence-1786094687864.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786094733506.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786094869591.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786095662005.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786096353983.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786097971545.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786796585696.json
+modules/afrinucchain/.data/execution-evidence/evidence-1786797523987.json
+modules/afrinucchain/.data/recovery-packages/delivery-package-1786093245859.json
+modules/afrinucchain/src/delivery/AfriDeliveryEvidenceBundleGenerator.js
+modules/afrinucchain/src/delivery/AfriDeliveryPackage.js
+modules/afrinucchain/src/evidence/AfriEvidenceGenerator.js
+modules/afrinucchain/src/jobs/AfriJobRegistry.js
+modules/afrinucchain/src/persistence/AfriEvidencePersistence.js
+modules/afrinucchain/src/recovery/AfriNucDeliveryPackageVerificationGate.js
+modules/afrinucchain/src/recovery/AfriNucRecoveryDeliveryPackageBuilder.js
+modules/afrinucchain/src/registry/AfriCapabilityRegistry.js
+modules/afrinucchain/src/registry/AfriNucJobRegistry.js
+modules/afrinucchain/src/runtime/AfriNucCapabilityRegistry.js
+modules/afrinucchain/src/runtime/AfriNucChainRuntimeRegistry.js
+modules/afrinucchain/src/runtime/AfriNucExecutionEvidenceBridge.js
+modules/afrinucchain/src/runtime/AfriNucPipelineRegistryBridge.js
+modules/afripai/methods/AfriPayMethodRegistry.js
+modules/afripai/providers/AfriPayProviderRegistry.js
+modules/core/.data/afri-artifact-registry.json
+modules/core/.data/afri-entitlement-registry.json
+modules/core/access/CoreAccessRegistry.js
+modules/core/approval/CoreApprovalRegistry.js
+modules/core/artifacts/AfriArtifactRegistry.js
+modules/core/artifacts/AfriArtifactRegistry.js.bak
+modules/core/artifacts/CoreArtifactRegistry.js
+modules/core/artifacts/CorePackageBuilder.js
+modules/core/audit/CoreEvidenceTrail.js
+modules/core/billing/usage/CoreBillingUsageRegistry.js
+modules/core/case/CoreCaseEvidence.js
+modules/core/case/CoreCaseRegistry.js
+modules/core/credits/CoreCreditRegistry.js
+modules/core/delegation/CoreDelegationRegistry.js
+modules/core/delivery/CoreDeliveryRegistry.js
+modules/core/dependency/CoreDependencyRegistry.js
+modules/core/entitlement/CoreEntitlementRegistry.js
+modules/core/entitlements/AfriEntitlementRegistry.js
+modules/core/events/CoreEventRegistry.js
+modules/core/evidence/CoreEvidenceEngine.js
+modules/core/evidence/CoreEvidenceManager.js
+modules/core/evidence/CoreEvidenceRegistry.js
+modules/core/evidence/CoreEvidenceVault.js
+modules/core/evidence/audit/CoreEvidenceAuditBridge.js
+modules/core/evidence/chain/CoreEvidenceChain.js
+modules/core/evidence/chain/CoreEvidenceIdentity.js
+modules/core/evidence/chain/CoreEvidenceIntegrity.js
+modules/core/feature/CoreFeatureRegistry.js
+modules/core/identity/CoreIdentityRegistry.js
+modules/core/intake/CoreIntakeRegistry.js
+modules/core/intelligence/CoreIntelligenceRegistry.js
+modules/core/investigation/CoreInvestigationRegistry.js
+modules/core/knowledge/CoreKnowledgeRegistry.js
+modules/core/notification/CoreNotificationRegistry.js
+modules/core/orchestration/CoreOrchestrationRegistry.js
+modules/core/patch/CorePatchRegistry.js
+modules/core/payg/AfriPayGCreditRegistry.js
+modules/core/payment/CorePaymentRegistry.js
+modules/core/pipeline/CorePipelineRegistry.js
+modules/core/pricing/AfriPricingRegistry.js
+modules/core/registry/CoreServiceRegistry.js
+modules/core/report/CoreReportRegistry.js
+modules/core/runtime/CoreRuntimeRegistry.js
+modules/core/scan/CoreScanRegistry.js
+modules/core/security/CoreSecurityRegistry.js
+modules/core/session/CoreSessionRegistry.js
+modules/core/storage/CoreStorageRegistry.js
+modules/core/subscription/CoreSubscriptionRegistry.js
+modules/core/usage/CoreUsageRegistry.js
+modules/core/workspace/CoreWorkspaceRegistry.js
+modules/platform/capabilities/registry/AfriCapabilityRegistry.js
+modules/platform/context/registry/AfriContextRegistry.js
+modules/platform/discovery/registry/AfriServiceRegistry.js
+modules/platform/events/registry/AfriPlatformEventRegistry.js
+--- DIFF CHECK ---
+=== ORCHESTRATION COMPOSITION TRACE COMPLETE ===

@@ -1,0 +1,474 @@
+=== BATCH17 AFRINEXUS COMPOSITION DEPENDENCY TRACE ===
+--- CORE ORCHESTRATION ---
+const CoreOrchestrationRegistry={
+ register(name,engine){
+  return {name,engine,status:"REGISTERED"};
+ }
+};
+
+export default CoreOrchestrationRegistry;
+--- AFRIAI ORCHESTRATION ---
+import AfriAIIntentRouter from "../intents/router/AfriAIIntentRouter.js";
+import AfriAIIntentExecutor from "../intents/executor/AfriAIIntentExecutor.js";
+import AfriAIKnowledgeRuntime from "../../knowledge-governance/retrieval/AfriAIKnowledgeRuntime.js";
+import AfriAIDecisionResolver from "../../decision/resolver/AfriAIDecisionResolver.js";
+
+export class AfriAIRuntimeOrchestrator {
+
+  run(message = "", context = {}) {
+
+    const decision = AfriAIDecisionResolver.resolve(message);
+    const intent = AfriAIIntentRouter.route(message);
+    const knowledge = AfriAIKnowledgeRuntime.retrieve(message, context);
+    const execution = AfriAIIntentExecutor.execute(intent, knowledge);
+
+    return {
+      decision,
+      intent,
+      knowledge,
+      execution,
+      status: "READY"
+    };
+
+  }
+
+}
+// file contents go here
+--- AFRIDEBUG ORCHESTRATION ---
+export { default } from "../../../../../src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js";
+import CanonicalOrchestrator from "../../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
+
+const AfriDebugOrchestrator = {
+
+  run(input = {}) {
+
+    return CanonicalOrchestrator.run(input);
+
+  }
+
+};
+
+export default AfriDebugOrchestrator;
+--- AFRIFIX ORCHESTRATION ---
+import { AfriFixRuntimeSupervisor } from "../supervisor/AfriFixRuntimeSupervisor.js";
+import { AfriFixRuntimeSnapshotEngine } from "../snapshots/AfriFixRuntimeSnapshotEngine.js";
+
+export class AfriFixWorkflowOrchestrator {
+  constructor() {
+    this.supervisor = new AfriFixRuntimeSupervisor();
+    this.snapshots = new AfriFixRuntimeSnapshotEngine();
+  }
+
+  execute(request = {}) {
+    const execution = this.supervisor.execute(request);
+
+    const snapshot = this.snapshots.save({
+      executionId: execution.execution.executionId,
+      module: request.module,
+      action: request.action,
+      workspace: request.workspace || "default",
+      state: execution.status
+    });
+
+    return {
+      component: "AfriFix Workflow Orchestrator",
+      status: "PASSED",
+      architecture: "Global Workflow Orchestrator",
+      workflow: [
+        "Preview",
+        "Approve",
+        "Execute",
+        "Verify",
+        "Evidence",
+        "Snapshot"
+      ],
+      execution,
+      snapshot,
+      completedAt: new Date().toISOString()
+    };
+  }
+}
+import { AfriFixJobQueue } from "../queue/AfriFixJobQueue.js";
+import { AfriFixScheduler } from "../scheduler/AfriFixScheduler.js";
+import { AfriFixWorker } from "../workers/AfriFixWorker.js";
+import { AfriFixExecutionPlanner } from "../planner/AfriFixExecutionPlanner.js";
+
+export class AfriFixRuntimeDispatcher {
+  constructor() {
+    this.queue = new AfriFixJobQueue();
+    this.scheduler = new AfriFixScheduler();
+    this.worker = new AfriFixWorker();
+    this.planner = new AfriFixExecutionPlanner();
+  }
+
+  dispatch(request = {}) {
+    const plan=request.executionPlan ? {status:"PLANNED",executionPlan:request.executionPlan} : this.planner.plan(request); if(plan.status!=="PLANNED") return {component:"AfriFix Runtime Dispatcher",status:"REJECTED",plan}; const job=this.queue.enqueue({...request,executionId:plan.executionPlan.executionId,stages:plan.executionPlan.stages});
+    const scheduled = this.scheduler.schedule(job);
+    const executed = this.worker.execute({...job,stages:request.stages||job.stages||["Execute"]});
+
+    return {
+      component: "AfriFix Runtime Dispatcher",
+      status: "PASSED",
+      job,
+      scheduled,
+      executed
+    };
+  }
+}
+--- NUCHAIN ORCHESTRATION ---
+import { AfriNucJobLifecycleController } from "../jobs/AfriNucJobLifecycleController.js";
+
+export class AfriNucJobOrchestrator {
+  constructor(){
+    this.lifecycle = new AfriNucJobLifecycleController();
+  }
+
+  async run(job){
+    const states=[
+      "INVESTIGATING",
+      "PLANNED",
+      "APPROVED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE_READY",
+      "CERTIFIED",
+      "DELIVERY_READY"
+    ];
+
+    const events=[];
+
+    let current={
+      jobId:job.jobId,
+      status:"CREATED"
+    };
+
+    for(const state of states){
+      const result=this.lifecycle.transition(current,state);
+      current={
+        jobId:job.jobId,
+        status:state
+      };
+      events.push(result);
+    }
+
+    return {
+      component:"AfriNuc Job Orchestrator",
+      status:"COMPLETED",
+      jobId:job.jobId,
+      events,
+      completedAt:new Date().toISOString()
+    };
+  }
+}
+import { AfriNucJobLifecycleController } from "../jobs/AfriNucJobLifecycleController.js";
+
+export class AfriNucLifecycleOrchestrator {
+  constructor(){
+    this.lifecycle = new AfriNucJobLifecycleController();
+  }
+
+  run(job){
+    const states = [
+      "INVESTIGATING",
+      "PLANNED",
+      "APPROVED",
+      "EXECUTING",
+      "VERIFYING",
+      "EVIDENCE_READY",
+      "CERTIFIED",
+      "DELIVERY_READY"
+    ];
+
+    const events = [];
+
+    let current = job;
+
+    for(const state of states){
+      const result = this.lifecycle.transition(
+        {
+          jobId:job.jobId,
+          status:current.status || job.status
+        },
+        state
+      );
+
+      events.push(result);
+
+      if(result.transition?.currentState){
+        current.status = result.transition.currentState;
+      }
+    }
+
+    return {
+      component:"AfriNuc Lifecycle Orchestrator",
+      status:"COMPLETED",
+      jobId:job.jobId,
+      finalState:current.status,
+      events,
+      completedAt:new Date().toISOString()
+    };
+  }
+}
+--- REGISTRY/ROUTING REFERENCES ---
+modules/core/registry/CoreServiceRegistry.js:23:  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],delegation:["CoreDelegationEngine","CoreDelegationRegistry","CoreDelegationPlanner","CoreDelegationDispatcher"],
+modules/core/orchestration/CoreOrchestrationRegistry.js:1:const CoreOrchestrationRegistry={
+modules/core/orchestration/CoreOrchestrationRegistry.js:7:export default CoreOrchestrationRegistry;
+modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js:6:export class AfriAIRuntimeOrchestrator {
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:3:const AfriDebugOrchestrator = {
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:13:export default AfriDebugOrchestrator;
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:1:import AfriDebugOrchestrator from "../debug/orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:8:    AfriDebugOrchestrator &&
+modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:9:    typeof AfriDebugOrchestrator.run === "function";
+modules/afridebug/evidence/dependency-graph.json:921:    "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:922:    "modules/afriai/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/dependency-graph.json:1218:    "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1219:    "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1831:    "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1868:    "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1923:    "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:1924:    "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:2188:    "modules/core/orchestration/CoreOrchestrationRegistry.js",
+modules/afridebug/evidence/dependency-graph.json:2349:    "snapshots/afriai-runtime-pre-orchestrator/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:2350:    "snapshots/afriai-runtime-pre-orchestrator/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/dependency-graph.json:8452:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8457:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8462:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8467:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8568:      "dependency": "../debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8893:      "dependency": "../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:8933:      "dependency": "../../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:9507:      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:9512:      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:9658:      "dependency": "../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:12663:      "dependency": "../orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:12688:      "dependency": "../orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:12737:      "file": "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:12912:      "file": "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:12917:      "file": "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:13023:      "dependency": "../src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:13112:      "file": "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:13117:      "file": "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/dependency-graph.json:13123:      "dependency": "./AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-discovery:1:=== BATCH17 AFRINEXUS DISCOVERY ===
+modules/afridebug/evidence/batch17-afrinexus-discovery:3:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:4:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:5:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-discovery:6:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-discovery:8:modules/afridebug/evidence/batch17-afrinexus-discovery:1:=== BATCH17 AFRINEXUS DISCOVERY ===
+modules/afridebug/evidence/batch17-afrinexus-discovery:9:modules/afridebug/evidence/batch17-afrinexus-discovery:3:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:10:modules/afridebug/evidence/batch17-afrinexus-discovery:4:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:11:modules/afridebug/evidence/batch17-afrinexus-discovery:5:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-discovery:12:modules/afridebug/evidence/batch17-afrinexus-discovery:6:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-discovery:13:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:2:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/batch17-afrinexus-discovery:14:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:20:    "Return execution result and evidence paths to AfriNexus"
+modules/afridebug/evidence/batch17-afrinexus-discovery:15:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:2:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/batch17-afrinexus-discovery:16:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:4:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/batch17-afrinexus-discovery:17:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:26:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+modules/afridebug/evidence/batch17-afrinexus-discovery:18:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:1:=== BATCH17 AFRINEXUS ORCHESTRATION TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-discovery:19:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:3:MISSING src/core/afrinexus/mission/AfriNexusMissionIntentClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:20:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:4:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityScanner.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:21:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:5:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:22:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:6:MISSING src/core/afrinexus/contracts/AfriNexusHandoverContract.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:23:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:7:MISSING src/core/afrinexus/batches/AfriNexusBatchRegistry.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:24:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:8:MISSING src/core/afrinexus/mission/AfriNexusMissionRouter.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:25:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:9:MISSING src/core/afrinexus/handover/AfriNexusEvidencePackage.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:26:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:10:MISSING src/core/afrinexus/approval/AfriNexusApprovalDecision.js
+modules/afridebug/evidence/batch17-afrinexus-discovery:27:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:178:afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:28:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:238:afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:29:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:240:batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-discovery:30:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-discovery:31:--- AFRINEXUS EVIDENCE ARTIFACTS ---
+modules/afridebug/evidence/batch17-afrinexus-discovery:32:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:40:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-discovery:42:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-discovery:43:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-real-path:1:=== BATCH17 AFRINEXUS REAL PATH TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-real-path:2:--- AFRIDEBUG → AFRINEXUS HANDOFF ---
+modules/afridebug/evidence/batch17-afrinexus-real-path:4:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/batch17-afrinexus-real-path:6:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/batch17-afrinexus-real-path:28:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+modules/afridebug/evidence/batch17-afrinexus-real-path:46:}--- AFRIDESIGN → AFRINEXUS HANDOFF ---
+modules/afridebug/evidence/batch17-afrinexus-real-path:48:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/batch17-afrinexus-real-path:66:    "Return execution result and evidence paths to AfriNexus"
+modules/afridebug/evidence/batch17-afrinexus-real-path:96:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-real-path:286:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:1:=== BATCH17 AFRINEXUS CONTRACT TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:4:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:5:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:19:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:47:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:58:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-contract-trace:70:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:7:    return CanonicalOrchestrator.run(input);
+modules/afridebug/evidence/batch17-afrinexus-execution-chain:1:=== BATCH17 AFRINEXUS EXECUTION CHAIN ===
+modules/afridebug/evidence/batch17-afrinexus-execution-chain:237:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-execution-chain:308:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-execution-chain:579:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-delivery-trace:1:=== BATCH17 AFRINEXUS DELIVERY TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-delivery-trace:237:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:2:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:20:    "Return execution result and evidence paths to AfriNexus"
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:2:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:4:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:26:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:1:=== BATCH17 AFRINEXUS ORCHESTRATION TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:3:MISSING src/core/afrinexus/mission/AfriNexusMissionIntentClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:4:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityScanner.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:5:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:6:MISSING src/core/afrinexus/contracts/AfriNexusHandoverContract.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:7:MISSING src/core/afrinexus/batches/AfriNexusBatchRegistry.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:8:MISSING src/core/afrinexus/mission/AfriNexusMissionRouter.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:9:MISSING src/core/afrinexus/handover/AfriNexusEvidencePackage.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:10:MISSING src/core/afrinexus/approval/AfriNexusApprovalDecision.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:178:afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:238:afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:240:batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-approval-invariant:1:=== BATCH17 AFRINEXUS APPROVAL INVARIANT TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:1:=== BATCH17 AFRINEXUS ORCHESTRATION COMPOSITION TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:15:modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js:6:export class AfriAIRuntimeOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:139:modules/core/registry/CoreServiceRegistry.js:23:  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],delegation:["CoreDelegationEngine","CoreDelegationRegistry","CoreDelegationPlanner","CoreDelegationDispatcher"],
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:145:modules/core/orchestration/CoreOrchestrationRegistry.js:1:const CoreOrchestrationRegistry={
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:146:modules/core/orchestration/CoreOrchestrationRegistry.js:7:export default CoreOrchestrationRegistry;
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:173:modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:175:modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:186:modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:189:modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js:1:export { default } from "../../../../../src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:190:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:1:import CanonicalOrchestrator from "../../../../../src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:191:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:3:const AfriDebugOrchestrator = {
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:192:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:7:    return CanonicalOrchestrator.run(input);
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:193:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:13:export default AfriDebugOrchestrator;
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:195:modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:200:modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:202:modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:203:modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:204:modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:205:modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:206:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:1:import AfriDebugOrchestrator from "../debug/orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:208:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:8:    AfriDebugOrchestrator &&
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:209:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:9:    typeof AfriDebugOrchestrator.run === "function";
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:234:modules/afridebug/evidence/dependency-graph.json:921:    "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:241:modules/afridebug/evidence/dependency-graph.json:1218:    "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:242:modules/afridebug/evidence/dependency-graph.json:1219:    "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:251:modules/afridebug/evidence/dependency-graph.json:1831:    "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:257:modules/afridebug/evidence/dependency-graph.json:1868:    "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:259:modules/afridebug/evidence/dependency-graph.json:1923:    "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:260:modules/afridebug/evidence/dependency-graph.json:1924:    "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:273:modules/afridebug/evidence/dependency-graph.json:2188:    "modules/core/orchestration/CoreOrchestrationRegistry.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:291:modules/afridebug/evidence/dependency-graph.json:2349:    "snapshots/afriai-runtime-pre-orchestrator/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:292:modules/afridebug/evidence/dependency-graph.json:2350:    "snapshots/afriai-runtime-pre-orchestrator/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:314:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:315:modules/afridebug/evidence/batch17-afrinexus-contract-trace
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:349:modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:350:modules/afriai/runtime/planner/AfriAIExecutionPlanner.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:357:modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:358:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:377:modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:381:modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:386:modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:387:modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js
+modules/afridebug/evidence/batch17-afrinexus-orchestration-composition:663:modules/core/orchestration/CoreOrchestrationRegistry.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:1:=== BATCH17 AFRINEXUS COMPOSITION DEPENDENCY TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:3:const CoreOrchestrationRegistry={
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:9:export default CoreOrchestrationRegistry;
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:16:export class AfriAIRuntimeOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:41:const AfriDebugOrchestrator = {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:51:export default AfriDebugOrchestrator;
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:56:export class AfriFixWorkflowOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:121:export class AfriNucJobOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:165:export class AfriNucLifecycleOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:213:modules/core/registry/CoreServiceRegistry.js:23:  orchestration:["CoreOrchestrationEngine","CoreOrchestrationRegistry","CoreOrchestrationStageManager"],delegation:["CoreDelegationEngine","CoreDelegationRegistry","CoreDelegationPlanner","CoreDelegationDispatcher"],
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:214:modules/core/orchestration/CoreOrchestrationRegistry.js:1:const CoreOrchestrationRegistry={
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:215:modules/core/orchestration/CoreOrchestrationRegistry.js:7:export default CoreOrchestrationRegistry;
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:216:modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js:6:export class AfriAIRuntimeOrchestrator {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:217:modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:218:modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:1:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:219:modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js:5:  orchestrator:"../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:220:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:3:const AfriDebugOrchestrator = {
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:221:modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:13:export default AfriDebugOrchestrator;
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:222:modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:7:import Orchestrator from "../orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:223:modules/afridebug/src/debug/storage/afridebug-state.json:188:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:224:modules/afridebug/src/debug/storage/afridebug-state.json:236:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:225:modules/afridebug/src/debug/storage/afridebug-state.json:276:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:226:modules/afridebug/src/debug/storage/afridebug-state.json:324:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:227:modules/afridebug/src/debug/storage/afridebug-state.json:380:      "actor": "AfriDebugOrchestrator",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:228:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:1:import AfriDebugOrchestrator from "../debug/orchestrator/AfriDebugOrchestrator.js";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:229:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:8:    AfriDebugOrchestrator &&
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:230:modules/afridebug/src/certification/AfriDebugInvestigationValidator.js:9:    typeof AfriDebugOrchestrator.run === "function";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:231:modules/afridebug/evidence/dependency-graph.json:921:    "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:232:modules/afridebug/evidence/dependency-graph.json:922:    "modules/afriai/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:233:modules/afridebug/evidence/dependency-graph.json:1218:    "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:234:modules/afridebug/evidence/dependency-graph.json:1219:    "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:235:modules/afridebug/evidence/dependency-graph.json:1831:    "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:236:modules/afridebug/evidence/dependency-graph.json:1868:    "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:237:modules/afridebug/evidence/dependency-graph.json:1923:    "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:238:modules/afridebug/evidence/dependency-graph.json:1924:    "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:239:modules/afridebug/evidence/dependency-graph.json:2188:    "modules/core/orchestration/CoreOrchestrationRegistry.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:240:modules/afridebug/evidence/dependency-graph.json:2349:    "snapshots/afriai-runtime-pre-orchestrator/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:241:modules/afridebug/evidence/dependency-graph.json:2350:    "snapshots/afriai-runtime-pre-orchestrator/runtime/planner/AfriAIExecutionPlanner.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:242:modules/afridebug/evidence/dependency-graph.json:8452:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:243:modules/afridebug/evidence/dependency-graph.json:8457:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:244:modules/afridebug/evidence/dependency-graph.json:8462:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:245:modules/afridebug/evidence/dependency-graph.json:8467:      "file": "modules/afriai/runtime/orchestrator/AfriAIRuntimeOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:246:modules/afridebug/evidence/dependency-graph.json:8568:      "dependency": "../debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:247:modules/afridebug/evidence/dependency-graph.json:8893:      "dependency": "../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:248:modules/afridebug/evidence/dependency-graph.json:8933:      "dependency": "../../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:249:modules/afridebug/evidence/dependency-graph.json:9507:      "file": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:250:modules/afridebug/evidence/dependency-graph.json:9512:      "file": "modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:251:modules/afridebug/evidence/dependency-graph.json:9658:      "dependency": "../orchestrator/AfriDebugOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:252:modules/afridebug/evidence/dependency-graph.json:12663:      "dependency": "../orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:253:modules/afridebug/evidence/dependency-graph.json:12688:      "dependency": "../orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:254:modules/afridebug/evidence/dependency-graph.json:12737:      "file": "modules/afrifix/src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:255:modules/afridebug/evidence/dependency-graph.json:12912:      "file": "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:256:modules/afridebug/evidence/dependency-graph.json:12917:      "file": "modules/afrifix/src/runtime/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:257:modules/afridebug/evidence/dependency-graph.json:13023:      "dependency": "../src/orchestrator/AfriFixWorkflowOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:258:modules/afridebug/evidence/dependency-graph.json:13112:      "file": "modules/afrinucchain/src/orchestrator/AfriNucJobOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:259:modules/afridebug/evidence/dependency-graph.json:13117:      "file": "modules/afrinucchain/src/orchestrator/AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:260:modules/afridebug/evidence/dependency-graph.json:13123:      "dependency": "./AfriNucLifecycleOrchestrator.js",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:261:modules/afridebug/evidence/batch17-afrinexus-discovery:1:=== BATCH17 AFRINEXUS DISCOVERY ===
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:262:modules/afridebug/evidence/batch17-afrinexus-discovery:3:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:263:modules/afridebug/evidence/batch17-afrinexus-discovery:4:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:264:modules/afridebug/evidence/batch17-afrinexus-discovery:5:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:265:modules/afridebug/evidence/batch17-afrinexus-discovery:6:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:266:modules/afridebug/evidence/batch17-afrinexus-discovery:8:modules/afridebug/evidence/batch17-afrinexus-discovery:1:=== BATCH17 AFRINEXUS DISCOVERY ===
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:267:modules/afridebug/evidence/batch17-afrinexus-discovery:9:modules/afridebug/evidence/batch17-afrinexus-discovery:3:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:268:modules/afridebug/evidence/batch17-afrinexus-discovery:10:modules/afridebug/evidence/batch17-afrinexus-discovery:4:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:269:modules/afridebug/evidence/batch17-afrinexus-discovery:11:modules/afridebug/evidence/batch17-afrinexus-discovery:5:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:270:modules/afridebug/evidence/batch17-afrinexus-discovery:12:modules/afridebug/evidence/batch17-afrinexus-discovery:6:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:271:modules/afridebug/evidence/batch17-afrinexus-discovery:13:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:2:  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:272:modules/afridebug/evidence/batch17-afrinexus-discovery:14:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json:20:    "Return execution result and evidence paths to AfriNexus"
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:273:modules/afridebug/evidence/batch17-afrinexus-discovery:15:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:2:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:274:modules/afridebug/evidence/batch17-afrinexus-discovery:16:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:4:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:275:modules/afridebug/evidence/batch17-afrinexus-discovery:17:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json:26:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:276:modules/afridebug/evidence/batch17-afrinexus-discovery:18:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:1:=== BATCH17 AFRINEXUS ORCHESTRATION TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:277:modules/afridebug/evidence/batch17-afrinexus-discovery:19:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:3:MISSING src/core/afrinexus/mission/AfriNexusMissionIntentClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:278:modules/afridebug/evidence/batch17-afrinexus-discovery:20:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:4:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityScanner.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:279:modules/afridebug/evidence/batch17-afrinexus-discovery:21:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:5:MISSING src/core/afrinexus/discovery/AfriNexusCapabilityClassifier.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:280:modules/afridebug/evidence/batch17-afrinexus-discovery:22:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:6:MISSING src/core/afrinexus/contracts/AfriNexusHandoverContract.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:281:modules/afridebug/evidence/batch17-afrinexus-discovery:23:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:7:MISSING src/core/afrinexus/batches/AfriNexusBatchRegistry.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:282:modules/afridebug/evidence/batch17-afrinexus-discovery:24:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:8:MISSING src/core/afrinexus/mission/AfriNexusMissionRouter.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:283:modules/afridebug/evidence/batch17-afrinexus-discovery:25:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:9:MISSING src/core/afrinexus/handover/AfriNexusEvidencePackage.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:284:modules/afridebug/evidence/batch17-afrinexus-discovery:26:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:10:MISSING src/core/afrinexus/approval/AfriNexusApprovalDecision.js
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:285:modules/afridebug/evidence/batch17-afrinexus-discovery:27:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:178:afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:286:modules/afridebug/evidence/batch17-afrinexus-discovery:28:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:238:afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:287:modules/afridebug/evidence/batch17-afrinexus-discovery:29:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace:240:batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:288:modules/afridebug/evidence/batch17-afrinexus-discovery:30:modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:289:modules/afridebug/evidence/batch17-afrinexus-discovery:31:--- AFRINEXUS EVIDENCE ARTIFACTS ---
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:290:modules/afridebug/evidence/batch17-afrinexus-discovery:32:modules/afridebug/evidence/afridebug-afrinexus-next-job-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:291:modules/afridebug/evidence/batch17-afrinexus-discovery:40:modules/afridebug/evidence/afridesign-afrinexus-handoff-001.json
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:292:modules/afridebug/evidence/batch17-afrinexus-discovery:42:modules/afridebug/evidence/batch17-afrinexus-discovery
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:293:modules/afridebug/evidence/batch17-afrinexus-discovery:43:modules/afridebug/evidence/batch17-afrinexus-orchestration-trace
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:294:modules/afridebug/evidence/batch17-afrinexus-real-path:1:=== BATCH17 AFRINEXUS REAL PATH TRACE ===
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:295:modules/afridebug/evidence/batch17-afrinexus-real-path:2:--- AFRIDEBUG → AFRINEXUS HANDOFF ---
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:296:modules/afridebug/evidence/batch17-afrinexus-real-path:4:  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:297:modules/afridebug/evidence/batch17-afrinexus-real-path:6:  "target": "AfriDebug/AfriNexus",
+modules/afridebug/evidence/batch17-afrinexus-composition-dependency-trace:298:modules/afridebug/evidence/batch17-afrinexus-real-path:28:    "Inspect existing AfriNexus/AfriDebug work queue before selecting work",
+--- DIFF CHECK ---
+=== COMPOSITION DEPENDENCY TRACE COMPLETE ===

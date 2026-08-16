@@ -1,7 +1,7 @@
 import CaseMemory from "./AfriDebugCaseMemory.js";
 import Matcher from "./AfriDebugPatternMatcher.js";
-import Store from "../knowledge/AfriDebugKnowledgeStore.js";
-import Persistence from "../knowledge/AfriDebugKnowledgePersistence.js";
+import Store from "./AfriDebugKnowledgeStore.js";
+import Persistence from "./AfriDebugKnowledgePersistence.js";
 
 let hydrated = false;
 
@@ -18,7 +18,7 @@ function hydrate(){
   hydrated = true;
 }
 
-const AfriDebugKnowledgeMemory = {
+const AfriDebugKnowledgeMemoryService = {
 
   remember(data){
 
@@ -79,7 +79,7 @@ const AfriDebugKnowledgeMemory = {
     hydrate();
 
     return{
-      service:"AfriDebugKnowledgeMemory",
+      service:"AfriDebugKnowledgeMemoryService",
       status:"healthy",
       cases:CaseMemory.count(),
       hydrated
@@ -89,4 +89,4 @@ const AfriDebugKnowledgeMemory = {
 
 };
 
-export default AfriDebugKnowledgeMemory;
+export default AfriDebugKnowledgeMemoryService;

@@ -1,9 +1,10 @@
-import ApprovalGate from "../investigation/HumanApprovalGate.js";
-import Delivery from "../workers/AfriDebugDeliveryPackageWorker.js";
+import Queue from "../../../../../src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js";
+import CoreApprovalContract from "../../../../../modules/core/approval/CoreApprovalContract.js";
+import Delivery from "../../../../../src/afridebug/platform/workers/AfriDebugDeliveryPackageWorker.js";
 import State from "../state/AfriDebugInvestigationStateManager.js";
 import Events from "../events/AfriDebugEventStream.js";
 import ResolutionRecorder from "../learning/AfriDebugResolutionRecorder.js";
-import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+import KnowledgeMemory from "../../../../src/afridebug/platform/knowledge/AfriDebugKnowledgeAdapter.js";
 
 const AfriDebugApprovalResumeService = {
 

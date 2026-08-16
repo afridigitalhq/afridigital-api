@@ -1,0 +1,254 @@
+=== BATCH17 AFRINEXUS ORCHESTRATION TRACE ===
+--- ORCHESTRATION CORE ---
+MISSING src/core/afrinexus/mission/AfriNexusMissionIntentClassifier.js
+MISSING src/core/afrinexus/discovery/AfriNexusCapabilityScanner.js
+MISSING src/core/afrinexus/discovery/AfriNexusCapabilityClassifier.js
+MISSING src/core/afrinexus/contracts/AfriNexusHandoverContract.js
+MISSING src/core/afrinexus/batches/AfriNexusBatchRegistry.js
+MISSING src/core/afrinexus/mission/AfriNexusMissionRouter.js
+MISSING src/core/afrinexus/handover/AfriNexusEvidencePackage.js
+MISSING src/core/afrinexus/approval/AfriNexusApprovalDecision.js
+--- AFRIDEBUG HANDOFF ---
+--- NUCHAIN HANDOFF ---
+--- HUMAN APPROVAL GATE ---
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:23:  isApproved(record = {}) {
+modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js:24:    return CoreApprovalContract.isApproved(record);
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:14:      ApprovalGate.canDeliver(input.approvalId);
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:54:      details:"Delivery released after human approval"
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:24:        "pending_approval",
+modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js:55:      "approved";
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:5:    const approved =
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:21:        approved
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:26:        approved,
+modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js:32:        approved,
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:39:    approvals[id].status="approved";
+modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js:41:    approvals[id].approvedAt=Date.now();
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryRuntime.js:44:    delivery.status="APPROVED";
+modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js:12:        CoreApprovalContract.isApproved(input.approval),
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:5:    const approved =
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:7:      input.reviewerDecision === "approved";
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:24:        approved
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:25:          ? "APPROVED_FOR_RELEASE"
+modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js:28:      approved,
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:5:    const approved =
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:6:      input.reviewApproved === true &&
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:24:        approved
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:29:        approved,
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:34:          input.reviewApproved
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:35:            ? "approved"
+modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js:42:        approved
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:7:    const approved = CoreApprovalContract.canExecute(handoff.approvalContext || {});
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:27:        approved && ready
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:32:        approved && ready,
+modules/afridebug/src/debug/intelligence/patch/AfriDebugAIPatchGenerator.js:24:      requiresApproval:true,
+modules/afridebug/src/debug/intelligence/AfriDebugDiagnosisEngine.js:45:        "Require human approval before applying changes"
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:56:        "AWAIT_HUMAN_APPROVAL",
+modules/afridebug/src/debug/intelligence/AfriDebugAssistant.js:58:      humanApprovalRequired:true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js:7:    if (!input.approved) {
+modules/afridebug/src/debug/intelligence/AfriDebugPatchExecutor.js:10:        reason: "Human approval required"
+modules/afridebug/src/debug/intelligence/AfriDebugPatchAdvisor.js:31:      requiresApproval:true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:55:      requiresHumanApproval: true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js:56:      approvalStatus: "HUMAN_APPROVAL_REQUIRED",
+modules/afridebug/src/debug/intelligence/AfriDebugPatchPreview.js:17:      humanApprovalRequired:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchPreview.js:18:        patch.requiresHumanApproval !== false,
+modules/afridebug/src/debug/intelligence/AfriDebugRiskEngine.js:22:        "Human approval required",
+modules/afridebug/src/debug/intelligence/AfriDebugRiskEngine.js:26:      approvedExecution:
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak.repair:104:      requiresHumanApproval: true,
+modules/afridebug/src/debug/intelligence/AfriDebugPatchGenerator.js.bak.repair:106:        "HUMAN_APPROVAL_REQUIRED",
+modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js:35:      status:"PENDING_APPROVAL",
+modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js:59:    quote.status="APPROVED";
+modules/afridebug/src/debug/patch/AfriDebugPatchRuntime.js:30:    patch.status="APPROVED";
+modules/afridebug/src/debug/production/rollback/AfriDebugManualRollbackController.js:24:      approvalStatus:"approved",
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:19:      approvedBy:input.approvedBy || null,
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:25:        input.approvalStatus === "approved"
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:30:        input.approvalStatus === "approved"
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:43:  approve(rollbackId, approvedBy="system"){
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:58:    rollback.approvalStatus="approved";
+modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js:60:    rollback.approvedBy=approvedBy;
+modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js:69:        status:"PENDING_HUMAN_APPROVAL",
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js:21:          status:"PENDING_HUMAN_APPROVAL",
+modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js:58:        ? "Semantic repair plan validated; human approval still required."
+modules/afridebug/src/debug/security/AfriDebugExternalIntakeSecurityGateway.js:32:      status:"approved",
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js:7: approved:context.approved===true,
+modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js:9: riskAllowed:context.risk!=="critical" || context.approved===true
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:23:      approved:
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:33:    result.status=result.approved
+modules/afridebug/src/debug/security/AfriDebugGitCommitVerificationRuntime.js:34:      ?"approved"
+modules/afridebug/src/debug/security/AfriDebugRepositoryIntegrityGuard.js:33:          ? "approved"
+modules/afridebug/src/debug/security/AfriDebugSafeArchiveRuntime.js:57:        : "approved",
+modules/afridebug/src/debug/security/AfriDebugZeroTrustVerificationEngine.js:10: approval:context.approved===true
+modules/afridebug/src/debug/storage/knowledge.json:19:    "issue": "ApprovalGate is not defined",
+modules/afridebug/src/debug/storage/knowledge.json:21:    "resolution": "Import ApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:71:      "status": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:98:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:133:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:172:          "state": "WAITING_FOR_HUMAN_APPROVAL",
+modules/afridebug/src/debug/storage/afridebug-state.json:315:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:316:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:317:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:363:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:364:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:365:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:373:      "details": "Delivery released after human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:419:      "type": "HUMAN_APPROVAL_PENDING",
+modules/afridebug/src/debug/storage/afridebug-state.json:420:      "actor": "HumanApprovalGate",
+modules/afridebug/src/debug/storage/afridebug-state.json:421:      "details": "Delivery blocked pending human approval",
+modules/afridebug/src/debug/storage/afridebug-state.json:429:      "details": "Delivery released after human approval",
+modules/afridebug/src/certification/AfriDebugValidationEngine.js:45:      const approved = CoreApprovalContract.approve(
+modules/afridebug/src/certification/AfriDebugValidationEngine.js:50:        CoreApprovalContract.canExecute(approved) &&
+modules/afridebug/src/delivery/evidence/delivery-package.json:9:    "Human Approval Record"
+modules/afridebug/src/delivery/AfriDebugDeliveryAssembler.js:18:      "Human Approval Record"
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:5:  console.log("\n🔐 AfriDebug Human Approval Gate");
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:8:    component:"Human Approval Gate",
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:9:    status:"PENDING_APPROVAL",
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:10:    approved:false,
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:21:    "modules/afridebug/evidence/approval-gate.json",
+modules/afridebug/src/delivery/AfriDebugApprovalGate.js:25:  console.log("✅ Approval gate created");
+modules/afridebug/evidence/dependency-graph.json:412:    "core/kernel/authorization/human/human.approval.gate.js",
+modules/afridebug/evidence/dependency-graph.json:1303:    "modules/afridebug/src/delivery/AfriDebugApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:1804:    "modules/afrifix/src/approval/AfriFixApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:2298:    "modules/platform/observability/debug/AfriDebugApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:2584:    "snapshots/current/core/kernel/authorization/human/human.approval.gate.js",
+modules/afridebug/evidence/dependency-graph.json:3066:    "snapshots/system/current/core/kernel/authorization/human/human.approval.gate.js",
+modules/afridebug/evidence/dependency-graph.json:3972:    "src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js",
+modules/afridebug/evidence/dependency-graph.json:9802:      "file": "modules/afridebug/src/delivery/AfriDebugApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:12647:      "file": "modules/afrifix/src/approval/AfriFixApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:12938:      "dependency": "../../approval/AfriFixApprovalGate.js",
+modules/afridebug/evidence/dependency-graph.json:20982:      "file": "src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js",
+modules/afridebug/evidence/dependency-graph.json:20987:      "file": "src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js",
+modules/afridebug/evidence/approval-gate.json:2:  "component": "Human Approval Gate",
+modules/afridebug/evidence/approval-gate.json:3:  "status": "PENDING_APPROVAL",
+modules/afridebug/evidence/approval-gate.json:4:  "approved": false,
+modules/afridebug/evidence/afridebug-auto-debug-001.json:30:  "status": "HUMAN_APPROVAL_REQUIRED",
+modules/afridebug/evidence/afridebug-auto-repair-001.json:19:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-knowledge-integration-proposal.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-storage-repair-proposal-001.json:10:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-memory-hydration-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-knowledge-recommendation-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-repair-planning-proposal-001.json:10:    "Preserve human approval gate"
+modules/afridebug/evidence/afridebug-repair-planning-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-patch-planning-proposal-001.json:13:    "Preserve human approval gate before execution"
+modules/afridebug/evidence/afridebug-patch-planning-proposal-001.json:17:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:3:  "mode": "HUMAN_APPROVAL_GATE_VALIDATION",
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:12:      "status": "approved",
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:14:      "approvedBy": "AfriDebugAdmin",
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:15:      "approvedAt": 1786177567079
+modules/afridebug/evidence/afridebug-approval-flow-validation-001.json:25:    "Human approval transition"
+modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json:5:  "issue": "EXECUTION_APPROVAL_GATE_BYPASS",
+modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json:9:    "Require approved patch request",
+modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json:10:    "Block unapproved execution"
+modules/afridebug/evidence/afridebug-patch-execution-gate-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json:10:    "Preserve approval gate before execution"
+modules/afridebug/evidence/afridebug-learning-feedback-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-audit-context-proposal-001.json:14:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-evidence-package-proposal-001.json:26:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-certification-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-client-delivery-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-client-delivery-validation-001.json:12:      "approvedBy": "AfriDebugAdmin"
+modules/afridebug/evidence/afridebug-post-delivery-learning-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-knowledge-reinforcement-proposal-001.json:11:    "Preserve human approval boundaries"
+modules/afridebug/evidence/afridebug-knowledge-reinforcement-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-knowledge-memory-sync-proposal-001.json:11:    "Preserve human approval boundaries"
+modules/afridebug/evidence/afridebug-knowledge-memory-sync-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-reinforced-recommendation-proposal-001.json:11:    "Preserve human approval boundaries"
+modules/afridebug/evidence/afridebug-reinforced-recommendation-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-recommendation-explanation-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-recommendation-evidence-trace-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-recommendation-approval-context-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-recommendation-approval-context-validation-001.json:8:    "Human approval boundary maintained",
+modules/afridebug/evidence/afridebug-recommendation-approval-context-validation-001.json:13:    "status": "PENDING_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-proposal-001.json:5:  "issue": "APPROVED_RECOMMENDATION_NOT_CONVERTED_TO_REPAIR_PLAN",
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-proposal-001.json:8:    "Generate repair plan from approved recommendation",
+modules/afridebug/evidence/afridebug-recommendation-repair-plan-handoff-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-repair-plan-validation-gate-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-execution-handoff-gate-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-repair-execution-controller-proposal-001.json:6:  "rootCause": "Execution handoff validates readiness but no execution controller tracks approved repair execution lifecycle",
+modules/afridebug/evidence/afridebug-repair-execution-controller-proposal-001.json:8:    "Accept approved execution handoff",
+modules/afridebug/evidence/afridebug-repair-execution-controller-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-repair-execution-controller-validation-001.json:6:    "Approved execution started",
+modules/afridebug/evidence/afridebug-repair-verification-engine-proposal-001.json:22:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-repair-verification-engine-validation-001.json:11:      "status": "approved",
+modules/afridebug/evidence/afridebug-repair-verification-engine-validation-001.json:29:    "Blocked execution rejected",
+modules/afridebug/evidence/afridebug-regression-validation-proposal-001.json:21:  "status": "PATCH_READY_FOR_HUMAN_APPROVAL",
+modules/afridebug/evidence/afridebug-regression-validation-validation-001.json:32:    "Failed verification rejected",
+--- EVIDENCE OUTPUTS ---
+afriai-auto-validation-001.json
+afriai-auto-validation-003.json
+afriai-knowledge-grounding-hardening.json
+afridebug-afrinexus-next-job-001.json
+afridebug-approval-flow-validation-001.json
+afridebug-audit-context-proposal-001.json
+afridebug-audit-context-validation-001.json
+afridebug-auto-debug-001.json
+afridebug-auto-debug-knowledge-validation-001.json
+afridebug-auto-repair-001.json
+afridebug-certification-proposal-001.json
+afridebug-certification-validation-001.json
+afridebug-client-delivery-package-proposal-001.json
+afridebug-client-delivery-package-validation-001.json
+afridebug-client-delivery-proposal-001.json
+afridebug-client-delivery-validation-001.json
+afridebug-client-release-controller-proposal-001.json
+afridebug-client-release-controller-validation-001.json
+afridebug-completed-case-archive-proposal-001.json
+afridebug-completed-case-archive-validation-001.json
+afridebug-evidence-package-proposal-001.json
+afridebug-evidence-package-validation-001.json
+afridebug-execution-handoff-gate-proposal-001.json
+afridebug-execution-handoff-gate-validation-001.json
+afridebug-human-review-gate-proposal-001.json
+afridebug-human-review-gate-validation-001.json
+afridebug-knowledge-integration-proposal.json
+afridebug-knowledge-memory-intelligence-upgrade-proposal-001.json
+afridebug-knowledge-memory-sync-proposal-001.json
+afridebug-knowledge-memory-sync-validation-001.json
+afridebug-knowledge-recommendation-proposal-001.json
+afridebug-knowledge-reinforcement-bridge-proposal-001.json
+afridebug-knowledge-reinforcement-bridge-validation-001.json
+afridebug-knowledge-reinforcement-proposal-001.json
+afridebug-knowledge-reinforcement-validation-001.json
+afridebug-learning-feedback-proposal-001.json
+afridebug-memory-hydration-proposal-001.json
+afridebug-patch-execution-gate-proposal-001.json
+afridebug-patch-planning-proposal-001.json
+afridebug-post-delivery-learning-proposal-001.json
+afridebug-post-delivery-learning-validation-001.json
+afridebug-recommendation-approval-context-proposal-001.json
+afridebug-recommendation-approval-context-validation-001.json
+afridebug-recommendation-evidence-trace-proposal-001.json
+afridebug-recommendation-evidence-trace-validation-001.json
+afridebug-recommendation-explanation-proposal-001.json
+afridebug-recommendation-explanation-validation-001.json
+afridebug-recommendation-repair-plan-handoff-proposal-001.json
+afridebug-recommendation-repair-plan-handoff-validation-001.json
+afridebug-regression-validation-proposal-001.json
+afridebug-regression-validation-validation-001.json
+afridebug-reinforced-recommendation-proposal-001.json
+afridebug-reinforced-recommendation-validation-001.json
+afridebug-repair-certification-proposal-001.json
+afridebug-repair-certification-validation-001.json
+afridebug-repair-execution-controller-proposal-001.json
+afridebug-repair-execution-controller-validation-001.json
+afridebug-repair-plan-validation-gate-proposal-001.json
+afridebug-repair-plan-validation-gate-validation-001.json
+afridebug-repair-planning-proposal-001.json
+afridebug-repair-verification-engine-proposal-001.json
+afridebug-repair-verification-engine-validation-001.json
+afridebug-storage-repair-proposal-001.json
+afridesign-afrinexus-handoff-001.json
+approval-gate.json
+batch17-afrinexus-orchestration-trace
+certification-report.md
+dependency-graph.json
+knowledge-comparison.json
+latest-certification.json
+log-analysis.json
+patch-plan.json
+runtime-inspection.json
+verification-report.json
+--- DIFF CHECK ---
+--- STATUS ---
+     17 ??
+     25 D
+     39 M
+=== ORCHESTRATION TRACE COMPLETE ===

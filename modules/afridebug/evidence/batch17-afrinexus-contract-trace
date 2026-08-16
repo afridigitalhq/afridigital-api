@@ -1,0 +1,88 @@
+=== BATCH17 AFRINEXUS CONTRACT TRACE ===
+--- NEXT JOB CONTRACT ---
+{
+  "handoffId": "AFRIDEBUG-AFRINEXUS-1786794123795",
+  "target": "AfriDebug/AfriNexus",
+  "source": "AfriDebug Certification",
+  "workspace": null,
+  "job": null,
+  "status": "READY_FOR_NEXT_JOB",
+  "state": null,
+  "action": null,
+  "approval": null,
+  "execution": null,
+  "evidence": null,
+  "metadata": null
+}
+--- AFRIDESIGN HANDOFF CONTRACT ---
+{
+  "handoffId": "AFRINEXUS-AFRIDESIGN-1786793999173",
+  "target": "AfriDesign",
+  "source": "AfriDebug",
+  "workspace": null,
+  "job": null,
+  "status": "READY_FOR_EXECUTION",
+  "state": null,
+  "action": null,
+  "approval": null,
+  "execution": null,
+  "evidence": null,
+  "metadata": null
+}
+--- NUCHAIN BRIDGE ---
+import { AfriDebugConnector } from "../integration/AfriDebugConnector.js";
+import { AfriNucBatchPlanner } from "../batch/AfriNucBatchPlanner.js";
+import { AfriNucBatchExecutor } from "../batch/AfriNucBatchExecutor.js";
+import { AfriEvidenceGenerator } from "../evidence/AfriEvidenceGenerator.js";
+import { AfriCertificationReport } from "../evidence/AfriCertificationReport.js";
+
+export class AfriDebugToNucPipeline {
+  async run(issue = {}) {
+    const debug = new AfriDebugConnector();
+    const planner = new AfriNucBatchPlanner();
+    const executor = new AfriNucBatchExecutor();
+    const evidenceEngine = new AfriEvidenceGenerator();
+    const certification = new AfriCertificationReport();
+    const investigation = debug.investigate(issue);
+    const workspace = issue.workspace || "workspace-afrinexus";
+    const plan = planner.plan(investigation.recommendedActions, workspace);
+    const execution = await executor.execute(plan.batches[0]);
+    const evidence = evidenceEngine.generate(execution);
+    const certificate = certification.certify(evidence);
+    return { investigation, plan, execution, evidence, certificate };
+  }
+}
+--- BRIDGE CONSUMERS ---
+modules/afrinucchain/src/batch/AfriNucBatchExecutor.js:22:      const result = await this.runtime.execute({
+modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:7:export class AfriDebugToNucPipeline {
+modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:15:    const workspace = issue.workspace || "workspace-afrinexus";
+modules/afrinucchain/src/runtime/AfriDebugToNucPipeline.js:17:    const execution = await executor.execute(plan.batches[0]);
+modules/afrinucchain/src/runtime/AfriNucRuntimeExecutionGateway.js:14:    return this.engine.execute(
+modules/afrinucchain/src/orchestrator/AfriNucLifecyclePersistenceBridge.js:11:    const lifecycle = this.lifecycle.run(job);
+modules/afrinucchain/src/queue/AfriNucQueueWorker.js:18:      await this.orchestrator.run({
+modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js:8:    return Orchestrator.run(input);
+modules/afridebug/src/debug/api/AfriDebugInvestigationAPI.js:8:    return Orchestrator.run(input);
+modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js:28:      Delivery.execute({
+modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js:10:      handoffId:
+modules/afridebug/src/debug/execution/AfriDebugChangeFailureTest.js:27:const result = Controller.execute({
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:17:      handoffId:
+modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js:18:        handoff.handoffId || null,
+modules/afridebug/src/debug/orchestrator/AfriDebugOrchestrator.js:7:    return CanonicalOrchestrator.run(input);
+modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js:32:    Orchestrator.run(request.investigation);
+modules/afridebug/src/debug/runtime/AfriDebugUnifiedRuntime.js:12:const execution=Pipeline.execute(request);
+modules/afridebug/src/investigation/AfriDebugDependencyGraphBuilder.js:8:  const graph = GraphWorker.execute({
+--- APPROVAL RECORD SIGNAL ---
+[
+  {
+    "approvalId": "approval_1786571982221",
+    "previewId": "preview_1786571899272",
+    "userId": "user_A",
+    "product": "AfriBuild",
+    "approvalType": "WORKSHOP_REVIEW",
+    "reviewer": "OWNER",
+    "status": "PENDING_APPROVAL",
+    "createdAt": "2026-08-12T21:59:42.221Z"
+  }
+]
+--- DIFF CHECK ---
+=== CONTRACT TRACE COMPLETE ===

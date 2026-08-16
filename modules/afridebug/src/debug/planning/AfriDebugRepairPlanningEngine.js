@@ -40,7 +40,7 @@ const AfriDebugRepairPlanningEngine = {
         recommendation.confidence,
 
       source:
-        "AfriDebugKnowledgeMemory",
+        "AfriDebugKnowledgeMemoryService",
 
       createdAt:
         Date.now()

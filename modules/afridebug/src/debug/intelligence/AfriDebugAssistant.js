@@ -3,9 +3,9 @@ import PatchAdvisor from "./AfriDebugPatchAdvisor.js";
 import RiskEngine from "./AfriDebugRiskEngine.js";
 import Similarity from "./AfriDebugSimilarityEngine.js";
 import Recommender from "./AfriDebugSolutionRecommender.js";
-import CaseMemory from "../memory/AfriDebugCaseMemory.js";
-import PatternMatcher from "../memory/AfriDebugPatternMatcher.js";
-import KnowledgeMemory from "../memory/AfriDebugKnowledgeMemory.js";
+import CaseMemory from "../../../../src/afridebug/platform/knowledge/AfriDebugCaseMemory.js";
+import PatternMatcher from "../../../../src/afridebug/platform/knowledge/AfriDebugPatternMatcher.js";
+import KnowledgeMemory from "../../../../src/afridebug/platform/knowledge/AfriDebugKnowledgeAdapter.js";
 
 const AfriDebugAssistant = {
 
