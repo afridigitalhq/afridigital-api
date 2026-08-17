@@ -45,11 +45,14 @@ export default function afriDesignAPKRoute(app){
     }
 
     res.setHeader("Content-Type","application/vnd.android.package-archive");
-    res.setHeader("Content-Length",stat.size);
+    res.setHeader("Content-Length",String(stat.size));
     res.setHeader("Content-Disposition",`attachment; filename="${fileName}"`);
-    res.setHeader("Cache-Control","private, no-store");
+    res.setHeader("Cache-Control","private, no-store, max-age=0");
+    res.setHeader("X-Content-Type-Options","nosniff");
 
-    return fs.createReadStream(filePath).on("error",()=>{ if(!res.headersSent) res.status(500).json({status:"DOWNLOAD_FAILED",reason:"APK_STREAM_ERROR"}); }).pipe(res);
+    const stream=fs.createReadStream(filePath);
+    stream.on("error",()=>{ if(!res.headersSent) res.status(500).json({status:"DOWNLOAD_FAILED",reason:"APK_STREAM_ERROR"}); else res.destroy(); });
+    return stream.pipe(res);
   });
 
 }
