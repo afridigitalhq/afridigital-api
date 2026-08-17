@@ -53,11 +53,21 @@ const AfriBuildAPKBuildRunner={
    };
   }
 
+  const sdkDir=process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT || `${process.env.HOME}/android-sdk`;
+
   const env={
    ...process.env,
-   ANDROID_HOME:process.env.ANDROID_HOME || `${process.env.HOME}/android-sdk`,
-   ANDROID_SDK_ROOT:process.env.ANDROID_SDK_ROOT || `${process.env.HOME}/android-sdk`
+   ANDROID_HOME:sdkDir,
+   ANDROID_SDK_ROOT:sdkDir
   };
+
+  const localProperties=path.join(workspace,"local.properties");
+  if(!fs.existsSync(localProperties)){
+   fs.writeFileSync(
+    localProperties,
+    `sdk.dir=${sdkDir.replace(/\\/g,"\\\\")}\n`
+   );
+  }
 
   const buildId="apk_build_"+Date.now();
 

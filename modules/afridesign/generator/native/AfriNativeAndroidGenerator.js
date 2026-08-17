@@ -73,6 +73,8 @@ android {
     <application
         android:theme="@style/AppTheme"
         android:label="AfriTodo"
+        android:icon="@drawable/afritodo_launcher"
+        android:roundIcon="@drawable/afritodo_launcher"
         android:allowBackup="true">
         <activity
             android:name=".MainActivity"
@@ -92,6 +94,23 @@ android {
         <item name="android:fontFamily">sans</item>
     </style>
 </resources>
+`,
+
+      "app/src/main/res/drawable/afritodo_launcher.xml": `<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M54,4A50,50 0,1 0,54 104A50,50 0,1 0,54 4" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,65L54,24L78,65L69,65L54,41L39,65Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,73L70,73L70,81L38,81Z" />
+</vector>
 `,
 
       ...(language === "java" ? {
