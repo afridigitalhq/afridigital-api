@@ -51,7 +51,18 @@ export default function afriDesignAPKRoute(app){
     res.setHeader("X-Content-Type-Options","nosniff");
 
     const stream=fs.createReadStream(filePath);
-    stream.on("error",()=>{ if(!res.headersSent) res.status(500).json({status:"DOWNLOAD_FAILED",reason:"APK_STREAM_ERROR"}); else res.destroy(); });
+    stream.on("error",(err)=>{
+      console.error("[AfriDesign APK] stream error:",err);
+      if(!res.headersSent){
+        res.status(500).json({
+          status:"DOWNLOAD_FAILED",
+          reason:"APK_STREAM_ERROR"
+        });
+      }else{
+        res.destroy(err);
+      }
+    });
+
     return stream.pipe(res);
   });
 
