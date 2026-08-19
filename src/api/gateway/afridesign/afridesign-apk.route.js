@@ -36,6 +36,26 @@ export default function afriDesignAPKRoute(app){
     }
 
     const stat=fs.statSync(filePath);
+        const range=req.headers.range;
+        res.setHeader("Accept-Ranges","bytes");
+        if(range){
+          const match=/^bytes=(\d*)-(\d*)$/.exec(range);
+          if(!match){ return res.status(416).setHeader("Content-Range",`bytes */${stat.size}`).end(); }
+          let start=match[1] ? Number(match[1]) : 0;
+          let end=match[2] ? Number(match[2]) : stat.size-1;
+          if(!match[1] && match[2]){ const suffix=Number(match[2]); start=Math.max(stat.size-suffix,0); end=stat.size-1; }
+          if(!Number.isInteger(start)||!Number.isInteger(end)||start<0||end<start||start>=stat.size){ return res.status(416).setHeader("Content-Range",`bytes */${stat.size}`).end(); }
+          end=Math.min(end,stat.size-1);
+          const length=end-start+1;
+          res.status(206);
+          res.setHeader("Content-Range",`bytes ${start}-${end}/${stat.size}`);
+          res.setHeader("Content-Length",String(length));
+          res.setHeader("Content-Type","application/vnd.android.package-archive");
+          res.setHeader("Content-Disposition",`attachment; filename="${fileName}"`);
+          res.setHeader("Cache-Control","private, no-store, max-age=0");
+          res.setHeader("X-Content-Type-Options","nosniff");
+          return fs.createReadStream(filePath,{start,end}).pipe(res);
+        }
 
     if(!stat.isFile()){
       return res.status(404).json({
