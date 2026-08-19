@@ -54,7 +54,8 @@ export default function afriDesignAPKRoute(app){
           res.setHeader("Content-Disposition",`attachment; filename="${fileName}"`);
           res.setHeader("Cache-Control","private, no-store, max-age=0");
           res.setHeader("X-Content-Type-Options","nosniff");
-          return fs.createReadStream(filePath,{start,end}).pipe(res);
+          const rangeBuffer=fs.readFileSync(filePath).subarray(start,end+1);
+          return res.end(rangeBuffer);
         }
 
     if(!stat.isFile()){
@@ -70,20 +71,19 @@ export default function afriDesignAPKRoute(app){
     res.setHeader("Cache-Control","private, no-store, max-age=0");
     res.setHeader("X-Content-Type-Options","nosniff");
 
-    const stream=fs.createReadStream(filePath);
-    stream.on("error",(err)=>{
-      console.error("[AfriDesign APK] stream error:",err);
+    try {
+      const apkBuffer=fs.readFileSync(filePath);
+      return res.end(apkBuffer);
+    } catch(err) {
+      console.error("[AfriDesign APK] read error:",err);
       if(!res.headersSent){
-        res.status(500).json({
+        return res.status(500).json({
           status:"DOWNLOAD_FAILED",
-          reason:"APK_STREAM_ERROR"
+          reason:"APK_READ_ERROR"
         });
-      }else{
-        res.destroy(err);
       }
-    });
-
-    return stream.pipe(res);
+      return res.destroy(err);
+    }
   });
 
 }
