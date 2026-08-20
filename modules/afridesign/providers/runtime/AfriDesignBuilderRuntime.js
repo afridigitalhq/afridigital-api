@@ -26,7 +26,10 @@ generate(request={}){
 
  const provider =
   request.provider ||
-  AfriDesignProviderRouter.resolve("generate") ||
+  AfriDesignProviderRouter.resolve(
+   request.operation || "generate",
+   request.type || request.buildType || null
+  ) ||
   capability.providers[0];
 
  return AfriDesignProviderRuntime.generate({

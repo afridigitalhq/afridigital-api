@@ -20,5 +20,33 @@
     "version": "1.0.0",
     "status": "ARTIFACT_READY",
     "createdAt": "2026-08-12T21:50:35.388Z"
+  },
+  {
+    "artifactId": "artifact_1786921315375",
+    "jobId": null,
+    "userId": null,
+    "product": "AfriTodo",
+    "name": "AfriTodo",
+    "type": "APP_PACKAGE",
+    "version": "1.0.3",
+    "status": "ARTIFACT_READY",
+    "file": "modules/afridesign/.artifacts/AfriTodo-1.0.3.apk",
+    "size": 819611,
+    "checksum": "ea1e8a396369a8a245797f1f9d7823485a84feaa3d14086bbdc95b1ecfc95272",
+    "createdAt": "2026-08-16T23:01:55.375Z"
+  },
+  {
+    "artifactId": "artifact_1787128430570",
+    "jobId": null,
+    "userId": null,
+    "product": "AfriTodo",
+    "name": "AfriTodo",
+    "type": "APP_PACKAGE",
+    "version": "1.0.4",
+    "status": "ARTIFACT_READY",
+    "file": "modules/afridesign/.artifacts/AfriTodo-1.0.4.apk",
+    "size": 644392,
+    "checksum": "d0daad33a40560b0de786abb587d42e97fa47b951c74b8c23e1c15916f6f4454",
+    "createdAt": "2026-08-19T08:33:50.574Z"
   }
 ]

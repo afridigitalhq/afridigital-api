@@ -24,6 +24,7 @@ const AfriBuildAPKBuildRunner={
     buildId:"apk_build_"+Date.now(),
     artifactId:artifact.artifactId || null,
     projectId:artifact.projectId || null,
+    version:artifact.version || artifact.project?.version || "1.0.0",
     command:"ANDROID_BUILD_PIPELINE",
     steps:[
      "SOURCE_PACKAGING",

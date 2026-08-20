@@ -27,6 +27,10 @@ const AfriArtifactRegistry={
    name:data.name || "Untitled",
    type:data.type || "APP_PACKAGE",
    version:data.version || "1.0.0",
+   file:data.file || null,
+   size:data.size || 0,
+   checksum:data.checksum || null,
+   downloadId:data.downloadId || null,
    status:"ARTIFACT_READY",
    createdAt:new Date().toISOString()
   };

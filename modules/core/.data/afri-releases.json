@@ -12,5 +12,19 @@
     "checksum": "sha256_1786573050655",
     "status": "RELEASE_CERTIFIED",
     "createdAt": "2026-08-12T22:17:30.655Z"
+  },
+  {
+    "releaseId": "release_1786921315376",
+    "buildId": null,
+    "exportId": null,
+    "artifactId": "artifact_1786921315375",
+    "userId": null,
+    "product": "AfriTodo",
+    "appName": "AfriTodo",
+    "version": "1.0.3",
+    "type": "APK",
+    "checksum": "ea1e8a396369a8a245797f1f9d7823485a84feaa3d14086bbdc95b1ecfc95272",
+    "status": "RELEASE_CERTIFIED",
+    "createdAt": "2026-08-16T23:01:55.401Z"
   }
 ]

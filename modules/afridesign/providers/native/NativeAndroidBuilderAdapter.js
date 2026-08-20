@@ -4,6 +4,8 @@ const NativeAndroidBuilderAdapter = {
 
   name:"native_android",
 
+  capabilities:["generate","preview","export"],
+
   generate(request={}){
 
     const project = {
@@ -14,13 +16,17 @@ const NativeAndroidBuilderAdapter = {
       language:"kotlin"
     };
 
+    const generatedProject = AfriNativeAndroidGenerator.generate(project);
+
     return {
       status:"GENERATED",
       provider:"native_android",
       buildType:"native_android",
       language:"kotlin",
       generatorVersion:project.generatorVersion,
-      project:AfriNativeAndroidGenerator.generate(project)
+      version:project.version,
+      packageName:project.packageName,
+      project:generatedProject
     };
 
   }

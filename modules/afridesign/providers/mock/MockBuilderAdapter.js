@@ -9,6 +9,7 @@ const MockBuilderAdapter={
    project:{
     name:"afritodo",
     type:"web-app",
+      version:request.version || "1.0.0",
 
     files:{
       "src/App.jsx":`
@@ -101,7 +102,7 @@ ReactDOM.createRoot(
       "package.json":`
 {
  "name":"afritodo",
- "version":"1.0.0",
+ "version":request.version || "1.0.0",
  "scripts":{
   "dev":"vite"
  },

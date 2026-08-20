@@ -18,10 +18,10 @@ from "../views/DesignWorkspace";
 
 import CodeWorkspace
 from "../views/CodeWorkspace";
+import PreviewWorkspace
+from "./views/PreviewWorkspace";
 
 
-import FullPreviewWorkspace
-from "../views/FullPreviewWorkspace";
 
 
 const views = {
@@ -30,7 +30,7 @@ const views = {
 
  code: CodeWorkspace,
 
- preview: FullPreviewWorkspace
+ preview: PreviewWorkspace
 
 };
 

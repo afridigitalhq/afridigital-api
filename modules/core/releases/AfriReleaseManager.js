@@ -23,7 +23,7 @@ const AfriReleaseManager={
    appName:request.appName,
    version:request.version || "1.0.0",
    type:"APK",
-   checksum:"sha256_"+Date.now(),
+   checksum:request.checksum || null,
    status:"RELEASE_CERTIFIED",
    createdAt:new Date().toISOString()
   };

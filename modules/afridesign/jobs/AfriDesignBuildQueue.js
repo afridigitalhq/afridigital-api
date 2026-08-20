@@ -13,7 +13,8 @@ import AfriBuildLearningEngine from "../learning/AfriBuildLearningEngine.js";
 import AfriBuildAPKBuildRunner from "../export/builders/AfriBuildAPKBuildRunner.js";
 import AfriBuildAPKStorageManager from "../export/delivery/AfriBuildAPKStorageManager.js";
 import AfriBuildAPKDownloadManager from "../export/download/AfriBuildAPKDownloadManager.js";
-import AfriBuildDownloadGateway from "../export/delivery/AfriBuildDownloadGateway.js";
+import AfriArtifactRegistry from "../../core/artifacts/AfriArtifactRegistry.js";
+import AfriReleaseManager from "../../core/releases/AfriReleaseManager.js";
 
 const AfriDesignBuildQueue = {
 
@@ -71,7 +72,8 @@ const AfriDesignBuildQueue = {
     let apkBuild = null;
     let apkStorage = null;
     let apkDownload = null;
-    let downloadGateway = null;
+    let coreArtifact = null;
+    let coreRelease = null;
 
     if(
      validation.status === "VALIDATED" &&
@@ -107,14 +109,35 @@ const AfriDesignBuildQueue = {
        version:project.version || job.version || "1.0.0"
       });
 
-      downloadGateway = AfriBuildDownloadGateway.create({
-       apkId:apkDownload.apkId,
-       artifactId:apkDownload.artifactId,
-       file:apkDownload.file
-      });
+
      }
     }
 
+  if(apkDownload?.status === "DOWNLOAD_READY"){
+   coreArtifact = AfriArtifactRegistry.register({
+    jobId:job.id,
+    userId:job.userId || null,
+    product:"AfriBuild",
+    name:project.name || "AfriBuild",
+    type:"APK",
+    version:project.version || job.version || "1.0.0",
+    file:apkDownload?.file || apkStorage?.file || null,
+    size:apkDownload?.size || apkStorage?.size || 0,
+    checksum:apkDownload?.checksum || null,
+    downloadId:apkDownload?.downloadId || null
+   });
+
+   coreRelease = AfriReleaseManager.certify({
+    buildId:apkBuild?.buildId || null,
+    exportId:apkDownload?.downloadId || null,
+    artifactId:coreArtifact.artifactId,
+    userId:job.userId || null,
+    product:"AfriBuild",
+    appName:project.name || "AfriBuild",
+    version:project.version || job.version || "1.0.0",
+    checksum:apkDownload?.checksum || null
+   });
+  }
   const receipt = AfriDesignBuildReceipt.create({
    jobId:job.id,
    artifactId:artifact.id,
@@ -165,7 +188,8 @@ const AfriDesignBuildQueue = {
      apkBuild,
    apkStorage,
    apkDownload,
-   downloadGateway,
+coreArtifact,
+coreRelease,
    receipt,
    certification,
    learning,

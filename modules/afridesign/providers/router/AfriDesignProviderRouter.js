@@ -2,9 +2,23 @@ import AfriDesignProviderMarketplace from "../marketplace/AfriDesignProviderMark
 
 const AfriDesignProviderRouter = {
 
- resolve(capability="generate"){
+ resolve(capability="generate", type=null){
 
   const providers = AfriDesignProviderMarketplace.list();
+
+  if(type){
+   const typedProvider = providers.find(
+    item =>
+     item === type &&
+     AfriDesignProviderMarketplace
+      .capabilities(item)
+      .includes(capability)
+   );
+
+   if(typedProvider){
+    return typedProvider;
+   }
+  }
 
   const provider = providers.find(
    item =>

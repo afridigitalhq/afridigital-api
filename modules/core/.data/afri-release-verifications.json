@@ -15,5 +15,25 @@
     },
     "status": "VERIFICATION_PENDING",
     "createdAt": "2026-08-12T22:21:56.853Z"
+  },
+  {
+    "verificationId": "verify_1786921315378",
+    "releaseId": "release_1786921315376",
+    "buildId": null,
+    "artifactId": "artifact_1786921315375",
+    "appName": "AfriTodo",
+    "type": "APK",
+    "checks": {
+      "artifactExists": true,
+      "packageGenerated": true,
+      "checksumVerified": true,
+      "downloadAvailable": true,
+      "installPending": true,
+      "runtimePending": true,
+      "artifactSize": 819606
+    },
+    "status": "VERIFICATION_PENDING",
+    "createdAt": "2026-08-16T23:01:55.404Z",
+    "version": "1.0.3"
   }
 ]

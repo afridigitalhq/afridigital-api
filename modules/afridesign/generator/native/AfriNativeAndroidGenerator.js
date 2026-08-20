@@ -1,10 +1,14 @@
+import taskPartial from "./partials/kotlin/model/Task.kt.js";
+import taskStoragePartial from "./partials/kotlin/storage/TaskStorage.kt.js";
+import mainActivityPartial from "./partials/kotlin/ui/MainActivity.kt.js";
+
 const AfriNativeAndroidGenerator = {
 
   generate(project = {}) {
 
     const name = project.name || "afritodo";
     const packageName = project.packageName || "com.afridigital.afritodo";
-    const versionName = project.version || "1.0.1";
+    const versionName = project.version || "1.0.0";
     const generatorVersion = String(project.generatorVersion || "2");
     const language = String(project.language || (generatorVersion === "1" ? "java" : "kotlin")).toLowerCase();
 
@@ -62,7 +66,7 @@ android {
         applicationId '${packageName}'
         minSdk 23
         targetSdk 35
-        versionCode 2
+        versionCode 3
         versionName '${versionName}'
     }
 }
@@ -177,70 +181,9 @@ public class MainActivity extends Activity {
 `
       } : {}),
       ...(language === "kotlin" ? {
-      "app/src/main/java/com/afridigital/afritodo/MainActivity.kt": `package ${packageName}
-
-import android.app.Activity
-import android.os.Bundle
-import android.graphics.Color
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.TextView
-
-class MainActivity : Activity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val root = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(32, 48, 32, 32)
-            setBackgroundColor(Color.rgb(238, 242, 255))
-        }
-
-        val title = TextView(this).apply {
-            text = "🚀 AfriTodo"
-            textSize = 28f
-            setTextColor(Color.rgb(37, 99, 235))
-            gravity = Gravity.CENTER
-        }
-
-        val subtitle = TextView(this).apply {
-            text = "Native Android App • Kotlin • Built with AfriBuild"
-            textSize = 16f
-            gravity = Gravity.CENTER
-            setPadding(0, 16, 0, 32)
-        }
-
-        root.addView(title)
-        root.addView(subtitle)
-
-        addTask(root, "✓  Build AfriTodo")
-        addTask(root, "○  Connect AfriBuild")
-        addTask(root, "○  Deploy App")
-
-        setContentView(root)
-    }
-
-    private fun addTask(root: LinearLayout, text: String) {
-        val task = TextView(this).apply {
-            this.text = text
-            textSize = 18f
-            setTextColor(Color.DKGRAY)
-            setBackgroundColor(Color.WHITE)
-            setPadding(24, 24, 24, 24)
-        }
-
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(0, 0, 0, 16)
-        }
-
-        root.addView(task, params)
-    }
-}
-`
+        "app/src/main/java/com/afridigital/afritodo/model/Task.kt": taskPartial({ packageName }),
+        "app/src/main/java/com/afridigital/afritodo/storage/TaskStorage.kt": taskStoragePartial({ packageName }),
+        "app/src/main/java/com/afridigital/afritodo/MainActivity.kt": mainActivityPartial({ packageName })
       } : {}),
     };
 

@@ -9,6 +9,7 @@ const AfriBuildProjectAssembler = {
       language:project.language || null,
       generatorVersion:project.generatorVersion || null,
       packageName:project.packageName || null,
+      version:project.version || "1.0.0",
       files:project.files || {},
       status:"ASSEMBLED",
       createdAt:new Date().toISOString()
