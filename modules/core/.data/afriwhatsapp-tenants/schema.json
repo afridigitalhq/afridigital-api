@@ -1,0 +1,1 @@
+{ "schema":"AFRIDIGITAL_WHATSAPP_NUMBER_V1", "status":"SCAFFOLD_ONLY", "purpose":"Maps customer-owned WhatsApp numbers to AfriDigital tenants", "fields":["tenantId","wabaId","phoneNumberId","displayPhoneNumber","verifiedName","status","webhookStatus","aiMode","createdAt","updatedAt"] }

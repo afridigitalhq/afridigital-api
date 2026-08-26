@@ -1,0 +1,46 @@
+
+[ROUTE OWNER]
+src/api/gateway/routes.js:11:import afriDesignAPKRoute from "./afridesign/afridesign-apk.route.js";
+src/api/gateway/routes.js:24:  afriDesignAPKRoute(app);
+src/api/gateway/afridesign/afridesign-apk.route.js:4:export default function afriDesignAPKRoute(app){
+src/api/gateway/afridesign/afridesign-apk.route.js:6:  app.get("/api/afridesign/apk/download/:application/:version",(req,res)=>{
+
+[APK DOWNLOAD PRODUCERS]
+modules/core/download/AfriDownloadGateway.js:10:const AfriDownloadGateway={
+modules/core/download/AfriDownloadGateway.js:42:export default AfriDownloadGateway;
+modules/afridebug/evidence/dependency-graph.json:1574:    "modules/afridesign/export/delivery/AfriBuildDownloadGateway.js",
+modules/afridebug/evidence/dependency-graph.json:1575:    "modules/afridesign/export/download/AfriBuildAPKDownloadManager.js",
+modules/afridebug/evidence/dependency-graph.json:2119:    "modules/core/download/AfriDownloadGateway.js",
+modules/afridebug/evidence/dependency-graph.json:13742:      "file": "modules/core/download/AfriDownloadGateway.js",
+modules/afridebug/evidence/afritodo-apk-download-investigation-001.json:23:    "AfriBuildAPKDownloadManager",
+modules/afridebug/evidence/afritodo-apk-download-investigation-001.json:24:    "AfriBuildDownloadGateway",
+modules/afridesign/jobs/AfriDesignBuildQueue.js:15:import AfriBuildAPKDownloadManager from "../export/download/AfriBuildAPKDownloadManager.js";
+modules/afridesign/jobs/AfriDesignBuildQueue.js:16:import AfriBuildDownloadGateway from "../export/delivery/AfriBuildDownloadGateway.js";
+modules/afridesign/jobs/AfriDesignBuildQueue.js:73:    let apkDownload = null;
+modules/afridesign/jobs/AfriDesignBuildQueue.js:74:    let downloadGateway = null;
+modules/afridesign/jobs/AfriDesignBuildQueue.js:99:      apkDownload = AfriBuildAPKDownloadManager.create({
+modules/afridesign/jobs/AfriDesignBuildQueue.js:110:      downloadGateway = AfriBuildDownloadGateway.create({
+modules/afridesign/jobs/AfriDesignBuildQueue.js:111:       apkId:apkDownload.apkId,
+modules/afridesign/jobs/AfriDesignBuildQueue.js:112:       artifactId:apkDownload.artifactId,
+modules/afridesign/jobs/AfriDesignBuildQueue.js:113:       file:apkDownload.file
+modules/afridesign/jobs/AfriDesignBuildQueue.js:167:   apkDownload,
+modules/afridesign/jobs/AfriDesignBuildQueue.js:168:   downloadGateway,
+modules/afridesign/export/download/AfriBuildAPKDownloadManager.js:4:const AfriBuildAPKDownloadManager={
+modules/afridesign/export/download/AfriBuildAPKDownloadManager.js:11:export default AfriBuildAPKDownloadManager;
+modules/afridesign/export/delivery/AfriBuildDownloadGateway.js:1:const AfriBuildDownloadGateway={
+modules/afridesign/export/delivery/AfriBuildDownloadGateway.js:26:export default AfriBuildDownloadGateway;
+
+[LEGACY EXTERNAL CONTRACT]
+modules/core/.data/afri-apk-exports.json:12:    "downloadPath": "/downloads/FirstAfriApp.apk",
+modules/core/.data/afri-download-links.json:9:    "url": "https://apps.afridigital.app/download/FirstAfriApp.apk",
+modules/core/export/AfriAPKExportEngine.js:27:    "/downloads/"+request.appName+".apk",
+modules/core/download/AfriDownloadGateway.js:24:    "https://apps.afridigital.app/download/"+request.appName+".apk",
+
+[CURRENT APK ARTIFACTS]
+AfriTodo-1.0.0.apk 818606 bytes
+AfriTodo-1.0.1-live.apk 818610 bytes
+AfriTodo-1.0.1.apk 818610 bytes
+AfriTodo-1.0.2.apk 819606 bytes
+AfriTodo-1.0.3.apk 819611 bytes
+afritodo-kotlin-1.0.0.apk 34 bytes
+afritodo-native-1.0.0.apk 819606 bytes

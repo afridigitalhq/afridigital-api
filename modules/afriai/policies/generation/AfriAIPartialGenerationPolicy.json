@@ -1,0 +1,20 @@
+{
+  "architecture": "PARTIAL_COMPOSITION", 
+  "scope": ["native-android", "web"],
+  "rules": [
+    "AfriAI-generated apps and websites MUST be composed from reusable partials.",
+    "Generators orchestrate partials; they MUST NOT contain giant product-specific templates.",
+    "Each partial MUST have one responsibility and be independently testable.",
+    "Product-specific configuration MUST be separated from reusable implementation partials.",
+    "Shared partials MUST NOT import product-specific feature logic.",
+    "Feature partials MUST declare their dependencies explicitly.",
+    "Generated artifacts MUST remain reproducible from generator inputs plus partial versions.",
+    "Partial changes MUST be verifiable without requiring a full APK or deployment rebuild."
+  ],
+  "native_android": {
+    "composition": ["project", "manifest", "activity", "ui", "model", "storage", "notifications", "reminders", "alarms"]
+  },
+  "web": {
+    "composition": ["project", "layout", "components", "pages", "styles", "data", "features", "platform"]
+  }
+}

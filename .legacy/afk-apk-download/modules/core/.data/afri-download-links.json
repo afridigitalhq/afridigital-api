@@ -1,0 +1,25 @@
+[
+  {
+    "downloadId": "download_1786572952360",
+    "buildId": "apk_build_1786572917958",
+    "artifactId": "artifact_1786571343398",
+    "userId": "user_A",
+    "appName": "FirstAfriApp",
+    "type": "APK",
+    "url": "https://apps.afridigital.app/download/FirstAfriApp.apk",
+    "status": "DOWNLOAD_READY",
+    "createdAt": "2026-08-12T22:15:52.360Z"
+  },
+  {
+    "downloadId": "download_1786921315377",
+    "buildId": null,
+    "artifactId": "artifact_1786921315375",
+    "userId": null,
+    "appName": "AfriTodo",
+    "version": "1.0.3",
+    "type": "APK",
+    "url": "/api/afridesign/apk/download/AfriTodo/1.0.3",
+    "status": "DOWNLOAD_READY",
+    "createdAt": "2026-08-16T23:01:55.403Z"
+  }
+]

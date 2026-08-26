@@ -19,8 +19,12 @@ const AfriAIConversationOrchestrator = {
       );
 
     const execution =
-      AfriAIToolExecutor.execute(
-        intent
+        await AfriAIToolExecutor.execute(
+        intent,
+        {
+          message: request.message,
+          sessionId: request.sessionId
+        }
       );
 
     const response =

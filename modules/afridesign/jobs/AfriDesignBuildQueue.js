@@ -47,17 +47,13 @@ const AfriDesignBuildQueue = {
      type:job.type,
      buildType:job.type,
    prompt:job.prompt,
+   name:job.name,
    jobId:job.id,
    version:job.version
   });
 
   const project =
-   AfriBuildProjectAssembler.assemble(
-    result.project || {
-     name:"afribuild-generated-app",
-     files:{}
-    }
-   );
+   AfriBuildProjectAssembler.assemble({ ...(result.project || {}), version: job.version || result.project?.version || "1.0.0" });
 
   const workspaceFiles =
    AfriBuildWorkspaceWriter.write(project);

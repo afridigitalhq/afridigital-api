@@ -1,0 +1,18 @@
+HTTP/2 200 
+date: Thu, 20 Aug 2026 20:07:04 GMT
+content-type: application/vnd.android.package-archive
+content-length: 830410
+accept-ranges: bytes
+access-control-allow-credentials: true
+cache-control: private, no-store, max-age=0
+content-disposition: attachment; filename="AfriTodo-1.0.6.apk"
+rndr-id: 32fc6af3-ba71-437e
+server: cloudflare
+vary: Origin
+x-content-type-options: nosniff
+x-powered-by: Express
+x-render-origin-server: Render
+cf-cache-status: DYNAMIC
+cf-ray: a2e405aa7c126fff-CDG
+alt-svc: h3=":443"; ma=86400
+

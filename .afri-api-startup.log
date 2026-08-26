@@ -1,0 +1,6 @@
+
+> afridigital-api@1.0.0 start
+> node server.js
+
+◇ injected env (1) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+🚀 AfriDigital API running on port 10000

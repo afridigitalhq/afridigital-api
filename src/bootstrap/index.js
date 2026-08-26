@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import { initAfriDigitalBootstrap } from "./AfriDigitalBootstrap.js";
 import { registerProductRoutes } from "../api/products/routes.js";

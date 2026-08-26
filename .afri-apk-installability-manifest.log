@@ -1,0 +1,17 @@
+08-18 10:31:20.231 11783 11783 W ResourceType: CREATING STRING CACHE OF 16 bytes
+package: name='com.afridigital.afritodo' versionCode='2' versionName='1.0.3' platformBuildVersionName='15' platformBuildVersionCode='35' compileSdkVersion='35' compileSdkVersionCodename='15'
+sdkVersion:'23'
+targetSdkVersion:'35'
+application-label:'AfriTodo'
+application-icon-160:'res/drawable/afritodo_launcher.xml'
+application: label='AfriTodo' icon='res/drawable/afritodo_launcher.xml'
+application-debuggable
+launchable-activity: name='com.afridigital.afritodo.MainActivity'  label='' icon=''
+feature-group: label=''
+  uses-feature: name='android.hardware.faketouch'
+  uses-implied-feature: name='android.hardware.faketouch' reason='default feature for all apps'
+main
+supports-screens: 'small' 'normal' 'large' 'xlarge'
+supports-any-density: 'true'
+locales: '--_--'
+densities: '160'

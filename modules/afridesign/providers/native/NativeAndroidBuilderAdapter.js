@@ -11,7 +11,7 @@ const NativeAndroidBuilderAdapter = {
     const project = {
       name:request.name || "afritodo",
       packageName:request.packageName || "com.afridigital.afritodo",
-      version:request.version || "1.0.0",
+      version:request.version || request.generatedVersion || "1.0.0",
       generatorVersion:String(request.generatorVersion || "2"),
       language:"kotlin"
     };

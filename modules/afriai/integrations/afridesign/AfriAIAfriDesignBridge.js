@@ -1,16 +1,16 @@
-import AfriDesignBuilderRuntime from "../../../afridesign/providers/runtime/AfriDesignBuilderRuntime.js";
+import AfriDesignBuildQueue from "../../../afridesign/jobs/AfriDesignBuildQueue.js";
 
 const AfriAIAfriDesignBridge={
 
-buildApp(request={}){
+  async buildApp(request={}){
 
- return AfriDesignBuilderRuntime.generate({
-  type:"app_builder",
-  prompt:request.prompt || "",
-  provider:request.provider
- });
+    return await AfriDesignBuildQueue.submit({
+      ...request,
+      type:request.type || request.buildType || "app_builder",
+      prompt:request.prompt || ""
+    });
 
-}
+  }
 
 };
 

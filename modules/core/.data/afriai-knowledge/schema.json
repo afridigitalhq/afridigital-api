@@ -1,0 +1,1 @@
+{ "schema":"AFRIAI_KNOWLEDGE_V1", "status":"SCAFFOLD_ONLY", "purpose":"Tenant-isolated company knowledge contract", "fields":["knowledgeBaseId","tenantId","sources","documents","faq","products","services","policies","lastIndexedAt"] }

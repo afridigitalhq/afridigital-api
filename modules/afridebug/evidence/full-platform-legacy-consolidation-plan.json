@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-08-16T10:43:28.796Z",
+  "exactDuplicates": 52,
+  "divergentImplementations": 24,
+  "legacyOnly": 153,
+  "platformOnly": 100,
+  "safeConsolidationCandidates": 18,
+  "safeConsolidation": [
+    {
+      "name": "AfriDebugAdminDashboardRegistry.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/admin/registry/AfriDebugAdminDashboardRegistry.js",
+      "platform": "src/afridebug/platform/admin/registry/AfriDebugAdminDashboardRegistry.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/admin/adapter/AfriDebugControlCenterAdapter.js"
+      ]
+    },
+    {
+      "name": "AfriDebugCertificateChainValidator.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugCertificateChainValidator.js",
+      "platform": "src/afridebug/platform/security/AfriDebugCertificateChainValidator.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      ]
+    },
+    {
+      "name": "AfriDebugConnectorHealthMonitor.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/health/AfriDebugConnectorHealthMonitor.js",
+      "platform": "src/afridebug/platform/ecosystem/health/AfriDebugConnectorHealthMonitor.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugConnectorLifecycleManager.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/lifecycle/AfriDebugConnectorLifecycleManager.js",
+      "platform": "src/afridebug/platform/ecosystem/lifecycle/AfriDebugConnectorLifecycleManager.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugCrossPlatformInvestigationRouter.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js",
+      "platform": "src/afridebug/platform/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugEcosystemCertificationRuntime.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/certification/AfriDebugEcosystemCertificationRuntime.js",
+      "platform": "src/afridebug/platform/ecosystem/certification/AfriDebugEcosystemCertificationRuntime.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRegistry.js",
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugEcosystemDiscoveryRuntime.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/discovery/AfriDebugEcosystemDiscoveryRuntime.js",
+      "platform": "src/afridebug/platform/ecosystem/discovery/AfriDebugEcosystemDiscoveryRuntime.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugEcosystemEventBus.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/events/AfriDebugEcosystemEventBus.js",
+      "platform": "src/afridebug/platform/ecosystem/events/AfriDebugEcosystemEventBus.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugEcosystemHealthAggregator.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/aggregation/AfriDebugEcosystemHealthAggregator.js",
+      "platform": "src/afridebug/platform/ecosystem/aggregation/AfriDebugEcosystemHealthAggregator.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugEnterpriseTrustPolicyEngine.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugEnterpriseTrustPolicyEngine.js",
+      "platform": "src/afridebug/platform/security/AfriDebugEnterpriseTrustPolicyEngine.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      ]
+    },
+    {
+      "name": "AfriDebugHSMProvider.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugHSMProvider.js",
+      "platform": "src/afridebug/platform/security/AfriDebugHSMProvider.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      ]
+    },
+    {
+      "name": "AfriDebugKeyManagementRuntime.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugKeyManagementRuntime.js",
+      "platform": "src/afridebug/platform/security/AfriDebugKeyManagementRuntime.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugDigitalSignatureRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugKeyRotationManager.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugKeyRotationManager.js",
+      "platform": "src/afridebug/platform/security/AfriDebugKeyRotationManager.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      ]
+    },
+    {
+      "name": "AfriDebugKnowledgePersistence.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgePersistence.js",
+      "platform": "src/afridebug/platform/knowledge/AfriDebugKnowledgePersistence.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/knowledge/AfriDebugKnowledgeMemoryService.js",
+        "src/afridebug/platform/knowledge/AfriDebugKnowledgeStore.js"
+      ]
+    },
+    {
+      "name": "AfriDebugRollbackRuntime.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/production/rollback/AfriDebugRollbackRuntime.js",
+      "platform": "src/afridebug/platform/production/rollback/AfriDebugRollbackRuntime.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/execution/AfriDebugChangeExecutionController.js",
+        "src/afridebug/platform/production/rollback/AfriDebugManualRollbackController.js"
+      ]
+    },
+    {
+      "name": "AfriDebugRuntimeDependencyGraph.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/ecosystem/dependency/AfriDebugRuntimeDependencyGraph.js",
+      "platform": "src/afridebug/platform/ecosystem/dependency/AfriDebugRuntimeDependencyGraph.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      ]
+    },
+    {
+      "name": "AfriDebugSecurityPolicy.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/production/policies/AfriDebugSecurityPolicy.js",
+      "platform": "src/afridebug/platform/production/policies/AfriDebugSecurityPolicy.js",
+      "legacyConsumers": [],
+      "platformConsumers": []
+    },
+    {
+      "name": "AfriDebugZeroTrustVerificationEngine.js",
+      "classification": "EXACT_DUPLICATE",
+      "legacy": "modules/afridebug/src/debug/security/AfriDebugZeroTrustVerificationEngine.js",
+      "platform": "src/afridebug/platform/security/AfriDebugZeroTrustVerificationEngine.js",
+      "legacyConsumers": [],
+      "platformConsumers": [
+        "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+com.afridigital.afritodo.app-pngs-0 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/build/generated/res/pngs/debug
+com.afridigital.afritodo.app-resValues-1 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/build/generated/res/resValues/debug
+com.afridigital.afritodo.app-packageDebugResources-2 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.afridigital.afritodo.app-packageDebugResources-3 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.afridigital.afritodo.app-debug-4 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.afridigital.afritodo.app-debug-5 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/src/debug/res
+com.afridigital.afritodo.app-main-6 /data/data/com.termux/files/home/AfriDigitalHub/AfriDigital-api/modules/afridesign/.generated/afritodo-native-v1.0.4/app/src/main/res

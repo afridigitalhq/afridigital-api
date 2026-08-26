@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.afridigital.afritodo.app-release-4:/drawable_afritodo_launcher.xml.flat",
+        "source": "com.afridigital.afritodo.app-main-5:/drawable/afritodo_launcher.xml"
+    }
+]

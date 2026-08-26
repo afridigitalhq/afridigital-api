@@ -5,9 +5,15 @@ const AfriDesignProviderRuntime={
 
 generate(request={}){
 
- const providerName =
+ const routedProvider =
   request.provider ||
-  AfriDesignProviderRouter.resolve(request.operation || "generate") ||
+  AfriDesignProviderRouter.resolve(
+   request.operation || "generate",
+   request.type || request.buildType || null
+  );
+
+ const providerName =
+  (typeof routedProvider === "string" ? routedProvider : routedProvider?.name) ||
   "mock";
 
  const provider =

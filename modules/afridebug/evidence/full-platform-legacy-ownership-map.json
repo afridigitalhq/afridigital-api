@@ -1,0 +1,1664 @@
+{
+  "generatedAt": "2026-08-16T11:11:40.894Z",
+  "summary": {
+    "LEGACY_ONLY": 153,
+    "PLATFORM_ONLY": 120,
+    "EXACT_DUPLICATE": 32,
+    "DIVERGENT_IMPLEMENTATION": 24
+  },
+  "candidates": {
+    "LEGACY_ONLY": [
+      {
+        "name": "AfriAIBuildFailureAnalyzer.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIBuildFailureAnalyzer.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIDebugMemory.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIDebugMemory.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIErrorAnalyzer.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIErrorAnalyzer.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIImportTracer.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIImportTracer.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIKnowledgeGapAnalyzer.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIKnowledgeGapAnalyzer.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIKnowledgeRegistryLocator.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIKnowledgeRegistryLocator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIKnowledgeRepairMapper.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIKnowledgeRepairMapper.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIRuntimeEvidenceCollector.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIRuntimeEvidenceCollector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIRuntimeInspector.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIRuntimeInspector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriAIStackTraceReader.js",
+        "legacy": "modules/afridebug/src/debug/AfriAIStackTraceReader.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAPIRequestSignatureVerifier.js",
+        "legacy": "modules/afridebug/src/debug/api/AfriDebugAPIRequestSignatureVerifier.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugInvestigationAPI.js",
+        "legacy": "modules/afridebug/src/debug/api/investigation/AfriDebugInvestigationAPI.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAdminAPI.js",
+        "legacy": "modules/afridebug/src/debug/api/admin/AfriDebugAdminAPI.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientAPI.js",
+        "legacy": "modules/afridebug/src/debug/api/client/AfriDebugClientAPI.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceAPI.js",
+        "legacy": "modules/afridebug/src/debug/api/evidence/AfriDebugEvidenceAPI.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAPIHealthRuntime.js",
+        "legacy": "modules/afridebug/src/debug/api/health/AfriDebugAPIHealthRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugMarketplaceAPI.js",
+        "legacy": "modules/afridebug/src/debug/api/marketplace/AfriDebugMarketplaceAPI.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAPIRegistry.js",
+        "legacy": "modules/afridebug/src/debug/api/registry/AfriDebugAPIRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAPIRouter.js",
+        "legacy": "modules/afridebug/src/debug/api/router/AfriDebugAPIRouter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugApiKeyRuntime.js",
+        "legacy": "modules/afridebug/src/debug/apikeys/AfriDebugApiKeyRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugApprovalResumeService.js",
+        "legacy": "modules/afridebug/src/debug/approval/AfriDebugApprovalResumeService.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugApprovalAdapter.js",
+        "legacy": "modules/afridebug/src/debug/approval/adapters/AfriDebugApprovalAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugCertificationRegistry.js",
+        "legacy": "modules/afridebug/src/debug/certification/AfriDebugCertificationRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairCertification.js",
+        "legacy": "modules/afridebug/src/debug/certification/AfriDebugRepairCertification.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugWhatsAppWebhookSecurityGuard.js",
+        "legacy": "modules/afridebug/src/debug/channels/AfriDebugWhatsAppWebhookSecurityGuard.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugChainOfCustodyManager.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugChainOfCustodyManager.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientProjectEvidenceCollector.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugClientProjectEvidenceCollector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientWorkspace.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugClientWorkspace.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceCorrelationEngine.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugEvidenceCorrelationEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceTimelineReconstructor.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugEvidenceTimelineReconstructor.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugExecutiveComplianceReportingDashboard.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugExecutiveComplianceReportingDashboard.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugIncidentResponsePlaybookEngine.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugIncidentResponsePlaybookEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugIncidentSeverityScoringEngine.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugIncidentSeverityScoringEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugInvestigationWorkspace.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugInvestigationWorkspace.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRemediationRecommendationEngine.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugRemediationRecommendationEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugSecurityCaseManager.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugSecurityCaseManager.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugCommerceConnector.js",
+        "legacy": "modules/afridebug/src/debug/connectors/commerce/AfriDebugCommerceConnector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorContract.js",
+        "legacy": "modules/afridebug/src/debug/connectors/contracts/AfriDebugConnectorContract.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDesignStudioConnector.js",
+        "legacy": "modules/afridebug/src/debug/connectors/designstudio/AfriDebugDesignStudioConnector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorEventAdapter.js",
+        "legacy": "modules/afridebug/src/debug/connectors/events/AfriDebugConnectorEventAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorApproval.js",
+        "legacy": "modules/afridebug/src/debug/connectors/governance/AfriDebugConnectorApproval.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorInvestigationHandoff.js",
+        "legacy": "modules/afridebug/src/debug/connectors/handoff/AfriDebugConnectorInvestigationHandoff.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorObservabilityRuntime.js",
+        "legacy": "modules/afridebug/src/debug/connectors/observability/AfriDebugConnectorObservabilityRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorRegistry.js",
+        "legacy": "modules/afridebug/src/debug/connectors/registry/AfriDebugConnectorRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorRuntime.js",
+        "legacy": "modules/afridebug/src/debug/connectors/runtime/AfriDebugConnectorRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugMultiConnectorRuntime.js",
+        "legacy": "modules/afridebug/src/debug/connectors/runtime/AfriDebugMultiConnectorRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorStateStorage.js",
+        "legacy": "modules/afridebug/src/debug/connectors/storage/AfriDebugConnectorStateStorage.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugPersistentStorageAdapter.js",
+        "legacy": "modules/afridebug/src/debug/connectors/storage/AfriDebugPersistentStorageAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugWebConnector.js",
+        "legacy": "modules/afridebug/src/debug/connectors/web/AfriDebugWebConnector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugWhatsAppConnector.js",
+        "legacy": "modules/afridebug/src/debug/connectors/whatsapp/AfriDebugWhatsAppConnector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugContext.js",
+        "legacy": "modules/afridebug/src/debug/context/AfriDebugContext.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDashboardAdapter.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/AfriDebugDashboardAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDashboardDataProvider.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/data/AfriDebugDashboardDataProvider.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDashboardHealthAggregator.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/health/AfriDebugDashboardHealthAggregator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDashboardIntelligenceProvider.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/intelligence/AfriDebugDashboardIntelligenceProvider.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDashboardRuntime.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/runtime/AfriDebugDashboardRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientDeliveryEngine.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientDeliveryPackage.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugClientDeliveryPackage.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientReleaseController.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugClientReleaseController.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDeliveryCertification.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugDeliveryCertification.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidencePackageBuilder.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugEvidencePackageBuilder.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugHumanReviewGate.js",
+        "legacy": "modules/afridebug/src/debug/delivery/AfriDebugHumanReviewGate.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugDisputeRuntime.js",
+        "legacy": "modules/afridebug/src/debug/disputes/AfriDebugDisputeRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceTimeline.js",
+        "legacy": "modules/afridebug/src/debug/disputes/AfriDebugEvidenceTimeline.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugResolutionEngine.js",
+        "legacy": "modules/afridebug/src/debug/resolution/AfriDebugResolutionEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugCertificateOfAuthenticity.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugCertificateOfAuthenticity.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceExportManager.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportManager.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceExportRegistry.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceExportRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugEvidenceIntegrityVerifier.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceIntegrityVerifier.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugOfflineEvidenceVerifier.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugOfflineEvidenceVerifier.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugPortableVerificationBundle.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugPortableVerificationBundle.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugSecureEvidencePackage.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugSecureEvidencePackage.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugSnapshotEngine.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugSnapshotEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugCSVEvidenceExporter.js",
+        "legacy": "modules/afridebug/src/debug/evidence/exporters/AfriDebugCSVEvidenceExporter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugHTMLEvidenceExporter.js",
+        "legacy": "modules/afridebug/src/debug/evidence/exporters/AfriDebugHTMLEvidenceExporter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugJSONEvidenceExporter.js",
+        "legacy": "modules/afridebug/src/debug/evidence/exporters/AfriDebugJSONEvidenceExporter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugExecutionHandoffGate.js",
+        "legacy": "modules/afridebug/src/debug/execution/AfriDebugExecutionHandoffGate.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairExecutionController.js",
+        "legacy": "modules/afridebug/src/debug/execution/AfriDebugRepairExecutionController.js",
+        "platform": null
+      },
+      {
+        "name": "AfriCommerceConnectorCertificationTest.js",
+        "legacy": "modules/afridebug/src/debug/external/AfriCommerceConnectorCertificationTest.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugExternalConnectorTest.js",
+        "legacy": "modules/afridebug/src/debug/external/AfriDebugExternalConnectorTest.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDesignStudioConnectorCertificationTest.js",
+        "legacy": "modules/afridebug/src/debug/external/AfriDesignStudioConnectorCertificationTest.js",
+        "platform": null
+      },
+      {
+        "name": "AfriWebConnectorCertificationTest.js",
+        "legacy": "modules/afridebug/src/debug/external/AfriWebConnectorCertificationTest.js",
+        "platform": null
+      },
+      {
+        "name": "AfriWhatsAppConnectorCertificationTest.js",
+        "legacy": "modules/afridebug/src/debug/external/AfriWhatsAppConnectorCertificationTest.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugHistory.js",
+        "legacy": "modules/afridebug/src/debug/history/AfriDebugHistory.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairHistoryLedger.js",
+        "legacy": "modules/afridebug/src/debug/history/AfriDebugRepairHistoryLedger.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientIncidentIntakeGateway.js",
+        "legacy": "modules/afridebug/src/debug/incidents/AfriDebugClientIncidentIntakeGateway.js",
+        "platform": null
+      },
+      {
+        "name": "ErrorInputAdapter.js",
+        "legacy": "modules/afridebug/src/debug/ingestion/ErrorInputAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "GitRepositoryAdapter.js",
+        "legacy": "modules/afridebug/src/debug/ingestion/GitRepositoryAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "LogUploadAdapter.js",
+        "legacy": "modules/afridebug/src/debug/ingestion/LogUploadAdapter.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugIntakeValidator.js",
+        "legacy": "modules/afridebug/src/debug/intake/AfriDebugIntakeValidator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepositoryConnector.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/repository/AfriDebugRepositoryConnector.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepositoryIntake.js",
+        "legacy": "modules/afridebug/src/debug/intake/AfriDebugRepositoryIntake.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugInvestigationExecutionBridge.js",
+        "legacy": "modules/afridebug/src/debug/integration/execution/AfriDebugInvestigationExecutionBridge.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugAILearningEngine.js",
+        "legacy": "modules/afridebug/src/debug/intelligence/learning/AfriDebugAILearningEngine.js",
+        "platform": null
+      },
+      {
+        "name": "DeliveryPackager.js",
+        "legacy": "modules/afridebug/src/debug/investigation/DeliveryPackager.js",
+        "platform": null
+      },
+      {
+        "name": "DependencyGraphBuilder.js",
+        "legacy": "modules/afridebug/src/debug/investigation/DependencyGraphBuilder.js",
+        "platform": null
+      },
+      {
+        "name": "EvidenceReportGenerator.js",
+        "legacy": "modules/afridebug/src/debug/investigation/EvidenceReportGenerator.js",
+        "platform": null
+      },
+      {
+        "name": "InvestigationOrchestrator.js",
+        "legacy": "modules/afridebug/src/debug/investigation/InvestigationOrchestrator.js",
+        "platform": null
+      },
+      {
+        "name": "KnowledgeMatcher.js",
+        "legacy": "modules/afridebug/src/debug/investigation/KnowledgeMatcher.js",
+        "platform": null
+      },
+      {
+        "name": "LogAnalyzer.js",
+        "legacy": "modules/afridebug/src/debug/investigation/LogAnalyzer.js",
+        "platform": null
+      },
+      {
+        "name": "PatchPlanner.js",
+        "legacy": "modules/afridebug/src/debug/investigation/PatchPlanner.js",
+        "platform": null
+      },
+      {
+        "name": "RepositoryIntake.js",
+        "legacy": "modules/afridebug/src/debug/investigation/RepositoryIntake.js",
+        "platform": null
+      },
+      {
+        "name": "RuntimeInspector.js",
+        "legacy": "modules/afridebug/src/debug/investigation/RuntimeInspector.js",
+        "platform": null
+      },
+      {
+        "name": "VerificationEngine.js",
+        "legacy": "modules/afridebug/src/debug/investigation/VerificationEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugKernel.js",
+        "legacy": "modules/afridebug/src/debug/kernel/AfriDebugKernel.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugKnowledgeRuntime.js",
+        "legacy": "modules/afridebug/src/debug/knowledge/AfriDebugKnowledgeRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientFeedbackLearner.js",
+        "legacy": "modules/afridebug/src/debug/learning/AfriDebugClientFeedbackLearner.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugKnowledgeReinforcement.js",
+        "legacy": "modules/afridebug/src/debug/learning/AfriDebugKnowledgeReinforcement.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugLearningMemory.js",
+        "legacy": "modules/afridebug/src/debug/learning/AfriDebugLearningMemory.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugResolutionRecorder.js",
+        "legacy": "modules/afridebug/src/debug/learning/AfriDebugResolutionRecorder.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugLiveConnectorGateway.js",
+        "legacy": "modules/afridebug/src/debug/live/AfriDebugLiveConnectorGateway.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugJobMarketplaceRuntime.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/AfriDebugJobMarketplaceRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugQuoteEngine.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/AfriDebugQuoteEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugJobActivationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/activation/AfriDebugJobActivationRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugMarketplaceQueueBridge.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/bridge/AfriDebugMarketplaceQueueBridge.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugClientStatusRuntime.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/client/AfriDebugClientStatusRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugPaymentRuntime.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/payment/AfriDebugPaymentRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepositoryBinding.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/repository/AfriDebugRepositoryBinding.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugMarketplaceSchedulerBridge.js",
+        "legacy": "modules/afridebug/src/debug/marketplace/scheduler/AfriDebugMarketplaceSchedulerBridge.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugOrchestrator.js",
+        "legacy": "modules/afridebug/src/debug/orchestration/AfriDebugOrchestrator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugIncidentPipeline.js",
+        "legacy": "modules/afridebug/src/debug/pipeline/AfriDebugIncidentPipeline.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRealtimeIntegration.js",
+        "legacy": "modules/afridebug/src/debug/realtime/AfriDebugRealtimeIntegration.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRealtimeRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/AfriDebugRealtimeRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugChannelManager.js",
+        "legacy": "modules/afridebug/src/debug/realtime/channels/AfriDebugChannelManager.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRealtimeEventBus.js",
+        "legacy": "modules/afridebug/src/debug/realtime/events/AfriDebugRealtimeEventBus.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRealtimeGateway.js",
+        "legacy": "modules/afridebug/src/debug/realtime/gateway/AfriDebugRealtimeGateway.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugNotificationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/notifications/AfriDebugNotificationRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugPresenceRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/presence/AfriDebugPresenceRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugLiveStreamRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/stream/AfriDebugLiveStreamRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugStateSyncRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/sync/AfriDebugStateSyncRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugWebSocketRuntime.js",
+        "legacy": "modules/afridebug/src/debug/realtime/websocket/AfriDebugWebSocketRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRecommendationEngine.js",
+        "legacy": "modules/afridebug/src/debug/recommendation/AfriDebugRecommendationEngine.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairPlanHandoff.js",
+        "legacy": "modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanHandoff.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairPlanValidator.js",
+        "legacy": "modules/afridebug/src/debug/recommendation/AfriDebugRepairPlanValidator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugModuleRegistry.js",
+        "legacy": "modules/afridebug/src/debug/registry/AfriDebugModuleRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorBootstrap.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugConnectorBootstrap.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorCertificationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugConnectorCertificationRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorDispatcher.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugConnectorDispatcher.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugConnectorRegistryRuntime.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugConnectorRegistryRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugExecutionPipeline.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugExecutionPipeline.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRuntimeBootstrap.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugRuntimeBootstrap.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRuntimeRegistry.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugRuntimeRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugUnifiedRuntime.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugUnifiedRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugJobScheduler.js",
+        "legacy": "modules/afridebug/src/debug/scheduler/AfriDebugJobScheduler.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugService.js",
+        "legacy": "modules/afridebug/src/debug/services/AfriDebugService.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRecoveryRuntime.js",
+        "legacy": "modules/afridebug/src/debug/storage/AfriDebugRecoveryRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugStorage.js",
+        "legacy": "modules/afridebug/src/debug/storage/AfriDebugStorage.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugSubscriptionRuntime.js",
+        "legacy": "modules/afridebug/src/debug/subscriptions/AfriDebugSubscriptionRuntime.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRegressionValidator.js",
+        "legacy": "modules/afridebug/src/debug/verification/AfriDebugRegressionValidator.js",
+        "platform": null
+      },
+      {
+        "name": "AfriDebugRepairVerificationEngine.js",
+        "legacy": "modules/afridebug/src/debug/verification/AfriDebugRepairVerificationEngine.js",
+        "platform": null
+      },
+      {
+        "name": "DeveloperWorkspace.js",
+        "legacy": "modules/afridebug/src/debug/workspace/DeveloperWorkspace.js",
+        "platform": null
+      },
+      {
+        "name": "ProjectRegistry.js",
+        "legacy": "modules/afridebug/src/debug/workspace/ProjectRegistry.js",
+        "platform": null
+      },
+      {
+        "name": "RepositoryConnectionRegistry.js",
+        "legacy": "modules/afridebug/src/debug/workspace/RepositoryConnectionRegistry.js",
+        "platform": null
+      }
+    ],
+    "PLATFORM_ONLY": [
+      {
+        "name": "AfriDebugAdminController.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/admin/AfriDebugAdminController.js"
+      },
+      {
+        "name": "AfriDebugAdminScaffolder.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/admin/AfriDebugAdminScaffolder.js"
+      },
+      {
+        "name": "AfriDebugControlCenterAdapter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/admin/adapter/AfriDebugControlCenterAdapter.js"
+      },
+      {
+        "name": "AfriDebugAdminDashboardRegistry.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/admin/registry/AfriDebugAdminDashboardRegistry.js"
+      },
+      {
+        "name": "AfriDebugAIAgentRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ai/AfriDebugAIAgentRuntime.js"
+      },
+      {
+        "name": "AfriAIProvider.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ai/providers/AfriAIProvider.js"
+      },
+      {
+        "name": "AfriDebugAIProviderRegistry.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ai/providers/AfriDebugAIProviderRegistry.js"
+      },
+      {
+        "name": "LocalAIProvider.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ai/providers/LocalAIProvider.js"
+      },
+      {
+        "name": "AfriDebugEventAuditSubscriber.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/audit/AfriDebugEventAuditSubscriber.js"
+      },
+      {
+        "name": "AfriDebugBillingBridge.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/billing/AfriDebugBillingBridge.js"
+      },
+      {
+        "name": "AfriDebugUsageMeter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/billing/AfriDebugUsageMeter.js"
+      },
+      {
+        "name": "AfriAIDebugBridge.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/bridge/AfriAIDebugBridge.js"
+      },
+      {
+        "name": "AfriDebugBridgeKnowledgeRoutingEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/bridge/AfriDebugBridgeKnowledgeRoutingEngine.js"
+      },
+      {
+        "name": "AfriDebugDeliveryPackager.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/delivery/AfriDebugDeliveryPackager.js"
+      },
+      {
+        "name": "AfriDebugDeliveryRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/delivery/AfriDebugDeliveryRuntime.js"
+      },
+      {
+        "name": "AfriDebugEcosystemRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/AfriDebugEcosystemRuntime.js"
+      },
+      {
+        "name": "AfriDebugEcosystemHealthAggregator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/aggregation/AfriDebugEcosystemHealthAggregator.js"
+      },
+      {
+        "name": "AfriDebugEcosystemCertificationRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/certification/AfriDebugEcosystemCertificationRuntime.js"
+      },
+      {
+        "name": "AfriDebugRuntimeDependencyGraph.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/dependency/AfriDebugRuntimeDependencyGraph.js"
+      },
+      {
+        "name": "AfriDebugEcosystemDiscoveryRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/discovery/AfriDebugEcosystemDiscoveryRuntime.js"
+      },
+      {
+        "name": "AfriDebugEcosystemEventBus.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/events/AfriDebugEcosystemEventBus.js"
+      },
+      {
+        "name": "AfriDebugConnectorHealthMonitor.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/health/AfriDebugConnectorHealthMonitor.js"
+      },
+      {
+        "name": "AfriDebugConnectorLifecycleManager.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/lifecycle/AfriDebugConnectorLifecycleManager.js"
+      },
+      {
+        "name": "AfriDebugCrossPlatformInvestigationRouter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/ecosystem/routing/AfriDebugCrossPlatformInvestigationRouter.js"
+      },
+      {
+        "name": "AfriDebugAuditRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/audit/AfriDebugAuditRuntime.js"
+      },
+      {
+        "name": "AfriDebugEnterpriseBillingRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/billing/AfriDebugEnterpriseBillingRuntime.js"
+      },
+      {
+        "name": "AfriDebugComplianceRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/compliance/AfriDebugComplianceRuntime.js"
+      },
+      {
+        "name": "AfriDebugIdentityRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/identity/AfriDebugIdentityRuntime.js"
+      },
+      {
+        "name": "AfriDebugLicenseRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/licensing/AfriDebugLicenseRuntime.js"
+      },
+      {
+        "name": "AfriDebugOrganizationRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/organizations/AfriDebugOrganizationRuntime.js"
+      },
+      {
+        "name": "AfriDebugRBACRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/rbac/AfriDebugRBACRuntime.js"
+      },
+      {
+        "name": "AfriDebugSecurityPolicyRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/security/AfriDebugSecurityPolicyRuntime.js"
+      },
+      {
+        "name": "AfriDebugTeamRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/teams/AfriDebugTeamRuntime.js"
+      },
+      {
+        "name": "AfriDebugAPITokenRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/tokens/AfriDebugAPITokenRuntime.js"
+      },
+      {
+        "name": "AfriDebugUsageRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/usage/AfriDebugUsageRuntime.js"
+      },
+      {
+        "name": "AfriDebugWorkspaceRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/enterprise/workspaces/AfriDebugWorkspaceRuntime.js"
+      },
+      {
+        "name": "AfriDebugEvidenceArchive.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/evidence/AfriDebugEvidenceArchive.js"
+      },
+      {
+        "name": "AfriDebugEvidenceExporter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/evidence/export/AfriDebugEvidenceExporter.js"
+      },
+      {
+        "name": "AfriDebugChangeFailureTest.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/execution/AfriDebugChangeFailureTest.js"
+      },
+      {
+        "name": "AfriDebugIntegrationAudit.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/audit/AfriDebugIntegrationAudit.js"
+      },
+      {
+        "name": "AfriDebugIntegrationBootstrap.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/bootstrap/AfriDebugIntegrationBootstrap.js"
+      },
+      {
+        "name": "AfriDebugIntegrationEventContract.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/events/AfriDebugIntegrationEventContract.js"
+      },
+      {
+        "name": "AfriDebugEvidenceArchiveAdapter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/evidence/AfriDebugEvidenceArchiveAdapter.js"
+      },
+      {
+        "name": "AfriDebugEvidenceCollectionBridge.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/evidence/AfriDebugEvidenceCollectionBridge.js"
+      },
+      {
+        "name": "AfriDebugInvestigationHandoffRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/handoff/AfriDebugInvestigationHandoffRuntime.js"
+      },
+      {
+        "name": "AfriDebugIntegrationIntakeRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/intake/AfriDebugIntegrationIntakeRuntime.js"
+      },
+      {
+        "name": "AfriDebugIntelligenceBridge.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/intelligence/AfriDebugIntelligenceBridge.js"
+      },
+      {
+        "name": "AfriDebugIncidentPersistenceBridge.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/integration/storage/AfriDebugIncidentPersistenceBridge.js"
+      },
+      {
+        "name": "AfriDebugAssistant.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugAssistant.js"
+      },
+      {
+        "name": "AfriDebugDiagnosisEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugDiagnosisEngine.js"
+      },
+      {
+        "name": "AfriDebugPatchAdvisor.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPatchAdvisor.js"
+      },
+      {
+        "name": "AfriDebugPatchExecutor.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPatchExecutor.js"
+      },
+      {
+        "name": "AfriDebugPatchGenerator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPatchGenerator.js"
+      },
+      {
+        "name": "AfriDebugPatchPreview.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPatchPreview.js"
+      },
+      {
+        "name": "AfriDebugPatchValidator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPatchValidator.js"
+      },
+      {
+        "name": "AfriDebugPredictiveEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugPredictiveEngine.js"
+      },
+      {
+        "name": "AfriDebugRepairFeedbackEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugRepairFeedbackEngine.js"
+      },
+      {
+        "name": "AfriDebugRiskEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugRiskEngine.js"
+      },
+      {
+        "name": "AfriDebugSimilarityEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugSimilarityEngine.js"
+      },
+      {
+        "name": "AfriDebugSolutionRecommender.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/AfriDebugSolutionRecommender.js"
+      },
+      {
+        "name": "AfriDebugAIInvestigationPlanner.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/ai/AfriDebugAIInvestigationPlanner.js"
+      },
+      {
+        "name": "AfriDebugAIPatchGenerator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/ai/AfriDebugAIPatchGenerator.js"
+      },
+      {
+        "name": "AfriDebugAIRootCauseEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/intelligence/ai/AfriDebugAIRootCauseEngine.js"
+      },
+      {
+        "name": "AfriDebugCaseMemory.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugCaseMemory.js"
+      },
+      {
+        "name": "AfriDebugKnowledgeAdapter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugKnowledgeAdapter.js"
+      },
+      {
+        "name": "AfriDebugKnowledgeMemoryService.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugKnowledgeMemoryService.js"
+      },
+      {
+        "name": "AfriDebugKnowledgePersistence.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugKnowledgePersistence.js"
+      },
+      {
+        "name": "AfriDebugKnowledgeStore.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugKnowledgeStore.js"
+      },
+      {
+        "name": "AfriDebugPatternMatcher.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/knowledge/AfriDebugPatternMatcher.js"
+      },
+      {
+        "name": "AfriDebugExecutionOrchestrator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/orchestration/AfriDebugExecutionOrchestrator.js"
+      },
+      {
+        "name": "AfriDebugInvestigationOrchestrator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/orchestration/AfriDebugInvestigationOrchestrator.js"
+      },
+      {
+        "name": "AfriDebugProductionAudit.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/audit/AfriDebugProductionAudit.js"
+      },
+      {
+        "name": "AfriDebugProductionCertification.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/certification/AfriDebugProductionCertification.js"
+      },
+      {
+        "name": "AfriDebugProductionCompliance.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/compliance/AfriDebugProductionCompliance.js"
+      },
+      {
+        "name": "AfriDebugProductionConfig.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/config/AfriDebugProductionConfig.js"
+      },
+      {
+        "name": "AfriDebugDeploymentRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/deployment/AfriDebugDeploymentRuntime.js"
+      },
+      {
+        "name": "AfriDebugEnvironmentRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/environment/AfriDebugEnvironmentRuntime.js"
+      },
+      {
+        "name": "AfriDebugFeatureFlagRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/features/AfriDebugFeatureFlagRuntime.js"
+      },
+      {
+        "name": "AfriDebugProductionFinalAudit.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/finalaudit/AfriDebugProductionFinalAudit.js"
+      },
+      {
+        "name": "AfriDebugProductionHealthRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/health/AfriDebugProductionHealthRuntime.js"
+      },
+      {
+        "name": "AfriDebugProductionLogger.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/logging/AfriDebugProductionLogger.js"
+      },
+      {
+        "name": "AfriDebugMetricsRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/metrics/AfriDebugMetricsRuntime.js"
+      },
+      {
+        "name": "AfriDebugMonitoringRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/monitoring/AfriDebugMonitoringRuntime.js"
+      },
+      {
+        "name": "AfriDebugSecurityPolicy.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/policies/AfriDebugSecurityPolicy.js"
+      },
+      {
+        "name": "AfriDebugRateLimiter.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/ratelimit/AfriDebugRateLimiter.js"
+      },
+      {
+        "name": "AfriDebugProductionReadiness.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/readiness/AfriDebugProductionReadiness.js"
+      },
+      {
+        "name": "AfriDebugReleaseManager.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/release/AfriDebugReleaseManager.js"
+      },
+      {
+        "name": "AfriDebugManualRollbackController.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/rollback/AfriDebugManualRollbackController.js"
+      },
+      {
+        "name": "AfriDebugRollbackRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/rollback/AfriDebugRollbackRuntime.js"
+      },
+      {
+        "name": "AfriDebugProductionSecurity.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/security/AfriDebugProductionSecurity.js"
+      },
+      {
+        "name": "AfriDebugEnvironmentValidator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/production/validation/AfriDebugEnvironmentValidator.js"
+      },
+      {
+        "name": "AfriDebugCertificateChainValidator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugCertificateChainValidator.js"
+      },
+      {
+        "name": "AfriDebugCertificateRenewalEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugCertificateRenewalEngine.js"
+      },
+      {
+        "name": "AfriDebugCertificateRevocationList.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugCertificateRevocationList.js"
+      },
+      {
+        "name": "AfriDebugDigitalSignatureRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugDigitalSignatureRuntime.js"
+      },
+      {
+        "name": "AfriDebugEnterpriseTrustOrchestrator.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugEnterpriseTrustOrchestrator.js"
+      },
+      {
+        "name": "AfriDebugEnterpriseTrustPolicyEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugEnterpriseTrustPolicyEngine.js"
+      },
+      {
+        "name": "AfriDebugExternalIntakeSecurityGateway.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugExternalIntakeSecurityGateway.js"
+      },
+      {
+        "name": "AfriDebugGitCommitVerificationRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugGitCommitVerificationRuntime.js"
+      },
+      {
+        "name": "AfriDebugHSMProvider.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugHSMProvider.js"
+      },
+      {
+        "name": "AfriDebugKeyManagementRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugKeyManagementRuntime.js"
+      },
+      {
+        "name": "AfriDebugKeyRotationManager.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugKeyRotationManager.js"
+      },
+      {
+        "name": "AfriDebugRepositoryIntegrityGuard.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugRepositoryIntegrityGuard.js"
+      },
+      {
+        "name": "AfriDebugSafeArchiveRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugSafeArchiveRuntime.js"
+      },
+      {
+        "name": "AfriDebugSecurityGuard.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugSecurityGuard.js"
+      },
+      {
+        "name": "AfriDebugTrustStore.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugTrustStore.js"
+      },
+      {
+        "name": "AfriDebugTrustedTimestampRuntime.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugTrustedTimestampRuntime.js"
+      },
+      {
+        "name": "AfriDebugZeroTrustVerificationEngine.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/security/AfriDebugZeroTrustVerificationEngine.js"
+      },
+      {
+        "name": "AfriDebugArtifactStorage.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/storage/AfriDebugArtifactStorage.js"
+      },
+      {
+        "name": "AfriDebugRuntimeStorage.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/storage/AfriDebugRuntimeStorage.js"
+      },
+      {
+        "name": "AfriDebugDeliveryPackageWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugDeliveryPackageWorker.js"
+      },
+      {
+        "name": "AfriDebugDependencyGraphWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugDependencyGraphWorker.js"
+      },
+      {
+        "name": "AfriDebugEvidenceReportWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugEvidenceReportWorker.js"
+      },
+      {
+        "name": "AfriDebugHumanApprovalWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugHumanApprovalWorker.js"
+      },
+      {
+        "name": "AfriDebugKnowledgeMatcherWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugKnowledgeMatcherWorker.js"
+      },
+      {
+        "name": "AfriDebugLogAnalyzerWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugLogAnalyzerWorker.js"
+      },
+      {
+        "name": "AfriDebugPatchPlanningWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugPatchPlanningWorker.js"
+      },
+      {
+        "name": "AfriDebugRepositoryIntakeWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugRepositoryIntakeWorker.js"
+      },
+      {
+        "name": "AfriDebugRuntimeInspectorWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugRuntimeInspectorWorker.js"
+      },
+      {
+        "name": "AfriDebugVerificationWorker.js",
+        "legacy": null,
+        "platform": "src/afridebug/platform/workers/AfriDebugVerificationWorker.js"
+      }
+    ],
+    "EXACT_DUPLICATE": [
+      {
+        "name": "AfriDebugAdminRegistry.js",
+        "legacy": "modules/afridebug/src/debug/admin/AfriDebugAdminRegistry.js",
+        "platform": "src/afridebug/platform/admin/AfriDebugAdminRegistry.js"
+      },
+      {
+        "name": "AfriDebugApiKeysAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/apikeys/AfriDebugApiKeysAdmin.js",
+        "platform": "src/afridebug/platform/admin/apikeys/AfriDebugApiKeysAdmin.js"
+      },
+      {
+        "name": "AfriDebugAuditAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/audit/AfriDebugAuditAdmin.js",
+        "platform": "src/afridebug/platform/admin/audit/AfriDebugAuditAdmin.js"
+      },
+      {
+        "name": "AfriDebugBillingAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/billing/AfriDebugBillingAdmin.js",
+        "platform": "src/afridebug/platform/admin/billing/AfriDebugBillingAdmin.js"
+      },
+      {
+        "name": "AfriDebugCasesAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/cases/AfriDebugCasesAdmin.js",
+        "platform": "src/afridebug/platform/admin/cases/AfriDebugCasesAdmin.js"
+      },
+      {
+        "name": "AfriDebugCreditsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/credits/AfriDebugCreditsAdmin.js",
+        "platform": "src/afridebug/platform/admin/credits/AfriDebugCreditsAdmin.js"
+      },
+      {
+        "name": "AfriDebugDashboardAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/dashboard/AfriDebugDashboardAdmin.js",
+        "platform": "src/afridebug/platform/admin/dashboard/AfriDebugDashboardAdmin.js"
+      },
+      {
+        "name": "AfriDebugDevelopersAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/developers/AfriDebugDevelopersAdmin.js",
+        "platform": "src/afridebug/platform/admin/developers/AfriDebugDevelopersAdmin.js"
+      },
+      {
+        "name": "AfriDebugKnowledgeAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/knowledge/AfriDebugKnowledgeAdmin.js",
+        "platform": "src/afridebug/platform/admin/knowledge/AfriDebugKnowledgeAdmin.js"
+      },
+      {
+        "name": "AfriDebugLiveMonitor.js",
+        "legacy": "modules/afridebug/src/debug/admin/monitoring/AfriDebugLiveMonitor.js",
+        "platform": "src/afridebug/platform/admin/monitoring/AfriDebugLiveMonitor.js"
+      },
+      {
+        "name": "AfriDebugMonitoringAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/monitoring/AfriDebugMonitoringAdmin.js",
+        "platform": "src/afridebug/platform/admin/monitoring/AfriDebugMonitoringAdmin.js"
+      },
+      {
+        "name": "AfriDebugNotificationsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/notifications/AfriDebugNotificationsAdmin.js",
+        "platform": "src/afridebug/platform/admin/notifications/AfriDebugNotificationsAdmin.js"
+      },
+      {
+        "name": "AfriDebugOrganizationsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/organizations/AfriDebugOrganizationsAdmin.js",
+        "platform": "src/afridebug/platform/admin/organizations/AfriDebugOrganizationsAdmin.js"
+      },
+      {
+        "name": "AfriDebugProjectsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/projects/AfriDebugProjectsAdmin.js",
+        "platform": "src/afridebug/platform/admin/projects/AfriDebugProjectsAdmin.js"
+      },
+      {
+        "name": "AfriDebugQueueAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/queue/AfriDebugQueueAdmin.js",
+        "platform": "src/afridebug/platform/admin/queue/AfriDebugQueueAdmin.js"
+      },
+      {
+        "name": "AfriDebugRepairAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/repair/AfriDebugRepairAdmin.js",
+        "platform": "src/afridebug/platform/admin/repair/AfriDebugRepairAdmin.js"
+      },
+      {
+        "name": "AfriDebugRepositoriesAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/repositories/AfriDebugRepositoriesAdmin.js",
+        "platform": "src/afridebug/platform/admin/repositories/AfriDebugRepositoriesAdmin.js"
+      },
+      {
+        "name": "AfriDebugRuntimeAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/runtime/AfriDebugRuntimeAdmin.js",
+        "platform": "src/afridebug/platform/admin/runtime/AfriDebugRuntimeAdmin.js"
+      },
+      {
+        "name": "AfriDebugSecurityAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/security/AfriDebugSecurityAdmin.js",
+        "platform": "src/afridebug/platform/admin/security/AfriDebugSecurityAdmin.js"
+      },
+      {
+        "name": "AfriDebugSettingsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/settings/AfriDebugSettingsAdmin.js",
+        "platform": "src/afridebug/platform/admin/settings/AfriDebugSettingsAdmin.js"
+      },
+      {
+        "name": "AfriDebugSubscriptionsAdmin.js",
+        "legacy": "modules/afridebug/src/debug/admin/subscriptions/AfriDebugSubscriptionsAdmin.js",
+        "platform": "src/afridebug/platform/admin/subscriptions/AfriDebugSubscriptionsAdmin.js"
+      },
+      {
+        "name": "AfriDebugIncidentAnalyticsEngine.js",
+        "legacy": "modules/afridebug/src/debug/analytics/AfriDebugIncidentAnalyticsEngine.js",
+        "platform": "src/afridebug/platform/analytics/AfriDebugIncidentAnalyticsEngine.js"
+      },
+      {
+        "name": "AfriDebugRootCauseAnalysisEngine.js",
+        "legacy": "modules/afridebug/src/debug/client/AfriDebugRootCauseAnalysisEngine.js",
+        "platform": "src/afridebug/platform/intelligence/AfriDebugRootCauseAnalysisEngine.js"
+      },
+      {
+        "name": "AfriDebugEnterpriseRuntime.js",
+        "legacy": "modules/afridebug/src/debug/enterprise/runtime/AfriDebugEnterpriseRuntime.js",
+        "platform": "src/afridebug/platform/enterprise/runtime/AfriDebugEnterpriseRuntime.js"
+      },
+      {
+        "name": "AfriDebugEvidenceVault.js",
+        "legacy": "modules/afridebug/src/debug/evidence/AfriDebugEvidenceVault.js",
+        "platform": "src/afridebug/platform/evidence/AfriDebugEvidenceVault.js"
+      },
+      {
+        "name": "AfriDebugExecutionEngine.js",
+        "legacy": "modules/afridebug/src/debug/execution/AfriDebugExecutionEngine.js",
+        "platform": "src/afridebug/platform/execution/AfriDebugExecutionEngine.js"
+      },
+      {
+        "name": "AfriDebugExecutionState.js",
+        "legacy": "modules/afridebug/src/debug/execution/AfriDebugExecutionState.js",
+        "platform": "src/afridebug/platform/execution/AfriDebugExecutionState.js"
+      },
+      {
+        "name": "AfriDebugInvestigationRegistry.js",
+        "legacy": "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRegistry.js",
+        "platform": "src/afridebug/platform/investigation/AfriDebugInvestigationRegistry.js"
+      },
+      {
+        "name": "AfriDebugInvestigationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/investigation/AfriDebugInvestigationRuntime.js",
+        "platform": "src/afridebug/platform/investigation/AfriDebugInvestigationRuntime.js"
+      },
+      {
+        "name": "AfriDebugProductionBootstrap.js",
+        "legacy": "modules/afridebug/src/debug/production/bootstrap/AfriDebugProductionBootstrap.js",
+        "platform": "src/afridebug/platform/production/bootstrap/AfriDebugProductionBootstrap.js"
+      },
+      {
+        "name": "AfriDebugProductionRegistry.js",
+        "legacy": "modules/afridebug/src/debug/production/registry/AfriDebugProductionRegistry.js",
+        "platform": "src/afridebug/platform/production/registry/AfriDebugProductionRegistry.js"
+      },
+      {
+        "name": "AfriDebugFinalSecurityDecisionEngine.js",
+        "legacy": "modules/afridebug/src/debug/security/AfriDebugFinalSecurityDecisionEngine.js",
+        "platform": "src/afridebug/platform/security/AfriDebugFinalSecurityDecisionEngine.js"
+      }
+    ],
+    "DIVERGENT_IMPLEMENTATION": [
+      {
+        "name": "AfriDebugEngine.js",
+        "legacy": "modules/afridebug/src/debug/AfriDebugEngine.js",
+        "platform": "src/afridebug/platform/AfriDebugEngine.js"
+      },
+      {
+        "name": "AfriDebugAdminRuntime.js",
+        "legacy": "modules/afridebug/src/debug/runtime/AfriDebugAdminRuntime.js",
+        "platform": "src/afridebug/platform/admin/runtime/AfriDebugAdminRuntime.js"
+      },
+      {
+        "name": "AfriDebugDashboardAPI.js",
+        "legacy": "modules/afridebug/src/debug/dashboard/api/AfriDebugDashboardAPI.js",
+        "platform": "src/afridebug/platform/dashboard/api/AfriDebugDashboardAPI.js"
+      },
+      {
+        "name": "AfriDebugFixApprovalEngine.js",
+        "legacy": "modules/afridebug/src/debug/approval/AfriDebugFixApprovalEngine.js",
+        "platform": "src/afridebug/platform/approval/AfriDebugFixApprovalEngine.js"
+      },
+      {
+        "name": "AfriDebugRepairApprovalQueue.js",
+        "legacy": "modules/afridebug/src/debug/approval/AfriDebugRepairApprovalQueue.js",
+        "platform": "src/afridebug/platform/approval/AfriDebugRepairApprovalQueue.js"
+      },
+      {
+        "name": "AfriDebugImmutableAuditLedger.js",
+        "legacy": "modules/afridebug/src/debug/audit/AfriDebugImmutableAuditLedger.js",
+        "platform": "src/afridebug/platform/audit/AfriDebugImmutableAuditLedger.js"
+      },
+      {
+        "name": "AfriDebugIncidentReportGenerator.js",
+        "legacy": "modules/afridebug/src/debug/reports/AfriDebugIncidentReportGenerator.js",
+        "platform": "src/afridebug/platform/reporting/AfriDebugIncidentReportGenerator.js"
+      },
+      {
+        "name": "AfriDebugEcosystemRegistry.js",
+        "legacy": "modules/afridebug/src/debug/ecosystem/AfriDebugEcosystemRegistry.js",
+        "platform": "src/afridebug/platform/ecosystem/AfriDebugEcosystemRegistry.js"
+      },
+      {
+        "name": "AfriDebugEventBus.js",
+        "legacy": "modules/afridebug/src/debug/events/AfriDebugEventBus.js",
+        "platform": "src/afridebug/platform/events/AfriDebugEventBus.js"
+      },
+      {
+        "name": "AfriDebugEventStream.js",
+        "legacy": "modules/afridebug/src/debug/events/AfriDebugEventStream.js",
+        "platform": "src/afridebug/platform/events/AfriDebugEventStream.js"
+      },
+      {
+        "name": "AfriDebugChangeExecutionController.js",
+        "legacy": "modules/afridebug/src/debug/execution/AfriDebugChangeExecutionController.js",
+        "platform": "src/afridebug/platform/execution/AfriDebugChangeExecutionController.js"
+      },
+      {
+        "name": "AfriDebugExecutionGate.js",
+        "legacy": "modules/afridebug/src/debug/governance/AfriDebugExecutionGate.js",
+        "platform": "src/afridebug/platform/governance/AfriDebugExecutionGate.js"
+      },
+      {
+        "name": "AfriDebugIntegrationTestHarness.js",
+        "legacy": "modules/afridebug/src/debug/integration/AfriDebugIntegrationTestHarness.js",
+        "platform": "src/afridebug/platform/integration/AfriDebugIntegrationTestHarness.js"
+      },
+      {
+        "name": "AfriDebugRepairExecutionBridge.js",
+        "legacy": "modules/afridebug/src/debug/integration/execution/AfriDebugRepairExecutionBridge.js",
+        "platform": "src/afridebug/platform/integration/execution/AfriDebugRepairExecutionBridge.js"
+      },
+      {
+        "name": "AfriDebugIntegrationRegistry.js",
+        "legacy": "modules/afridebug/src/debug/integration/registry/AfriDebugIntegrationRegistry.js",
+        "platform": "src/afridebug/platform/integration/registry/AfriDebugIntegrationRegistry.js"
+      },
+      {
+        "name": "AfriDebugIntegrationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/integration/runtime/AfriDebugIntegrationRuntime.js",
+        "platform": "src/afridebug/platform/integration/runtime/AfriDebugIntegrationRuntime.js"
+      },
+      {
+        "name": "AfriDebugLiveRuntime.js",
+        "legacy": "modules/afridebug/src/debug/investigation/AfriDebugLiveRuntime.js",
+        "platform": "src/afridebug/platform/live/AfriDebugLiveRuntime.js"
+      },
+      {
+        "name": "AfriDebugPatchRuntime.js",
+        "legacy": "modules/afridebug/src/debug/patch/AfriDebugPatchRuntime.js",
+        "platform": "src/afridebug/platform/patch/AfriDebugPatchRuntime.js"
+      },
+      {
+        "name": "AfriDebugRepairPlanningEngine.js",
+        "legacy": "modules/afridebug/src/debug/planning/AfriDebugRepairPlanningEngine.js",
+        "platform": "src/afridebug/platform/planning/AfriDebugRepairPlanningEngine.js"
+      },
+      {
+        "name": "AfriDebugPackageBuilder.js",
+        "legacy": "modules/afridebug/src/debug/production/packaging/AfriDebugPackageBuilder.js",
+        "platform": "src/afridebug/platform/production/packaging/AfriDebugPackageBuilder.js"
+      },
+      {
+        "name": "AfriDebugQueue.js",
+        "legacy": "modules/afridebug/src/debug/queue/AfriDebugQueue.js",
+        "platform": "src/afridebug/platform/queue/AfriDebugQueue.js"
+      },
+      {
+        "name": "AfriDebugInvestigationStateManager.js",
+        "legacy": "modules/afridebug/src/debug/state/AfriDebugInvestigationStateManager.js",
+        "platform": "src/afridebug/platform/state/AfriDebugInvestigationStateManager.js"
+      },
+      {
+        "name": "AfriDebugIncidentStore.js",
+        "legacy": "modules/afridebug/src/debug/storage/AfriDebugIncidentStore.js",
+        "platform": "src/afridebug/platform/storage/AfriDebugIncidentStore.js"
+      },
+      {
+        "name": "AfriDebugVerificationRuntime.js",
+        "legacy": "modules/afridebug/src/debug/verification/AfriDebugVerificationRuntime.js",
+        "platform": "src/afridebug/platform/verification/AfriDebugVerificationRuntime.js"
+      }
+    ]
+  }
+}

@@ -40,10 +40,9 @@ builders:{
 },
 
 resolve(type="app_builder"){
-
- return this.builders[type] || null;
-
-}
+     const normalizedType = String(type || "app_builder").replace(/-/g, "_");
+     return this.builders[normalizedType] || null;
+   }
 
 };
 

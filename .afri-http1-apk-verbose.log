@@ -1,0 +1,75 @@
+* Host afridigital-api.onrender.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 216.24.57.7, 216.24.57.15
+*   Trying 216.24.57.7:443...
+* ALPN: curl offers http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [1576 bytes data]
+* SSL Trust Anchors:
+*   CAfile: /data/data/com.termux/files/usr/etc/tls/cert.pem
+*   CApath: /data/data/com.termux/files/usr/etc/tls/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [1210 bytes data]
+* TLSv1.3 (IN), TLS change cipher, Change cipher spec (1):
+{ [1 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [25 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [2492 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [79 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [52 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [52 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519MLKEM768 / id-ecPublicKey
+* ALPN: server accepted http/1.1
+* Server certificate:
+*   subject: CN=onrender.com
+*   start date: Jul 24 20:54:20 2026 GMT
+*   expire date: Oct 22 21:54:17 2026 GMT
+*   issuer: C=US; O=Google Trust Services; CN=WE1
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   subjectAltName: "afridigital-api.onrender.com" matches cert's "*.onrender.com"
+* OpenSSL verify result: 0
+* SSL certificate verified via OpenSSL.
+* Established connection to afridigital-api.onrender.com (216.24.57.7 port 443) from 10.168.166.167 port 54030 
+* using HTTP/1.x
+} [5 bytes data]
+> GET /api/afridesign/apk/download/AfriTodo/1.0.3 HTTP/1.1
+> Host: afridigital-api.onrender.com
+> User-Agent: curl/8.21.0
+> Accept: */*
+> 
+* Request completely sent off
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [230 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [230 bytes data]
+< HTTP/1.1 200 OK
+< Date: Tue, 18 Aug 2026 14:44:49 GMT
+< Content-Type: application/vnd.android.package-archive
+< Content-Length: 819611
+< Connection: keep-alive
+< access-control-allow-credentials: true
+< Cache-Control: private, no-store, max-age=0
+< content-disposition: attachment; filename="AfriTodo-1.0.3.apk"
+< rndr-id: 9a1c85d2-a17f-4ec2
+< Server: cloudflare
+< vary: Origin
+< x-content-type-options: nosniff
+< x-powered-by: Express
+< x-render-origin-server: Render
+< cf-cache-status: DYNAMIC
+< CF-RAY: a2d1b2e2ecc7edf2-LHR
+< alt-svc: h3=":443"; ma=86400
+< 
+{ [824 bytes data]
+* Connection #0 to host afridigital-api.onrender.com:443 left intact

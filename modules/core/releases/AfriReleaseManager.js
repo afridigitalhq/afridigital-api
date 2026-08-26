@@ -7,6 +7,27 @@ function load(){
  return JSON.parse(fs.readFileSync(file));
 }
 
+const RETAIN_LIMIT=3;
+
+function applyRetention(releases){
+ const groups=new Map();
+ for(const release of releases){
+  const key=`${release.product || "AfriBuild"}::${release.appName || "Untitled"}`;
+  if(!groups.has(key)) groups.set(key,[]);
+  groups.get(key).push(release);
+ }
+ for(const group of groups.values()){
+  group.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));
+  group.forEach((release,index)=>{
+   if(index>=RETAIN_LIMIT && release.status==="RELEASE_CERTIFIED"){
+    release.status="RELEASE_RETAINED_HISTORY";
+    release.retiredAt=release.retiredAt || new Date().toISOString();
+   }
+  });
+ }
+ return releases;
+}
+
 const AfriReleaseManager={
 
  certify(request={}){

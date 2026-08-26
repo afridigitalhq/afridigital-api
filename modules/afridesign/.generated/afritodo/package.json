@@ -1,7 +1,7 @@
 
 {
  "name":"afritodo",
- "version":"1.0.0",
+ "version":request.version || "1.0.0",
  "scripts":{
   "dev":"vite"
  },

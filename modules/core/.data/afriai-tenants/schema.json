@@ -1,0 +1,1 @@
+{ "schema":"AFRIDIGITAL_AI_TENANT_V1", "status":"SCAFFOLD_ONLY", "purpose":"Company-isolated AfriAI tenant identity and configuration contract", "fields":["tenantId","companyName","status","plan","aiMode","aiName","aiPersonaId","profileId","knowledgeBaseId","memoryPolicyId","createdAt","updatedAt"] }

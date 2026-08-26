@@ -2,16 +2,22 @@ import AfriAIAfriDesignBridge from "../../integrations/afridesign/AfriAIAfriDesi
 
 const AfriAIAppBuilderSkill={
 
-name:"build_app",
+  name:"build_app",
 
-execute(request={}){
+  async execute(request={}){
 
- return AfriAIAfriDesignBridge.buildApp({
-  prompt:request.prompt,
-  provider:request.provider || "appdeploy"
- });
+    const prompt = request.prompt || request.message || "";
+    const versionMatch = String(request.version || prompt).match(/\b\d+\.\d+\.\d+\b/);
+    const version = request.version || (versionMatch ? versionMatch[0] : undefined);
 
-}
+    return await AfriAIAfriDesignBridge.buildApp({
+      ...request,
+      prompt,
+      version,
+      provider:request.provider
+    });
+
+  }
 
 };
 

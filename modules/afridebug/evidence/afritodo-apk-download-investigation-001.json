@@ -1,0 +1,38 @@
+{
+  "investigationId":"AFRIDEBUG-AFRITODO-APK-DOWNLOAD-001",
+  "title":"AfriTodo APK repeated/incomplete download investigation",
+  "status":"INVESTIGATION_ACTIVE",
+  "scope":"AfriDesign APK artifact delivery from build pipeline through API gateway to client download consumer",
+  "symptoms":[
+    "Client download repeatedly appears as 819/819 KB and does not complete normally",
+    "Render endpoint returns HTTP 200 and complete 819611-byte payload",
+    "Rendered payload SHA256 matches expected artifact exactly"
+  ],
+  "knownEvidence":{
+    "artifact":"modules/afridesign/.artifacts/AfriTodo-1.0.3.apk",
+    "size":819611,
+    "sha256":"ea1e8a396369a8a245797f1f9d7823485a84feaa3d14086bbdc95b1ecfc95272",
+    "renderHttp":200,
+    "renderContentLength":819611,
+    "artifactIntegrity":"PASS",
+    "serverStreamIntegrity":"PASS"
+  },
+  "investigationChain":[
+    "AfriDesignBuildQueue",
+    "AfriBuildAPKArtifactManager",
+    "AfriBuildAPKDownloadManager",
+    "AfriBuildDownloadGateway",
+    "AfriDesignAPKRoute",
+    "AfriDigital-hub download consumer",
+    "browser/device download behavior"
+  ],
+  "gates":{
+    "patch":false,
+    "apkRebuild":false,
+    "deployment":false,
+    "stage":false,
+    "commit":false,
+    "push":false,
+    "humanApprovalRequired":true
+  }
+}

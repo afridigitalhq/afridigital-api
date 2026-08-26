@@ -1,0 +1,1 @@
+{ "schema":"AFRIAI_MEMORY_V1", "status":"SCAFFOLD_ONLY", "purpose":"Tenant and conversation memory isolation contract", "fields":["memoryPolicyId","tenantId","conversationScope","retentionPolicy","customerContextPolicy","learningPolicy"] }

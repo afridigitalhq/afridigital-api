@@ -13,6 +13,27 @@ function save(data){
  fs.writeFileSync(file,JSON.stringify(data,null,2));
 }
 
+const RETAIN_LIMIT=3;
+
+function applyRetention(artifacts){
+ const groups=new Map();
+ for(const artifact of artifacts){
+  const key=`${artifact.product || "AfriBuild"}::${artifact.name || "Untitled"}`;
+  if(!groups.has(key)) groups.set(key,[]);
+  groups.get(key).push(artifact);
+ }
+ for(const group of groups.values()){
+  group.sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));
+  group.forEach((artifact,index)=>{
+   if(index>=RETAIN_LIMIT && artifact.status==="ARTIFACT_READY"){
+    artifact.status="ARTIFACT_RETAINED_HISTORY";
+    artifact.retiredAt=artifact.retiredAt || new Date().toISOString();
+   }
+  });
+ }
+ return artifacts;
+}
+
 const AfriArtifactRegistry={
 
  register(data={}){

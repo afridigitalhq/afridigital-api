@@ -9,6 +9,7 @@ import socRoute from "./soc.route.js";
 import ollamaTestRoute from "./ollama-test.route.js";
 import healthRoute from "./health.route.js";
 import afriDesignAPKRoute from "./afridesign/afridesign-apk.route.js";
+import afriSportsRoute from "../../afrisports/routes/afrisports.route.js";
 
 export default function registerRoutes(app) {
   socRoute(app);
@@ -22,4 +23,5 @@ export default function registerRoutes(app) {
   ollamaTestRoute(app);
   healthRoute(app);
   afriDesignAPKRoute(app);
+  app.use("/api/afrisports", afriSportsRoute);
 }

@@ -1,3 +1,3 @@
 export function init(server){
-  console.log("🚀 afrisports initialized");
+  console.log("⚽ AfriSports Football Intelligence Engine initialized");
 }

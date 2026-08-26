@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-08-18T16:51:46.859Z",
+  "boot": {
+    "connectors": 4
+  },
+  "stats": {
+    "connectors": 4
+  },
+  "connectors": [
+    {
+      "id": "AfriWhatsApp",
+      "name": "AfriWhatsApp",
+      "type": "messaging",
+      "keys": [
+        "id",
+        "name",
+        "type",
+        "inspect",
+        "health"
+      ],
+      "methods": [
+        "inspect",
+        "health"
+      ]
+    },
+    {
+      "id": "AfriCommerce",
+      "name": "AfriCommerce",
+      "type": "commerce",
+      "keys": [
+        "id",
+        "name",
+        "type",
+        "health"
+      ],
+      "methods": [
+        "health"
+      ]
+    },
+    {
+      "id": "AfriWeb",
+      "name": "AfriWeb",
+      "type": "web",
+      "keys": [
+        "id",
+        "name",
+        "type",
+        "health"
+      ],
+      "methods": [
+        "health"
+      ]
+    },
+    {
+      "id": "AfriDesignStudio",
+      "name": "AfriDesignStudio",
+      "type": "design",
+      "keys": [
+        "id",
+        "name",
+        "type",
+        "health"
+      ],
+      "methods": [
+        "health"
+      ]
+    }
+  ],
+  "targets": [
+    "AfriWhatsApp",
+    "AfriCommerce",
+    "AfriWeb",
+    "AfriDesignStudio"
+  ],
+  "dispatcher": {
+    "keys": [
+      "dispatch",
+      "health"
+    ],
+    "methods": [
+      "dispatch",
+      "health"
+    ],
+    "health": {
+      "service": "AfriDebugConnectorDispatcher",
+      "status": "healthy"
+    }
+  }
+}

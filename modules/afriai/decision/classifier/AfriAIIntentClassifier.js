@@ -84,6 +84,14 @@ const AfriAIIntentClassifier = {
       return "greeting";
     }
 
+      if ((text.includes("build") || text.includes("create") || text.includes("generate") || text.includes("make")) && (text.includes("app") || text.includes("application") || text.includes("android") || text.includes("afritodo"))) {
+        return "build_app";
+      }
+
+      if (text.includes("afridesign") && (text.includes("build") || text.includes("create") || text.includes("generate"))) {
+        return "build_app";
+      }
+
     if (
       text.includes("afridigital") ||
       text.includes("africommerce") ||

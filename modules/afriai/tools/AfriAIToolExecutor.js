@@ -9,18 +9,19 @@ const skillMap = {
   opportunity:"opportunity",
   automation:"automation",
   education:"education",
+  build_app:"build_app",
   conversation:"conversation"
 };
 
 const AfriAIToolExecutor = {
 
-execute(tool,request={}){
+async execute(tool,request={}){
 
  const skill =
    skillMap[tool] || "conversation";
 
  const execution =
-   AfriAIExecutionCoordinator.execute({
+     await AfriAIExecutionCoordinator.execute({
     skill,
     data:request
    });

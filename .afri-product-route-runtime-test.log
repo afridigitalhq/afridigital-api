@@ -1,0 +1,7 @@
+
+> afridigital-api@1.0.0 start
+> node server.js
+
+◇ injected env (1) from .env // tip: ⌘ suppress logs { quiet: true }
+📦 Product API routes registered
+🚀 AfriDigital API running on port 10000

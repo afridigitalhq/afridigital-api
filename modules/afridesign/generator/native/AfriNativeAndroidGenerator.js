@@ -188,8 +188,9 @@ public class MainActivity extends Activity {
     };
 
     return {
-      name: `${name}-native`,
+      name,
       packageName,
+      version: versionName,
       type: "native-android",
       generatorVersion,
       language,

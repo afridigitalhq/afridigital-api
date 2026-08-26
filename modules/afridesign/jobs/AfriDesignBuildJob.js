@@ -1,3 +1,5 @@
+import AfriBuildVersionResolver from "../versioning/AfriBuildVersionResolver.js";
+
 const AfriDesignBuildJob = {
   create(request={}) {
     return {
@@ -7,7 +9,7 @@ const AfriDesignBuildJob = {
         type:request.type || request.buildType || "app_builder",
       prompt:request.prompt || "",
       name:request.name || "afribuild-app",
-      version:request.version || "1.0.0",
+      version:AfriBuildVersionResolver.resolve({ ...request, application:request.name }),
       status:"QUEUED",
       createdAt:new Date().toISOString()
     };

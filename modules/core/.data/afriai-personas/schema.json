@@ -1,0 +1,1 @@
+{ "schema":"AFRIAI_PERSONA_V1", "status":"SCAFFOLD_ONLY", "purpose":"Company-branded AI identity backed by AfriAI", "fields":["personaId","tenantId","displayName","systemInstructions","tone","languagePolicy","escalationPolicy","companyIdentity","createdAt","updatedAt"] }
