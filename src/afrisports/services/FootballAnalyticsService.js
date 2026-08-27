@@ -1,8 +1,24 @@
-export function calculateMatchImportance(match){
+export function calculateMatchImportance(match = {}) {
+  const league =
+    match?.league?.name ||
+    match?.metadata?.providerPayload?.league?.name ||
+    "";
 
-  const league = match?.league?.name || "";
-  const home = match?.teams?.home?.name || "";
-  const away = match?.teams?.away?.name || "";
+  const home =
+    match?.home?.name ||
+    match?.home?.short_code ||
+    match?.metadata?.providerPayload?.participants?.find(
+      participant => participant?.meta?.location === "home"
+    )?.name ||
+    "";
+
+  const away =
+    match?.away?.name ||
+    match?.away?.short_code ||
+    match?.metadata?.providerPayload?.participants?.find(
+      participant => participant?.meta?.location === "away"
+    )?.name ||
+    "";
 
   let score = 40;
 
@@ -17,11 +33,11 @@ export function calculateMatchImportance(match){
     "Ligue 1"
   ];
 
-  if(eliteLeagues.some(x=>league.includes(x))){
+  if (eliteLeagues.some(name => league.includes(name))) {
     score += 40;
   }
 
-  const famousTeams=[
+  const famousTeams = [
     "Real Madrid",
     "Barcelona",
     "Manchester",
@@ -34,22 +50,18 @@ export function calculateMatchImportance(match){
     "Milan"
   ];
 
-  if(famousTeams.some(x=>home.includes(x)||away.includes(x))){
+  if (famousTeams.some(name => home.includes(name) || away.includes(name))) {
     score += 20;
   }
 
-  return Math.min(score,100);
+  return Math.min(score, 100);
 }
 
-
-export function rankBigMatches(fixtures=[]){
-
+export function rankBigMatches(fixtures = []) {
   return fixtures
-    .map(match=>({
+    .map(match => ({
       ...match,
-      afriSportsScore:calculateMatchImportance(match)
+      afriSportsScore: calculateMatchImportance(match)
     }))
-    .sort(
-      (a,b)=>b.afriSportsScore-a.afriSportsScore
-    );
+    .sort((a, b) => b.afriSportsScore - a.afriSportsScore);
 }

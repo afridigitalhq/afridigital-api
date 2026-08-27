@@ -1,60 +1,36 @@
-import { footballRequest } from "./ApiFootballClient.js";
+import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
-function today(){
+const PROVIDER = "SportMonks";
+
+function today() {
   return new Date().toISOString().split("T")[0];
 }
 
-export async function getBigMatches(){
+function extractMatches(result) {
+  if (Array.isArray(result)) return result;
+  if (Array.isArray(result?.matches)) return result.matches;
+  if (Array.isArray(result?.data)) return result.data;
+  return [];
+}
 
-  const fixtures = [];
-
-  try {
-    const todayFeed = await footballRequest("/fixtures", {
-      date: today()
-    });
-
-    console.log("TODAY RESULTS:", todayFeed.results);
-
-    fixtures.push(...(todayFeed.response || []));
-
-  } catch(error){
-    console.log("TODAY RADAR ERROR:");
-    console.log(error.response?.data || error.message);
-  }
-
-
-  try {
-    const live = await footballRequest("/fixtures", {
-      live:"all"
-    });
-
-    console.log("LIVE RESULTS:", live.results);
-
-    fixtures.push(...(live.response || []));
-
-  } catch(error){
-    console.log("LIVE RADAR ERROR:");
-    console.log(error.response?.data || error.message);
-  }
-
-
-  const unique = Array.from(
-    new Map(
-      fixtures.map(match=>[
-        match.fixture.id,
-        match
-      ])
-    ).values()
+export async function getBigMatches() {
+  const result = await ingestFromProvider(
+    PROVIDER,
+    "fixtures",
+    {
+      include: "participants;league;season"
+    }
   );
 
+  const matches = extractMatches(result);
 
-  const ranked = rankBigMatches(unique);
+  const ranked = rankBigMatches(matches);
 
   return {
-    source:"API-Football",
-    date:today(),
-    count:ranked.length,
-    matches:ranked
+    source: PROVIDER,
+    date: today(),
+    count: ranked.length,
+    matches: ranked
   };
 }

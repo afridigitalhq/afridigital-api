@@ -1,45 +1,42 @@
-import { footballRequest } from "./ApiFootballClient.js";
+import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
 
-export async function getFixtures(date){
-  return footballRequest("/fixtures",{date});
-}
+const PROVIDER = "SportMonks";
 
-export async function getLiveMatches(){
-  return footballRequest("/fixtures",{live:"all"});
-}
-
-export async function getLeagueFixtures(league,season){
-  return footballRequest("/fixtures",{
-    league,
-    season
+export async function getFixtures(date) {
+  return ingestFromProvider(PROVIDER, "fixtures", {
+    ...(date ? { date } : {}),
+    include: "participants;league;season"
   });
 }
 
-export async function getMatchEvents(fixture){
-  return footballRequest("/fixtures/events",{fixture});
+export async function getLiveMatches() {
+  return ingestFromProvider(PROVIDER, "live");
 }
 
-export async function getLineups(fixture){
-  return footballRequest("/fixtures/lineups",{fixture});
-}
-
-export async function getStandings(league,season){
-  return footballRequest("/standings",{
+export async function getLeagueFixtures(league, season) {
+  return ingestFromProvider(PROVIDER, "fixtures", {
     league,
-    season
+    ...(season ? { season } : {}),
+    include: "participants;league;season"
   });
 }
 
-export async function getTopScorers(league,season){
-  return footballRequest("/players/topscorers",{
-    league,
-    season
-  });
+export async function getMatchEvents(fixture) {
+  return ingestFromProvider(PROVIDER, "events", fixture);
 }
 
-export async function getTeams(league,season){
-  return footballRequest("/teams",{
-    league,
-    season
-  });
+export async function getLineups(fixture) {
+  return ingestFromProvider(PROVIDER, "lineups", fixture);
+}
+
+export async function getStandings(league, season) {
+  return ingestFromProvider(PROVIDER, "standings", league, season);
+}
+
+export async function getTopScorers(league, season) {
+  return ingestFromProvider(PROVIDER, "scorers", league, season);
+}
+
+export async function getTeams(league, season) {
+  return ingestFromProvider(PROVIDER, "teams", league, season);
 }

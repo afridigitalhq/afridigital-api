@@ -1,54 +1,53 @@
-import { footballRequest } from "./ApiFootballClient.js";
+import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
-function today(){
+const PROVIDER = "SportMonks";
+
+function today() {
   return new Date().toISOString().split("T")[0];
 }
 
-export async function getLiveFeed(){
-  const data = await footballRequest("/fixtures",{
-    live:"all"
-  });
+function extractMatches(result) {
+  if (Array.isArray(result)) return result;
+  if (Array.isArray(result?.matches)) return result.matches;
+  if (Array.isArray(result?.data)) return result.data;
+  return [];
+}
 
-  if (data?.errors && Object.keys(data.errors).length) {
-    return {
-      source:"API-Football",
-      type:"LIVE",
-      count:0,
-      matches:[],
-      providerStatus:"UNAVAILABLE",
-      providerError:data.errors
-    };
-  }
+export async function getLiveFeed() {
+  const result = await ingestFromProvider(PROVIDER, "live");
+  const matches = extractMatches(result);
 
   return {
-    source:"API-Football",
-    type:"LIVE",
-    count:data.response?.length || 0,
-    matches:rankBigMatches(data.response || [])
+    source: PROVIDER,
+    type: "LIVE",
+    count: matches.length,
+    matches: rankBigMatches(matches)
   };
 }
 
-export async function getTodayFeed(){
-  const data = await footballRequest("/fixtures",{
-    date:today()
+export async function getTodayFeed() {
+  const result = await ingestFromProvider(PROVIDER, "fixtures", {
+    include: "participants;league;season"
   });
 
+  const matches = extractMatches(result);
+
   return {
-    source:"API-Football",
-    type:"TODAY",
-    date:today(),
-    count:data.response?.length || 0,
-    matches:rankBigMatches(data.response || [])
+    source: PROVIDER,
+    type: "TODAY",
+    date: today(),
+    count: matches.length,
+    matches: rankBigMatches(matches)
   };
 }
 
-export async function getDiscoveryFeed(){
-  const data = await footballRequest("/fixtures",{
-    date:today()
+export async function getDiscoveryFeed() {
+  const result = await ingestFromProvider(PROVIDER, "fixtures", {
+    include: "participants;league;season"
   });
 
-  const matches = (data.response || []).filter(match=>{
+  const matches = extractMatches(result).filter(match => {
     const league = match?.league?.name || "";
 
     return (
@@ -62,20 +61,20 @@ export async function getDiscoveryFeed(){
   });
 
   return {
-    source:"API-Football",
-    type:"DISCOVERY",
-    count:matches.length,
-    matches:rankBigMatches(matches)
+    source: PROVIDER,
+    type: "DISCOVERY",
+    count: matches.length,
+    matches: rankBigMatches(matches)
   };
 }
 
-export async function getFeaturedFeed(){
+export async function getFeaturedFeed() {
   const todayFeed = await getTodayFeed();
 
   return {
-    source:"AfriAI Match Radar",
-    type:"FEATURED",
-    count:todayFeed.matches.length,
-    matches:todayFeed.matches.slice(0,20)
+    source: "AfriAI Match Radar",
+    type: "FEATURED",
+    count: todayFeed.matches.length,
+    matches: todayFeed.matches.slice(0, 20)
   };
 }
