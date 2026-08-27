@@ -7,7 +7,7 @@ import {
 import { createFootballProviderContract } from "../contracts/FootballProviderContract.js";
 import { createFootballMatch } from "../contracts/FootballMatchContract.js";
 
-function normalizeSportMonksMatch(match = {}) {
+const SPORTMONKS_STATUS_MAP = Object.freeze({1:"NS",2:"1H",3:"HT",4:"BRK",5:"FT",6:"ET",7:"AET",8:"FT_PEN",9:"PEN",10:"POST",11:"SUSP",12:"CANC",13:"TBA",14:"WO",15:"ABAN",16:"DELA",17:"AWAR",18:"INT",19:"AU",20:"DEL",21:"ETB",22:"2H",23:"2ET",25:"PENB",26:"PENDING"});\n\nfunction normalizeSportMonksStatus(match = {}) {\n  const stateId = Number(match?.state_id);\n  return SPORTMONKS_STATUS_MAP[stateId] || match?.state?.short_name || match?.state?.state || match?.state || null;\n}\n\nfunction normalizeSportMonksMatch(match = {}) {
   const participants = Array.isArray(match.participants)
     ? match.participants
     : [];
@@ -37,7 +37,7 @@ function normalizeSportMonksMatch(match = {}) {
 
   return createFootballMatch({
     id: match.id ?? null,
-    status: match.state_id ?? match.state ?? null,
+    status: normalizeSportMonksStatus(match),
     kickoff: match.starting_at ?? null,
     league: match.league ?? (
       match.league_id ? { id: match.league_id } : null
