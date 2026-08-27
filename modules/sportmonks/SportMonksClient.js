@@ -58,8 +58,18 @@ export async function getSportMonksFixtures(options = {}) {
   if (options.perPage) params.set("per_page", String(options.perPage));
   if (options.include) params.set("include", options.include);
 
+  const date = options.date ? String(options.date).trim() : null;
   const query = params.toString();
-  return sportMonksFetch(`/fixtures${query ? `?${query}` : ""}`);
+
+  const path = date
+    ? `/fixtures/date/${encodeURIComponent(date)}${query ? `?${query}` : ""}`
+    : `/fixtures${query ? `?${query}` : ""}`;
+
+  if (process.env.AFRISPORTS_DEBUG_REQUESTS === "true") {
+    console.log("SPORTMONKS_FIXTURES_REQUEST:", path);
+  }
+
+  return sportMonksFetch(path);
 }
 
 export default {

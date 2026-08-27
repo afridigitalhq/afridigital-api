@@ -28,6 +28,7 @@ export async function getLiveFeed() {
 
 export async function getTodayFeed() {
   const result = await ingestFromProvider(PROVIDER, "fixtures", {
+    date: today(),
     include: "participants;league;season"
   });
 
@@ -44,6 +45,7 @@ export async function getTodayFeed() {
 
 export async function getDiscoveryFeed() {
   const result = await ingestFromProvider(PROVIDER, "fixtures", {
+    date: today(),
     include: "participants;league;season"
   });
 
