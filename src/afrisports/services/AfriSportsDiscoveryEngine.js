@@ -10,6 +10,17 @@ export async function getLiveFeed(){
     live:"all"
   });
 
+  if (data?.errors && Object.keys(data.errors).length) {
+    return {
+      source:"API-Football",
+      type:"LIVE",
+      count:0,
+      matches:[],
+      providerStatus:"UNAVAILABLE",
+      providerError:data.errors
+    };
+  }
+
   return {
     source:"API-Football",
     type:"LIVE",
