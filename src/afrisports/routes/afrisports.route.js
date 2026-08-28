@@ -12,6 +12,7 @@ import {
 import { getBigMatches } from "../services/BigMatchEngine.js";
 import { getLiveFeed, getTodayFeed, getDiscoveryFeed, getFeaturedFeed } from "../services/AfriSportsDiscoveryEngine.js";
 import { getTrendingMatches } from "../services/TrendingMatchEngine.js";
+import { getMatchPrediction } from "../services/FootballPredictionService.js";
 
 const router = express.Router();
 
@@ -79,6 +80,14 @@ router.get("/trending", async (req,res)=>{
       error:"AfriSports trending failed",
       message:error.message
     });
+  }
+});
+
+router.get("/prediction/:fixture", async (req,res)=>{
+  try {
+    res.json(await getMatchPrediction(req.params.fixture, req.query.date));
+  } catch(error) {
+    res.status(404).json({ error:"AfriSports prediction failed", message:error.message });
   }
 });
 
