@@ -1,4 +1,5 @@
 import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
+import { getSportMonksCompetition } from "../config/sportmonksCompetition.config.js";
 
 const PROVIDER = "SportMonks";
 
@@ -14,9 +15,13 @@ export async function getLiveMatches() {
 }
 
 export async function getLeagueFixtures(league, season) {
+  const competition = getSportMonksCompetition(league);
+  const leagueId = competition?.leagueId ?? league;
+  const seasonId = season || competition?.currentSeasonId || null;
+
   return ingestFromProvider(PROVIDER, "fixtures", {
-    league,
-    ...(season ? { season } : {}),
+    leagueId,
+    ...(seasonId ? { seasonId } : {}),
     include: "participants;league;season"
   });
 }
@@ -30,13 +35,25 @@ export async function getLineups(fixture) {
 }
 
 export async function getStandings(league, season) {
-  return ingestFromProvider(PROVIDER, "standings", league, season);
+  const competition = getSportMonksCompetition(league);
+  const leagueId = competition?.leagueId ?? league;
+  const seasonId = season || competition?.currentSeasonId || null;
+
+  return ingestFromProvider(PROVIDER, "standings", leagueId, seasonId);
 }
 
 export async function getTopScorers(league, season) {
-  return ingestFromProvider(PROVIDER, "scorers", league, season);
+  const competition = getSportMonksCompetition(league);
+  const leagueId = competition?.leagueId ?? league;
+  const seasonId = season || competition?.currentSeasonId || null;
+
+  return ingestFromProvider(PROVIDER, "scorers", leagueId, seasonId);
 }
 
 export async function getTeams(league, season) {
-  return ingestFromProvider(PROVIDER, "teams", league, season);
+  const competition = getSportMonksCompetition(league);
+  const leagueId = competition?.leagueId ?? league;
+  const seasonId = season || competition?.currentSeasonId || null;
+
+  return ingestFromProvider(PROVIDER, "teams", leagueId, seasonId);
 }

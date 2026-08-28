@@ -1,5 +1,6 @@
 import { createRequire } from "module";
 import { getLiveFeed, getTodayFeed } from "./AfriSportsDiscoveryEngine.js";
+import { getMatchEvents } from "./FootballMatchEngine.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
 const require = createRequire(import.meta.url);
@@ -118,11 +119,51 @@ export async function getTrendingMatches() {
       (a, b) => b.afriTrendingScore - a.afriTrendingScore
     );
 
+  const topMatches = ranked.slice(0, 20);
+
+  const enrichedMatches = await Promise.all(
+    topMatches.map(async match => {
+      const fixtureId = getMatchId(match);
+
+      if (fixtureId === null) {
+        return {
+          ...match,
+          events: []
+        };
+      }
+
+      try {
+        const eventResult = await getMatchEvents(fixtureId);
+        const events = Array.isArray(eventResult?.data)
+          ? eventResult.data
+          : Array.isArray(eventResult)
+            ? eventResult
+            : [];
+
+        return {
+          ...match,
+          events
+        };
+      } catch (error) {
+        console.warn(
+          "AfriSports event enrichment failed:",
+          fixtureId,
+          error?.message || error
+        );
+
+        return {
+          ...match,
+          events: []
+        };
+      }
+    })
+  );
+
   const result = {
     source: "AfriAI Match Radar",
     type: "TRENDING",
-    count: ranked.length,
-    matches: ranked.slice(0, 20)
+    count: enrichedMatches.length,
+    matches: enrichedMatches
   };
 
   publishAfriSports("trending.update", result);

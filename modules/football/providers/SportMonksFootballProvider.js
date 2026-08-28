@@ -4,6 +4,7 @@ import {
   getSportMonksLeague,
   sportMonksFetch
 } from "../../sportmonks/SportMonksClient.js";
+import { getActiveSportMonksCompetitions } from "../../../src/afrisports/config/sportmonksCompetition.config.js";
 import { createFootballProviderContract } from "../contracts/FootballProviderContract.js";
 import { createFootballMatch } from "../contracts/FootballMatchContract.js";
 
@@ -44,6 +45,38 @@ function normalizeSportMonksStatus(match = {}) {
     match?.state ||
     null
   );
+}
+
+function normalizeSportMonksEvent(event = {}) {
+  const typeId = Number(event?.type_id);
+
+  const type =
+    typeId === 14 ? "goal" :
+    typeId === 16 ? "penalty" :
+    typeId === 10 ? "penalty_awarded" :
+    typeId === 18 ? "substitution" :
+    typeId === 19 ? "yellow_card" :
+    "unknown";
+
+  return {
+    id: event?.id ?? null,
+    fixtureId: event?.fixture_id ?? null,
+    type,
+    typeId: Number.isFinite(typeId) ? typeId : null,
+    minute: event?.minute ?? null,
+    extraMinute: event?.extra_minute ?? null,
+    playerId: event?.player_id ?? null,
+    playerName: event?.player_name ?? null,
+    relatedPlayerId: event?.related_player_id ?? null,
+    relatedPlayerName: event?.related_player_name ?? null,
+    participantId: event?.participant_id ?? null,
+    result: event?.result ?? null,
+    info: event?.info ?? null,
+    addition: event?.addition ?? null,
+    subTypeId: event?.sub_type_id ?? null,
+    rescinded: event?.rescinded ?? null,
+    provider: "SportMonks"
+  };
 }
 
 function normalizeSportMonksMatch(match = {}) {
@@ -90,7 +123,7 @@ function normalizeSportMonksMatch(match = {}) {
     home,
     away,
     score: match.result_info ?? match.score ?? null,
-    events: Array.isArray(match.events) ? match.events : [],
+    events: Array.isArray(match.events) ? match.events.map(normalizeSportMonksEvent) : [],
     metadata: {
       provider: "SportMonks",
       providerMatchId: match.id ?? null,
@@ -153,7 +186,7 @@ async function getEvents(fixtureId) {
   const fixture = result?.data || null;
 
   return {
-    data: Array.isArray(fixture?.events) ? fixture.events : [],
+    data: Array.isArray(fixture?.events) ? fixture.events.map(normalizeSportMonksEvent) : [],
     meta: result?.meta ?? null,
     provider: "SportMonks"
   };

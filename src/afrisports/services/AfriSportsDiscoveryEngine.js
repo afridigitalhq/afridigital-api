@@ -14,6 +14,15 @@ function extractMatches(result) {
   return [];
 }
 
+function filterMatchesByDate(matches = [], date) {
+  const target = String(date ?? "").slice(0, 10);
+  if (!target) return [];
+  return matches.filter(match => {
+    const kickoff = match?.kickoff ?? match?.starting_at ?? null;
+    return kickoff && String(kickoff).slice(0, 10) === target;
+  });
+}
+
 export async function getLiveFeed() {
   const result = await ingestFromProvider(PROVIDER, "live");
   const matches = extractMatches(result);
@@ -27,12 +36,13 @@ export async function getLiveFeed() {
 }
 
 export async function getTodayFeed() {
+  const targetDate = today();
   const result = await ingestFromProvider(PROVIDER, "fixtures", {
-    date: today(),
+    date: targetDate,
     include: "participants;league;season"
   });
 
-  const matches = extractMatches(result);
+  const matches = filterMatchesByDate(extractMatches(result), targetDate);
 
   return {
     source: PROVIDER,
@@ -49,7 +59,7 @@ export async function getDiscoveryFeed() {
     include: "participants;league;season"
   });
 
-  const matches = extractMatches(result).filter(match => {
+  const matches = filterMatchesByDate(extractMatches(result), today()).filter(match => {
     const league = match?.league?.name || "";
 
     return (
