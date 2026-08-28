@@ -36,6 +36,19 @@ export async function getMatchPrediction(fixtureId, date) {
   const probabilities = normalizeProbabilities(clamp(baseHome, 15, 75), clamp(baseDraw, 12, 35), clamp(baseAway, 15, 70));
   const winner = probabilities.home >= probabilities.away && probabilities.home >= probabilities.draw ? homeName : probabilities.away >= probabilities.home && probabilities.away >= probabilities.draw ? awayName : "Draw";
   const expectedGoals = Number((2.15 + Math.max(0, positionSignal) * 0.015).toFixed(2));
+  const homeXg = Number((expectedGoals * (probabilities.home / Math.max(probabilities.home + probabilities.away, 1))).toFixed(2));
+  const awayXg = Number((expectedGoals - homeXg).toFixed(2));
+  const poisson = (lambda, goals) => Math.exp(-lambda) * Math.pow(lambda, goals) / factorial(goals);
+  const factorial = n => n <= 1 ? 1 : n * factorial(n - 1);
+  const scorelines = [];
+  for (let homeGoals = 0; homeGoals <= 5; homeGoals++) {
+    for (let awayGoals = 0; awayGoals <= 5; awayGoals++) {
+      scorelines.push({ home: homeGoals, away: awayGoals, probability: poisson(homeXg, homeGoals) * poisson(awayXg, awayGoals) });
+    }
+  }
+  const correctScore = scorelines.sort((a, b) => b.probability - a.probability)[0];
+  const scoreOutcome = correctScore.home > correctScore.away ? homeName : correctScore.home < correctScore.away ? awayName : "Draw";
+  const totalGoals = correctScore.home + correctScore.away;
   const confidence = clamp(Math.round(Math.max(probabilities.home, probabilities.away, probabilities.draw) * 0.82), 50, 85);
   const factors = [];
   factors.push("Home advantage");
@@ -49,8 +62,14 @@ export async function getMatchPrediction(fixtureId, date) {
     competition: match?.league?.name ?? "Football",
     model: "AfriAI Sports Prediction v1",
     probabilities,
-    prediction: winner,
+    prediction: scoreOutcome,
+    correctScore: `${correctScore.home}-${correctScore.away}`,
+    correctScoreProbability: Number((correctScore.probability * 100).toFixed(1)),
+    totalGoals,
+    homeExpectedGoals: homeXg,
+    awayExpectedGoals: awayXg,
     expectedGoals,
+    outcomeProbability: scoreOutcome === homeName ? probabilities.home : scoreOutcome === awayName ? probabilities.away : probabilities.draw,
     confidence,
     factors,
     disclaimer: "Prediction is statistical analysis, not a guarantee of the match result.",
