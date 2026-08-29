@@ -1,0 +1,4 @@
+import AfriPredictionProviderRegistry from "../registry/AfriPredictionProviderRegistry.js";
+import PlaceholderPredictionProvider from "./PlaceholderPredictionProvider.js";
+if(!AfriPredictionProviderRegistry.get(PlaceholderPredictionProvider.name))AfriPredictionProviderRegistry.register(PlaceholderPredictionProvider.name,PlaceholderPredictionProvider);
+export default AfriPredictionProviderRegistry;

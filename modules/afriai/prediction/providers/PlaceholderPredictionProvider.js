@@ -1,0 +1,2 @@
+import {createAfriPredictionProviderContract} from "../contracts/AfriPredictionProviderContract.js";
+const PlaceholderPredictionProvider=createAfriPredictionProviderContract({name:"placeholder",scaffoldOnly:true,capabilities:["match_prediction","probabilities","correct_score","over_under","goals","btts","xg","form"],coverage:"global",async predictMatch(){throw new Error("Placeholder prediction provider is not configured")}});export default PlaceholderPredictionProvider;
