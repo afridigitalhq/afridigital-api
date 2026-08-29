@@ -1,6 +1,7 @@
 import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
 import { resolveCompetition, resolveCompetitionForProvider } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
+import { resolveSportMonksSeason } from "../../../modules/football/providers/SportMonksSeasonResolver.js";
 
 const PROVIDER = "SportMonks";
 
