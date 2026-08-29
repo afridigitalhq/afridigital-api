@@ -1,5 +1,5 @@
 import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
-import { resolveCompetition } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
+import { resolveCompetition, resolveCompetitionForProvider } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
 const PRIORITY_COMPETITIONS = Object.freeze([
