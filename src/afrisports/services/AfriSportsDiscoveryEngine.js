@@ -2,6 +2,8 @@ import { ingestFromProvider } from "../../../modules/football/ingestion/Football
 import { resolveCompetition, resolveCompetitionForProvider } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
+const PROVIDER = "SportMonks";
+
 const PRIORITY_COMPETITIONS = Object.freeze([
   "premierLeague",
   "championsLeague"
