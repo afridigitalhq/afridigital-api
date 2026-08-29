@@ -2,7 +2,7 @@ import { ingestFromProvider } from "../../../modules/football/ingestion/Football
 import { resolveCompetition } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
 import { rankBigMatches } from "./FootballAnalyticsService.js";
 
-const PRIMARY_COMPETITIONS = Object.freeze([
+const PRIORITY_COMPETITIONS = Object.freeze([
   "premierLeague",
   "championsLeague"
 ]);
