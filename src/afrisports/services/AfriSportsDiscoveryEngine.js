@@ -80,7 +80,7 @@ async function loadCompetitionFixtures(competitionKey, date) {
 
 export async function getLiveFeed() {
   const results = await Promise.allSettled(
-    PRIMARY_COMPETITIONS.map(async competitionKey => {
+    PRIORITY_COMPETITIONS.map(async competitionKey => {
       const resolved = resolvePrimaryCompetition(competitionKey);
 
       const result = await ingestFromProvider(
