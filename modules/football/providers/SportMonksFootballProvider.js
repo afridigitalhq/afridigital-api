@@ -122,7 +122,18 @@ function normalizeSportMonksMatch(match = {}) {
     ),
     home,
     away,
-    score: match.result_info ?? match.score ?? null,
+    score: (() => {
+      const scores = Array.isArray(match.scores) ? match.scores : [];
+      const current = scores.filter(s => s?.description === "CURRENT");
+      const homeScore = current.find(s => s?.participant_id === participantHome?.id || s?.score?.participant === "home")?.score?.goals ?? null;
+      const awayScore = current.find(s => s?.participant_id === participantAway?.id || s?.score?.participant === "away")?.score?.goals ?? null;
+      return {
+        home: { goals: homeScore },
+        away: { goals: awayScore },
+        display: homeScore !== null && awayScore !== null ? `${homeScore}:${awayScore}` : (match.result_info ?? null)
+      };
+    })(),
+    minute: match?.minute ?? match?.time?.elapsed ?? match?.status?.elapsed ?? null,
     events: Array.isArray(match.events) ? match.events.map(normalizeSportMonksEvent) : [],
     metadata: {
       provider: "SportMonks",
@@ -146,7 +157,7 @@ function extractData(result) {
 async function getFixtures(options = {}) {
   const result = await getSportMonksFixtures({
     ...options,
-    include: options.include || "participants;league;season"
+    include: options.include || "participants"
   });
 
   return {
@@ -170,11 +181,28 @@ async function getFixture(fixtureId, include = "participants;league;season") {
 
 async function getLive() {
   const result = await sportMonksFetch(
-    "/livescores/inplay?include=participants;league;season"
+    "/livescores/inplay?include=participants;scores;state"
+  );
+
+  const liveFixtures = extractData(result);
+
+  const enrichedFixtures = await Promise.all(
+    liveFixtures.map(async (fixture) => {
+      try {
+        const detail = await getSportMonksFixture(
+          fixture.id,
+          "participants;scores;state;events;league;season"
+        );
+
+        return detail?.data || fixture;
+      } catch {
+        return fixture;
+      }
+    })
   );
 
   return {
-    data: extractData(result).map(normalizeSportMonksMatch),
+    data: enrichedFixtures.map(normalizeSportMonksMatch),
     meta: result?.meta ?? null,
     provider: "SportMonks"
   };
