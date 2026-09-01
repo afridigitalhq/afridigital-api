@@ -1,59 +1,60 @@
 import { ingestFromProvider } from "../../../modules/football/ingestion/FootballIngestionBoundary.js";
-import { getSportMonksCompetition } from "../config/sportmonksCompetition.config.js";
 
-const PROVIDER = "SportMonks";
 
+import { resolveCompetition, resolveCompetitionForProvider } from "../../../modules/football/orchestration/FootballCompetitionResolver.js";
 export async function getFixtures(date) {
-  return ingestFromProvider(PROVIDER, "fixtures", {
+  const resolved = resolveCompetitionForProvider("premierLeague", "API-Football");
+  return ingestFromProvider(resolved.provider, "fixtures", {
     ...(date ? { date } : {}),
-    include: "participants;league;season"
+    league: resolved.leagueId
   });
 }
 
 export async function getLiveMatches() {
-  return ingestFromProvider(PROVIDER, "live");
+  return ingestFromProvider(resolveCompetition("premierLeague").provider, "live");
 }
 
 export async function getLeagueFixtures(league, season) {
-  const competition = getSportMonksCompetition(league);
+  const competition = resolveCompetition(league);
   const leagueId = competition?.leagueId ?? league;
-  const seasonId = season || competition?.currentSeasonId || null;
+  const seasonId = season || competition?.seasonId || null;
 
-  return ingestFromProvider(PROVIDER, "fixtures", {
+  const resolved = resolveCompetition(league || "premierLeague");
+  return ingestFromProvider(resolved.provider, "fixtures", {
     leagueId,
     ...(seasonId ? { seasonId } : {}),
-    include: "participants;league;season"
+    include: "participants;league"
   });
 }
 
 export async function getMatchEvents(fixture) {
-  return ingestFromProvider(PROVIDER, "events", fixture);
+  return ingestFromProvider(resolveCompetition(fixture?.league?.key || fixture?.competitionKey || "premierLeague").provider, "events", fixture);
 }
 
 export async function getLineups(fixture) {
-  return ingestFromProvider(PROVIDER, "lineups", fixture);
+  return ingestFromProvider(resolveCompetition(fixture?.league?.key || fixture?.competitionKey || "premierLeague").provider, "lineups", fixture);
 }
 
 export async function getStandings(league, season) {
-  const competition = getSportMonksCompetition(league);
+  const competition = resolveCompetition(league);
   const leagueId = competition?.leagueId ?? league;
-  const seasonId = season || competition?.currentSeasonId || null;
+  const seasonId = season || competition?.seasonId || null;
 
-  return ingestFromProvider(PROVIDER, "standings", leagueId, seasonId);
+  return ingestFromProvider(competition.provider, "standings", leagueId, seasonId);
 }
 
 export async function getTopScorers(league, season) {
-  const competition = getSportMonksCompetition(league);
+  const competition = resolveCompetition(league);
   const leagueId = competition?.leagueId ?? league;
-  const seasonId = season || competition?.currentSeasonId || null;
+  const seasonId = season || competition?.seasonId || null;
 
-  return ingestFromProvider(PROVIDER, "scorers", leagueId, seasonId);
+  return ingestFromProvider(competition.provider, "scorers", leagueId, seasonId);
 }
 
 export async function getTeams(league, season) {
-  const competition = getSportMonksCompetition(league);
+  const competition = resolveCompetition(league);
   const leagueId = competition?.leagueId ?? league;
-  const seasonId = season || competition?.currentSeasonId || null;
+  const seasonId = season || competition?.seasonId || null;
 
-  return ingestFromProvider(PROVIDER, "teams", leagueId, seasonId);
+  return ingestFromProvider(competition.provider, "teams", leagueId, seasonId);
 }
