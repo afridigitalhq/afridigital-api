@@ -10,11 +10,34 @@ import {
   getTeams
 } from "../services/FootballMatchEngine.js";
 import { getBigMatches } from "../services/BigMatchEngine.js";
-import { getLiveFeed, getTodayFeed, getDiscoveryFeed, getFeaturedFeed } from "../services/AfriSportsDiscoveryEngine.js";
+import { getLiveFeed, getTodayFeed, getTomorrowFeed, getDiscoveryFeed, getFeaturedFeed, getAllCompetitions } from "../services/AfriSportsDiscoveryEngine.js";
 import { getTrendingMatches } from "../services/TrendingMatchEngine.js";
 import { getMatchPrediction } from "../services/FootballPredictionService.js";
+import { getFixtureUniverse } from "../services/AfriSportsFixtureUniverseService.js";
 
 const router = express.Router();
+
+router.get("/competitions", async (req, res) => {
+  try {
+    res.json(await getAllCompetitions());
+  } catch (error) {
+    res.status(500).json({
+      error: "AfriSports competitions failed",
+      message: error.message
+    });
+  }
+});
+
+router.get("/fixture-universe", async (req,res)=>{
+  try{
+    res.json(await getFixtureUniverse());
+  }catch(error){
+    res.status(500).json({
+      error:"AfriSports fixture universe failed",
+      message:error.message
+    });
+  }
+});
 
 router.get("/fixtures", async (req,res)=>{
   try{
@@ -49,6 +72,16 @@ router.get("/today", async (req,res)=>{
   }
 });
 
+router.get("/tomorrow", async (req,res)=>{
+  try{
+    res.json(await getTomorrowFeed());
+  }catch(error){
+    res.status(500).json({
+      error:"AfriSports tomorrow failed",
+      message:error.message
+    });
+  }
+});
 router.get("/discovery", async (req,res)=>{
   try{
     res.json(await getDiscoveryFeed());
@@ -85,9 +118,18 @@ router.get("/trending", async (req,res)=>{
 
 router.get("/prediction/:fixture", async (req,res)=>{
   try {
-    res.json(await getMatchPrediction(req.params.fixture, req.query.date));
+    res.json(
+      await getMatchPrediction(
+        req.params.fixture,
+        req.query.date,
+        req.query
+      )
+    );
   } catch(error) {
-    res.status(404).json({ error:"AfriSports prediction failed", message:error.message });
+    res.status(404).json({
+      error:"AfriSports prediction failed",
+      message:error.message
+    });
   }
 });
 

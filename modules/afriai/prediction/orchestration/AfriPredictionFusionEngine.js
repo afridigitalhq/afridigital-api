@@ -1,8 +1,33 @@
 function clamp(value,min,max){return Math.max(min,Math.min(max,value));}
 
 function average(values){
-  const valid=values.filter(value=>Number.isFinite(Number(value))).map(Number);
+  const valid=values.filter(value=>value!==null&&value!==undefined&&value!==""&&Number.isFinite(Number(value))).map(Number);
   return valid.length?valid.reduce((sum,value)=>sum+value,0)/valid.length:null;
+}
+
+function mergeMarketObjects(values=[]){
+ const result={};
+ for(const value of values.filter(item=>item&&typeof item==="object")){
+  for(const [key,entry] of Object.entries(value)){
+   if(entry&&typeof entry==="object"&&!Array.isArray(entry)) result[key]={...result[key],...entry};
+   else result[key]=entry;
+  }
+ }
+ return result;
+}
+
+function buildPredictions({probabilities,markets}){
+ const predictions=[];
+ for(const [selection,probability] of [["Home",probabilities.home],["Draw",probabilities.draw],["Away",probabilities.away]]) predictions.push({type:"match_prediction",market:"1X2",selection,probability});
+ for(const [line,market] of Object.entries(markets.over_under||{})){
+  if(Number.isFinite(Number(market?.over))) predictions.push({type:"over_under",market:line,selection:"Over",probability:Number(market.over)});
+  if(Number.isFinite(Number(market?.under))) predictions.push({type:"over_under",market:line,selection:"Under",probability:Number(market.under)});
+ }
+ if(Number.isFinite(Number(markets.btts?.yes))) predictions.push({type:"btts",market:"BTTS",selection:"Yes",probability:Number(markets.btts.yes)});
+ if(Number.isFinite(Number(markets.btts?.no))) predictions.push({type:"btts",market:"BTTS",selection:"No",probability:Number(markets.btts.no)});
+ for(const [selection,probability] of [["Home or Draw",markets.double_chance?.homeOrDraw],["Away or Draw",markets.double_chance?.awayOrDraw],["Home or Away",markets.double_chance?.homeOrAway]]) if(Number.isFinite(Number(probability))) predictions.push({type:"double_chance",market:"Double Chance",selection,probability:Number(probability)});
+ for(const [selection,probability] of Object.entries(markets.handicap||{})) if(Number.isFinite(Number(probability))) predictions.push({type:"handicap",market:"Asian Handicap",selection,probability:Number(probability)});
+ return predictions;
 }
 
 function normalizePrediction(result){
@@ -18,7 +43,13 @@ function normalizePrediction(result){
     },
     correctScore:prediction.correctScore??null,
     correctScoreProbability:Number(prediction.correctScoreProbability??0),
-    expectedGoals:Number(prediction.expectedGoals??0)
+    expectedGoals:prediction.expectedGoals===null||prediction.expectedGoals===undefined||prediction.expectedGoals===""?null:Number(prediction.expectedGoals),
+   markets:{
+     over_under:prediction.markets?.over_under??prediction.markets?.goals??{},
+     btts:prediction.markets?.btts??{},
+     double_chance:prediction.markets?.double_chance??prediction.markets?.doubleChance??{},
+     handicap:prediction.markets?.handicap??{}
+   }
   };
 }
 
@@ -62,6 +93,13 @@ export function fusePredictions(results=[]){
     .sort((a,b)=>b[1]-a[1])[0]?.[0]??null;
 
   const expectedGoals=average(successful.map(item=>item.expectedGoals));
+ const markets={
+  over_under:mergeMarketObjects(successful.map(item=>item.markets?.over_under)),
+  btts:mergeMarketObjects(successful.map(item=>item.markets?.btts)),
+  double_chance:mergeMarketObjects(successful.map(item=>item.markets?.double_chance)),
+  handicap:mergeMarketObjects(successful.map(item=>item.markets?.handicap))
+ };
+ const predictions=buildPredictions({probabilities,markets});
 
   return {
     type:"AFRI_AI_FUSED_PREDICTION",
@@ -71,9 +109,11 @@ export function fusePredictions(results=[]){
     probabilities,
     correctScore,
     expectedGoals:expectedGoals===null?null:Number(expectedGoals.toFixed(2)),
+   markets,
+   predictions,
     confidence:clamp(
       Math.round(Math.max(probabilities.home,probabilities.draw,probabilities.away)),
-      50,
+      0,
       95
     ),
     methodology:"Multi-provider statistical prediction fusion"

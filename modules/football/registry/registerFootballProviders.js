@@ -1,11 +1,11 @@
 import FootballProviderRegistry from "./FootballProviderRegistry.js";
+import APIfootballFootballProvider from "../providers/APIfootballFootballProvider.js";
 import SportMonksFootballProvider from "../providers/SportMonksFootballProvider.js";
-import ApiFootballProvider from "../providers/ApiFootballProvider.js";
 
 export function registerDefaultFootballProviders() {
   for (const provider of [
-    SportMonksFootballProvider,
-    ApiFootballProvider
+    APIfootballFootballProvider,
+    SportMonksFootballProvider
   ]) {
     if (!FootballProviderRegistry.has(provider.name)) {
       FootballProviderRegistry.register(provider);

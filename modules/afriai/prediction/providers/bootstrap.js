@@ -1,4 +1,6 @@
 import AfriPredictionProviderRegistry from "../registry/AfriPredictionProviderRegistry.js";
 import PlaceholderPredictionProvider from "./PlaceholderPredictionProvider.js";
+import APIfootballPredictionProvider from "./APIfootballPredictionProvider.js";
 if(!AfriPredictionProviderRegistry.get(PlaceholderPredictionProvider.name))AfriPredictionProviderRegistry.register(PlaceholderPredictionProvider.name,PlaceholderPredictionProvider);
+if(!AfriPredictionProviderRegistry.get(APIfootballPredictionProvider.name))AfriPredictionProviderRegistry.register(APIfootballPredictionProvider.name,APIfootballPredictionProvider);
 export default AfriPredictionProviderRegistry;

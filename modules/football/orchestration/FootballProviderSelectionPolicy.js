@@ -1,7 +1,4 @@
-const DEFAULT_PROVIDER_ORDER = Object.freeze([
-  "SportMonks",
-  "API-Football"
-]);
+const DEFAULT_PROVIDER_ORDER = Object.freeze(["APIfootball", "SportMonks"]);
 
 const MULTI_PROVIDER_CAPABILITIES = Object.freeze([
   "fixtures"

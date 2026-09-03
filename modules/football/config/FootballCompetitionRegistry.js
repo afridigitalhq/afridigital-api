@@ -4,7 +4,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "Premier League",
     country: "England",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 39 }),
+      APIfootball: Object.freeze({ leagueId: 152, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: 8, seasonId: null })
     })
   }),
@@ -13,7 +13,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "Champions League",
     country: "Europe",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 2 }),
+      APIfootball: Object.freeze({ leagueId: 3, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: 2, seasonId: null })
     })
   }),
@@ -22,7 +22,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "La Liga",
     country: "Spain",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 140 }),
+      APIfootball: Object.freeze({ leagueId: 302, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: null, seasonId: null })
     })
   }),
@@ -31,7 +31,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "Serie A",
     country: "Italy",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 135 }),
+      APIfootball: Object.freeze({ leagueId: 207, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: null, seasonId: null })
     })
   }),
@@ -40,7 +40,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "Bundesliga",
     country: "Germany",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 78 }),
+      APIfootball: Object.freeze({ leagueId: 175, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: null, seasonId: null })
     })
   }),
@@ -49,7 +49,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     name: "Ligue 1",
     country: "France",
     providers: Object.freeze({
-      "API-Football": Object.freeze({ leagueId: 61 }),
+      APIfootball: Object.freeze({ leagueId: 168, seasonId: "2026/2027" }),
       SportMonks: Object.freeze({ leagueId: null, seasonId: null })
     })
   }),
@@ -88,6 +88,7 @@ export const FOOTBALL_COMPETITIONS = Object.freeze({
     })
   })
 });
+
 
 export function getFootballCompetition(key) {
   return FOOTBALL_COMPETITIONS[key] || null;
