@@ -68,12 +68,28 @@ export function fusePredictionFeatures(signals={}){
     .map(item=>item?.markets?.goals??item?.markets?.over_under??{})
     .filter(item=>item&&typeof item==="object");
 
+  const providerOver15Values=providerGoalMarkets
+    .map(item=>Number(item?.["1.5"]?.over))
+    .filter(Number.isFinite);
+
   const providerOver25Values=providerGoalMarkets
     .map(item=>Number(item?.["2.5"]?.over))
     .filter(Number.isFinite);
 
+  const providerOver35Values=providerGoalMarkets
+    .map(item=>Number(item?.["3.5"]?.over))
+    .filter(Number.isFinite);
+
+  const providerOver15=providerOver15Values.length
+    ?providerOver15Values.reduce((sum,value)=>sum+value,0)/providerOver15Values.length
+    :null;
+
   const providerOver25=providerOver25Values.length
     ?providerOver25Values.reduce((sum,value)=>sum+value,0)/providerOver25Values.length
+    :null;
+
+  const providerOver35=providerOver35Values.length
+    ?providerOver35Values.reduce((sum,value)=>sum+value,0)/providerOver35Values.length
     :null;
 
   const providerBttsValues=providerPredictions
@@ -103,9 +119,11 @@ export function fusePredictionFeatures(signals={}){
     providerDrawProbability,
     providerAwayProbability,
     provider1x2Edge,
+    providerOver15,
     providerOver25,
+    providerOver35,
     providerBttsYes,
-    featureCount:20
+    featureCount:22
   });
 }
 

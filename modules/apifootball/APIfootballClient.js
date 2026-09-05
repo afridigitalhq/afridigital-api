@@ -79,7 +79,10 @@ export async function apiFootballFetch(params = {}) {
     typeof payload === "object" &&
     payload.error
   ) {
-    if (params.action === "get_events" && Number(payload.error) === 404) {
+    if (
+      params.action === "get_events" &&
+      [201, 404].includes(Number(payload.error))
+    ) {
       return [];
     }
     throw new Error(

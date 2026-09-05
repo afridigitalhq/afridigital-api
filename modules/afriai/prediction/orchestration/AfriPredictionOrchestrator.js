@@ -2,7 +2,8 @@ import AfriPredictionProviderRegistry from "../registry/AfriPredictionProviderRe
 import "./../providers/bootstrap.js";
 import {createPredictionEvidenceFromFixture} from "../providers/AfriPredictionEvidenceAdapter.js";
 import {predictFromEvidence} from "./AfriPredictionEvidenceEngine.js";
-export async function predictMatch(input={},options={}){const providers=options.providers||AfriPredictionProviderRegistry.all();const league=input.league??input.leagueName??null;const eligible=providers.filter(provider=>!options.requireLeagueCoverage||!league||provider.supportsLeague(league));if(!eligible.length)throw new Error(`No prediction provider covers league "${league??"requested league"}"`);const selected=options.provider?eligible.filter(provider=>provider.name===options.provider):eligible.slice(0,options.maxProviders||10);const results=await Promise.allSettled(selected.map(provider=>provider.predictMatch(input)));const providerResults=results.map((result,index)=>({provider:selected[index].name,status:result.status,...(result.status==="fulfilled"?{result:result.value}:{error:result.reason?.message||"Provider failed"})}));const successful=providerResults.filter(item=>item.status==="fulfilled");if(!successful.length)throw new Error("No prediction provider returned a prediction");const primary=successful[0]?.result??{};
+import {buildProviderConsensus} from "./AfriPredictionProviderConsensus.js";
+export async function predictMatch(input={},options={}){const providers=options.providers||AfriPredictionProviderRegistry.all();const league=input.league??input.leagueName??null;const eligible=providers.filter(provider=>!provider?.scaffoldOnly&&(!options.requireLeagueCoverage||!league||provider.supportsLeague(league)));if(!eligible.length)throw new Error(`No prediction provider covers league "${league??"requested league"}"`);const selected=options.provider?eligible.filter(provider=>provider.name===options.provider):eligible.slice(0,options.maxProviders||10);const results=await Promise.allSettled(selected.map(provider=>provider.predictMatch(input)));const providerResults=results.map((result,index)=>({provider:selected[index].name,status:result.status,...(result.status==="fulfilled"?{result:result.value}:{error:result.reason?.message||"Provider failed"})}));const successful=providerResults.filter(item=>item.status==="fulfilled");if(!successful.length)throw new Error("No prediction provider returned a prediction");const primary=successful[0]?.result??{};
 const fixture={
   id:input.fixtureId??input.id??input.matchId,
   league:input.league??primary.league??null,
@@ -26,12 +27,14 @@ const fixture={
     metadata:item.result?.metadata??{}
   }))
 };
+const providerConsensus=buildProviderConsensus(providerResults);
 const predictionEvidence=createPredictionEvidenceFromFixture({fixture,source:providerResults});
 const prediction=predictFromEvidence(predictionEvidence);
 return {
   ...prediction,
   league,
   providerCount:successful.length,
+  providerConsensus,
   providerResults
 }}
 export default Object.freeze({predictMatch});

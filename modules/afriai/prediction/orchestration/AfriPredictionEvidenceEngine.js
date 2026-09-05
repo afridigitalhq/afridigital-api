@@ -25,6 +25,8 @@ export function predictFromEvidence(evidence = {}) {
     league: signals.league,
     competition: signals.competition,
     season: signals.season,
+    homeTeam: signals.homeTeam,
+    awayTeam: signals.awayTeam,
     prediction: prediction.prediction,
     probabilities: prediction.probabilities,
     expectedGoals: prediction.expectedGoals,
@@ -36,6 +38,7 @@ export function predictFromEvidence(evidence = {}) {
     predictions: prediction.predictions,
     confidence: prediction.confidence,
     model: prediction.model,
+    coherence: prediction.coherence,
     features,
     evidenceSource: signals.source
   });

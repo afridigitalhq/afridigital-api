@@ -47,7 +47,9 @@ async function predictMatch(input = {}) {
     expectedGoals: null,
     markets: {
       goals: prediction.goals,
+      over_under: prediction.goals,
       btts: prediction.btts,
+      double_chance: prediction.doubleChance,
       handicap: prediction.handicap
     },
     metadata: {
@@ -66,7 +68,9 @@ const APIfootballPredictionProvider = createAfriPredictionProviderContract({
     "probabilities",
     "over_under",
     "goals",
-    "btts"
+    "btts",
+    "double_chance",
+    "handicap"
   ],
   coverage: "global",
   predictMatch
