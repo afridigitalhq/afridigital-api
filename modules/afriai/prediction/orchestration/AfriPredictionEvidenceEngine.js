@@ -16,7 +16,8 @@ export function predictFromEvidence(evidence = {}) {
     homePosition: signals.homePosition,
     awayPosition: signals.awayPosition,
     homeAdvantage: signals.homeAdvantage,
-    features
+    features,
+    liveState: signals.liveState
   });
 
   return Object.freeze({
@@ -37,6 +38,7 @@ export function predictFromEvidence(evidence = {}) {
     markets: prediction.markets,
     predictions: prediction.predictions,
     confidence: prediction.confidence,
+    liveState: prediction.liveState ?? signals.liveState ?? null,
     model: prediction.model,
     coherence: prediction.coherence,
     features,

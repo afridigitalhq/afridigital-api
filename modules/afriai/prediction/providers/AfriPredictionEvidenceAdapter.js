@@ -24,6 +24,7 @@ export function createPredictionEvidenceFromFixture({fixture,source=null}={}) {
     xg:fixture.xg??{home:null,away:null},
     odds:fixture.odds??{home:null,draw:null,away:null},
     providerPredictions:fixture.providerPredictions??[],
+    liveState:fixture.liveState??null,
     source,
     metadata:{providerFixtureId:fixture.id??fixture.fixtureId}
   });

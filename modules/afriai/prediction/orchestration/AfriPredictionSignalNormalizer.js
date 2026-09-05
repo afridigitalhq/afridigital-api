@@ -38,6 +38,15 @@ export function normalizePredictionSignals(evidence={}){
           metadata:Object.freeze({...item?.metadata})
         }))
       : [],
+    liveState:evidence.liveState ? {
+      status:evidence.liveState.status??null,
+      minute:numberOrNull(evidence.liveState.minute),
+      score:{
+        home:numberOrNull(evidence.liveState.score?.home),
+        away:numberOrNull(evidence.liveState.score?.away)
+      },
+      events:arrayOrEmpty(evidence.liveState.events)
+    } : null,
     source:evidence.source??null
   });
 }

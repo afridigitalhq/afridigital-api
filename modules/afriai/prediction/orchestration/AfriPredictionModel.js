@@ -294,7 +294,7 @@ function buildSelectedPredictions({
   return Object.freeze(predictions);
 }
 
-export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,awayPosition=null,homeAdvantage=7,features={}}={}){
+export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,awayPosition=null,homeAdvantage=7,features={},liveState:inputLiveState=null}={}){
   const positionSignal=homePosition&&awayPosition?clamp((awayPosition-homePosition)*1.8,-18,18):0;
   /*
    * Provider 1X2 probabilities are evidence, not a directional
@@ -446,11 +446,111 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
    * This prevents independent markets from contradicting
    * the selected correct score.
    */
-  const scorelines=buildScorelineMatrix(
-    homeXg,
-    awayXg,
-    probabilities
-  );
+  const effectiveLiveState =
+    inputLiveState ??
+    features.liveState ??
+    null;
+
+  const liveScore =
+    effectiveLiveState?.score ??
+    null;
+
+  const liveMinute =
+    Number(effectiveLiveState?.minute);
+
+  const hasLiveScore =
+    liveScore &&
+    Number.isFinite(Number(liveScore.home)) &&
+    Number.isFinite(Number(liveScore.away)) &&
+    Number.isFinite(liveMinute) &&
+    liveMinute >= 0 &&
+    liveMinute <= 130;
+
+  let scorelines;
+
+  if (hasLiveScore) {
+    const currentHome = Math.max(0, Number(liveScore.home));
+    const currentAway = Math.max(0, Number(liveScore.away));
+    const remainingMinutes = Math.max(0, 90 - Math.min(liveMinute, 90));
+
+    /*
+     * Live model:
+     * The observed score is authoritative. AfriAI only models
+     * goals still to be scored in the remaining match time.
+     */
+    const remainingFraction = remainingMinutes / 90;
+
+    const remainingGoals = clamp(
+      Math.max(expectedGoals, 0.1) * remainingFraction,
+      0.05,
+      4
+    );
+
+      const baseHomeGoalShare =
+        probabilities.home /
+        Math.max(probabilities.home + probabilities.away, 1);
+
+      const scoreGap = Math.abs(currentHome - currentAway);
+      const lateMatchFactor = 1 - (remainingMinutes / 90);
+      const trailingSuppression =
+        1 + scoreGap * (1 + lateMatchFactor);
+
+      let liveHomeGoalShare = baseHomeGoalShare;
+
+      if (scoreGap > 0) {
+        if (currentHome < currentAway) {
+          liveHomeGoalShare =
+            baseHomeGoalShare / trailingSuppression;
+        } else {
+          const trailingAwayShare =
+            (1 - baseHomeGoalShare) / trailingSuppression;
+          liveHomeGoalShare = 1 - trailingAwayShare;
+        }
+      }
+
+      liveHomeGoalShare = clamp(liveHomeGoalShare, 0.02, 0.98);
+
+      const remainingHomeXg = Number(
+        (remainingGoals * liveHomeGoalShare).toFixed(4)
+      );
+
+
+    const remainingAwayXg = Number(
+      Math.max(remainingGoals - remainingHomeXg, 0).toFixed(4)
+    );
+
+    const remainingScorelines = [];
+
+    for (let addedHome = 0; addedHome <= 8; addedHome++) {
+      for (let addedAway = 0; addedAway <= 8; addedAway++) {
+        remainingScorelines.push({
+          home: currentHome + addedHome,
+          away: currentAway + addedAway,
+          probability:
+            poisson(remainingHomeXg, addedHome) *
+            poisson(remainingAwayXg, addedAway)
+        });
+      }
+    }
+
+    const liveTotal =
+      remainingScorelines.reduce(
+        (sum, item) => sum + item.probability,
+        0
+      ) || 1;
+
+    for (const item of remainingScorelines) {
+      item.probability /= liveTotal;
+    }
+
+    scorelines = remainingScorelines;
+  } else {
+    scorelines = buildScorelineMatrix(
+      homeXg,
+      awayXg,
+      probabilities
+    );
+  }
 
   const correctScore=scorelines
     .slice()
@@ -474,10 +574,14 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
     ).toFixed(2))
   };
 
+  const effectiveProbabilities = hasLiveScore
+    ? matrixProbabilities
+    : probabilities;
+
   const outcomeOptions=[
-    ["home",probabilities.home],
-    ["draw",probabilities.draw],
-    ["away",probabilities.away]
+    ["home",effectiveProbabilities.home],
+    ["draw",effectiveProbabilities.draw],
+    ["away",effectiveProbabilities.away]
   ];
 
   const prediction=outcomeOptions
@@ -512,6 +616,26 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
     matrixExpectedGoals(scorelines).toFixed(2)
   );
 
+  const liveFinalScore =
+    hasLiveScore
+      ? {
+          home: Number(liveScore.home),
+          away: Number(liveScore.away)
+        }
+      : null;
+
+  const liveState = hasLiveScore
+    ? Object.freeze({
+        active: true,
+        minute: liveMinute,
+        currentScore: liveFinalScore,
+        remainingMinutes: Math.max(
+          0,
+          90 - Math.min(liveMinute, 90)
+        )
+      })
+    : null;
+
   const markets={
     over_under:overUnder,
     btts,
@@ -519,7 +643,7 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
   };
 
   const predictions=buildSelectedPredictions({
-    probabilities,
+    probabilities:effectiveProbabilities,
     overUnder,
     btts,
     doubleChance,
@@ -542,9 +666,9 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
   const modelOver15=overUnder["1.5"]?.over??null;
 
   const matrix1x2MatchesFinal=
-    Math.abs(matrixProbabilities.home-probabilities.home)<0.05 &&
-    Math.abs(matrixProbabilities.draw-probabilities.draw)<0.05 &&
-    Math.abs(matrixProbabilities.away-probabilities.away)<0.05;
+    Math.abs(matrixProbabilities.home-effectiveProbabilities.home)<0.05 &&
+    Math.abs(matrixProbabilities.draw-effectiveProbabilities.draw)<0.05 &&
+    Math.abs(matrixProbabilities.away-effectiveProbabilities.away)<0.05;
 
   const coherence={
     providerEvidenceAvailable:hasProvider1X2,
@@ -562,9 +686,9 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
       away:baselineProbabilities.away
     }),
     final1x2:Object.freeze({
-      home:probabilities.home,
-      draw:probabilities.draw,
-      away:probabilities.away
+      home:effectiveProbabilities.home,
+      draw:effectiveProbabilities.draw,
+      away:effectiveProbabilities.away
     }),
     matrix1x2:Object.freeze({
       home:matrixProbabilities.home,
@@ -581,23 +705,28 @@ export function predictMatch({homeTeam="Home",awayTeam="Away",homePosition=null,
     homeTeam,
     awayTeam,
     prediction,
-    probabilities,
+    probabilities:effectiveProbabilities,
     expectedGoals:coherentExpectedGoals,
     providerGoalLambda:providerGoalLambda===null
       ?null
       :Number(providerGoalLambda.toFixed(2)),
-    homeXg,
-    awayXg,
+    homeXg:hasLiveScore
+      ?Number((scorelines.reduce((sum,item)=>sum+item.home*item.probability,0)).toFixed(2))
+      :homeXg,
+    awayXg:hasLiveScore
+      ?Number((scorelines.reduce((sum,item)=>sum+item.away*item.probability,0)).toFixed(2))
+      :awayXg,
     correctScore:`${correctScore.home}-${correctScore.away}`,
     correctScoreProbability:Number((correctScoreProbability*100).toFixed(2)),
     markets,
     predictions,
+    liveState,
     confidence:clamp(
       Math.round(
         Math.max(
-          probabilities.home,
-          probabilities.draw,
-          probabilities.away
+          effectiveProbabilities.home,
+          effectiveProbabilities.draw,
+          effectiveProbabilities.away
         )
       ),
       50,

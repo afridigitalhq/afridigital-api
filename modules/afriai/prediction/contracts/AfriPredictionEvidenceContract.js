@@ -21,7 +21,8 @@ export function createAfriPredictionEvidence({
   odds={home:null,draw:null,away:null},
   providerPredictions=[],
   source=null,
-  metadata={}
+  metadata={},
+  liveState=null
 }={}) {
   if(!fixtureId) throw new Error("Prediction evidence fixtureId is required");
   if(!homeTeam||!awayTeam) throw new Error("Prediction evidence requires both teams");
@@ -72,6 +73,16 @@ export function createAfriPredictionEvidence({
       }))
     ),
     source,
+    liveState: liveState ? Object.freeze({
+      status: liveState.status ?? null,
+      minute: liveState.minute ?? null,
+      score: Object.freeze({
+        home: liveState.score?.home ?? null,
+        away: liveState.score?.away ?? null
+      }),
+      events:Object.freeze([...(liveState.events ?? [])]),
+      metadata:Object.freeze({...liveState.metadata})
+    }) : null,
     metadata:Object.freeze({...metadata})
   });
 }

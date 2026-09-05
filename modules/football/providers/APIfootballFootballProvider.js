@@ -30,7 +30,12 @@ function normalizeEvent(event, type, matchId) {
 function normalizeMatch(match = {}) {
   const kickoff =
     match.match_date && match.match_time
-      ? `${match.match_date}T${match.match_time}:00`
+      ? (() => {
+          const [hours, minutes] = String(match.match_time).split(":").map(Number);
+          const date = new Date(`${match.match_date}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00Z`);
+          date.setUTCHours(date.getUTCHours() - 1);
+          return date.toISOString().slice(0, 19).replace("T", " ");
+        })()
       : match.match_date || null;
 
   const events = [
@@ -50,7 +55,18 @@ function normalizeMatch(match = {}) {
     id: match.match_id ?? null,
     status: match.match_status || null,
     kickoff,
-    minute: null,
+    minute: (() => {
+      const status = String(match.match_status ?? "").trim();
+      const numericStatus = Number(status);
+      if (Number.isFinite(numericStatus)) return numericStatus;
+      return toNumber(
+        match.match_live_time ??
+        match.match_elapsed ??
+        match.match_minute ??
+        match.time?.elapsed ??
+        null
+      );
+    })(),
     league: {
       id: match.league_id ?? null,
       name: match.league_name ?? null,
@@ -93,24 +109,69 @@ function normalizeMatch(match = {}) {
 }
 
 async function getFixtures(options = {}) {
-  const params = {
-    action: "get_events"
-  };
+  const buildParams = (extra = {}) => ({
+    action: "get_events",
+    ...extra,
+    ...(options.leagueId != null ? { league_id: options.leagueId } : {}),
+    ...(options.teamId != null ? { team_id: options.teamId } : {}),
+    ...(options.matchId != null ? { match_id: options.matchId } : {}),
+    ...(options.live ? { match_live: "1" } : {})
+  });
 
-  if (options.date) {
-    params.from = options.date;
-    params.to = options.date;
-  } else {
-    if (options.from) params.from = options.from;
-    if (options.to) params.to = options.to;
+  if (options.matchId != null || options.live) {
+    const data = await apiFootballFetch(buildParams());
+    return Array.isArray(data) ? data.map(normalizeMatch) : [];
   }
 
-  if (options.leagueId != null) params.league_id = options.leagueId;
-  if (options.teamId != null) params.team_id = options.teamId;
-  if (options.matchId != null) params.match_id = options.matchId;
-  if (options.live) params.match_live = "1";
+  if (options.date) {
+    const data = await apiFootballFetch(
+      buildParams({ from: options.date, to: options.date })
+    );
+    return Array.isArray(data) ? data.map(normalizeMatch) : [];
+  }
 
-  const data = await apiFootballFetch(params);
+  if (options.from || options.to) {
+    const data = await apiFootballFetch(
+      buildParams({
+        ...(options.from ? { from: options.from } : {}),
+        ...(options.to ? { to: options.to } : {})
+      })
+    );
+    return Array.isArray(data) ? data.map(normalizeMatch) : [];
+  }
+
+  const season = String(options.seasonId || options.season || "");
+  const seasonMatch = season.match(/^(\d{4})\/(\d{4})$/);
+
+  if (seasonMatch) {
+    const startYear = Number(seasonMatch[1]);
+    const endYear = Number(seasonMatch[2]);
+    const results = [];
+
+    for (let year = startYear, month = 8; year < endYear || (year === endYear && month <= 5); ) {
+      const from = `${year}-${String(month).padStart(2, "0")}-01`;
+      const nextYear = month === 12 ? year + 1 : year;
+      const nextMonth = month === 12 ? 1 : month + 1;
+      const lastDay = new Date(Date.UTC(nextYear, nextMonth, 0)).getUTCDate();
+      const to = `${year}-${String(month).padStart(2, "0")}-${String(lastDay).padStart(2, "0")}`;
+
+      const data = await apiFootballFetch(buildParams({ from, to }));
+      if (Array.isArray(data)) results.push(...data);
+
+      year = nextYear;
+      month = nextMonth;
+    }
+
+    const unique = new Map();
+    for (const match of results) {
+      const id = String(match?.match_id ?? "");
+      if (id && !unique.has(id)) unique.set(id, match);
+    }
+
+    return [...unique.values()].map(normalizeMatch);
+  }
+
+  const data = await apiFootballFetch(buildParams());
   return Array.isArray(data) ? data.map(normalizeMatch) : [];
 }
 
