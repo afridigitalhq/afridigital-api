@@ -121,10 +121,15 @@ const AfriForexMarketScanner = {
         assetType: market.assetType,
         symbol: market.symbol,
         timeframes: [
+          "1min",
+          "5min",
+          "15M",
           "1H",
           "4H",
           "1D",
-          "1W"
+          "1W",
+          "1MO",
+          "1Y"
         ],
         outputsize: 100
       });
