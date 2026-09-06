@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "accounts": {
+    "demo-test": {
+      "accountId": "afriforex_demo_demo-test",
+      "customerId": "demo-test",
+      "mode": "demo",
+      "currency": "USD",
+      "balance": 1000,
+      "equity": 1000,
+      "usedMargin": 250,
+      "availableMargin": 750,
+      "activePositionCount": 1,
+      "status": "ACTIVE"
+    }
+  },
+  "preferences": {
+    "demo-test": {
+      "customerId": "demo-test",
+      "allowedMarkets": [],
+      "preferredMarkets": [],
+      "maxActivePositions": 5,
+      "riskPerTradePercent": 1,
+      "horizon": "1-3d",
+      "strategy": "short_swing",
+      "primaryTimeframe": "4H",
+      "confirmationTimeframe": "1H",
+      "entryTimeframe": "15M",
+      "adaptiveTimeframes": true,
+      "executionMode": "demo",
+      "startingBalanceUsd": 1000
+    }
+  },
+  "positions": {
+    "afriforex_pos_1788706181107": {
+      "positionId": "afriforex_pos_1788706181107",
+      "accountId": "afriforex_demo_demo-test",
+      "customerId": "demo-test",
+      "assetType": "crypto",
+      "symbol": "BINANCE:XRPUSDT",
+      "direction": "SELL",
+      "status": "OPEN",
+      "entryPrice": 1.4103,
+      "stopLoss": 1.438506,
+      "takeProfit": 1.353888,
+      "quantity": 354.5345,
+      "lotSize": 354.5345,
+      "leverage": 2,
+      "marginRequired": 250,
+      "riskAmount": 10,
+      "riskPercent": 1,
+      "rewardRisk": 2,
+      "confidence": 74,
+      "signal": "SELL",
+      "reason": "negative market change; price is below the session open",
+      "openedAt": "2026-09-06T14:49:41.109Z",
+      "closedAt": null
+    }
+  },
+  "history": []
+}
