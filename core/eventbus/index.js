@@ -1,5 +1,4 @@
 class EventBus {
-
   constructor() {
     this.listeners = {};
   }
@@ -8,15 +7,16 @@ class EventBus {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
+
     this.listeners[event].push(fn);
   }
 
   emit(event, payload) {
-
     const handlers = this.listeners[event] || [];
-
     handlers.forEach(fn => fn(payload));
   }
 }
 
-module.exports = new EventBus();
+const eventBus = new EventBus();
+
+export default eventBus;
