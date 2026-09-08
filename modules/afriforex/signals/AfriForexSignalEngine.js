@@ -24,6 +24,7 @@ const AfriForexSignalEngine = {
     const entry = Number(analysis.entryScore) || 0;
 
     let signal = "WAIT";
+    let direction = "NEUTRAL";
 
     if (primary > 0 && confirmation >= 0) {
       signal = "BUY";
@@ -37,6 +38,12 @@ const AfriForexSignalEngine = {
       Math.sign(higher) +
       Math.sign(entry);
 
+    if (primary > 0 || higher > 0) {
+      direction = "BUY";
+    } else if (primary < 0 || higher < 0) {
+      direction = "SELL";
+    }
+
     const confidence = clamp(
       Number(analysis.confidence) || 0,
       0,
@@ -45,6 +52,7 @@ const AfriForexSignalEngine = {
 
     return {
       signal,
+      direction,
       state: signal,
       confidence,
       ...(symbol ? { symbol } : {}),
@@ -69,7 +77,7 @@ const AfriForexSignalEngine = {
       ? market.evidence
       : [];
 
-    if (market.multiTimeframeAnalysis) {
+    if (market.multiTimeframeAnalysis && market.multiTimeframeAnalysis.status === "AVAILABLE") {
       const prices = evidence
         .map(item => item?.evidence || item)
         .filter(item => item?.status === "AVAILABLE" && item?.data)
@@ -201,6 +209,7 @@ const AfriForexSignalEngine = {
         signal === "SELL" ? "SELL" :
         signal === "STRONG_SELL" ? "STRONG_SELL" :
         AFRIFOREX_SIGNAL_STATES[2],
+      ...(market.symbol ? { symbol: market.symbol } : {}),
       confidence,
       tradeable,
       score,

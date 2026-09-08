@@ -48,13 +48,29 @@ const TwelveDataProvider = {
   normalizeSymbol(symbol) {
     const normalized = String(symbol || "").trim().toUpperCase();
 
-    const mappings = {
-      "BINANCE:XRPUSDT": "XRP/USD",
-      "XRP/USDT": "XRP/USD",
-      "XRPUSD": "XRP/USD"
-    };
+    if (normalized.startsWith("BINANCE:")) {
+      const binanceSymbol = normalized.slice("BINANCE:".length);
 
-    return mappings[normalized] || symbol;
+      if (binanceSymbol.endsWith("USDT") && binanceSymbol.length > 4) {
+        return `${binanceSymbol.slice(0, -4)}/USD`;
+      }
+
+      return binanceSymbol;
+    }
+
+    if (normalized.endsWith("/USDT")) {
+      return `${normalized.slice(0, -5)}/USD`;
+    }
+
+    if (
+      normalized.endsWith("USDT") &&
+      normalized.length > 4 &&
+      !normalized.includes("/")
+    ) {
+      return `${normalized.slice(0, -4)}/USD`;
+    }
+
+    return normalized;
   },
 
   async timeSeries(symbol, timeframe = "4H", outputsize = 100) {

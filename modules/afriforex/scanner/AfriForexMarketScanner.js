@@ -25,17 +25,17 @@ const DEFAULT_MARKETS = [
   },
   {
     assetType: "crypto",
-    symbol: "BINANCE:BTCUSDT",
+    symbol: "BTC/USDT",
     displaySymbol: "BTC/USDT"
   },
   {
     assetType: "crypto",
-    symbol: "BINANCE:ETHUSDT",
+    symbol: "ETH/USDT",
     displaySymbol: "ETH/USDT"
   },
   {
     assetType: "crypto",
-    symbol: "BINANCE:SOLUSDT",
+    symbol: "SOL/USDT",
     displaySymbol: "SOL/USDT"
   },
   {
@@ -50,7 +50,7 @@ const DEFAULT_MARKETS = [
   },
   {
     assetType: "crypto",
-    symbol: "BINANCE:XRPUSDT",
+    symbol: "XRP/USDT",
     displaySymbol: "XRP/USDT"
   },
 
@@ -73,10 +73,34 @@ const DEFAULT_MARKETS = [
 
 function normalizeMarket(market) {
   if (typeof market === "string") {
+    const symbol = market.trim().toUpperCase();
+
+    const configured = DEFAULT_MARKETS.find(
+      item =>
+        item.symbol.toUpperCase() === symbol ||
+        item.displaySymbol.toUpperCase() === symbol
+    );
+
+    if (configured) {
+      return {
+        assetType: configured.assetType,
+        symbol: configured.symbol,
+        displaySymbol: configured.displaySymbol
+      };
+    }
+
+    let assetType = "stock";
+
+    if (symbol.endsWith("/USDT") || symbol.endsWith("USDT")) {
+      assetType = "crypto";
+    } else if (symbol.includes("/")) {
+      assetType = "forex";
+    }
+
     return {
-      symbol: market,
-      displaySymbol: market,
-      assetType: market.includes("/") ? "forex" : "crypto"
+      assetType,
+      symbol,
+      displaySymbol: symbol
     };
   }
 
@@ -121,10 +145,10 @@ const AfriForexMarketScanner = {
         assetType: market.assetType,
         symbol: market.symbol,
         timeframes: [
+          "15M",
           "1H",
           "4H",
-          "1D",
-          "1W"
+          "1D"
         ],
         outputsize: 100
       });
