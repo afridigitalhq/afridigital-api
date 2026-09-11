@@ -16,6 +16,7 @@ const AfriTradingProviderAggregator = {
     const results = [];
 
     for (const provider of providers) {
+      if (provider.name === "simulation") continue;
       const capability = provider.capabilities?.[assetType];
 
       if (!provider.isConfigured()) {
@@ -84,6 +85,34 @@ const AfriTradingProviderAggregator = {
               symbol
             }
           });
+        } else if (typeof provider.getQuote === "function") {
+          payload = await provider.getQuote(symbol);
+
+          const normalizedPayload = payload?.price != null
+            ? {
+                c: payload.price,
+                d: payload.change ?? null,
+                dp: payload.changePercent ?? null,
+                h: payload.high ?? null,
+                l: payload.low ?? null,
+                o: payload.open ?? null,
+                pc: payload.previousClose ?? null,
+                t: payload.timestamp ? Date.parse(payload.timestamp) / 1000 : Date.now() / 1000,
+                status: payload.status,
+                symbol: payload.symbol,
+                dataMode: payload.dataMode
+              }
+            : payload;
+          evidence = AfriMarketDataNormalizer.quote(normalizedPayload, {
+            source: provider.name,
+            assetType,
+            symbol,
+            providerRequest: {
+              endpoint: "getQuote",
+              assetType,
+              symbol
+            }
+          });
         } else {
           results.push({
             provider: provider.name,
@@ -128,15 +157,14 @@ const AfriTradingProviderAggregator = {
       request.assetType || request.marketType || "forex"
     ).toLowerCase();
 
-    const symbol = request.symbol || (
-      assetType === "crypto"
-        ? "BINANCE:BTCUSDT"
-        : "EUR/USD"
-    );
+    const symbol =
+      request.symbol ||
+      (assetType === "crypto" ? "BTC/USDT" : "EUR/USD");
 
-    const timeframes = Array.isArray(request.timeframes) && request.timeframes.length
-      ? request.timeframes
-      : ["1min", "5min", "15M", "1H", "4H", "1D", "1W", "1MO", "1Y"];
+    const timeframes =
+      Array.isArray(request.timeframes) && request.timeframes.length
+        ? request.timeframes
+        : ["15M", "1H", "4H", "1D"];
 
     const outputsize = Number.isFinite(request.outputsize)
       ? request.outputsize
@@ -146,6 +174,7 @@ const AfriTradingProviderAggregator = {
     const results = [];
 
     for (const provider of providers) {
+      if (provider.name === "simulation") continue;
       const capability = provider.capabilities?.[assetType];
 
       if (!provider.isConfigured()) {
@@ -170,11 +199,10 @@ const AfriTradingProviderAggregator = {
       }
 
       const providerTimeframes = {};
+      let providerFailed = false;
 
       for (const timeframe of timeframes) {
         try {
-          let payload;
-
           const candleMethod = {
             forex: "forexCandles",
             crypto: "cryptoCandles",
@@ -183,15 +211,9 @@ const AfriTradingProviderAggregator = {
           }[assetType];
 
           if (
-            candleMethod &&
-            typeof provider[candleMethod] === "function"
+            !candleMethod ||
+            typeof provider[candleMethod] !== "function" && typeof provider.getCandles !== "function"
           ) {
-            payload = await provider[candleMethod](
-              symbol,
-              timeframe,
-              outputsize
-            );
-          } else {
             providerTimeframes[timeframe] = {
               status: "UNSUPPORTED",
               reason: "NO_CANDLE_METHOD",
@@ -200,12 +222,67 @@ const AfriTradingProviderAggregator = {
             continue;
           }
 
-          const normalizer = typeof AfriMarketDataNormalizer.twelveDataCandles === "function"
-            ? AfriMarketDataNormalizer.twelveDataCandles
-            : null;
+          const payload = await (typeof provider[candleMethod] === "function" ? provider[candleMethod] : provider.getCandles).call(provider,
+            symbol,
+            timeframe,
+            outputsize
+          );
 
-          const evidence = normalizer
-            ? normalizer.call(AfriMarketDataNormalizer, payload, {
+          let evidence;
+
+          if (typeof provider.normalizeCandles === "function") {
+            evidence = provider.normalizeCandles(payload, {
+              source: provider.name,
+              assetType,
+              symbol,
+              timeframe,
+              providerRequest: {
+                endpoint: "candles",
+                assetType,
+                symbol,
+                timeframe
+              }
+            });
+          } else if (
+            provider.name === "simulation" &&
+            typeof AfriMarketDataNormalizer.simulationCandles === "function"
+          ) {
+            evidence = AfriMarketDataNormalizer.simulationCandles(
+              payload,
+              {
+                source: provider.name,
+                symbol,
+                timeframe,
+                providerRequest: {
+                  endpoint: "getCandles",
+                  assetType,
+                  symbol,
+                  timeframe
+                }
+              }
+            );
+          } else if (
+            provider.name === "finnhub" &&
+            typeof AfriMarketDataNormalizer.finnhubCandles === "function"
+          ) {
+            evidence = AfriMarketDataNormalizer.finnhubCandles(
+              payload,
+              {
+                source: provider.name,
+                symbol,
+                timeframe,
+                providerRequest: {
+                  endpoint: "candles",
+                  assetType,
+                  symbol,
+                  timeframe
+                }
+              }
+            );
+          } else {
+            evidence = AfriMarketDataNormalizer.twelveDataCandles(
+              payload,
+              {
                 source: provider.name,
                 symbol,
                 timeframe,
@@ -215,47 +292,108 @@ const AfriTradingProviderAggregator = {
                   symbol,
                   timeframe
                 }
-              })
-            : null;
+              }
+            );
+          }
 
           providerTimeframes[timeframe] = {
             status: evidence?.status || "UNAVAILABLE",
-            evidence,
-            payload
+            evidence
           };
+
+          if (evidence?.status !== "AVAILABLE") {
+            providerFailed = true;
+            break;
+          }
         } catch (error) {
+          const errorMessage = String(error?.message || error || "UNKNOWN_ERROR");
+          const quotaOrRateLimit = /quota|credit|rate.?limit|too many requests|429|daily limit/i.test(
+            errorMessage
+          );
+
           providerTimeframes[timeframe] = {
             status: "ERROR",
-            reason: "PROVIDER_CANDLE_REQUEST_FAILED",
-            error: error.message
+            reason: quotaOrRateLimit
+              ? "PROVIDER_RATE_LIMIT_OR_QUOTA"
+              : "PROVIDER_CANDLE_REQUEST_FAILED",
+            error: errorMessage
           };
+
+          if (quotaOrRateLimit) {
+            providerFailed = true;
+
+            for (const remainingTimeframe of timeframes) {
+              if (!providerTimeframes[remainingTimeframe]) {
+                providerTimeframes[remainingTimeframe] = {
+                  status: "SKIPPED",
+                  reason: "PROVIDER_RATE_LIMIT_OR_QUOTA"
+                };
+              }
+            }
+
+            break;
+          }
+
+          continue;
         }
       }
 
-      const availableTimeframes = Object.values(providerTimeframes)
-        .filter(item => item.status === "AVAILABLE")
-        .length;
+      const availableTimeframes = Object.values(
+        providerTimeframes
+      ).filter(item => item.status === "AVAILABLE").length;
+
+      const complete =
+        availableTimeframes === timeframes.length;
+
+      const partial =
+        availableTimeframes > 0;
 
       results.push({
         provider: provider.name,
-        status: availableTimeframes ? "AVAILABLE" : "NO_USABLE_CANDLES",
+        status: complete
+          ? "AVAILABLE"
+          : partial
+            ? "PARTIAL"
+            : "NO_USABLE_CANDLES",
         assetType,
         symbol,
         timeframes: providerTimeframes,
-        availableTimeframes
+        availableTimeframes,
+        selected: complete,
+        partial
       });
+
+      if (complete) {
+        return {
+          status: "AVAILABLE",
+          assetType,
+          symbol,
+          timeframes,
+          providersChecked: results.length,
+          selectedProvider: provider.name,
+          usableProviders: 1,
+          results
+        };
+      }
     }
 
+    const usableProviders = results.filter(
+      result =>
+        (result.status === "AVAILABLE" || result.status === "PARTIAL") &&
+        Object.values(result.timeframes || {}).some(
+          item =>
+            item?.status === "AVAILABLE" &&
+            item?.evidence?.data?.candles?.length
+        )
+    ).length;
+
     return {
-      status: results.some(
-        result => result.status === "AVAILABLE"
-      )
-        ? "AVAILABLE"
-        : "NO_USABLE_PROVIDER",
+      status: usableProviders > 0 ? "AVAILABLE" : "NO_USABLE_PROVIDER",
       assetType,
       symbol,
       timeframes,
       providersChecked: results.length,
+      usableProviders,
       results
     };
   }

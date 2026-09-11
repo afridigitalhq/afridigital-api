@@ -1,5 +1,5 @@
 import fs from "fs";
-import KnowledgeMemory from "../../debug/memory/AfriDebugKnowledgeMemory.js";
+import KnowledgeMemory from "../../../../../src/afridebug/platform/knowledge/AfriDebugKnowledgeMemoryService.js";
 
 export function matchKnowledge(issue = ""){
 

@@ -62,6 +62,47 @@ const AfriMarketDataNormalizer = {
     });
   },
 
+  finnhubCandles(payload, input = {}) {
+    const timestamps = Array.isArray(payload?.t) ? payload.t : [];
+    const opens = Array.isArray(payload?.o) ? payload.o : [];
+    const highs = Array.isArray(payload?.h) ? payload.h : [];
+    const lows = Array.isArray(payload?.l) ? payload.l : [];
+    const closes = Array.isArray(payload?.c) ? payload.c : [];
+    const volumes = Array.isArray(payload?.v) ? payload.v : [];
+
+    const candles = timestamps
+      .map((timestamp, index) => ({
+        timestamp: this.toFiniteNumber(timestamp),
+        open: this.toFiniteNumber(opens[index]),
+        high: this.toFiniteNumber(highs[index]),
+        low: this.toFiniteNumber(lows[index]),
+        close: this.toFiniteNumber(closes[index]),
+        volume: this.toFiniteNumber(volumes[index])
+      }))
+      .filter(candle =>
+        candle.timestamp !== null &&
+        candle.open !== null &&
+        candle.high !== null &&
+        candle.low !== null &&
+        candle.close !== null
+      );
+
+    return AfriMarketEvidence.create({
+      source: input.source || "finnhub",
+      type: "candles",
+      symbol: input.symbol || null,
+      data: {
+        timeframe: input.timeframe || null,
+        candles,
+        count: candles.length
+      },
+      observedAt: new Date().toISOString(),
+      freshness: "HISTORICAL",
+      status: payload?.s === "ok" && candles.length ? "AVAILABLE" : "UNAVAILABLE",
+      providerRequest: input.providerRequest || null
+    });
+  },
+
   twelveDataCandles(payload, input = {}) {
     const values = Array.isArray(payload?.values) ? payload.values : [];
 
@@ -83,6 +124,38 @@ const AfriMarketDataNormalizer = {
 
     return AfriMarketEvidence.create({
       source: input.source || "twelveData",
+      type: "candles",
+      symbol: input.symbol || null,
+      data: {
+        timeframe: input.timeframe || null,
+        candles,
+        count: candles.length
+      },
+      observedAt: new Date().toISOString(),
+      freshness: "HISTORICAL",
+      status: candles.length ? "AVAILABLE" : "UNAVAILABLE",
+      providerRequest: input.providerRequest || null
+    });
+  },
+  simulationCandles(payload, input = {}) {
+    const candles = Array.isArray(payload?.candles)
+      ? payload.candles.map(candle => ({
+          timestamp: candle?.timestamp || null,
+          open: this.toFiniteNumber(candle?.open),
+          high: this.toFiniteNumber(candle?.high),
+          low: this.toFiniteNumber(candle?.low),
+          close: this.toFiniteNumber(candle?.close),
+          volume: this.toFiniteNumber(candle?.volume)
+        })).filter(candle =>
+          candle.open !== null &&
+          candle.high !== null &&
+          candle.low !== null &&
+          candle.close !== null
+        )
+      : [];
+
+    return AfriMarketEvidence.create({
+      source: input.source || "simulation",
       type: "candles",
       symbol: input.symbol || null,
       data: {
