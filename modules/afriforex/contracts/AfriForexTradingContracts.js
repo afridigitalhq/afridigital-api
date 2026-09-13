@@ -20,7 +20,7 @@ export const AFRIFOREX_ASSET_TYPES = [
   "stock"
 ];
 
-export const AFRIFOREX_TIMEFRAMES = ["1min", "5min", "15M", "1H", "4H", "1D", "1W", "1MO", "1Y"];
+export const AFRIFOREX_TIMEFRAMES = ["1min", "5min", "15M", "30M", "1H", "4H", "1D", "1W", "1MO", "1Y"];
 
 export const AFRIFOREX_TRADING_DEFAULTS = {
   horizon: "1-3d",
@@ -34,6 +34,8 @@ export const AFRIFOREX_TRADING_DEFAULTS = {
 };
 
 export function createTradingPreferences(input = {}) {
+  const notificationPreferences = input.notificationPreferences || {};
+
   return {
     customerId: input.customerId || "guest",
     allowedMarkets: Array.isArray(input.allowedMarkets)
@@ -49,7 +51,17 @@ export function createTradingPreferences(input = {}) {
       ? input.riskPerTradePercent
       : 1,
     ...AFRIFOREX_TRADING_DEFAULTS,
-    ...input
+    ...input,
+    notificationPreferences: {
+      enabled: notificationPreferences.enabled === true,
+      channels: {
+        inApp: notificationPreferences.channels?.inApp ?? true,
+        browser: notificationPreferences.channels?.browser ?? false,
+        android: notificationPreferences.channels?.android ?? false,
+        afriAIChat: notificationPreferences.channels?.afriAIChat ?? false,
+        afriWhatsApp: notificationPreferences.channels?.afriWhatsApp ?? false
+      }
+    }
   };
 }
 

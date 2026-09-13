@@ -73,6 +73,55 @@ const AfriForexSignalEngine = {
   },
 
   evaluate(market = {}) {
+    const intelligence = market.intelligenceAnalysis;
+
+    if (
+      intelligence &&
+      intelligence.status === "AVAILABLE"
+    ) {
+      const intelligenceDirection =
+        String(intelligence.direction || "NEUTRAL").toUpperCase();
+
+      const intelligenceDecision =
+        String(intelligence.tradeDecision || "WAIT").toUpperCase();
+
+      const signal =
+        ["BUY", "STRONG_BUY"].includes(intelligenceDirection)
+          ? intelligenceDirection
+          : ["SELL", "STRONG_SELL"].includes(intelligenceDirection)
+            ? intelligenceDirection
+            : "WAIT";
+
+      const tradeable =
+        intelligenceDecision === "ENTER" &&
+        signal !== "WAIT";
+
+      return {
+        signal: tradeable ? signal : "WAIT",
+        direction: intelligenceDirection,
+        state: tradeable ? signal : "WAIT",
+        confidence: clamp(
+          Number(intelligence.confidence) || 0,
+          0,
+          95
+        ),
+        ...(market.symbol ? { symbol: market.symbol } : {}),
+        ...(Number.isFinite(Number(market.price))
+          ? { price: Number(market.price) }
+          : {}),
+        tradeable,
+        setupState: intelligence.setupState || "DEVELOPING",
+        tradeDecision: intelligenceDecision,
+        reason:
+          tradeable
+            ? "INTELLIGENCE_ENTER"
+            : "INTELLIGENCE_WAIT",
+        intelligenceAnalysis: intelligence,
+        multiTimeframeAnalysis:
+          market.multiTimeframeAnalysis || null
+      };
+    }
+
     const evidence = Array.isArray(market.evidence)
       ? market.evidence
       : [];

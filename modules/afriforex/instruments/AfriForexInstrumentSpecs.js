@@ -1,4 +1,16 @@
 export const AFRIFOREX_INSTRUMENT_SPECS = {
+  "XAU/USD": {
+    canonicalSymbol: "XAU/USD",
+    assetType: "commodity",
+    baseAsset: "XAU",
+    quoteAsset: "USD",
+    minLot: 0.01,
+    lotStep: 0.01,
+    maxLot: 60,
+    contractSize: 100,
+    quantityUnit: "XAU",
+    referenceModel: "HFM_MT5_STYLE"
+  },
   "EUR/USD": {
     canonicalSymbol: "EUR/USD",
     assetType: "forex",

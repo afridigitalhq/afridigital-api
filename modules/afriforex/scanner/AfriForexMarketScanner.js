@@ -39,6 +39,11 @@ const DEFAULT_MARKETS = [
     displaySymbol: "SOL/USDT"
   },
   {
+    assetType: "crypto",
+    symbol: "BTC/USD",
+    displaySymbol: "BTC/USD"
+  },
+  {
     assetType: "commodity",
     symbol: "XAU/USD",
     displaySymbol: "XAU/USD"
@@ -145,10 +150,16 @@ const AfriForexMarketScanner = {
         assetType: market.assetType,
         symbol: market.symbol,
         timeframes: [
+          "1min",
+          "5min",
           "15M",
+          "30M",
           "1H",
           "4H",
-          "1D"
+          "1D",
+          "1W",
+          "1MO",
+          "1Y"
         ],
         outputsize: 100
       });
@@ -173,11 +184,31 @@ const AfriForexMarketScanner = {
         timeframes: mergedTimeframes
       });
 
+      const candleUsableProviders =
+        (candleEvidence.results || []).filter(
+          result =>
+            (result.status === "AVAILABLE" || result.status === "PARTIAL") &&
+            Object.values(result.timeframes || {}).some(
+              item =>
+                item?.status === "AVAILABLE" &&
+                item?.evidence?.data?.candles?.length
+            )
+        ).length;
+
+      const marketStatus =
+        candleUsableProviders > 0 || usable.length > 0
+          ? "AVAILABLE"
+          : evidence.status;
+
       results.push({
         ...market,
-        status: evidence.status,
+        status: marketStatus,
         providersChecked: evidence.providersChecked,
-        usableProviders: evidence.usableProviders,
+        usableProviders:
+          Math.max(
+            Number(evidence.usableProviders || 0),
+            candleUsableProviders
+          ),
         evidence: usable,
         candleEvidence,
         multiTimeframeAnalysis,

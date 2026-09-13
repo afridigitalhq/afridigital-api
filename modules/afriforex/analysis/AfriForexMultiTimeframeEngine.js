@@ -2,6 +2,7 @@ const TIMEFRAME_ORDER = [
   "1min",
   "5min",
   "15M",
+  "30M",
   "1H",
   "4H",
   "1D",

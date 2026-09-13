@@ -79,10 +79,25 @@ const AfriForexDemoStore = {
 
     if (!state.preferences[customerId]) {
       state.preferences[customerId] = createTradingPreferences({ customerId });
-      writeState(state);
     }
 
-    return state.preferences[customerId];
+    const preferences = state.preferences[customerId];
+    const defaults = createTradingPreferences({ customerId });
+
+    preferences.customerId = customerId;
+    preferences.notificationPreferences = {
+      ...defaults.notificationPreferences,
+      ...(preferences.notificationPreferences || {}),
+      channels: {
+        ...defaults.notificationPreferences.channels,
+        ...(preferences.notificationPreferences?.channels || {})
+      }
+    };
+
+    state.preferences[customerId] = preferences;
+    writeState(state);
+
+    return preferences;
   },
 
   savePreferences(preferences) {

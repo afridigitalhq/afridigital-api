@@ -1,3 +1,4 @@
+import CoreUsageHistory from "../../../modules/core/usage/CoreUsageHistory.js";
 import express from "express";
 import AfriForexDemoStore from "../../../modules/afriforex/storage/AfriForexDemoStore.js";
 import AfriForexAccountValuation from "../../../modules/afriforex/account/AfriForexAccountValuation.js";
@@ -127,11 +128,34 @@ router.post("/notification-preferences", (req, res) => {
   }
 });
 
+router.post("/cross-asset/meter", (req, res) => {
+  try {
+    const customerId = String(req.body?.customerId || "guest");
+    const quantity = Number.isFinite(Number(req.body?.quantity)) && Number(req.body.quantity) > 0
+      ? Number(req.body.quantity)
+      : 1;
+
+    const usage = CoreUsageHistory.record({
+      userId: customerId,
+      product: "AFRIFOREX",
+      feature: "CROSS_ASSET_SCAN",
+      source: "CROSS_ASSET",
+      quantity
+    });
+
+    res.json({ ok: true, data: usage });
+  } catch (error) {
+    console.error("AfriForex cross-asset metering error:", error);
+    res.status(500).json({ ok: false, error: "CROSS_ASSET_METERING_UNAVAILABLE" });
+  }
+});
+
 router.post("/scan", async (req, res) => {
   try {
     const customerId = String(req.body?.customerId || "guest");
     const markets = Array.isArray(req.body?.markets) ? req.body.markets : null;
-    const result = await AfriForexTradingOrchestrator.scan(customerId, markets);
+    const crossAssetEnabled = req.body?.crossAssetEnabled === true;
+    const result = await AfriForexTradingOrchestrator.scan(customerId, markets, crossAssetEnabled);
     res.json({ ok: true, data: result });
   } catch (error) {
     console.error("AfriForex scan error:", error);
