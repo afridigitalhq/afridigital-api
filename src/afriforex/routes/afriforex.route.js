@@ -155,10 +155,33 @@ router.post("/scan", async (req, res) => {
     const customerId = String(req.body?.customerId || "guest");
     const markets = Array.isArray(req.body?.markets) ? req.body.markets : null;
     const crossAssetEnabled = req.body?.crossAssetEnabled === true;
-    const result = await AfriForexTradingOrchestrator.scan(customerId, markets, crossAssetEnabled);
+    console.log("🔵 AFRIFOREX_SCAN_ROUTE_START", {
+      customerId,
+      markets,
+      crossAssetEnabled
+    });
+
+    const startedAt = Date.now();
+    const result = await AfriForexTradingOrchestrator.scan(
+      customerId,
+      markets,
+      crossAssetEnabled
+    );
+
+    console.log("🟢 AFRIFOREX_SCAN_ROUTE_COMPLETE", {
+      elapsedMs: Date.now() - startedAt,
+      status: result?.status,
+      marketsScanned: result?.marketsScanned
+    });
+
     res.json({ ok: true, data: result });
   } catch (error) {
-    console.error("AfriForex scan error:", error);
+    console.error("🔴 AFRIFOREX_SCAN_ROUTE_ERROR", {
+      name: error?.name,
+      message: error?.message,
+      code: error?.code,
+      stack: error?.stack
+    });
     res.status(500).json({ ok: false, error: "AFRIFOREX_SCAN_UNAVAILABLE" });
   }
 });
