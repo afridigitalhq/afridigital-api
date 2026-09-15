@@ -182,7 +182,16 @@ router.post("/scan", async (req, res) => {
       code: error?.code,
       stack: error?.stack
     });
-    res.status(500).json({ ok: false, error: "AFRIFOREX_SCAN_UNAVAILABLE" });
+    res.status(500).json({
+      ok: false,
+      error: "AFRIFOREX_SCAN_UNAVAILABLE",
+      diagnostic: {
+        name: error?.name,
+        message: error?.message,
+        code: error?.code,
+        stack: error?.stack
+      }
+    });
   }
 });
 
