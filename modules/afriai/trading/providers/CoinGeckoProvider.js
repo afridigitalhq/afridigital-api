@@ -46,7 +46,18 @@ async function get(path, params = {}) {
     url.searchParams.set(key, String(value));
   }
 
-  const response = await fetch(url, { headers: headers() });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
+  let response;
+  try {
+    response = await fetch(url, {
+      headers: headers(),
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
   const payload = await response.json();
 
   if (!response.ok || payload?.error || payload?.status?.error_message) {

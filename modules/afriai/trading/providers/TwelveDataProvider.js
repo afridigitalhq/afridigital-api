@@ -4,6 +4,7 @@ const TIMEFRAME_INTERVALS = {
   "1min": "1min",
   "5min": "5min",
   "15M": "15min",
+  "30M": "30min",
   "1H": "1h",
   "4H": "4h",
   "1D": "1day",
@@ -94,9 +95,18 @@ const TwelveDataProvider = {
       apikey: process.env.TWELVEDATA_API_KEY
     });
 
-    const response = await fetch(
-      `${TWELVEDATA_BASE}/time_series?${parameters.toString()}`
-    );
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 30000);
+
+    let response;
+    try {
+      response = await fetch(
+        `${TWELVEDATA_BASE}/time_series?${parameters.toString()}`,
+        { signal: controller.signal }
+      );
+    } finally {
+      clearTimeout(timeout);
+    }
 
     const payload = await response.json();
 
