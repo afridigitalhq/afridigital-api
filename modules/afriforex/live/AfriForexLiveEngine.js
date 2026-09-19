@@ -20,7 +20,9 @@ const AfriForexLiveEngine = {
     try {
       return await AfriForexTradingOrchestrator.scan(
         customerId,
-        markets
+        markets,
+        false,
+        { source: "MONITORED" }
       );
     } finally {
       this.scanning = false;

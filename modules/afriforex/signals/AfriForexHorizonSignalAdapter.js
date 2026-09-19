@@ -51,6 +51,10 @@ function build(horizonSignal = {}, market = {}) {
     confidence: Number.isFinite(Number(horizonSignal.confidence))
       ? Number(horizonSignal.confidence)
       : 0,
+    scalpMomentumStrengthPercent:
+      Number.isFinite(Number(horizonSignal.scalpMomentumStrengthPercent))
+        ? Number(horizonSignal.scalpMomentumStrengthPercent)
+        : 0,
     tradeable,
     setupState:
       horizonSignal.setupState || "DEVELOPING",
@@ -76,11 +80,23 @@ function build(horizonSignal = {}, market = {}) {
       horizonSignal.dataMode ||
       market.dataMode ||
       "UNKNOWN",
+    monitorState:
+      horizonSignal.monitorState ||
+      (tradeable ? "READY" : "DEVELOPING"),
+    entryApproaching: Boolean(horizonSignal.entryApproaching),
+    warning:
+      horizonSignal.warning && typeof horizonSignal.warning === "object"
+        ? horizonSignal.warning
+        : null,
     reason:
       horizonSignal.reason ||
       (tradeable
         ? "HORIZON_ENTER"
         : "HORIZON_WAIT"),
+    reversal:
+      horizonSignal.reversal && typeof horizonSignal.reversal === "object"
+        ? horizonSignal.reversal
+        : null,
     horizonSignal
   });
 }

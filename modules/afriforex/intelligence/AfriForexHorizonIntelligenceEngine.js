@@ -228,6 +228,34 @@ function analyzeHorizon(name, timeframes, input = {}) {
       ? "ENTER"
       : "WAIT";
 
+  const entryApproaching =
+    setupState === "ALIGNMENT_CONFIRMED" &&
+    direction !== "NEUTRAL" &&
+    tradeDecision !== "ENTER";
+
+  const warning =
+    setupState === "CONFLICT"
+      ? {
+          state: "TRADE_WARNING",
+          reason: "HORIZON_EVIDENCE_CONFLICT",
+          direction,
+          confidence,
+          weightedScore,
+          conflictCount
+        }
+      : null;
+
+  const monitorState =
+    setupState === "INSUFFICIENT_DATA"
+      ? "INSUFFICIENT_DATA"
+      : warning
+        ? "WARNING"
+        : entryApproaching
+          ? "ENTRY_APPROACHING"
+          : tradeDecision === "ENTER"
+            ? "READY"
+            : "DEVELOPING";
+
   return {
     status:
       availableCount > 0
@@ -247,6 +275,9 @@ function analyzeHorizon(name, timeframes, input = {}) {
     conflictCount,
     weightedScore,
     evidence,
+    monitorState,
+    entryApproaching,
+    warning,
     reason:
       setupState === "ALIGNMENT_CONFIRMED"
         ? "HORIZON_ALIGNMENT_CONFIRMED"

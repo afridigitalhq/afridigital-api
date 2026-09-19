@@ -82,6 +82,8 @@ function build(input = {}) {
           ? "NEUTRAL"
           : "NORMAL",
     confidence: finite(input.confidence) ?? 0,
+    scalpMomentumStrengthPercent:
+      finite(input.scalpMomentumStrengthPercent) ?? 0,
     setupState: normalizeSetupState(input.setupState),
     tradeDecision: normalizeTradeDecision(input.tradeDecision),
     weightedScore: finite(input.weightedScore) ?? 0,
@@ -95,7 +97,14 @@ function build(input = {}) {
       ? input.evidence
       : {},
     dataMode: input.dataMode || "UNKNOWN",
-    reason: input.reason || null
+    monitorState: input.monitorState || "DEVELOPING",
+    entryApproaching: Boolean(input.entryApproaching),
+    warning: input.warning && typeof input.warning === "object" ? input.warning : null,
+    reason: input.reason || null,
+      reversal:
+        input.reversal && typeof input.reversal === "object"
+          ? input.reversal
+          : null
   });
 }
 
