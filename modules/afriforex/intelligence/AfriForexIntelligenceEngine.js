@@ -117,10 +117,18 @@ function buildTimeframeEvidence(symbol, timeframe, candles) {
   const combinedScore =
     iScore + mScore;
 
+  const direction =
+    combinedScore > 0
+      ? "BUY"
+      : combinedScore < 0
+        ? "SELL"
+        : "NEUTRAL";
+
   return {
     timeframe,
     status: "AVAILABLE",
     score: combinedScore,
+    direction,
     indicatorScore: iScore,
     momentumScore: mScore,
     indicatorDirection:
@@ -175,16 +183,11 @@ function analyze(input = {}) {
 
     availableCount += 1;
 
-    weightedScore +=
-      result.score *
-      (TIMEFRAME_WEIGHTS[timeframe] || 1);
-  }
-
-  const mtf = input.mtf || {};
-  const mtfDirection = normalizeDirection(mtf.decision);
-
-  if (mtfDirection !== 0) {
-    weightedScore += mtfDirection * 2;
+    if (["1H", "15M", "5min", "1min"].includes(timeframe)) {
+      weightedScore +=
+        result.score *
+        (TIMEFRAME_WEIGHTS[timeframe] || 1);
+    }
   }
 
   const primary = timeframeEvidence["4H"];
@@ -201,6 +204,9 @@ function analyze(input = {}) {
   const scalpSetupDirection = sign(scalpSetup?.score || 0);
   const entryTimingDirection = sign(entryTiming?.score || 0);
   const entryDirection = scalpConfirmationDirection;
+  const scalpDirection = sign(
+    scalpSetup?.score || scalpConfirmation?.score || 0
+  );
   const higherDirection = sign(higher?.score || 0);
 
   const primaryIndicatorDirection =
@@ -280,57 +286,112 @@ function analyze(input = {}) {
     primaryDirection !== scalpSetupDirection;
 
   const structuralConflict =
-    primaryEvidenceConflict ||
     confirmationEvidenceConflict ||
-    higherConflict ||
-    lowerTimeframeReversal;
+    scalpTimingConflict ||
+    (scalpSetupDirection !== 0 &&
+      scalpConfirmationDirection !== 0 &&
+      scalpSetupDirection !== scalpConfirmationDirection);
 
-  let direction = directionFromScore(weightedScore);
+  const scalpCanonicalAligned =
+    scalpSetupDirection !== 0 &&
+    scalpConfirmationDirection !== 0 &&
+    scalpSetupDirection === scalpConfirmationDirection &&
+    entryTimingAligned;
 
-  if (primaryDirection !== 0) {
-    direction =
-      primaryDirection > 0
-        ? "BUY"
-        : "SELL";
-  }
+  let direction = "NEUTRAL";
 
-  if (
-    lowerTimeframeReversal &&
-    Math.abs(weightedScore) < 5
-  ) {
-    direction =
-      entryDirection > 0
-        ? "BUY"
-        : "SELL";
+  if (scalpSetupDirection !== 0) {
+    direction = scalpSetupDirection > 0 ? "BUY" : "SELL";
+  } else if (scalpConfirmationDirection !== 0) {
+    direction = scalpConfirmationDirection > 0 ? "BUY" : "SELL";
+  } else if (entryTimingDirection !== 0) {
+    direction = entryTimingDirection > 0 ? "BUY" : "SELL";
+  } else {
+    direction = directionFromScore(weightedScore);
   }
 
   let setupState = "DEVELOPING";
 
   if (structuralConflict) {
     setupState = "CONFLICT";
-  } else if (entryAligned) {
+  } else if (scalpCanonicalAligned) {
     setupState = "ALIGNMENT_CONFIRMED";
   }
+
+  const scalpRegime = structuralConflict
+    ? "CONFLICT"
+    : scalpDirection === 0 || !scalpCanonicalAligned
+      ? "NEUTRAL_NOISE"
+      : primaryDirection !== 0 &&
+        confirmationDirection !== 0 &&
+        primaryDirection === confirmationDirection &&
+        primaryDirection === scalpDirection &&
+        !primaryEvidenceConflict &&
+        !confirmationEvidenceConflict
+        ? "DIRECTIONAL"
+        : "DEVELOPING";
 
   if (setupState === "CONFLICT") {
     if (direction === "STRONG_BUY") direction = "BUY";
     if (direction === "STRONG_SELL") direction = "SELL";
   }
 
+  const entryMomentumStrengthPercent =
+    Number.isFinite(entryTiming?.momentum?.strengthPercent)
+      ? entryTiming.momentum.strengthPercent
+      : 0;
+
+  const entryMomentumDirection =
+    normalizeDirection(entryTiming?.momentum?.direction);
+
+  const entryMarketStructure =
+    entryTiming?.marketStructure || null;
+
+  const entryMomentumAligned =
+    entryMomentumDirection !== 0 &&
+    entryMomentumDirection === scalpSetupDirection &&
+    entryMomentumStrengthPercent >= 30;
+
+  const entryStructureAvailable =
+    entryMarketStructure?.status === "AVAILABLE";
+
+  const entryLocationBlocked =
+    scalpSetupDirection > 0
+      ? entryMarketStructure?.location === "NEAR_RESISTANCE"
+      : scalpSetupDirection < 0
+        ? entryMarketStructure?.location === "NEAR_SUPPORT"
+        : true;
+
+  const entryLocationConfirmed =
+    entryStructureAvailable &&
+    !entryLocationBlocked;
+
   let tradeDecision = "WAIT";
 
   if (
+    scalpRegime === "DIRECTIONAL" &&
     setupState === "ALIGNMENT_CONFIRMED" &&
-    primaryDirection !== 0 &&
-    confirmationDirection === primaryDirection &&
-    entryDirection === primaryDirection &&
-    (
-      higherDirection === 0 ||
-      higherDirection === primaryDirection
-    ) &&
-    mtfDirection === primaryDirection
+    scalpSetupDirection === scalpConfirmationDirection &&
+    entryMomentumAligned &&
+    entryLocationConfirmed
   ) {
     tradeDecision = "ENTER";
+  }
+
+  const economicCalendar =
+    input.economicCalendar &&
+    typeof input.economicCalendar === "object"
+      ? input.economicCalendar
+      : null;
+
+  const economicCalendarProtection =
+    economicCalendar?.status === "AVAILABLE" &&
+    economicCalendar?.imminent === true &&
+    Array.isArray(economicCalendar?.imminentEvents) &&
+    economicCalendar.imminentEvents.length > 0;
+
+  if (economicCalendarProtection) {
+    tradeDecision = "WAIT";
   }
 
   const evidenceStrength =
@@ -371,6 +432,69 @@ function analyze(input = {}) {
     )
   );
 
+  const scalpMomentumWeights = {
+    "1min": 2,
+    "5min": 4,
+    "15M": 3,
+    "1H": 3
+  };
+
+  const scalpMomentumEntries = Object.entries(
+    scalpMomentumWeights
+  )
+    .map(([timeframe, weight]) => {
+      const momentum = timeframeEvidence[timeframe]?.momentum || {};
+      const strengthPercent = finite(momentum?.strengthPercent);
+      const direction = normalizeDirection(momentum?.direction);
+
+      return {
+        strengthPercent,
+        direction,
+        weight
+      };
+    })
+    .filter(item => item.strengthPercent !== null);
+
+  const scalpMomentumWeightTotal =
+    scalpMomentumEntries.reduce(
+      (sum, item) => sum + item.weight,
+      0
+    );
+
+  const scalpDirectionSign = scalpDirection;
+
+  const scalpMomentumAlignmentScore =
+    scalpMomentumWeightTotal > 0 && scalpDirectionSign !== 0
+      ? scalpMomentumEntries.reduce(
+          (sum, item) => {
+            const momentumSign =
+              item.direction === "BUY"
+                ? 1
+                : item.direction === "SELL"
+                  ? -1
+                  : 0;
+
+            return sum +
+              item.strengthPercent *
+              momentumSign *
+              scalpDirectionSign *
+              item.weight;
+          },
+          0
+        ) / scalpMomentumWeightTotal
+      : 0;
+
+  const scalpMomentumStrengthPercent =
+    scalpMomentumWeightTotal > 0 && scalpDirectionSign !== 0
+      ? Math.max(
+          0,
+          Math.min(
+            100,
+            Math.round((scalpMomentumAlignmentScore + 100) / 2)
+          )
+        )
+      : 0;
+
   const reversal =
     lowerTimeframeReversal || scalpTimingConflict
       ? {
@@ -402,36 +526,23 @@ function analyze(input = {}) {
 
   const timeframeEvidenceView = visualTimeframes.map(timeframe => {
     const intelligence = timeframeEvidence[timeframe] || {};
-    const mtfAnalysis = mtf?.analyses?.[timeframe] || {};
 
     const evidencePercent =
-      finite(intelligence?.momentum?.changePercent) ??
-      finite(mtfAnalysis?.changePercent);
-
-    const momentumDirection =
-      normalizeDirection(intelligence?.momentumDirection);
-
-    const mtfTrend = String(mtfAnalysis?.trend || "").toUpperCase();
+      finite(intelligence?.momentum?.changePercent);
 
     const direction =
-      momentumDirection !== 0
-        ? momentumDirection > 0
+      normalizeDirection(intelligence?.direction) !== 0
+        ? normalizeDirection(intelligence?.direction) > 0
           ? "BUY"
           : "SELL"
-        : mtfTrend === "BULLISH"
-          ? "BUY"
-          : mtfTrend === "BEARISH"
-            ? "SELL"
-            : "NEUTRAL";
+        : "NEUTRAL";
 
     return {
       timeframe,
       status:
-        intelligence?.status === "AVAILABLE" ||
-        mtfAnalysis?.status === "AVAILABLE"
+        intelligence?.status === "AVAILABLE"
           ? "AVAILABLE"
           : intelligence?.status ||
-            mtfAnalysis?.status ||
             "INSUFFICIENT_DATA",
       evidencePercent,
       direction,
@@ -453,13 +564,19 @@ function analyze(input = {}) {
     symbol,
     direction,
     setupState,
+    scalpRegime,
     tradeDecision,
     reversal,
     confidence,
+    scalpMomentumStrengthPercent,
+    economicCalendarProtection,
+    economicCalendarReason:
+      economicCalendarProtection
+        ? "HIGH_IMPACT_EVENT_IMMINENT"
+        : null,
     timeframeEvidence: timeframeEvidenceView,
 
     evidence: {
-      mtf,
       indicators: timeframeEvidence,
       momentum: timeframeEvidence,
       marketStructure: Object.fromEntries(
@@ -479,11 +596,11 @@ function analyze(input = {}) {
       confirmationScore: confirmation?.score || 0,
       entryScore: entry?.score || 0,
       higherTimeframeScore: higher?.score || 0,
-      scalpScore: scalpDirection,
+      scalpScore: scalpConfirmation?.score || 0,
       scalpConfirmationScore: scalpConfirmation?.score || 0,
       scalpSetupScore: scalpSetup?.score || 0,
       entryTimingScore: entryTiming?.score || 0,
-      mtfScore: mtfDirection * 2,
+      mtfScore: 0,
       primaryConfirmationAligned,
       entryAligned,
       scalpConfirmationAligned,
@@ -496,9 +613,9 @@ function analyze(input = {}) {
 
     scalp: {
       direction:
-        scalpDirection > 0
+        scalpDirectionSign > 0
           ? "BUY"
-          : scalpDirection < 0
+          : scalpDirectionSign < 0
           ? "SELL"
           : "NEUTRAL",
       score: scalpSetup?.score || scalpConfirmation?.score || 0,
