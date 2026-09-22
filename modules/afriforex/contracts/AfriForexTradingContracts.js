@@ -44,6 +44,9 @@ export function createTradingPreferences(input = {}) {
     preferredMarkets: Array.isArray(input.preferredMarkets)
       ? [...input.preferredMarkets]
       : [],
+    monitoredMarkets: Array.isArray(input.monitoredMarkets)
+      ? [...input.monitoredMarkets]
+      : [],
     maxActivePositions: Number.isFinite(input.maxActivePositions)
       ? input.maxActivePositions
       : 5,
@@ -54,6 +57,9 @@ export function createTradingPreferences(input = {}) {
     ...input,
     notificationPreferences: {
       enabled: notificationPreferences.enabled === true,
+      destinations: {
+        afriWhatsApp: notificationPreferences.destinations?.afriWhatsApp || null
+      },
       channels: {
         inApp: notificationPreferences.channels?.inApp ?? true,
         browser: notificationPreferences.channels?.browser ?? false,

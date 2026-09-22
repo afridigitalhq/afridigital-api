@@ -88,6 +88,10 @@ const AfriForexDemoStore = {
     preferences.notificationPreferences = {
       ...defaults.notificationPreferences,
       ...(preferences.notificationPreferences || {}),
+      destinations: {
+        ...defaults.notificationPreferences.destinations,
+        ...(preferences.notificationPreferences?.destinations || {})
+      },
       channels: {
         ...defaults.notificationPreferences.channels,
         ...(preferences.notificationPreferences?.channels || {})

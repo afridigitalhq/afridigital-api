@@ -14,6 +14,15 @@ import AfriPlatformEventBus from "../../platform/events/bus/AfriPlatformEventBus
 
 const monitoredScalpState = new Map();
 
+function normalizeDirectionalSide(value) {
+  const direction = String(value || "").toUpperCase();
+
+  if (["BUY", "STRONG_BUY"].includes(direction)) return "BUY";
+  if (["SELL", "STRONG_SELL"].includes(direction)) return "SELL";
+
+  return "NEUTRAL";
+}
+
 async function buildSignalMarket(market) {
   const candlesByTimeframe = {};
 
@@ -233,6 +242,23 @@ const AfriForexTradingOrchestrator = {
           }
         );
 
+      const scalpAllowsEntry =
+        adaptedHorizonSignals.SCALP?.tradeDecision === "ENTER";
+
+      const authorityGatedHorizonSignals =
+        Object.fromEntries(
+          Object.entries(adaptedHorizonSignals).map(
+            ([horizon, horizonSignal]) => [
+              horizon,
+              horizon !== "SCALP" &&
+              horizonSignal?.tradeDecision === "ENTER" &&
+              !scalpAllowsEntry
+                ? { ...horizonSignal, tradeDecision: "WAIT" }
+                : horizonSignal
+            ]
+          )
+        );
+
       const crossAssetContext = crossAssetEnabled
         ? await AfriForexCrossAssetContextEngine.analyze({
             symbol: market.displaySymbol || market.symbol,
@@ -273,7 +299,7 @@ const AfriForexTradingOrchestrator = {
         ...signalMarket,
         signal,
         risk,
-        horizonSignals: adaptedHorizonSignals,
+        horizonSignals: authorityGatedHorizonSignals,
         crossAssetContext
       };
 
@@ -295,17 +321,20 @@ const AfriForexTradingOrchestrator = {
       }
 
       AfriPlatformEventBus.publish("MARKET_UPDATE", {
+        customerId,
         source: "AfriForexTradingOrchestrator",
         symbol: market.displaySymbol || market.symbol,
         assetType: market.assetType,
         timeframe: primaryTimeframe,
         candles: primaryCandles,
+        price: signalMarket.price ?? null,
         multiTimeframeAnalysis: market.multiTimeframeAnalysis || null,
         economicCalendar: signalMarket.economicCalendar || null,
         observedAt: new Date().toISOString()
       });
 
       AfriPlatformEventBus.publish("TRADE_SIGNAL", {
+        customerId,
         source: "AfriForexTradingOrchestrator",
         symbol: market.displaySymbol || market.symbol,
         assetType: market.assetType,
@@ -316,8 +345,8 @@ const AfriForexTradingOrchestrator = {
         observedAt: new Date().toISOString()
       });
 
-      const scalpSignal = adaptedHorizonSignals.SCALP || null;
-      const supportingHorizonSignals = Object.values(adaptedHorizonSignals)
+      const scalpSignal = authorityGatedHorizonSignals.SCALP || null;
+      const supportingHorizonSignals = Object.values(authorityGatedHorizonSignals)
         .filter((item) => item.horizon !== "SCALP");
 
       const scalpDirection = String(
@@ -333,15 +362,168 @@ const AfriForexTradingOrchestrator = {
       const transitionKey =
         String(customerId) + "::" + String(market.displaySymbol || market.symbol);
 
+      const intelligenceAnalysis =
+        signalMarket.intelligenceAnalysis || {};
+
+      const timeframeEvidence =
+        intelligenceAnalysis?.timeframeEvidence &&
+        typeof intelligenceAnalysis.timeframeEvidence === "object"
+          ? intelligenceAnalysis.timeframeEvidence
+          : {};
+
+      const getTimeframeDirection = (timeframe) => {
+        const evidence = Array.isArray(timeframeEvidence)
+          ? timeframeEvidence.find(
+              (item) => item?.timeframe === timeframe
+            )
+          : timeframeEvidence?.[timeframe];
+
+        return String(
+          evidence?.direction ||
+          evidence?.momentum?.direction ||
+          "NEUTRAL"
+        ).toUpperCase();
+      };
+
+      const currentMonitoringState = {
+        scalpDirection,
+        tradeDecision: String(
+          scalpSignal?.tradeDecision ||
+          intelligenceAnalysis?.tradeDecision ||
+          "WAIT"
+        ).toUpperCase(),
+        setupState: String(
+          intelligenceAnalysis?.setupState || "DEVELOPING"
+        ).toUpperCase(),
+        scalpMomentumStrengthPercent:
+          Number.isFinite(
+            Number(intelligenceAnalysis?.scalpMomentumStrengthPercent)
+          )
+            ? Number(intelligenceAnalysis.scalpMomentumStrengthPercent)
+            : 0,
+        timeframes: {
+          "1min": getTimeframeDirection("1min"),
+          "5min": getTimeframeDirection("5min"),
+          "15M": getTimeframeDirection("15M"),
+          "1H": getTimeframeDirection("1H")
+        },
+        reversal: {
+          status: String(
+            intelligenceAnalysis?.reversal?.status || "NONE"
+          ).toUpperCase(),
+          direction:
+            intelligenceAnalysis?.reversal?.direction
+              ? String(intelligenceAnalysis.reversal.direction).toUpperCase()
+              : null,
+          strengthPercent:
+            Number.isFinite(
+              Number(intelligenceAnalysis?.reversal?.strengthPercent)
+            )
+              ? Number(intelligenceAnalysis.reversal.strengthPercent)
+              : 0
+        },
+        economicCalendar: {
+          status: String(
+            signalMarket.economicCalendar?.status || "UNAVAILABLE"
+          ).toUpperCase(),
+          imminent: Boolean(
+            signalMarket.economicCalendar?.imminent
+          )
+        },
+        observedAt: new Date().toISOString()
+      };
+
+      const monitoredMarkets = Array.isArray(preferences?.monitoredMarkets)
+        ? preferences.monitoredMarkets
+        : [];
+
+      const marketSymbol = String(
+        market.displaySymbol || market.symbol || ""
+      ).trim().toUpperCase();
+
+      const isMonitoredMarket = monitoredMarkets.some(
+        (item) => String(item || "").trim().toUpperCase() === marketSymbol
+      );
+
+      if (source === "MANUAL" && isMonitoredMarket) {
+        monitoredScalpState.set(
+          transitionKey,
+          currentMonitoringState
+        );
+      }
+
       const previousScalpState =
         source === "MONITORED"
           ? monitoredScalpState.get(transitionKey) || null
           : null;
 
+      const monitoringChanges = previousScalpState
+        ? {
+            scalpDirection:
+              previousScalpState.scalpDirection !== currentMonitoringState.scalpDirection,
+            tradeDecision:
+              previousScalpState.tradeDecision !== currentMonitoringState.tradeDecision,
+            setupState:
+              previousScalpState.setupState !== currentMonitoringState.setupState,
+            scalpMomentumStrengthPercent:
+              previousScalpState.scalpMomentumStrengthPercent !==
+              currentMonitoringState.scalpMomentumStrengthPercent,
+            timeframes: Object.fromEntries(
+              Object.entries(currentMonitoringState.timeframes).map(
+                ([timeframe, direction]) => [
+                  timeframe,
+                  previousScalpState.timeframes?.[timeframe] !== direction
+                ]
+              )
+            ),
+            reversal:
+              JSON.stringify(previousScalpState.reversal) !==
+              JSON.stringify(currentMonitoringState.reversal),
+            economicCalendar:
+              JSON.stringify(previousScalpState.economicCalendar) !==
+              JSON.stringify(currentMonitoringState.economicCalendar)
+          }
+        : null;
+
+      const monitoringChanged =
+        source === "MONITORED" &&
+        Boolean(previousScalpState) &&
+        (
+          monitoringChanges.scalpDirection ||
+          monitoringChanges.tradeDecision ||
+          monitoringChanges.setupState ||
+          monitoringChanges.scalpMomentumStrengthPercent ||
+          Object.values(monitoringChanges.timeframes).some(Boolean) ||
+          monitoringChanges.reversal ||
+          monitoringChanges.economicCalendar
+        );
+
+      if (source === "MONITORED") {
+        monitoredScalpState.set(
+          transitionKey,
+          currentMonitoringState
+        );
+      }
+
+      if (monitoringChanged) {
+        AfriPlatformEventBus.publish("AFRIFOREX_INTELLIGENCE_UPDATE", {
+          customerId,
+          source: "AfriForexTradingOrchestrator",
+          symbol: market.displaySymbol || market.symbol,
+          assetType: market.assetType,
+          previousState: previousScalpState,
+          currentState: currentMonitoringState,
+          changes: monitoringChanges,
+          intelligenceAnalysis,
+          observedAt: currentMonitoringState.observedAt
+        });
+      }
+
       const directionChanged = Boolean(
         source === "MONITORED" &&
         previousScalpState &&
-        previousScalpState.direction !== scalpDirection &&
+        normalizeDirectionalSide(previousScalpState.scalpDirection) !==
+        normalizeDirectionalSide(scalpDirection) &&
         scalpDirection !== "NEUTRAL"
       );
 
@@ -350,13 +532,6 @@ const AfriForexTradingOrchestrator = {
         previousScalpState &&
         directionChanged
       );
-
-      if (source === "MONITORED") {
-        monitoredScalpState.set(transitionKey, {
-          direction: scalpDirection,
-          observedAt: new Date().toISOString()
-        });
-      }
 
       const shouldPublishTradeAlert =
         source === "MANUAL"
@@ -372,7 +547,8 @@ const AfriForexTradingOrchestrator = {
         readiness:
           item.tradeable
             ? (
-                String(item.direction || "NEUTRAL").toUpperCase() === scalpDirection
+                normalizeDirectionalSide(item.direction) ===
+                  normalizeDirectionalSide(scalpDirection)
                   ? "READY_WITH_SCALP_ALIGNMENT"
                   : "READY_PENDING_SCALP"
               )
@@ -390,6 +566,7 @@ const AfriForexTradingOrchestrator = {
         };
 
         AfriPlatformEventBus.publish("TRADE_ALERT", {
+          customerId,
           source: "AfriForexTradingOrchestrator",
           symbol: market.displaySymbol || market.symbol,
           assetType: market.assetType,
@@ -404,10 +581,11 @@ const AfriForexTradingOrchestrator = {
           intelligenceAnalysis: signalMarket.intelligenceAnalysis || null,
           economicCalendar: signalMarket.economicCalendar || null,
           horizonIntelligence: signalMarket.horizonIntelligence || null,
-          horizons: adaptedHorizonSignals,
+          horizons: authorityGatedHorizonSignals,
           tradeableHorizons: ["SCALP"],
           supportingTradeableHorizons: tradeableSupportingHorizons.map((item) => item.horizon),
           multiTimeframeAnalysis: market.multiTimeframeAnalysis || null,
+          crossAssetContext,
           observedAt: new Date().toISOString()
         });
       }
@@ -421,9 +599,11 @@ const AfriForexTradingOrchestrator = {
         }
 
         const alignedWithScalp =
-          String(horizon.direction || "NEUTRAL").toUpperCase() === scalpDirection;
+          normalizeDirectionalSide(horizon.direction) ===
+          normalizeDirectionalSide(scalpDirection);
 
         AfriPlatformEventBus.publish("HORIZON_ALERT", {
+          customerId,
           source: "AfriForexTradingOrchestrator",
           symbol: market.displaySymbol || market.symbol,
           assetType: market.assetType,

@@ -91,6 +91,110 @@ router.get("/notification-preferences", (req, res) => {
   }
 });
 
+router.get("/monitoring", (req, res) => {
+  try {
+    const customerId = String(req.query.customerId || "guest");
+    const preferences = AfriForexDemoStore.getPreferences(customerId);
+
+    res.json({
+      ok: true,
+      data: {
+        customerId,
+        monitoredMarkets: Array.isArray(preferences.monitoredMarkets)
+          ? preferences.monitoredMarkets
+          : []
+      }
+    });
+  } catch (error) {
+    console.error("AfriForex monitoring preferences error:", error);
+    res.status(500).json({
+      ok: false,
+      error: "AFRIFOREX_MONITORING_UNAVAILABLE"
+    });
+  }
+});
+
+router.post("/monitoring", (req, res) => {
+  try {
+    const customerId = String(req.body?.customerId || "guest");
+    const monitoredMarkets = Array.isArray(req.body?.monitoredMarkets)
+      ? [...new Set(
+          req.body.monitoredMarkets
+            .map((market) => String(market || "").trim().toUpperCase())
+            .filter(Boolean)
+        )]
+      : [];
+
+    const current = AfriForexDemoStore.getPreferences(customerId);
+
+    const updated = AfriForexDemoStore.savePreferences({
+      ...current,
+      customerId,
+      monitoredMarkets
+    });
+
+    res.json({
+      ok: true,
+      data: {
+        customerId,
+        monitoredMarkets: updated.monitoredMarkets
+      }
+    });
+  } catch (error) {
+    console.error("AfriForex monitoring preferences save error:", error);
+    res.status(500).json({
+      ok: false,
+      error: "AFRIFOREX_MONITORING_SAVE_FAILED"
+    });
+  }
+});
+
+router.post("/notification-preferences/whatsapp", (req, res) => {
+  try {
+    const customerId = String(req.body?.customerId || "guest");
+    const phone = String(req.body?.phone || "").trim();
+
+    if (!phone) {
+      return res.status(400).json({
+        ok: false,
+        error: "AFRIFOREX_WHATSAPP_DESTINATION_REQUIRED"
+      });
+    }
+
+    const current = AfriForexDemoStore.getPreferences(customerId);
+    const notificationPreferences = {
+      ...current.notificationPreferences,
+      destinations: {
+        ...current.notificationPreferences.destinations,
+        afriWhatsApp: {
+          phone,
+          status: "REGISTERED"
+        }
+      }
+    };
+
+    const updated = AfriForexDemoStore.savePreferences({
+      ...current,
+      customerId,
+      notificationPreferences
+    });
+
+    res.json({
+      ok: true,
+      data: {
+        customerId,
+        afriWhatsApp: updated.notificationPreferences.destinations.afriWhatsApp
+      }
+    });
+  } catch (error) {
+    console.error("AfriForex WhatsApp destination registration error:", error);
+    res.status(500).json({
+      ok: false,
+      error: "AFRIFOREX_WHATSAPP_DESTINATION_REGISTRATION_FAILED"
+    });
+  }
+});
+
 router.post("/notification-preferences", (req, res) => {
   try {
     const customerId = String(req.body?.customerId || "guest");

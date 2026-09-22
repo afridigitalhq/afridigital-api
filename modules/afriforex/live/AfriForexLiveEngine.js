@@ -1,4 +1,5 @@
 import AfriForexTradingOrchestrator from "../orchestration/AfriForexTradingOrchestrator.js";
+import AfriForexDemoStore from "../storage/AfriForexDemoStore.js";
 
 const DEFAULT_INTERVAL_MS = 60_000;
 
@@ -15,12 +16,38 @@ const AfriForexLiveEngine = {
       };
     }
 
+    const preferences = AfriForexDemoStore.getPreferences(customerId);
+
+    const monitoredMarkets =
+      Array.isArray(markets)
+        ? markets
+        : Array.isArray(preferences.monitoredMarkets)
+          ? preferences.monitoredMarkets
+          : [];
+
+    if (!monitoredMarkets.length) {
+      console.log(
+        `🟡 AfriForex Live Engine → NO_MONITORED_MARKETS | customer=${customerId}`
+      );
+
+      return {
+        status: "IDLE",
+        reason: "NO_MONITORED_MARKETS",
+        customerId,
+        marketsScanned: []
+      };
+    }
+
     this.scanning = true;
 
     try {
+      console.log(
+        `📡 AfriForex Live Engine MONITORING → ${monitoredMarkets.join(", ")}`
+      );
+
       return await AfriForexTradingOrchestrator.scan(
         customerId,
-        markets,
+        monitoredMarkets,
         false,
         { source: "MONITORED" }
       );
