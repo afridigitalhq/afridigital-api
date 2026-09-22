@@ -11,6 +11,7 @@ import healthRoute from "./health.route.js";
 import afriDesignAPKRoute from "./afridesign/afridesign-apk.route.js";
 import afriSportsRoute from "../../afrisports/routes/afrisports.route.js";
 import afriForexRoute from "../../afriforex/routes/afriforex.route.js";
+import afriForexWhatsAppE2ERoute from "./afriforex-whatsapp-e2e.route.js";
 
 export default function registerRoutes(app) {
   socRoute(app);
@@ -26,4 +27,5 @@ export default function registerRoutes(app) {
   afriDesignAPKRoute(app);
   app.use("/api/afrisports", afriSportsRoute);
   app.use("/api/afriforex", afriForexRoute);
+  afriForexWhatsAppE2ERoute(app);
 }
