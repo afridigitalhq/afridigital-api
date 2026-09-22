@@ -5,17 +5,18 @@ export default function afriForexWhatsAppE2ERoute(app) {
   app.post("/api/afriforex/whatsapp-e2e-test", async (req, res) => {
     try {
       const customerId = "notification-test";
-      const phone = String(process.env.META_TEST_RECIPIENT || "").trim();
+      const current = AfriForexDemoStore.getPreferences(customerId);
+      const phone = String(
+        current.notificationPreferences?.destinations?.afriWhatsApp?.phone || ""
+      ).trim();
 
       if (!phone) {
         return res.status(503).json({
           ok: false,
           certification: "AFRIFOREX_WHATSAPP_NOTIFICATION_E2E",
-          error: "META_TEST_RECIPIENT_NOT_CONFIGURED"
+          error: "AFRIFOREX_WHATSAPP_DESTINATION_NOT_REGISTERED"
         });
       }
-
-      const current = AfriForexDemoStore.getPreferences(customerId);
 
       AfriForexDemoStore.savePreferences({
         ...current,
@@ -55,7 +56,7 @@ export default function afriForexWhatsAppE2ERoute(app) {
         ok: true,
         certification: "AFRIFOREX_WHATSAPP_NOTIFICATION_E2E",
         customerId,
-        recipient: "META_TEST_RECIPIENT",
+        recipient: "REGISTERED_WHATSAPP_DESTINATION",
         event: "TRADE_ALERT",
         status: "PUBLISHED"
       });
