@@ -3,7 +3,6 @@ import AfriForexIntelligenceEngine from "../intelligence/AfriForexIntelligenceEn
 import AfriForexHorizonIntelligenceEngine from "../intelligence/AfriForexHorizonIntelligenceEngine.js";
 import AfriForexHorizonSignalContract from "../signals/AfriForexHorizonSignalContract.js";
 import AfriForexHorizonSignalAdapter from "../signals/AfriForexHorizonSignalAdapter.js";
-import AfriForexSignalEngine from "../signals/AfriForexSignalEngine.js";
 import AfriForexRiskEngine from "../risk/AfriForexRiskEngine.js";
 import AfriForexDemoExecutionEngine from "../execution/AfriForexDemoExecutionEngine.js";
 import AfriForexDemoStore from "../storage/AfriForexDemoStore.js";
@@ -147,6 +146,33 @@ async function buildSignalMarket(market) {
   };
 }
 
+function buildCanonicalScalpSignal(signalMarket = {}) {
+  const horizonIntelligence = signalMarket.horizonIntelligence || {};
+  const horizonSignalInput = {
+    ...(horizonIntelligence.horizons || {}),
+    dataMode: signalMarket.dataMode
+  };
+
+  const horizonSignals =
+    AfriForexHorizonSignalContract.buildAll({
+      symbol: signalMarket.symbol || null,
+      dataMode: signalMarket.dataMode,
+      horizons: horizonSignalInput
+    });
+
+  const adaptedHorizonSignals =
+    AfriForexHorizonSignalAdapter.buildAll(
+      horizonSignals,
+      {
+        symbol: signalMarket.symbol || null,
+        price: signalMarket.price ?? null,
+        dataMode: signalMarket.dataMode
+      }
+    );
+
+  return adaptedHorizonSignals.SCALP;
+}
+
 function sameSymbol(position, market) {
   const positionSymbol = String(position?.symbol || "").toUpperCase();
   const marketSymbol = String(market?.symbol || "").toUpperCase();
@@ -215,9 +241,7 @@ const AfriForexTradingOrchestrator = {
     const results = await Promise.all(scan.results.map(async (market) => {
       const signalMarket = await buildSignalMarket(market);
 
-      const signal = AfriForexSignalEngine.evaluate(
-        signalMarket
-      );
+      const signal = buildCanonicalScalpSignal(signalMarket);
 
       const horizonIntelligence =
         signalMarket.horizonIntelligence || {};
@@ -345,25 +369,52 @@ const AfriForexTradingOrchestrator = {
         observedAt: new Date().toISOString()
       });
 
+      const intelligenceAnalysis =
+        signalMarket.intelligenceAnalysis || {};
+
       const scalpSignal = authorityGatedHorizonSignals.SCALP || null;
       const supportingHorizonSignals = Object.values(authorityGatedHorizonSignals)
         .filter((item) => item.horizon !== "SCALP");
 
       const scalpDirection = String(
-        scalpSignal?.direction || signal?.direction || "NEUTRAL"
+        scalpSignal?.direction ||
+        intelligenceAnalysis?.scalp?.direction ||
+        "NEUTRAL"
       ).toUpperCase();
+
+      const scalpTradeDecision = String(
+        intelligenceAnalysis?.tradeDecision ||
+        scalpSignal?.tradeDecision ||
+        "WAIT"
+      ).toUpperCase();
+
+      const scalpSetupState = String(
+        intelligenceAnalysis?.setupState ||
+        scalpSignal?.setupState ||
+        "DEVELOPING"
+      ).toUpperCase();
+
+      const scalpConfidence = Number.isFinite(
+        Number(intelligenceAnalysis?.confidence)
+      )
+        ? Number(intelligenceAnalysis.confidence)
+        : Number(scalpSignal?.confidence || 0);
+
+      const scalpMomentumStrengthPercent =
+        Number.isFinite(
+          Number(intelligenceAnalysis?.scalpMomentumStrengthPercent)
+        )
+          ? Number(intelligenceAnalysis.scalpMomentumStrengthPercent)
+          : 0;
 
       const scalpTradeable = Boolean(
         scalpSignal?.tradeable &&
-        scalpSignal?.direction &&
-        scalpDirection !== "NEUTRAL"
+        scalpDirection !== "NEUTRAL" &&
+        scalpTradeDecision === "ENTER"
       );
 
       const transitionKey =
         String(customerId) + "::" + String(market.displaySymbol || market.symbol);
-
-      const intelligenceAnalysis =
-        signalMarket.intelligenceAnalysis || {};
 
       const timeframeEvidence =
         intelligenceAnalysis?.timeframeEvidence &&
@@ -387,6 +438,7 @@ const AfriForexTradingOrchestrator = {
 
       const currentMonitoringState = {
         scalpDirection,
+        confidence: scalpConfidence,
         tradeDecision: String(
           scalpSignal?.tradeDecision ||
           intelligenceAnalysis?.tradeDecision ||
@@ -515,6 +567,7 @@ const AfriForexTradingOrchestrator = {
           currentState: currentMonitoringState,
           changes: monitoringChanges,
           intelligenceAnalysis,
+          horizonSignals: authorityGatedHorizonSignals,
           observedAt: currentMonitoringState.observedAt
         });
       }
@@ -560,7 +613,7 @@ const AfriForexTradingOrchestrator = {
       }));
 
       if (shouldPublishTradeAlert) {
-        const canonicalRisk = signal.tradeable ? risk : {
+        const canonicalRisk = scalpTradeable ? risk : {
           status: "NOT_CALCULATED",
           reason: "SCALP_PRIMARY_SIGNAL"
         };
@@ -574,7 +627,13 @@ const AfriForexTradingOrchestrator = {
           signal: {
             ...scalpSignal,
             direction: scalpDirection,
-            alertState: scalpDirection
+            alertState: scalpDirection,
+            setupState: scalpSetupState,
+            tradeDecision: scalpTradeDecision,
+            tradeable: scalpTradeable,
+            confidence: scalpConfidence,
+            scalpMomentumStrengthPercent,
+            reversal: intelligenceAnalysis?.reversal || null
           },
           risk: canonicalRisk,
           primaryHorizon: "SCALP",
@@ -663,9 +722,7 @@ const AfriForexTradingOrchestrator = {
 
     const signalMarket = await buildSignalMarket(scannedMarket);
 
-    const signal = AfriForexSignalEngine.evaluate(
-      signalMarket
-    );
+    const signal = buildCanonicalScalpSignal(signalMarket);
 
     if (!signal.tradeable) {
       return {
