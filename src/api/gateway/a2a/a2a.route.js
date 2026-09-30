@@ -193,8 +193,7 @@ export default function a2aRoute(app) {
     }
 
     const result = await AfriA2AGateway.handle({
-      ...req.body,
-      agentId
+      ...req.body
     });
 
     return res.status(result.ok ? 200 : 400).json(result);
