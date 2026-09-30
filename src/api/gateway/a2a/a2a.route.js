@@ -8,6 +8,60 @@ export default function a2aRoute(app) {
 
   AfriAgentIdentityRegistry.initializeFromEnv();
 
+  app.get("/.well-known/agent-card.json", (_, res) => {
+    res.set("Cache-Control", "public, max-age=300");
+    res.json({
+      name: "AfriAI",
+      description: "AfriDigital AI agent providing authenticated AI-agent services including AfriAI questions and AfriDebug analysis.",
+      version: "1.0.0",
+      provider: {
+        organization: "AfriDigital"
+      },
+      supportedInterfaces: [
+        {
+          url: "https://afridigital-api.onrender.com/api/a2a/tasks",
+          protocolBinding: "HTTP+JSON",
+          protocolVersion: "custom"
+        }
+      ],
+      capabilities: {
+        streaming: false,
+        pushNotifications: false
+      },
+      securitySchemes: {
+        afriHmac: {
+          apiKeySecurityScheme: {
+            description: "AfriDigital HMAC authentication using x-afri-agent-id, x-afri-timestamp, x-afri-nonce and x-afri-signature headers.",
+            location: "header",
+            name: "x-afri-signature"
+          }
+        }
+      },
+      securityRequirements: [
+        {
+          afriHmac: []
+        }
+      ],
+      defaultInputModes: ["application/json"],
+      defaultOutputModes: ["application/json"],
+      skills: [
+        {
+          id: "afriai.ask",
+          name: "AfriAI Ask",
+          description: "Submit an authenticated task to AfriAI for AI-agent assistance.",
+          tags: ["ai", "afriai", "agent", "reasoning"],
+          examples: ["What is AfriDigital?"]
+        },
+        {
+          id: "debug.analyze",
+          name: "AfriDebug Analysis",
+          description: "Submit an authenticated software investigation for AfriDebug analysis.",
+          tags: ["debugging", "root-cause-analysis", "software"]
+        }
+      ]
+    });
+  });
+
   app.get("/api/a2a/health", (_, res) => {
     res.json({
       service: "AfriAI A2A",
