@@ -2,6 +2,7 @@ import AfriA2AGateway from "../../../platform/agent/a2a/AfriA2AGateway.js";
 import AfriA2AServiceRegistry from "../../../platform/agent/services/AfriA2AServiceRegistry.js";
 import AfriA2ARequestAuth from "../../../platform/agent/security/AfriA2ARequestAuth.js";
 import AfriAgentIdentityRegistry from "../../../platform/agent/identity/AfriAgentIdentityRegistry.js";
+import crypto from "node:crypto";
 
 export default function a2aRoute(app) {
   AfriA2AServiceRegistry.initialize();
@@ -19,9 +20,9 @@ export default function a2aRoute(app) {
       },
       supportedInterfaces: [
         {
-          url: "https://afridigital-api.onrender.com/api/a2a/tasks",
+          url: "https://afridigital-api.onrender.com",
           protocolBinding: "HTTP+JSON",
-          protocolVersion: "custom"
+          protocolVersion: "1.0"
         }
       ],
       capabilities: {
@@ -68,6 +69,73 @@ export default function a2aRoute(app) {
       status: process.env.A2A_SHARED_SECRET ? "READY" : "NOT_CONFIGURED",
       transport: "HTTP",
       visibility: "MACHINE_ONLY"
+    });
+  });
+
+  app.post("/message:send", async (req, res) => {
+    const agentId = req.get("x-afri-agent-id");
+    const timestamp = req.get("x-afri-timestamp");
+    const nonce = req.get("x-afri-nonce");
+    const signature = req.get("x-afri-signature");
+
+    const auth = AfriA2ARequestAuth.verify({
+      agentId,
+      timestamp,
+      nonce,
+      body: req.body || {},
+      signature
+    });
+
+    if (!auth.verified) {
+      return res.status(401).json({
+        error: {
+          code: auth.code,
+          message: "A2A authentication failed"
+        }
+      });
+    }
+
+    const message = req.body?.message || {};
+    const textPart = (message.parts || []).find(part => part?.text)?.text;
+
+    if (!textPart) {
+      return res.status(400).json({
+        error: {
+          code: "INVALID_REQUEST",
+          message: "message.parts must contain a text part"
+        }
+      });
+    }
+
+    const result = await AfriA2AGateway.handle({
+      taskId: message.taskId || message.messageId || undefined,
+      agentId,
+      capability: req.body?.metadata?.capability || "afriai.ask",
+      payload: {
+        message: textPart,
+        context: req.body?.metadata?.context || {}
+      }
+    });
+
+    if (!result.ok) {
+      return res.status(400).json({
+        error: {
+          code: result.error?.code || "A2A_ERROR",
+          message: result.error?.message || "A2A request failed"
+        }
+      });
+    }
+
+    return res.type("application/a2a+json").json({
+      message: {
+        messageId: message.messageId || crypto.randomUUID(),
+        role: "ROLE_AGENT",
+        parts: [
+          {
+            text: result.result?.response || result.result?.agent?.result?.response || ""
+          }
+        ]
+      }
     });
   });
 
