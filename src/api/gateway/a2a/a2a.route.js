@@ -17,8 +17,6 @@ export default function a2aRoute(app) {
     });
   });
 
-  console.log("A2A_ROUTE_ATTACHED: /api/a2a/health");
-
   app.post("/api/a2a/tasks", async (req, res) => {
     const agentId = req.get("x-afri-agent-id");
     const timestamp = req.get("x-afri-timestamp");

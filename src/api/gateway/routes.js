@@ -1,4 +1,3 @@
-console.log("A2A_ROUTES_MODULE_LOADED");
 import afriDebugRoute from "./afridebug/afridebug.route.js";
 import a2aRoute from "./a2a/a2a.route.js";
 import afriWhatsAppRoute from "./afriwhatsapp/afriwhatsapp.route.js";

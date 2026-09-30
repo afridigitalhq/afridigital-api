@@ -7,12 +7,9 @@ import ollamaDebugRoute from "../src/api/gateway/ollama-debug.route.js";
 
 export function mountRuntime(app){
 
-  console.log("A2A_BOOT: runtime-start");
   registerProductRoutes(app);
   registerModules(app);
-  console.log("A2A_BOOT: before-registerRoutes");
   registerRoutes(app);
-  console.log("A2A_BOOT: after-registerRoutes");
   ollamaDebugRoute(app);
 
   const kernel = mountKernelRuntime();
