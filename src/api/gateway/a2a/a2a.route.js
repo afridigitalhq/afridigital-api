@@ -2,12 +2,29 @@ import AfriA2AGateway from "../../../platform/agent/a2a/AfriA2AGateway.js";
 import AfriA2AServiceRegistry from "../../../platform/agent/services/AfriA2AServiceRegistry.js";
 import AfriA2ARequestAuth from "../../../platform/agent/security/AfriA2ARequestAuth.js";
 import AfriAgentIdentityRegistry from "../../../platform/agent/identity/AfriAgentIdentityRegistry.js";
+import AfriAgentCardBuilder from "../../../platform/agent/identity/AfriAgentCardBuilder.js";
 import crypto from "node:crypto";
 
 export default function a2aRoute(app) {
   AfriA2AServiceRegistry.initialize();
 
   AfriAgentIdentityRegistry.initializeFromEnv();
+
+  app.get("/.well-known/agents/:agentKey/agent-card.json", (req, res) => {
+    const card = AfriAgentCardBuilder.build(req.params.agentKey);
+
+    if (!card) {
+      return res.status(404).json({
+        error: {
+          code: "AGENT_CARD_NOT_FOUND",
+          message: "Unknown agent"
+        }
+      });
+    }
+
+    res.set("Cache-Control", "public, max-age=300");
+    return res.json(card);
+  });
 
   app.get("/.well-known/agent-card.json", (_, res) => {
     res.set("Cache-Control", "public, max-age=300");
@@ -53,12 +70,6 @@ export default function a2aRoute(app) {
           tags: ["ai", "afriai", "agent", "reasoning"],
           examples: ["What is AfriDigital?"]
         },
-        {
-          id: "debug.analyze",
-          name: "AfriDebug Analysis",
-          description: "Submit an authenticated software investigation for AfriDebug analysis.",
-          tags: ["debugging", "root-cause-analysis", "software"]
-        }
       ]
     });
   });

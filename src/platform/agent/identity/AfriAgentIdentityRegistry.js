@@ -1,15 +1,14 @@
+import AfriAgentProfiles from "./AfriAgentProfiles.js";
+
 const agents = new Map();
 
 function initializeFromEnv() {
-  const id = process.env.A2A_AGENT_ID;
-  if (!id || agents.has(id)) return agents.get(id) || null;
+  for (const profile of Object.values(AfriAgentProfiles)) {
+    if (!profile?.id || agents.has(profile.id)) continue;
+    AfriAgentIdentityRegistry.register(profile);
+  }
 
-  return AfriAgentIdentityRegistry.register({
-    id,
-    name: process.env.A2A_AGENT_NAME || "AfriAI Beta Agent",
-    organizationId: process.env.A2A_AGENT_ORGANIZATION_ID || null,
-    capabilities: ["debug.analyze", "afriai.ask"]
-  });
+  return AfriAgentIdentityRegistry.list();
 }
 
 const AfriAgentIdentityRegistry = {

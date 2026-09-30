@@ -7,6 +7,9 @@ import AfriAIDebugA2AService
 import AfriAIA2AService
   from "./AfriAIA2AService.js";
 
+import AfriForexA2AService
+  from "./AfriForexA2AService.js";
+
 const AfriA2AServiceRegistry = {
 
   initialize() {
@@ -46,6 +49,28 @@ const AfriA2AServiceRegistry = {
 
         handler:
           AfriAIA2AService.ask,
+
+        enabled: true,
+
+        adminOnly: false
+
+      });
+
+    }
+
+    if (!AfriAgentCapabilityRegistry.get("market.analyze")) {
+
+      AfriAgentCapabilityRegistry.register({
+
+        id: "market.analyze",
+
+        service: "AfriForex",
+
+        description:
+          "Analyze forex, crypto, commodity and stock markets using AfriForex multi-timeframe intelligence.",
+
+        handler:
+          AfriForexA2AService.analyze,
 
         enabled: true,
 
