@@ -5,7 +5,7 @@ const agents = new Map();
 function initializeFromEnv() {
   for (const profile of Object.values(AfriAgentProfiles)) {
     if (!profile?.id || agents.has(profile.id)) continue;
-    AfriAgentIdentityRegistry.register(profile);
+    AfriAgentIdentityRegistry.register({ ...profile, key: Object.keys(AfriAgentProfiles).find((k) => AfriAgentProfiles[k] === profile) || null });
   }
 
   return AfriAgentIdentityRegistry.list();
@@ -18,6 +18,7 @@ const AfriAgentIdentityRegistry = {
 
     const agent = {
       id,
+      key: input.key || null,
       name: input.name || "Unnamed Agent",
       organizationId: input.organizationId || null,
       publicKey: input.publicKey || null,

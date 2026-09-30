@@ -30,7 +30,7 @@ export default function a2aRoute(app) {
     res.set("Cache-Control", "public, max-age=300");
     res.json({
       name: "AfriAI",
-      description: "AfriDigital AI agent providing authenticated AI-agent services including AfriAI questions and AfriDebug analysis.",
+      description: "AfriDigital AI agent providing authenticated AfriAI services.",
       version: "1.0.0",
       provider: {
         organization: "AfriDigital"
@@ -74,9 +74,27 @@ export default function a2aRoute(app) {
     });
   });
 
+  app.get("/api/a2a/agents", (_, res) => {
+    const agents = AfriAgentIdentityRegistry.list()
+      .filter((agent) => agent.status === "ACTIVE")
+      .map((agent) => ({
+        id: agent.id,
+        name: agent.name,
+        organizationId: agent.organizationId,
+        capabilities: agent.capabilities,
+        agentCard: `${process.env.A2A_PUBLIC_BASE_URL || "https://afridigital-api.onrender.com"}/.well-known/agents/${agent.key}/agent-card.json`
+      }));
+
+    return res.json({
+      service: "AfriDigital A2A Discovery",
+      protocol: "HTTP+JSON",
+      agents
+    });
+  });
+
   app.get("/api/a2a/health", (_, res) => {
     res.json({
-      service: "AfriAI A2A",
+      service: "AfriDigital A2A",
       status: process.env.A2A_SHARED_SECRET ? "READY" : "NOT_CONFIGURED",
       transport: "HTTP",
       visibility: "MACHINE_ONLY"
