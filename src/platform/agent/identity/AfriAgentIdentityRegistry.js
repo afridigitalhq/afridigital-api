@@ -8,7 +8,7 @@ function initializeFromEnv() {
     id,
     name: process.env.A2A_AGENT_NAME || "AfriAI Beta Agent",
     organizationId: process.env.A2A_AGENT_ORGANIZATION_ID || null,
-    capabilities: ["debug.analyze"]
+    capabilities: ["debug.analyze", "afriai.ask"]
   });
 }
 

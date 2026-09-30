@@ -4,6 +4,9 @@ import AfriAgentCapabilityRegistry
 import AfriAIDebugA2AService
   from "./AfriAIDebugA2AService.js";
 
+import AfriAIA2AService
+  from "./AfriAIA2AService.js";
+
 const AfriA2AServiceRegistry = {
 
   initialize() {
@@ -30,9 +33,29 @@ const AfriA2AServiceRegistry = {
 
     }
 
-    return AfriAgentCapabilityRegistry.get(
-      "debug.analyze"
-    );
+    if (!AfriAgentCapabilityRegistry.get("afriai.ask")) {
+
+      AfriAgentCapabilityRegistry.register({
+
+        id: "afriai.ask",
+
+        service: "AfriAI",
+
+        description:
+          "Execute an AfriAI agent task and return the grounded AfriAI response.",
+
+        handler:
+          AfriAIA2AService.ask,
+
+        enabled: true,
+
+        adminOnly: false
+
+      });
+
+    }
+
+    return AfriAgentCapabilityRegistry.list();
 
   }
 
