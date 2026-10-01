@@ -11,6 +11,15 @@ export default function a2aRoute(app) {
   AfriAgentIdentityRegistry.initializeFromEnv();
 
   app.get("/.well-known/agents/:agentKey/agent-card.json", (req, res) => {
+    if (["afridebug", "afriforex", "afriai"].includes(req.params.agentKey)) {
+      return res.status(404).json({
+        error: {
+          code: "AGENT_CARD_NOT_FOUND",
+          message: "Agent card not publicly advertised"
+        }
+      });
+    }
+
     const card = AfriAgentCardBuilder.build(req.params.agentKey);
 
     if (!card) {
@@ -27,62 +36,23 @@ export default function a2aRoute(app) {
   });
 
   app.get("/.well-known/agent-card.json", (_, res) => {
-    res.set("Cache-Control", "public, max-age=300");
-    res.json({
-      name: "AfriAI",
-      description: "AfriDigital AI agent providing authenticated AfriAI services.",
-      version: "1.0.0",
-      provider: {
-        organization: "AfriDigital"
-      },
-      supportedInterfaces: [
-        {
-          url: "https://afridigital-api.onrender.com",
-          protocolBinding: "HTTP+JSON",
-          protocolVersion: "1.0"
-        }
-      ],
-      capabilities: {
-        streaming: false,
-        pushNotifications: false
-      },
-      securitySchemes: {
-        afriHmac: {
-          apiKeySecurityScheme: {
-            description: "AfriDigital HMAC authentication using x-afri-agent-id, x-afri-timestamp, x-afri-nonce and x-afri-signature headers.",
-            location: "header",
-            name: "x-afri-signature"
-          }
-        }
-      },
-      securityRequirements: [
-        {
-          afriHmac: []
-        }
-      ],
-      defaultInputModes: ["application/json"],
-      defaultOutputModes: ["application/json"],
-      skills: [
-        {
-          id: "afriai.ask",
-          name: "AfriAI Ask",
-          description: "Submit an authenticated task to AfriAI for AI-agent assistance.",
-          tags: ["ai", "afriai", "agent", "reasoning"],
-          examples: ["What is AfriDigital?"]
-        },
-      ]
+    return res.status(404).json({
+      error: {
+        code: "AGENT_CARD_NOT_FOUND",
+        message: "Agent card not publicly advertised"
+      }
     });
   });
 
   app.get("/api/a2a/agents", (_, res) => {
     const agents = AfriAgentIdentityRegistry.list()
-      .filter((agent) => agent.status === "ACTIVE")
+      .filter((agent) => agent.status === "ACTIVE" && agent.key === "afridebug")
       .map((agent) => ({
         id: agent.id,
         name: agent.name,
         organizationId: agent.organizationId,
         capabilities: agent.capabilities,
-        agentCard: `${process.env.A2A_PUBLIC_BASE_URL || "https://afridigital-api.onrender.com"}/.well-known/agents/${agent.key}/agent-card.json`
+        agentCard: "https://raw.githubusercontent.com/afridigitalhq/afridigital-api/main/agent-card.json"
       }));
 
     return res.json({
