@@ -1,0 +1,55 @@
+{
+  "name": "AfriAI",
+  "description": "AfriDigital AI agent providing authenticated AI-agent assistance.",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "AfriDigital"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://afridigital-api.onrender.com",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "securitySchemes": {
+    "afriHmac": {
+      "apiKeySecurityScheme": {
+        "description": "AfriDigital HMAC authentication using x-afri-agent-id, x-afri-timestamp, x-afri-nonce and x-afri-signature headers.",
+        "location": "header",
+        "name": "x-afri-signature"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "afriHmac": []
+    }
+  ],
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "afriai.ask",
+      "name": "AfriAI Ask",
+      "description": "Submit an authenticated task to AfriAI for AI-agent assistance.",
+      "tags": [
+        "ai",
+        "afriai",
+        "agent",
+        "reasoning"
+      ],
+      "examples": [
+        "What is AfriDigital?"
+      ]
+    }
+  ]
+}

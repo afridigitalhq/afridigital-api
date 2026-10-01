@@ -1,0 +1,69 @@
+{
+  "name": "AfriForex",
+  "description": "AfriDigital multi-asset market intelligence agent providing structured multi-timeframe analysis across forex, crypto, commodities and stocks.",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "AfriDigital"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://afridigital-api.onrender.com",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "securitySchemes": {
+    "afriHmac": {
+      "apiKeySecurityScheme": {
+        "description": "AfriDigital HMAC authentication using x-afri-agent-id, x-afri-timestamp, x-afri-nonce and x-afri-signature headers.",
+        "location": "header",
+        "name": "x-afri-signature"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "afriHmac": []
+    }
+  ],
+  "defaultInputModes": [
+    "application/json"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "skills": [
+    {
+      "id": "market.analyze",
+      "name": "AfriForex Multi-Asset Market Analysis",
+      "description": "Analyze forex, crypto, commodity and stock markets using multi-timeframe intelligence, momentum, market structure, economic-calendar context and optional cross-asset context.",
+      "tags": [
+        "forex",
+        "crypto",
+        "commodities",
+        "stocks",
+        "multi-asset",
+        "market-analysis",
+        "multi-timeframe",
+        "momentum",
+        "market-structure",
+        "economic-calendar",
+        "cross-asset",
+        "scalp",
+        "intraday",
+        "swing",
+        "position"
+      ],
+      "examples": [
+        "Analyze EUR/USD across all available horizons.",
+        "Analyze BTC/USDT across all available horizons.",
+        "Analyze XAU/USD with cross-asset context enabled.",
+        "Analyze AAPL across available market horizons."
+      ]
+    }
+  ]
+}
