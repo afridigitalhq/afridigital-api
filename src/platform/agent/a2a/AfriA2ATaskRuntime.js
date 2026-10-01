@@ -12,6 +12,9 @@ const AfriA2ATaskRuntime = {
       input.taskId ||
       `TASK-${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
 
+    const sourceAgentId =
+      input.sourceAgentId || null;
+
     const agent =
       AfriAgentIdentityRegistry.get(input.agentId);
 
@@ -62,6 +65,15 @@ const AfriA2ATaskRuntime = {
       );
     }
 
+    const telemetry =
+      AfriA2AUsageMeter.start({
+        taskId,
+        sourceAgentId,
+        targetAgentId: agent.id,
+        agentId: agent.id,
+        capability: capability.id
+      });
+
     try {
 
       const result =
@@ -70,17 +82,20 @@ const AfriA2ATaskRuntime = {
           {
             taskId,
             agentId: agent.id,
+            sourceAgentId,
+            targetAgentId: agent.id,
             capability: capability.id
           }
         );
 
       const usage =
-        AfriA2AUsageMeter.record({
-          taskId,
-          agentId: agent.id,
-          capability: capability.id,
-          status: "COMPLETED"
-        });
+        AfriA2AUsageMeter.update(
+          telemetry.id,
+          {
+            status: "COMPLETED",
+            completedAt: Date.now()
+          }
+        );
 
       return AfriA2AResponse.success({
         taskId,
@@ -92,12 +107,18 @@ const AfriA2ATaskRuntime = {
 
     } catch (error) {
 
-      AfriA2AUsageMeter.record({
-        taskId,
-        agentId: agent.id,
-        capability: capability.id,
-        status: "FAILED"
-      });
+      AfriA2AUsageMeter.update(
+        telemetry.id,
+        {
+          status: "FAILED",
+          completedAt: Date.now(),
+          errorCode:
+            error?.code || "TASK_FAILED",
+          errorMessage:
+            error?.message ||
+            "Capability execution failed"
+        }
+      );
 
       throw new AfriA2AError(
         A2A_ERRORS.TASK_FAILED,

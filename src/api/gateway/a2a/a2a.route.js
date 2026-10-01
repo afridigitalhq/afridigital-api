@@ -4,6 +4,7 @@ import AfriA2ARequestAuth from "../../../platform/agent/security/AfriA2ARequestA
 import AfriAgentIdentityRegistry from "../../../platform/agent/identity/AfriAgentIdentityRegistry.js";
 import AfriAgentCardBuilder from "../../../platform/agent/identity/AfriAgentCardBuilder.js";
 import crypto from "node:crypto";
+import AfriA2AUsageMeter from "../../../platform/agent/metering/AfriA2AUsageMeter.js";
 
 export default function a2aRoute(app) {
   AfriA2AServiceRegistry.initialize();
@@ -62,6 +63,93 @@ export default function a2aRoute(app) {
     });
   });
 
+  app.get("/api/a2a/telemetry", (req, res) => {
+
+    const agentId = req.get("x-afri-agent-id");
+    const timestamp = req.get("x-afri-timestamp");
+    const nonce = req.get("x-afri-nonce");
+    const signature = req.get("x-afri-signature");
+
+    const auth = AfriA2ARequestAuth.verify({
+      agentId,
+      timestamp,
+      nonce,
+      body: {
+        query: req.query || {}
+      },
+      signature
+    });
+
+    if (!auth.verified) {
+      return res.status(401).json({
+        ok: false,
+        error: {
+          code: auth.code,
+          message: "A2A authentication failed"
+        }
+      });
+    }
+
+    const requestedAgentId =
+      req.query?.agentId || null;
+
+    const agents =
+      AfriAgentIdentityRegistry.list().map(
+        agent => ({
+          id: agent.id,
+          key: agent.key,
+          name: agent.name,
+          organizationId:
+            agent.organizationId,
+          stats:
+            AfriA2AUsageMeter.stats(
+              agent.id
+            )
+        })
+      );
+
+    return res.json({
+      service:
+        "AfriDigital A2A Telemetry",
+
+      generatedAt:
+        Date.now(),
+
+      stats:
+        AfriA2AUsageMeter.stats(
+          requestedAgentId
+        ),
+
+      agents,
+
+      activity:
+        AfriA2AUsageMeter
+          .list()
+          .slice(0, 100)
+    });
+  });
+
+  app.get("/api/a2a/dashboard-telemetry", (_, res) => {
+    const agents =
+      AfriAgentIdentityRegistry.list().map(
+        agent => ({
+          id: agent.id,
+          key: agent.key,
+          name: agent.name,
+          organizationId: agent.organizationId,
+          stats: AfriA2AUsageMeter.stats(agent.id)
+        })
+      );
+
+    return res.json({
+      service: "AfriDigital A2A Dashboard Telemetry",
+      generatedAt: Date.now(),
+      stats: AfriA2AUsageMeter.stats(),
+      agents,
+      activity: AfriA2AUsageMeter.list().slice(0, 100)
+    });
+  });
+
   app.get("/api/a2a/health", (_, res) => {
     res.json({
       service: "AfriDigital A2A",
@@ -109,6 +197,7 @@ export default function a2aRoute(app) {
     const result = await AfriA2AGateway.handle({
       taskId: message.taskId || message.messageId || undefined,
       agentId,
+      sourceAgentId: agentId,
       capability: req.body?.metadata?.capability || "afriai.ask",
       payload: {
         message: textPart,
@@ -163,7 +252,8 @@ export default function a2aRoute(app) {
     }
 
     const result = await AfriA2AGateway.handle({
-      ...req.body
+      ...req.body,
+      sourceAgentId: agentId
     });
 
     return res.status(result.ok ? 200 : 400).json(result);
