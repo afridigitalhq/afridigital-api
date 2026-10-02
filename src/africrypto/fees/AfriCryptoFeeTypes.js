@@ -1,0 +1,11 @@
+export const AFRI_CRYPTO_FEE_OPERATIONS = Object.freeze({
+  SEND: "SEND",
+  RECEIVE: "RECEIVE",
+  NFT_TRANSFER: "NFT_TRANSFER",
+  SWAP: "SWAP"
+});
+
+export const AFRI_CRYPTO_FEE_STATUS = Object.freeze({
+  ENABLED: "ENABLED",
+  DISABLED: "DISABLED"
+});

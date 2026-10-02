@@ -1,0 +1,11 @@
+export const AFRI_CRYPTO_ASSET_TYPES = Object.freeze({
+  NATIVE: "NATIVE",
+  FUNGIBLE: "FUNGIBLE",
+  STABLECOIN: "STABLECOIN",
+  NFT: "NFT"
+});
+
+export const AFRI_CRYPTO_NFT_STANDARDS = Object.freeze({
+  ERC721: "ERC721",
+  ERC1155: "ERC1155"
+});
