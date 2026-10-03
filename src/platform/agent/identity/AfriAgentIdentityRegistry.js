@@ -21,6 +21,7 @@ const AfriAgentIdentityRegistry = {
       key: input.key || null,
       name: input.name || "Unnamed Agent",
       organizationId: input.organizationId || null,
+      trustDomain: input.trustDomain || "EXTERNAL",
       publicKey: input.publicKey || null,
       status: "ACTIVE",
       capabilities: Array.isArray(input.capabilities) ? input.capabilities : [],

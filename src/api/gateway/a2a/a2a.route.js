@@ -12,15 +12,6 @@ export default function a2aRoute(app) {
   AfriAgentIdentityRegistry.initializeFromEnv();
 
   app.get("/.well-known/agents/:agentKey/agent-card.json", (req, res) => {
-    if (["afridebug", "afriforex", "afriai"].includes(req.params.agentKey)) {
-      return res.status(404).json({
-        error: {
-          code: "AGENT_CARD_NOT_FOUND",
-          message: "Agent card not publicly advertised"
-        }
-      });
-    }
-
     const card = AfriAgentCardBuilder.build(req.params.agentKey);
 
     if (!card) {
@@ -198,6 +189,7 @@ export default function a2aRoute(app) {
       taskId: message.taskId || message.messageId || undefined,
       agentId,
       sourceAgentId: agentId,
+      requestOrigin: "EXTERNAL",
       capability: req.body?.metadata?.capability || "afriai.ask",
       payload: {
         message: textPart,
@@ -253,7 +245,8 @@ export default function a2aRoute(app) {
 
     const result = await AfriA2AGateway.handle({
       ...req.body,
-      sourceAgentId: agentId
+      sourceAgentId: agentId,
+      requestOrigin: "EXTERNAL"
     });
 
     return res.status(result.ok ? 200 : 400).json(result);

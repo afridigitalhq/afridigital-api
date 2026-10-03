@@ -1,4 +1,5 @@
 import AfriA2ATaskRuntime from "./AfriA2ATaskRuntime.js";
+import AfriA2AAuthorization from "../security/AfriA2AAuthorization.js";
 import AfriA2AResponse from "./AfriA2AResponse.js";
 import { AfriA2AError } from "./AfriA2AErrors.js";
 
@@ -14,6 +15,13 @@ const AfriA2AGateway = {
           "agentId and capability are required"
         );
       }
+
+      AfriA2AAuthorization.authorize({
+        sourceAgentId: request.sourceAgentId || null,
+        targetAgentId: request.agentId,
+        capability: request.capability,
+        requestOrigin: request.requestOrigin || "EXTERNAL"
+      });
 
       return await AfriA2ATaskRuntime.execute({
         taskId: request.taskId,
