@@ -1,3 +1,6 @@
+import { initializeAfriCrypto } from "../../../africrypto/AfriCryptoRuntime.js";
+import { getPublicWalletsForOwner } from "../../../africrypto/wallets/AfriCryptoPublicWalletProjection.js";
+
 const BASE_URL =
   process.env.A2A_PUBLIC_BASE_URL ||
   "https://afridigital-api.onrender.com";
@@ -12,6 +15,22 @@ const SECURITY_SCHEMES = {
     }
   }
 };
+
+function getWalletPayments(ownerId) {
+  initializeAfriCrypto();
+
+  return {
+    production: getPublicWalletsForOwner(ownerId).map(wallet => ({
+      environment: wallet.environment,
+      network: wallet.network,
+      networkFamily: wallet.networkFamily,
+      assetType: "NATIVE",
+      asset: wallet.networkFamily === "EVM" ? "ETH" : null,
+      address: wallet.address,
+      receivingEnabled: wallet.receivingEnabled
+    }))
+  };
+}
 
 function baseCard(agent) {
   return {
@@ -40,7 +59,8 @@ function baseCard(agent) {
     ],
     defaultInputModes: ["application/json"],
     defaultOutputModes: ["application/json"],
-    skills: agent.skills
+    skills: agent.skills,
+    payments: getWalletPayments(agent.ownerId)
   };
 }
 
@@ -48,6 +68,7 @@ const AfriAgentCardBuilder = {
   build(agentKey) {
     const cards = {
       afriai: {
+        ownerId: "afriai",
         name: "AfriAI",
         description:
           "AfriDigital AI agent providing authenticated AI-agent assistance.",
@@ -64,6 +85,7 @@ const AfriAgentCardBuilder = {
       },
 
       afridebug: {
+        ownerId: "afridigital",
         name: "AfriDebug",
         description:
           "AfriDigital software investigation agent for structured repository and runtime root-cause analysis.",
@@ -154,6 +176,7 @@ const AfriAgentCardBuilder = {
       },
 
       afriforex: {
+        ownerId: "afriforex",
         name: "AfriForex",
         description:
           "AfriDigital multi-asset market intelligence agent providing structured multi-timeframe analysis across forex, crypto, commodities and stocks.",
