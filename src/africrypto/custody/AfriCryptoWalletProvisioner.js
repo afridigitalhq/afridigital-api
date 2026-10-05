@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import {
   AFRI_CRYPTO_CUSTODY_MODES
 } from "./AfriCryptoCustodyContract.js";
+import AfriCryptoCustodyCredentialStore from "./AfriCryptoCustodyCredentialStore.js";
 
 const KEY_DIR = path.resolve(process.cwd(), ".africrypto/keys");
 const STATE_DIR = path.resolve(process.cwd(), ".africrypto/state");
@@ -38,16 +39,18 @@ function networkForEnvironment(networkId, environment) {
 export async function provisionEvmWallet({
   walletId,
   ownerId,
+  agentId,
   purpose,
   networkId,
   environment,
   custodyMode = AFRI_CRYPTO_CUSTODY_MODES.MANAGED_CUSTODY,
-  password
+  custodyCredential
 } = {}) {
   requireValue(walletId, "AFRICRYPTO_WALLET_ID_REQUIRED");
   requireValue(ownerId, "AFRICRYPTO_WALLET_OWNER_REQUIRED");
+  requireValue(agentId, "AFRICRYPTO_WALLET_AGENT_REQUIRED");
   requireValue(purpose, "AFRICRYPTO_WALLET_PURPOSE_REQUIRED");
-  requireValue(password, "AFRICRYPTO_WALLET_PASSWORD_REQUIRED");
+  requireValue(custodyCredential, "AFRICRYPTO_CUSTODY_CREDENTIAL_REQUIRED");
 
   if (custodyMode !== AFRI_CRYPTO_CUSTODY_MODES.MANAGED_CUSTODY) {
     throw new Error("AFRICRYPTO_PROVISIONER_REQUIRES_MANAGED_CUSTODY");
@@ -71,7 +74,7 @@ export async function provisionEvmWallet({
 
   const wallet = ethers.Wallet.createRandom();
 
-  const encryptedJson = await wallet.encrypt(password);
+  const encryptedJson = await wallet.encrypt(custodyCredential);
 
   const createdAt = new Date().toISOString();
 
@@ -92,6 +95,7 @@ export async function provisionEvmWallet({
   const state = {
     walletId,
     ownerId,
+    agentId,
     purpose,
     custodyMode,
     networkFamily: "EVM",
@@ -109,7 +113,15 @@ export async function provisionEvmWallet({
     updatedAt: createdAt
   };
 
+  let credentialProvisioned = false;
+
   try {
+    AfriCryptoCustodyCredentialStore.provision(
+      walletId,
+      custodyCredential
+    );
+    credentialProvisioned = true;
+
     fs.writeFileSync(
       statePath,
       `${JSON.stringify(state, null, 2)}\n`,
@@ -123,12 +135,20 @@ export async function provisionEvmWallet({
     try {
       fs.unlinkSync(keystorePath);
     } catch {}
+
+    if (credentialProvisioned) {
+      try {
+        AfriCryptoCustodyCredentialStore.remove(walletId);
+      } catch {}
+    }
+
     throw error;
   }
 
   return {
     walletId,
     ownerId,
+    agentId,
     custodyMode,
     networkId: normalizedNetwork,
     environment: normalizedEnvironment,

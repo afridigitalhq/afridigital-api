@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ethers } from "ethers";
+import AfriCryptoCustodyCredentialStore from "./AfriCryptoCustodyCredentialStore.js";
 import { getWallet } from "../wallets/AfriCryptoWalletRegistry.js";
 import { getNetwork } from "../networks/AfriCryptoNetworkRegistry.js";
 import { evaluateSendPolicy } from "../policies/AfriCryptoPolicyEngine.js";
@@ -24,13 +25,16 @@ export async function signEvmTransaction({
   to,
   value = "0",
   data = "0x",
-  password,
+  nonce,
+  gasLimit,
+  maxFeePerGas,
+  maxPriorityFeePerGas,
+  chainId,
   requestId
 } = {}) {
   requireValue(walletId, "AFRICRYPTO_WALLET_ID_REQUIRED");
   requireValue(networkId, "AFRICRYPTO_NETWORK_ID_REQUIRED");
   requireValue(to, "AFRICRYPTO_DESTINATION_REQUIRED");
-  requireValue(password, "AFRICRYPTO_WALLET_PASSWORD_REQUIRED");
   requireValue(requestId, "AFRICRYPTO_REQUEST_ID_REQUIRED");
 
   if (listSigningAudits().some(entry => entry.requestId === requestId)) {
@@ -132,11 +136,14 @@ export async function signEvmTransaction({
   }
 
   const encryptedJson = fs.readFileSync(keystorePath, "utf8");
+  const custodyCredential =
+    AfriCryptoCustodyCredentialStore.resolve(walletId);
+
   let signer;
   try {
     signer = await ethers.Wallet.fromEncryptedJson(
       encryptedJson,
-      password
+      custodyCredential
     );
   } catch (error) {
     await releaseReservation();
@@ -173,7 +180,12 @@ export async function signEvmTransaction({
   const unsignedTransaction = {
     to,
     value: amount,
-    data
+    data,
+    nonce,
+    gasLimit,
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+    chainId
   };
 
   let signedTransaction;
@@ -209,6 +221,7 @@ export async function signEvmTransaction({
     from: signer.address,
     to,
     value: ethers.formatEther(amount),
-    signedTransaction
+    signedTransaction,
+    usageReservation
   };
 }

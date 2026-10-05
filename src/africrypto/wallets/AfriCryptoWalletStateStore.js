@@ -94,7 +94,7 @@ export function loadWalletState() {
     const filePath = path.join(STATE_DIR, file);
     const state = JSON.parse(fs.readFileSync(filePath, "utf8"));
 
-    if (!state.walletId || !state.ownerId) {
+    if (!state.walletId || !state.ownerId || !state.agentId) {
       continue;
     }
 
@@ -107,6 +107,7 @@ export function loadWalletState() {
     const wallet = registerWallet({
       id: state.walletId,
       ownerId: state.ownerId,
+      agentId: state.agentId,
       name: state.name || state.purpose || "AfriCrypto Wallet",
       status: state.status || "ACTIVE",
       createdAt: state.createdAt,

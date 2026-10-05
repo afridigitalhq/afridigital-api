@@ -6,6 +6,10 @@ import AfriAgentCardBuilder from "../../../platform/agent/identity/AfriAgentCard
 import crypto from "node:crypto";
 import AfriA2AUsageMeter from "../../../platform/agent/metering/AfriA2AUsageMeter.js";
 
+const BASE_URL =
+  process.env.A2A_PUBLIC_BASE_URL ||
+  "https://afridigital-api.onrender.com";
+
 export default function a2aRoute(app) {
   AfriA2AServiceRegistry.initialize();
 
@@ -38,13 +42,14 @@ export default function a2aRoute(app) {
 
   app.get("/api/a2a/agents", (_, res) => {
     const agents = AfriAgentIdentityRegistry.list()
-      .filter((agent) => agent.status === "ACTIVE" && agent.key === "afridebug")
+      .filter((agent) => agent.status === "ACTIVE" && agent.key)
       .map((agent) => ({
         id: agent.id,
+        key: agent.key,
         name: agent.name,
         organizationId: agent.organizationId,
         capabilities: agent.capabilities,
-        agentCard: "https://raw.githubusercontent.com/afridigitalhq/afridigital-api/main/agent-card.json"
+        agentCard: `${BASE_URL}/.well-known/agents/${agent.key}/agent-card.json`
       }));
 
     return res.json({

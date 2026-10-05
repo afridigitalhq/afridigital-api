@@ -2,6 +2,8 @@ import AfriAgentIdentityRegistry from "../identity/AfriAgentIdentityRegistry.js"
 import AfriAgentCapabilityRegistry from "../registry/AfriAgentCapabilityRegistry.js";
 import AfriA2AUsageMeter from "../metering/AfriA2AUsageMeter.js";
 import AfriA2AResponse from "./AfriA2AResponse.js";
+import AfriAgentsEconomyPaymentRuntime from "../economy/AfriAgentsEconomyPaymentRuntime.js";
+import AfriAgentsEconomySettlementRuntime from "../economy/AfriAgentsEconomySettlementRuntime.js";
 import { AfriA2AError, A2A_ERRORS } from "./AfriA2AErrors.js";
 
 const AfriA2ATaskRuntime = {
@@ -65,6 +67,17 @@ const AfriA2ATaskRuntime = {
       );
     }
 
+    const payment = AfriAgentsEconomyPaymentRuntime.createObligation({
+      taskId,
+      requestId: input.requestId || taskId,
+      payerAgentId: sourceAgentId,
+      payeeAgentId: agent.id,
+      capability: capability.id,
+      payment: input.payment || {}
+    });
+
+    AfriAgentsEconomyPaymentRuntime.authorize(payment.paymentId);
+
     const telemetry =
       AfriA2AUsageMeter.start({
         taskId,
@@ -88,6 +101,17 @@ const AfriA2ATaskRuntime = {
           }
         );
 
+      const completedPayment =
+        AfriAgentsEconomyPaymentRuntime.complete(payment.paymentId);
+
+      const settledPayment =
+        input.settlement
+          ? await AfriAgentsEconomySettlementRuntime.settle({
+              paymentId: payment.paymentId,
+              settlement: input.settlement
+            })
+          : completedPayment;
+
       const usage =
         AfriA2AUsageMeter.update(
           telemetry.id,
@@ -102,10 +126,13 @@ const AfriA2ATaskRuntime = {
         capability: capability.id,
         agentId: agent.id,
         result,
+        payment: settledPayment,
         usage
       });
 
     } catch (error) {
+
+      AfriAgentsEconomyPaymentRuntime.cancel(payment.paymentId);
 
       AfriA2AUsageMeter.update(
         telemetry.id,

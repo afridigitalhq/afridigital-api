@@ -10,10 +10,12 @@ const walletSecrets = new Map();
 export function createWallet({
   id,
   ownerId,
+  agentId,
   name = "AfriCrypto Wallet"
 } = {}) {
   if (!id) throw new Error("AFRICRYPTO_WALLET_ID_REQUIRED");
   if (!ownerId) throw new Error("AFRICRYPTO_WALLET_OWNER_REQUIRED");
+  if (!agentId) throw new Error("AFRICRYPTO_WALLET_AGENT_REQUIRED");
 
   if (getWallet(id)) {
     throw new Error("AFRICRYPTO_WALLET_ALREADY_EXISTS");
@@ -24,6 +26,7 @@ export function createWallet({
   const record = registerWallet({
     id,
     ownerId,
+    agentId,
     name,
     addresses: [
       {
@@ -41,6 +44,7 @@ export function createWallet({
   return {
     id: record.id,
     ownerId: record.ownerId,
+    agentId: record.agentId,
     name: record.name,
     addresses: record.addresses,
     status: record.status,
@@ -64,6 +68,7 @@ export function listWalletSummaries() {
   return listWallets().map(wallet => ({
     id: wallet.id,
     ownerId: wallet.ownerId,
+    agentId: wallet.agentId,
     name: wallet.name,
     addresses: wallet.addresses,
     status: wallet.status,

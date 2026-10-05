@@ -25,9 +25,12 @@ const AfriA2AGateway = {
 
       return await AfriA2ATaskRuntime.execute({
         taskId: request.taskId,
+        requestId: request.requestId || request.taskId || null,
         sourceAgentId: request.sourceAgentId || null,
         agentId: request.agentId,
         capability: request.capability,
+        payment: request.payment || {},
+        settlement: request.settlement || null,
         payload: request.payload
       });
 

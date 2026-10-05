@@ -1,12 +1,12 @@
 import AfriForexLiveEngine from "../../modules/afriforex/live/AfriForexLiveEngine.js";
 import AfriNotificationRuntime from "../../modules/platform/notifications/runtime/AfriNotificationRuntime.js";
 import AfriNotificationProviders from "../../modules/platform/notifications/providers/AfriNotificationProviders.js";
-import AfriWhatsAppNotificationProvider from "../../modules/platform/notifications/providers/AfriWhatsAppNotificationProvider.js";
 import { createEventKernel } from "../kernel/eventbus/EventKernelFactory.js";
 import { initAfriCCTV } from "../africctv/bootstrap/initAfriCCTV.js";
 import { init as initAfriAI } from "../../modules/afriai/bootstrap/index.js";
 import { AfriProducts } from "./registry/ProductRegistry.js";
 import { loadPlugins } from "./runtime/PluginLoader.js";
+import { initializeAfriCrypto } from "../africrypto/AfriCryptoRuntime.js";
 import { createProductPluginMap } from "./binding/ProductPluginMap.js";
 import { printSidebarInventory } from "./tools/SidebarInventory.js";
 
@@ -15,6 +15,8 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway) {
 
   // ⚡ GLOBAL EVENT KERNEL (single source of truth)
   const eventBus = createEventKernel();
+  const afriCrypto = initializeAfriCrypto();
+
 
   eventBus.emit("system:start", { status: "booting" });
 
@@ -40,8 +42,6 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway) {
   eventBus.emit("system:ready", { products: AfriProducts.length });
 
   // 🔔 Notification runtime — canonical platform event bus subscriber
-  AfriNotificationProviders.register("afriWhatsApp", AfriWhatsAppNotificationProvider);
-  console.log("📲 AfriWhatsApp notification provider REGISTERED");
   AfriNotificationRuntime.init();
 
   // 📈 AfriForex live market intelligence
@@ -53,6 +53,7 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway) {
 
   return {
     eventBus,
+    afriCrypto,
     cctv,
     afriai,
     afriForexLive,

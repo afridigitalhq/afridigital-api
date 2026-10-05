@@ -50,6 +50,10 @@ export function registerWallet(wallet) {
     throw new Error("AFRICRYPTO_WALLET_OWNER_REQUIRED");
   }
 
+  if (!wallet?.agentId) {
+    throw new Error("AFRICRYPTO_WALLET_AGENT_REQUIRED");
+  }
+
   const addresses = Array.isArray(wallet.addresses)
     ? wallet.addresses.map(address => Object.freeze({
         networkId: address.networkId || null,
@@ -62,6 +66,7 @@ export function registerWallet(wallet) {
   const record = {
     id: wallet.id,
     ownerId: wallet.ownerId,
+    agentId: wallet.agentId,
     name: wallet.name || "AfriCrypto Wallet",
     status: wallet.status || "ACTIVE",
 
@@ -79,6 +84,22 @@ export function registerWallet(wallet) {
 
 export function getWallet(id) {
   return wallets.get(id) || null;
+}
+
+export function getWalletByAgentId(agentId) {
+  if (!agentId || typeof agentId !== "string" || !agentId.trim()) {
+    throw new Error("AFRICRYPTO_WALLET_AGENT_REQUIRED");
+  }
+
+  const matches = [...wallets.values()].filter(
+    wallet => wallet.agentId === agentId.trim()
+  );
+
+  if (matches.length > 1) {
+    throw new Error("AFRICRYPTO_MULTIPLE_WALLETS_FOR_AGENT");
+  }
+
+  return matches[0] || null;
 }
 
 export function listWallets() {
