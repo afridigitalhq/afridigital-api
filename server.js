@@ -8,6 +8,7 @@ import http from "http";
 import { mountPublic } from "./bootstrap/public.boot.js";
 import { mountRuntime } from "./bootstrap/runtime.boot.js";
 import { mountWebsocket } from "./bootstrap/websocket.boot.js";
+import { initAfriDigitalBootstrap } from "./src/bootstrap/AfriDigitalBootstrap.js";
 
 const app = express();
 
@@ -23,12 +24,21 @@ mountPublic(app);
 
 const server = http.createServer(app);
 
-mountWebsocket(server);
+const realtimeGateway = mountWebsocket(server);
 
 mountRuntime(app);
 
 const PORT = process.env.PORT || 10000;
 
-server.listen(PORT, () => {
-  console.log("🚀 AfriDigital API running on port", PORT);
+async function startServer() {
+  await initAfriDigitalBootstrap(server, realtimeGateway);
+
+  server.listen(PORT, () => {
+    console.log("🚀 AfriDigital API running on port", PORT);
+  });
+}
+
+startServer().catch(error => {
+  console.error("❌ AfriDigital startup failed:", error?.message || error);
+  process.exit(1);
 });
