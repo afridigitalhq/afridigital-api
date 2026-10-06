@@ -2,6 +2,7 @@ import State from "../state/AfriDebugInvestigationStateManager.js";
 import Events from "../events/AfriDebugEventStream.js";
 
 import Intake from "../workers/AfriDebugRepositoryIntakeWorker.js";
+import Acquisition from "../workers/AfriDebugRepositoryAcquisitionWorker.js";
 import Graph from "../workers/AfriDebugDependencyGraphWorker.js";
 import Runtime from "../workers/AfriDebugRuntimeInspectorWorker.js";
 import LogAnalyzer from "../workers/AfriDebugLogAnalyzerWorker.js";
@@ -9,6 +10,7 @@ import Knowledge from "../knowledge/AfriDebugKnowledgeAdapter.js";
 import Patch from "../workers/AfriDebugPatchPlanningWorker.js";
 import Verify from "../workers/AfriDebugVerificationWorker.js";
 import Report from "../workers/AfriDebugEvidenceReportWorker.js";
+import AfriSemanticRootCauseInterpreter from "../../../platform/analysis/AfriSemanticRootCauseInterpreter.js";
 import ApprovalQueue from "../approval/AfriDebugRepairApprovalQueue.js";
 
 
@@ -43,18 +45,83 @@ const AfriDebugOrchestrator = {
     });
 
 
+      let acquisition = null;
+    try {
     State.update(
       investigationId,
       "INTAKE_RUNNING"
     );
 
 
-    const intake = Intake.execute({
+    let intake;
+
+    acquisition = Acquisition.execute({
+      repository: input.repository || null
+    });
+
+    if (acquisition.status === "ACQUISITION_FAILED") {
+      State.update(
+        investigationId,
+        "INTAKE_FAILED"
+      );
+
+      Events.emit({
+        investigationId,
+        type:"REPOSITORY_ACQUISITION_FAILED",
+        actor:"RepositoryAcquisitionWorker",
+        details:acquisition.error || "Repository acquisition failed"
+      });
+
+      return {
+        investigationId,
+        mode:context.mode,
+        status:"INTAKE_FAILED",
+        error:acquisition.error || "REPOSITORY_ACQUISITION_FAILED",
+        state:State.get(investigationId),
+        events:Events.list(investigationId),
+        artifacts:{
+          acquisition
+        }
+      };
+    }
+
+    const repositoryInput =
+      acquisition.acquired
+        ? acquisition.repository
+        : (input.repository || {});
+
+    intake = Intake.execute({
       investigationId,
-      ...input.repository,
+      ...repositoryInput,
+      trustedExecution: true,
       context
     });
 
+    if (intake.status !== "INTAKE_COMPLETED" || intake.repository?.connected !== true) {
+      State.update(
+        investigationId,
+        "INTAKE_FAILED"
+      );
+
+      Events.emit({
+        investigationId,
+        type:"REPOSITORY_INTAKE_FAILED",
+        actor:"RepositoryIntakeWorker",
+        details:intake.error || "Repository intake failed"
+      });
+
+      return {
+        investigationId,
+        mode:context.mode,
+        status:"INTAKE_FAILED",
+        error:intake.error || "REPOSITORY_INTAKE_FAILED",
+        state:State.get(investigationId),
+        events:Events.list(investigationId),
+        artifacts:{
+          intake
+        }
+      };
+    }
 
     Events.emit({
       investigationId,
@@ -62,7 +129,6 @@ const AfriDebugOrchestrator = {
       actor:"RepositoryIntakeWorker",
       details:"Repository connected and validated"
     });
-
 
     State.update(
       investigationId,
@@ -95,6 +161,15 @@ const AfriDebugOrchestrator = {
     );
 
 
+
+      const diagnosis = AfriSemanticRootCauseInterpreter.analyze({
+        graph,
+        runtime,
+        logs,
+        knowledge,
+        context
+      });
+
     Events.emit({
       investigationId,
       type:"ANALYSIS_COMPLETED",
@@ -119,7 +194,13 @@ const AfriDebugOrchestrator = {
       );
 
       const report = Report.execute({
-        investigationId
+        investigationId,
+        intake,
+        graph,
+        runtime,
+        logs,
+        knowledge,
+        diagnosis,
       });
 
       Events.emit({
@@ -141,6 +222,7 @@ const AfriDebugOrchestrator = {
           runtime,
           logs,
           knowledge,
+          diagnosis,
           report
         }
       };
@@ -193,7 +275,15 @@ const AfriDebugOrchestrator = {
 
 
     const report = Report.execute({
-      investigationId
+      investigationId,
+      intake,
+      graph,
+      runtime,
+      logs,
+      knowledge,
+      diagnosis,
+      patch,
+      verification
     });
 
 
@@ -227,12 +317,16 @@ const AfriDebugOrchestrator = {
           runtime,
           logs,
           knowledge,
+          diagnosis,
           patch,
           verification,
           report
         }
       };
 
+    } finally {
+      Acquisition.cleanup(acquisition?.cleanupPath);
+    }
   }
 
 };
