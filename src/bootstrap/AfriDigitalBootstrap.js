@@ -7,6 +7,7 @@ import { init as initAfriAI } from "../../modules/afriai/bootstrap/index.js";
 import { AfriProducts } from "./registry/ProductRegistry.js";
 import { loadPlugins } from "./runtime/PluginLoader.js";
 import { initializeAfriCrypto } from "../africrypto/AfriCryptoRuntime.js";
+import { initializeAfriAgentsEconomy } from "../platform/agent/economy/AfriAgentsEconomyRuntime.js";
 import { createProductPluginMap } from "./binding/ProductPluginMap.js";
 import { printSidebarInventory } from "./tools/SidebarInventory.js";
 
@@ -16,6 +17,7 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway) {
   // ⚡ GLOBAL EVENT KERNEL (single source of truth)
   const eventBus = createEventKernel();
   const afriCrypto = initializeAfriCrypto();
+  const afriAgentsEconomy = initializeAfriAgentsEconomy();
 
 
   eventBus.emit("system:start", { status: "booting" });
@@ -54,6 +56,7 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway) {
   return {
     eventBus,
     afriCrypto,
+    afriAgentsEconomy,
     cctv,
     afriai,
     afriForexLive,
