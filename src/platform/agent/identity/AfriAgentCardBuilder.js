@@ -35,6 +35,7 @@ function getWalletPayments(ownerId) {
 function baseCard(agent) {
   return {
     name: agent.name,
+    ...(agent.iconUrl ? { iconUrl: agent.iconUrl } : {}),
     description: agent.description,
     version: "1.0.0",
     provider: {
@@ -86,7 +87,8 @@ const AfriAgentCardBuilder = {
 
       afridebug: {
         ownerId: "afridigital",
-        name: "AfriDebug",
+        name: process.env.A2A_DEBUG_AGENT_NAME || "AfriDebug Agent",
+        iconUrl: process.env.A2A_DEBUG_AGENT_ICON_URL || null,
         description:
           "AfriDigital software investigation agent for structured repository and runtime root-cause analysis.",
         skills: [

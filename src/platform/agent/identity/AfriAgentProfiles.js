@@ -9,7 +9,7 @@ const AfriAgentProfiles = {
 
   afridebug: {
     id: process.env.A2A_DEBUG_AGENT_ID || "AGENT-AFRIDEBUG-001",
-    name: process.env.A2A_DEBUG_AGENT_NAME || "AfriDebug",
+    name: process.env.A2A_DEBUG_AGENT_NAME || "AfriDebug Agent",
     organizationId: process.env.A2A_DEBUG_AGENT_ORGANIZATION_ID || "afridigital",
     trustDomain: "INTERNAL",
     capabilities: ["debug.analyze"]
