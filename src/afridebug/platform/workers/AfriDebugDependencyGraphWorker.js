@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 
+const MAX_SOURCE_FILES = 8000;
+const MAX_SOURCE_FILE_BYTES = 2 * 1024 * 1024;
+const MAX_SOURCE_BYTES = 64 * 1024 * 1024;
+
 const SOURCE_EXTENSIONS = new Set([
   ".js",
   ".jsx",
@@ -37,12 +41,17 @@ function shouldIgnoreFile(file) {
 function collectSourceFiles(root) {
 
   const files = [];
+  let totalSourceBytes = 0;
 
   function walk(directory) {
 
     for (const entry of fs.readdirSync(directory, { withFileTypes:true })) {
 
       if (IGNORED_DIRECTORIES.has(entry.name)) {
+        continue;
+      }
+
+      if (entry.isSymbolicLink()) {
         continue;
       }
 
@@ -58,6 +67,22 @@ function collectSourceFiles(root) {
         SOURCE_EXTENSIONS.has(path.extname(entry.name)) &&
         !shouldIgnoreFile(entry.name)
       ) {
+        const size = fs.statSync(fullPath).size;
+
+        if (size > MAX_SOURCE_FILE_BYTES) {
+          throw new Error("REPOSITORY_SOURCE_FILE_TOO_LARGE");
+        }
+
+        if (files.length >= MAX_SOURCE_FILES) {
+          throw new Error("REPOSITORY_SOURCE_FILE_LIMIT_EXCEEDED");
+        }
+
+        totalSourceBytes += size;
+
+        if (totalSourceBytes > MAX_SOURCE_BYTES) {
+          throw new Error("REPOSITORY_SOURCE_BYTE_LIMIT_EXCEEDED");
+        }
+
         files.push(fullPath);
       }
     }
@@ -143,7 +168,26 @@ const AfriDebugDependencyGraphWorker = {
 
     }
 
-    const sourceFiles = collectSourceFiles(root);
+    let sourceFiles;
+
+    try {
+      sourceFiles = collectSourceFiles(root);
+    } catch (error) {
+      return {
+        investigationId: input.investigationId || null,
+        repository,
+        files: 0,
+        imports: 0,
+        localImports: 0,
+        externalImports: 0,
+        nodes: [],
+        edges: [],
+        externalDependencies: [],
+        status: "GRAPH_FAILED",
+        error: error?.message || "REPOSITORY_SOURCE_COLLECTION_FAILED",
+        completedAt: Date.now()
+      };
+    }
 
     const nodes = sourceFiles.map(file =>
       toRelative(root, file)

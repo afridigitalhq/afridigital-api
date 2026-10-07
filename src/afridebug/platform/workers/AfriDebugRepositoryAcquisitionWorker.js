@@ -97,6 +97,12 @@ const AfriDebugRepositoryAcquisitionWorker = {
       [
         "-c",
         "advice.detachedHead=false",
+        "-c",
+        "credential.helper=",
+        "-c",
+        "protocol.ext.allow=never",
+        "-c",
+        "protocol.file.allow=never",
         "clone",
         "--depth",
         "1",
@@ -109,7 +115,18 @@ const AfriDebugRepositoryAcquisitionWorker = {
       {
         stdio: ["ignore", "ignore", "pipe"],
         encoding: "utf8",
-        timeout: 120000
+        timeout: 120000,
+        env: {
+          PATH: process.env.PATH || "",
+          HOME: process.env.HOME || os.tmpdir(),
+          LANG: "C",
+          LC_ALL: "C",
+          GIT_CONFIG_NOSYSTEM: "1",
+          GIT_CONFIG_GLOBAL: "/dev/null",
+          GIT_TERMINAL_PROMPT: "0",
+          GIT_ASKPASS: "/bin/false",
+          GIT_OPTIONAL_LOCKS: "0"
+        }
       }
     );
 
