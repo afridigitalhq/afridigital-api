@@ -39,6 +39,27 @@ const AfriDebugExecutionGate = {
     }
 
 
+    if(
+      approval.planId !== input.planId ||
+      (
+        approval.incidentId !== null &&
+        approval.incidentId !== input.incidentId
+      )
+    ){
+
+      return BlockExplanationContract.createBlockedResponse({
+        reasonCode:"APPROVAL_SCOPE_MISMATCH",
+        technicalReason:"The approved repair authorization does not match the supplied plan or investigation.",
+        userExplanation:"Repair execution is blocked because the approval does not authorize this specific repair plan.",
+        evidenceReference:`approvalId:${input.approvalId}`,
+        requiredAction:"Obtain approval for the exact repair plan before execution.",
+        blockingGate:"AFRIDEBUG_EXECUTION_GATE",
+        afrifixAllowed:false
+      });
+
+    }
+
+
     const bridgeResult =
       Bridge.execute(input);
 

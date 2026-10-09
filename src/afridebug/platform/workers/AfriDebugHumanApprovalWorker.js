@@ -9,7 +9,18 @@ const AfriDebugHumanApprovalWorker = {
 
 
     const decision =
-      input.decision || "approve";
+      typeof input.decision === "string"
+        ? input.decision.trim().toLowerCase()
+        : "";
+
+    if(decision !== "approve" && decision !== "reject"){
+
+      return {
+        success:false,
+        reason:"APPROVAL_DECISION_REQUIRED"
+      };
+
+    }
 
 
     let result;
@@ -24,7 +35,7 @@ const AfriDebugHumanApprovalWorker = {
         );
 
     }
-    else if(decision === "reject"){
+    else {
 
       result =
         Queue.reject(
