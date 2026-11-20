@@ -10,6 +10,7 @@ import metaDebugRoute from "./meta-debug.route.js";
 import modulesRoute from "./modules.route.js";
 import socRoute from "./soc.route.js";
 import ollamaTestRoute from "./ollama-test.route.js";
+import ollamaDebugRoute from "./ollama-debug.route.js";
 import healthRoute from "./health.route.js";
 import agentPlatformReadinessRoute from "./agent-platform-readiness.route.js";
 import afriDesignAPKRoute from "./afridesign/afridesign-apk.route.js";
@@ -29,6 +30,7 @@ export default function registerRoutes(app) {
   internalA2ARoute(app);
   internalApprovalRoute(app);
   ollamaTestRoute(app);
+  ollamaDebugRoute(app);
   healthRoute(app);
   agentPlatformReadinessRoute(app);
   afriDesignAPKRoute(app);

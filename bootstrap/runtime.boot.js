@@ -3,14 +3,12 @@ import { mountKernelRuntime } from "./kernel-runtime.boot.js";
 import { registerProductRoutes } from "../src/api/products/routes.js";
 import registerModules from "../src/api/gateway/modules.route.js";
 import registerRoutes from "../src/api/gateway/routes.js";
-import ollamaDebugRoute from "../src/api/gateway/ollama-debug.route.js";
 
 export function mountRuntime(app){
 
   registerProductRoutes(app);
   registerModules(app);
   registerRoutes(app);
-  ollamaDebugRoute(app);
 
   const kernel = mountKernelRuntime();
 
