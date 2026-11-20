@@ -262,9 +262,13 @@ const AfriDebugOrchestrator = {
 
     Events.emit({
       investigationId,
-      type:"VERIFICATION_PASSED",
+      type: verification.status === "VERIFIED"
+        ? "VERIFICATION_PASSED"
+        : "VERIFICATION_NOT_CONFIRMED",
       actor:"VerificationEngine",
-      details:"Patch verification completed"
+      details: verification.status === "VERIFIED"
+        ? "Patch verification completed successfully"
+        : "Patch verification was not confirmed; automated test execution is not implemented"
     });
 
 
@@ -302,7 +306,9 @@ const AfriDebugOrchestrator = {
         investigationId,
         type:"HUMAN_APPROVAL_PENDING",
         actor:"AfriDebugRepairApprovalQueue",
-        details:"Verified investigation blocked pending human repair approval"
+        details: verification.status === "VERIFIED"
+          ? "Verified investigation is awaiting human repair approval"
+          : "Investigation report is available, but verification is unconfirmed and repair remains blocked pending human approval"
       });
 
       return {

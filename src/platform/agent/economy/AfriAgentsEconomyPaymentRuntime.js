@@ -3,6 +3,7 @@ import AfriAgentsEconomyRegistry from "./AfriAgentsEconomyRegistry.js";
 import AfriAgentsEconomyCoupon, { INTERNAL_COUPON_CODE } from "./AfriAgentsEconomyCoupon.js";
 import AfriAgentsEconomyPaymentStore from "./AfriAgentsEconomyPaymentStore.js";
 import AfriAgentIdentityRegistry from "../identity/AfriAgentIdentityRegistry.js";
+import { assertPaymentsEnabled } from "./AfriAgentsEconomyPaymentPolicy.js";
 
 function requireText(value, code) {
   if (!value || typeof value !== "string" || !value.trim()) throw new Error(code);
@@ -49,6 +50,7 @@ function assertCouponEligibility(coupon, payer) {
 
 const AfriAgentsEconomyPaymentRuntime = {
   createObligation({ taskId, requestId = null, payerAgentId, payeeAgentId, capability, payment = {} } = {}) {
+    assertPaymentsEnabled("createObligation");
     requireText(taskId, "AFRI_ECONOMY_TASK_ID_REQUIRED");
     requireText(payerAgentId, "AFRI_ECONOMY_PAYER_REQUIRED");
     requireText(payeeAgentId, "AFRI_ECONOMY_PAYEE_REQUIRED");
@@ -122,6 +124,7 @@ const AfriAgentsEconomyPaymentRuntime = {
   },
 
   authorize(paymentId) {
+    assertPaymentsEnabled("authorize");
     const payment = AfriAgentsEconomyPaymentStore.get(paymentId);
     if (!payment) throw new Error("AFRI_ECONOMY_PAYMENT_NOT_FOUND");
     if (payment.status !== "OBLIGATION") return payment;
@@ -133,6 +136,7 @@ const AfriAgentsEconomyPaymentRuntime = {
   },
 
   complete(paymentId) {
+    assertPaymentsEnabled("complete");
     const payment = AfriAgentsEconomyPaymentStore.get(paymentId);
     if (!payment) throw new Error("AFRI_ECONOMY_PAYMENT_NOT_FOUND");
     if (!["AUTHORIZED", "OBLIGATION"].includes(payment.status)) return payment;
@@ -146,7 +150,7 @@ const AfriAgentsEconomyPaymentRuntime = {
   cancel(paymentId) {
     const payment = AfriAgentsEconomyPaymentStore.get(paymentId);
     if (!payment) return null;
-    if (["CONFIRMED", "FAILED", "CANCELLED", "REFUNDED", "NO_SETTLEMENT_REQUIRED"].includes(payment.status)) return payment;
+    if (["CONFIRMED", "FAILED", "CANCELLED", "REFUNDED", "NO_SETTLEMENT_REQUIRED", "SETTLEMENT_UNRESOLVED"].includes(payment.status)) return payment;
     return AfriAgentsEconomyPaymentStore.save({
       ...payment,
       status: "CANCELLED",

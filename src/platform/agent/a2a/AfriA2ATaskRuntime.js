@@ -1,5 +1,4 @@
-import AfriAgentIdentityRegistry from "../identity/AfriAgentIdentityRegistry.js";
-import AfriAgentCapabilityRegistry from "../registry/AfriAgentCapabilityRegistry.js";
+import AfriAgentAuthorization from "../harness/authorization/AfriAgentAuthorization.js";
 import AfriA2AUsageMeter from "../metering/AfriA2AUsageMeter.js";
 import AfriA2AResponse from "./AfriA2AResponse.js";
 import AfriAgentsEconomyPaymentRuntime from "../economy/AfriAgentsEconomyPaymentRuntime.js";
@@ -17,48 +16,46 @@ const AfriA2ATaskRuntime = {
     const sourceAgentId =
       input.sourceAgentId || null;
 
-    const agent =
-      AfriAgentIdentityRegistry.get(input.agentId);
+    let authorization;
 
-    if (!agent) {
-      throw new AfriA2AError(
-        A2A_ERRORS.AGENT_NOT_FOUND,
-        "Agent identity was not found"
-      );
+    try {
+      authorization = AfriAgentAuthorization.resolve({
+        agentId: input.agentId,
+        capabilityId: input.capability
+      });
+    } catch (error) {
+      const mappings = {
+        AGENT_NOT_FOUND: [
+          A2A_ERRORS.AGENT_NOT_FOUND,
+          "Agent identity was not found"
+        ],
+        AGENT_NOT_ACTIVE: [
+          A2A_ERRORS.AGENT_REVOKED,
+          "Agent identity is not active"
+        ],
+        CAPABILITY_NOT_FOUND: [
+          A2A_ERRORS.CAPABILITY_NOT_FOUND,
+          "Requested capability was not found"
+        ],
+        CAPABILITY_DISABLED: [
+          A2A_ERRORS.CAPABILITY_DISABLED,
+          "Requested capability is disabled"
+        ],
+        CAPABILITY_FORBIDDEN: [
+          A2A_ERRORS.CAPABILITY_FORBIDDEN,
+          "Agent is not authorized for this capability"
+        ]
+      };
+
+      const [code, message] = mappings[error?.code] || [
+        A2A_ERRORS.AUTHORIZATION_FORBIDDEN,
+        "Agent task authorization failed"
+      ];
+
+      throw new AfriA2AError(code, message);
     }
 
-    if (agent.status !== "ACTIVE") {
-      throw new AfriA2AError(
-        A2A_ERRORS.AGENT_REVOKED,
-        "Agent identity is not active"
-      );
-    }
-
-    const capability =
-      AfriAgentCapabilityRegistry.get(input.capability);
-
-    if (!capability) {
-      throw new AfriA2AError(
-        A2A_ERRORS.CAPABILITY_NOT_FOUND,
-        "Requested capability was not found"
-      );
-    }
-
-    if (!capability.enabled) {
-      throw new AfriA2AError(
-        A2A_ERRORS.CAPABILITY_DISABLED,
-        "Requested capability is disabled"
-      );
-    }
-
-    if (
-      !agent.capabilities.includes(capability.id)
-    ) {
-      throw new AfriA2AError(
-        A2A_ERRORS.CAPABILITY_FORBIDDEN,
-        "Agent is not authorized for this capability"
-      );
-    }
+    const { agent, capability } = authorization;
 
     if (typeof capability.handler !== "function") {
       throw new AfriA2AError(
@@ -132,7 +129,12 @@ const AfriA2ATaskRuntime = {
 
     } catch (error) {
 
-      AfriAgentsEconomyPaymentRuntime.cancel(payment.paymentId);
+      if (
+        AfriAgentsEconomyPaymentRuntime.get(payment.paymentId)?.status !==
+        "SETTLEMENT_UNRESOLVED"
+      ) {
+        AfriAgentsEconomyPaymentRuntime.cancel(payment.paymentId);
+      }
 
       AfriA2AUsageMeter.update(
         telemetry.id,

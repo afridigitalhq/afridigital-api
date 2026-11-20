@@ -35,3 +35,7 @@ backups/
 
 # AfriNucChain runtime generated data
 modules/afrinucchain/.data/
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]

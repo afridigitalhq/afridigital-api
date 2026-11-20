@@ -1,15 +1,10 @@
 import askOllama from "../llm/OllamaClient.js";
 
-const OllamaProvider = {
-
+const OllamaProvider={
   name:"ollama",
-
-  async generate(prompt){
-
-    return await askOllama(prompt);
-
+  capabilities:["generate"],
+  async generate(prompt,options={}){
+    return askOllama(prompt,options);
   }
-
 };
-
 export default OllamaProvider;

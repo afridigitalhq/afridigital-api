@@ -2,117 +2,121 @@ import AfriAIKnowledgeRetriever from "../knowledge-engine/AfriAIKnowledgeRetriev
 import CoreTraceEngine from "../../core/trace/CoreTraceEngine.js";
 
 const KnowledgeProvider = {
-  name:"knowledge",
+  name: "knowledge",
 
-  async generate(prompt=""){
+  async generate(prompt = "") {
+    const userMessage = prompt.split("User:").pop()?.split("\nAfriAI:")[0]?.trim() || prompt.trim();
+    const knowledge = AfriAIKnowledgeRetriever.retrieve(userMessage);
 
-    const userMessage =
-      prompt.split("User:").pop()?.trim() || prompt;
+    if (knowledge.grounded !== true) {
+      CoreTraceEngine.event("PROVIDER_RESPONSE", {
+        provider: "knowledge",
+        status: "NOT_GROUNDED",
+        sources: []
+      });
 
-    const knowledge =
-      AfriAIKnowledgeRetriever.retrieve(userMessage);
+      return JSON.stringify({
+        provider: "knowledge",
+        answer: null,
+        sources: [],
+        confidence: "LOW",
+        executionPath: ["KnowledgeRetriever", "KnowledgeProvider"],
+        status: "NOT_GROUNDED",
+        grounded: false,
+        error: "KNOWLEDGE_NOT_FOUND",
+        knowledge
+      });
+    }
 
-    let answer =
-      "AfriDigital knowledge response ready.";
+    let answer = "";
+    const sources = [];
+    const asksForPlatform = /\b(afridigital|afri digital|platform|ecosystem)\b/i.test(userMessage);
+    const asksForProduct = /\b(product|products|name one|name a|give me one|example)\b/i.test(userMessage);
 
-    let sources = [];
+    const platformDescription =
+      knowledge.platform?.platform?.description ||
+      knowledge.platform?.description;
 
-    if(knowledge.platform){
-      answer = knowledge.platform.description;
+    if (platformDescription) {
+      answer = platformDescription;
       sources.push("AfriPlatformKnowledge");
     }
 
-    if(knowledge.products){
-      const products = Object.keys(
-        knowledge.products
+    if (knowledge.products) {
+      const products = Object.keys(knowledge.products);
+      const matched = products.find(product =>
+        userMessage.toLowerCase().includes(product.toLowerCase())
       );
 
-      const matched =
-        products.find(p =>
-          userMessage.toLowerCase()
-          .includes(p.toLowerCase())
-        );
-
-      if(matched){
-        const product =
-          knowledge.products[matched];
-
-        answer =
-          `${matched} is ${product.description || "part of the AfriDigital ecosystem"}. Current status: ${product.status || "Under Development"}.`;
-
-      } else {
-        answer =
-          "AfriDigital products include " +
-          products.join(", ") + ".";
+      if (matched) {
+        const product = knowledge.products[matched];
+        answer = `${matched} is ${product.description || "part of the AfriDigital ecosystem"}. Current status: ${product.status || "Under Development"}.`;
+      } else if (asksForProduct && products.length > 0) {
+        const productName = products[0];
+        const product = knowledge.products[productName];
+        const productDescription = product.description || "part of the AfriDigital ecosystem";
+        answer = asksForPlatform && platformDescription
+          ? `${platformDescription} One product is ${productName}: ${productDescription}`
+          : `One AfriDigital product is ${productName}: ${productDescription}`;
+      } else if (!answer) {
+        answer = `AfriDigital products include ${products.join(", ")}.`;
       }
 
       sources.push("ProductKnowledge");
     }
 
-    console.log("🛠 AFRIDEBUG KNOWLEDGE:", JSON.stringify(Object.keys(knowledge)));
-
-    if(knowledge.studio){
-      answer =
-        knowledge.studio.description;
-
+    if (knowledge.studio) {
+      answer = knowledge.studio.description;
       sources.push("StudioKnowledge");
     }
 
-    if(knowledge.payments){
-      answer =
-        `${knowledge.payments.description || "AfriDigital payment services information available."}`;
-
+    if (knowledge.payments) {
+      answer = knowledge.payments.description ||
+        "AfriDigital payment services information available.";
       sources.push("PaymentsKnowledge");
     }
 
-    if(knowledge.opportunities){
-      answer =
-        `${knowledge.opportunities.description || "AfriDigital opportunities information available."}`;
-
+    if (knowledge.opportunities) {
+      answer = knowledge.opportunities.description ||
+        "AfriDigital opportunities information available.";
       sources.push("OpportunitiesKnowledge");
     }
 
-    if(knowledge.status || knowledge.roadmap){
-      answer =
-        "AfriDigital development status and roadmap information available.";
-
-      sources.push(
-        "StatusKnowledge",
-        "RoadmapKnowledge"
-      );
+    if (knowledge.status || knowledge.roadmap) {
+      answer = "AfriDigital development status and roadmap information available.";
+      sources.push("StatusKnowledge", "RoadmapKnowledge");
     }
 
-    CoreTraceEngine.event(
-      "PROVIDER_RESPONSE",
-      {
-        provider:"knowledge",
-        sources
-      }
-    );
+    if (!answer) {
+      return JSON.stringify({
+        provider: "knowledge",
+        answer: null,
+        sources,
+        confidence: "LOW",
+        executionPath: ["KnowledgeRetriever", "KnowledgeProvider"],
+        status: "NOT_GROUNDED",
+        grounded: false,
+        error: "KNOWLEDGE_CONTENT_UNAVAILABLE",
+        knowledge
+      });
+    }
+
+    CoreTraceEngine.event("PROVIDER_RESPONSE", {
+      provider: "knowledge",
+      sources
+    });
 
     return JSON.stringify({
-
-      provider:"knowledge",
-
+      provider: "knowledge",
       answer,
-
-      sources,
-
-      confidence:"HIGH",
-
-      executionPath:[
-        "KnowledgeRetriever",
-        "KnowledgeProvider"
-      ],
-
-      status:"READY",
-
+      sources: [...new Set(sources)],
+      confidence: "HIGH",
+      executionPath: ["KnowledgeRetriever", "KnowledgeProvider"],
+      status: "READY",
+      grounded: true,
       knowledge
-
-    },null,2);
-
+    }, null, 2);
   }
-
 };
 
 export default KnowledgeProvider;

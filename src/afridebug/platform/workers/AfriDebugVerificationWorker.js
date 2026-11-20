@@ -10,20 +10,11 @@ const AfriDebugVerificationWorker = {
       patchId:
         input.patchId || null,
 
-      tests:[
-        {
-          name:"runtime_validation",
-          status:"passed"
-        },
-        {
-          name:"contract_validation",
-          status:"passed"
-        }
-      ],
+      tests:[],
+      status:"UNVERIFIED",
+      reason:"TEST_EXECUTION_NOT_IMPLEMENTED",
 
-      status:"VERIFIED",
-
-      verifiedAt:Date.now()
+      verifiedAt:null
 
     };
 

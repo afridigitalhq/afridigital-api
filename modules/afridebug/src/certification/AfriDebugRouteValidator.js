@@ -11,8 +11,11 @@ export function validate() {
 
     for (const item of fs.readdirSync(dir)) {
       const full = path.join(dir, item);
+      const entry = fs.lstatSync(full);
 
-      if (fs.statSync(full).isDirectory()) {
+      if (entry.isSymbolicLink()) continue;
+
+      if (entry.isDirectory()) {
         scan(full);
       } else if (
         item.endsWith(".routes.js") ||

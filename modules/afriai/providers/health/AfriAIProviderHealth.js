@@ -21,8 +21,11 @@ const AfriAIProviderHealth = {
         await axios.get(
           `${url}/api/tags`,
           {
-            timeout:2000
+          timeout:2000,
+          headers:{
+            ...(process.env.OLLAMA_API_KEY?.trim()?{Authorization:`Bearer ${process.env.OLLAMA_API_KEY.trim()}`}:{})
           }
+        }
         );
 
         return true;

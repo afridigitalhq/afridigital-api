@@ -1,5 +1,4 @@
 import VerificationRuntime from "../verification/AfriDebugVerificationRuntime.js";
-import RollbackRuntime from "../production/rollback/AfriDebugRollbackRuntime.js";
 
 
 const executions=[];
@@ -40,71 +39,34 @@ const AfriDebugChangeExecutionController = {
       });
 
 
-    let rollback=null;
+    if (verification.status !== "VERIFIED") {
+      const execution = {
+        executionId: `EXEC-${Date.now()}`,
+        incidentId: input.incidentId || null,
+        patch,
+        verification,
+        rollback: null,
+        status: "verification_failed",
+        reason: "VERIFICATION_NOT_CONFIRMED",
+        completedAt: null
+      };
 
-
-    if(verification.status !== "VERIFIED"){
-
-
-      rollback =
-        RollbackRuntime.rollback({
-
-          incidentId:
-            input.incidentId,
-
-          patchId:
-            patch.id,
-
-          version:
-            input.version,
-
-          reason:
-            "verification_failed",
-
-          approvalStatus:
-            "approved"
-
-        });
-
+      executions.push(execution);
+      return execution;
     }
 
-
-    const execution={
-
-
-      executionId:
-        `EXEC-${Date.now()}`,
-
-
-      incidentId:
-        input.incidentId || null,
-
-
+    const execution = {
+      executionId: `EXEC-${Date.now()}`,
+      incidentId: input.incidentId || null,
       patch,
-
-
       verification,
-
-
-      rollback,
-
-
-      status:
-        rollback
-        ? "rollback_required"
-        : "completed",
-
-
-      completedAt:
-        Date.now()
-
-
+      rollback: null,
+      status: "blocked",
+      reason: "PATCH_APPLICATION_NOT_IMPLEMENTED",
+      completedAt: null
     };
 
-
     executions.push(execution);
-
-
     return execution;
 
   },

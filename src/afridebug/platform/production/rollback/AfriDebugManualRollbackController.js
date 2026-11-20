@@ -17,15 +17,8 @@ const AfriDebugManualRollbackController = {
 
   },
 
-  approve(id){
-
-    return {
-      rollbackId:id,
-      approvalStatus:"approved",
-      status:"executed",
-      rolledBackAt:Date.now()
-    };
-
+  approve(id, approvedBy="admin") {
+    return RollbackRuntime.approve(id, approvedBy);
   },
 
   health(){

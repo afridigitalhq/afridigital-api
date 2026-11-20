@@ -21,15 +21,9 @@ const AfriDebugRollbackRuntime={
       approvalStatus:
         input.approvalStatus || "pending",
 
-      status:
-        input.approvalStatus === "approved"
-          ? "executed"
-          : "waiting_approval",
+      status: "not_executed",
 
-      rolledBackAt:
-        input.approvalStatus === "approved"
-          ? Date.now()
-          : null
+      rolledBackAt: null
 
     };
 
@@ -59,9 +53,9 @@ const AfriDebugRollbackRuntime={
 
     rollback.approvedBy=approvedBy;
 
-    rollback.status="executed";
+    rollback.status="not_executed";
 
-    rollback.rolledBackAt=Date.now();
+    rollback.rolledBackAt=null;
 
 
     return {

@@ -1,7 +1,9 @@
 import AfriA2ATaskRuntime from "./AfriA2ATaskRuntime.js";
 import AfriA2AAuthorization from "../security/AfriA2AAuthorization.js";
 import AfriA2AResponse from "./AfriA2AResponse.js";
-import { AfriA2AError } from "./AfriA2AErrors.js";
+import { AfriA2AError, A2A_ERRORS } from "./AfriA2AErrors.js";
+
+const EXTERNAL_TASK_EXECUTION_ENABLED = false;
 
 const AfriA2AGateway = {
 
@@ -16,11 +18,22 @@ const AfriA2AGateway = {
         );
       }
 
+      if (request.requestOrigin !== "EXTERNAL") {
+        throw new AfriA2AError(
+          A2A_ERRORS.INVALID_REQUEST,
+          "A2A gateway accepts external requests only"
+        );
+      }
+
+      if (!EXTERNAL_TASK_EXECUTION_ENABLED) {
+        throw new AfriA2AError("A2A_EXECUTION_DISABLED_NO_PAYMENT_POLICY","External A2A task execution is temporarily disabled while payment operations are disabled.");
+      }
+
       AfriA2AAuthorization.authorize({
         sourceAgentId: request.sourceAgentId || null,
         targetAgentId: request.agentId,
         capability: request.capability,
-        requestOrigin: request.requestOrigin || "EXTERNAL"
+        requestOrigin: "EXTERNAL"
       });
 
       return await AfriA2ATaskRuntime.execute({

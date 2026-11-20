@@ -2,7 +2,6 @@ import { ethers } from "ethers";
 import { getNetwork } from "../networks/AfriCryptoNetworkRegistry.js";
 import { getWallet, getWalletAddress } from "../wallets/AfriCryptoWalletRegistry.js";
 import { signEvmTransaction } from "../custody/AfriCryptoSigningBoundary.js";
-import { releaseDailyUsage } from "../policies/AfriCryptoUsageStore.js";
 import {
   AFRI_CRYPTO_TRANSACTION_TYPES,
   AFRI_CRYPTO_TRANSACTION_STATUS
@@ -36,6 +35,109 @@ function getRpcUrl(networkId) {
   }
 
   return url;
+}
+
+export async function inspectEvmTransaction({
+  networkId,
+  transactionHash
+} = {}) {
+  requireValue(networkId, "AFRICRYPTO_NETWORK_ID_REQUIRED");
+  requireValue(transactionHash, "AFRICRYPTO_TRANSACTION_HASH_REQUIRED");
+
+  if (!ethers.isHexString(transactionHash, 32)) {
+    throw new Error("AFRICRYPTO_TRANSACTION_HASH_INVALID");
+  }
+
+  const network = getNetwork(networkId);
+
+  if (
+    !network ||
+    network.family !== "EVM" ||
+    network.environment !== "TESTNET" ||
+    !network.enabled ||
+    !network.chainId
+  ) {
+    throw new Error("AFRICRYPTO_INSPECTION_NETWORK_UNSUPPORTED");
+  }
+
+  const provider = new ethers.JsonRpcProvider(
+    getRpcUrl(networkId),
+    network.chainId,
+    { staticNetwork: true }
+  );
+
+  try {
+    const rpcNetwork = await provider.getNetwork();
+
+    if (rpcNetwork.chainId !== BigInt(network.chainId)) {
+      throw new Error("AFRICRYPTO_RPC_CHAIN_ID_MISMATCH");
+    }
+
+    const [receipt, transaction] = await Promise.all([
+      provider.getTransactionReceipt(transactionHash),
+      provider.getTransaction(transactionHash)
+    ]);
+
+    if (
+      receipt?.hash &&
+      receipt.hash.toLowerCase() !== transactionHash.toLowerCase()
+    ) {
+      throw new Error("AFRICRYPTO_RECEIPT_HASH_MISMATCH");
+    }
+
+    if (receipt) {
+      if (
+        !Number.isSafeInteger(receipt.blockNumber) ||
+        receipt.blockNumber < 0
+      ) {
+        return {
+          outcome: "UNKNOWN",
+          networkId,
+          transactionHash,
+          blockNumber: null,
+          confirmations: 0
+        };
+      }
+
+      const receiptStatus = receipt.status;
+      const confirmed = [1, 1n, "1", "0x1"].includes(receiptStatus);
+      const reverted = [0, 0n, "0", "0x0"].includes(receiptStatus);
+
+      if (!confirmed && !reverted) {
+        return {
+          outcome: "UNKNOWN",
+          networkId,
+          transactionHash,
+          blockNumber: receipt.blockNumber ?? null,
+          confirmations: 0
+        };
+      }
+
+      const latestBlock = await provider.getBlockNumber();
+      const confirmations = Math.max(
+        0,
+        latestBlock - receipt.blockNumber + 1
+      );
+
+      return {
+        outcome: confirmed ? "CONFIRMED" : "REVERTED",
+        networkId,
+        transactionHash,
+        blockNumber: receipt.blockNumber ?? null,
+        confirmations
+      };
+    }
+
+    return {
+      outcome: transaction ? "PENDING" : "UNKNOWN",
+      networkId,
+      transactionHash,
+      blockNumber: null,
+      confirmations: 0
+    };
+  } finally {
+    provider.destroy();
+  }
 }
 
 export async function executeEvmTransfer({
@@ -144,17 +246,51 @@ export async function executeEvmTransfer({
       signed.signedTransaction
     );
   } catch (error) {
-    if (signed.usageReservation) {
-      await releaseDailyUsage(signed.usageReservation);
-    }
-    throw error;
+    const unresolved = new Error("AFRICRYPTO_BROADCAST_OUTCOME_UNRESOLVED");
+    unresolved.code = "AFRICRYPTO_BROADCAST_OUTCOME_UNRESOLVED";
+    unresolved.transactionHash = ethers.keccak256(signed.signedTransaction);
+    unresolved.cause = error;
+    throw unresolved;
   }
 
-  const receipt = await response.wait(confirmations);
+  let receipt;
+  try {
+    receipt = await response.wait(confirmations);
+  } catch (error) {
+    const reverted = [
+      0,
+      0n,
+      "0",
+      "0x0"
+    ].includes(error?.receipt?.status);
+
+    const code = reverted
+      ? "AFRICRYPTO_TRANSACTION_REVERTED"
+      : "AFRICRYPTO_RECEIPT_UNRESOLVED";
+
+    const annotated = new Error(code);
+    annotated.code = code;
+    annotated.transactionHash = response.hash;
+    annotated.receipt = error?.receipt ?? null;
+    annotated.cause = error;
+    throw annotated;
+  }
+
+  const receiptStatus = receipt?.status;
+  const confirmed = [1, 1n, "1", "0x1"].includes(receiptStatus);
+  const reverted = [0, 0n, "0", "0x0"].includes(receiptStatus);
+
+  if (!confirmed && !reverted) {
+    const unresolved = new Error("AFRICRYPTO_RECEIPT_UNRESOLVED");
+    unresolved.code = "AFRICRYPTO_RECEIPT_UNRESOLVED";
+    unresolved.transactionHash = response.hash;
+    unresolved.receipt = receipt ?? null;
+    throw unresolved;
+  }
 
   return {
     type: AFRI_CRYPTO_TRANSACTION_TYPES.TRANSFER,
-    status: receipt?.status === 1
+    status: confirmed
       ? AFRI_CRYPTO_TRANSACTION_STATUS.CONFIRMED
       : AFRI_CRYPTO_TRANSACTION_STATUS.FAILED,
     walletId,

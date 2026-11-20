@@ -20,7 +20,9 @@ const AfriDebugVerificationRuntime={
       tests:
         input.tests || [],
 
-      status:"VERIFIED",
+      status:"UNVERIFIED",
+
+      reason:"TEST_EXECUTION_NOT_IMPLEMENTED",
 
       createdAt:Date.now()
 
@@ -41,7 +43,10 @@ const AfriDebugVerificationRuntime={
 
     Ledger.record({
 
-      type:"VERIFICATION_COMPLETED",
+      type:
+        verification.status === "VERIFIED"
+          ? "VERIFICATION_COMPLETED"
+          : "VERIFICATION_NOT_CONFIRMED",
 
       verificationId:
         verification.id,

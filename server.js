@@ -31,7 +31,7 @@ mountRuntime(app);
 const PORT = process.env.PORT || 10000;
 
 async function startServer() {
-  await initAfriDigitalBootstrap(server, realtimeGateway);
+  await initAfriDigitalBootstrap(server, realtimeGateway, { requireApprovalRuntime: true });
 
   server.listen(PORT, () => {
     console.log("🚀 AfriDigital API running on port", PORT);

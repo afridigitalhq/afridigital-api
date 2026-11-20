@@ -177,6 +177,78 @@ const AfriAgentCardBuilder = {
         ]
       },
 
+      afrirea: {
+        ownerId: "afridigital",
+        name: process.env.A2A_REA_AGENT_NAME || "AfriREA Agent",
+        description: "AfriDigital evidence-based research engine for public web sources and structured multi-source research through registered source adapters.",
+        skills: [
+          {
+            id: "research.analyze",
+            name: "AfriREA Website Research",
+            description: "Fetch a public HTTPS website subject to robots policy and analyze its static HTML, metadata, headings, links and forms.",
+            tags: ["website-research", "website-audit", "html-analysis", "metadata", "links", "forms", "evidence"],
+            examples: ["Analyze the public website at https://example.com", "Inspect a public website metadata, headings and links"],
+            inputSchema: {
+              type: "object",
+              required: ["url"],
+              properties: { url: { type: "string", description: "A public HTTPS website URL to research." } },
+              additionalProperties: false
+            }
+          },
+          {
+            id: "research.run",
+            name: "AfriREA Structured Research",
+            description: "Submit an objective, domain and bounded source list for evidence-backed structured research. HTTPS URL processing is currently implemented; other source types remain unsupported until their adapters are implemented.",
+            tags: ["multi-source-research", "structured-research", "evidence", "provenance", "source-analysis"],
+            examples: ["Research a technical topic using multiple public HTTPS URLs", "Compare findings from several public website sources"],
+            inputSchema: {
+              type: "object",
+              required: ["objective", "domain", "sources"],
+              properties: {
+                objective: { type: "string", maxLength: 2000 },
+                domain: { type: "string", pattern: "^[a-z0-9][a-z0-9._-]{0,63}$" },
+                sources: {
+                  type: "array",
+                  minItems: 1,
+                  maxItems: 30,
+                  items: {
+                    type: "object",
+                    required: ["sourceId", "type", "origin"],
+                    properties: {
+                      sourceId: { type: "string" },
+                      type: { type: "string", enum: ["URL", "SCREENSHOT", "DOCUMENT", "REPOSITORY", "API_SPEC", "WEB_APP", "ANDROID_APP", "AUDIO", "VIDEO", "DATASET"] },
+                      origin: { type: "string", enum: ["PUBLIC_URL", "USER_UPLOAD", "CONNECTED_SOURCE", "INTERNAL_REFERENCE"] },
+                      url: { type: "string" },
+                      fileId: { type: "string" },
+                      revision: { type: "string" },
+                      metadata: { type: "object" }
+                    },
+                    additionalProperties: false
+                  }
+                },
+                requirements: { type: "array", maxItems: 30, items: { type: "string", maxLength: 200 } },
+                outputFormat: { type: "string", enum: ["structured_research"] },
+                metadata: { type: "object" }
+              },
+              additionalProperties: false
+            },
+            outputSchema: {
+              type: "object",
+              properties: {
+                service: { type: "string" },
+                researchId: { type: "string" },
+                objective: { type: "string" },
+                domain: { type: "string" },
+                status: { type: "string", enum: ["COMPLETED", "PARTIAL", "FAILED"] },
+                sources: { type: "array" },
+                findings: { type: "array" },
+                evidence: { type: "array" },
+                limitations: { type: "array" }
+              }
+            }
+          }
+        ]
+      },
       afriforex: {
         ownerId: "afriforex",
         name: "AfriForex",

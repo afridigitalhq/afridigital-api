@@ -13,6 +13,27 @@ export class AfriAIRuntime {
     this.status = "ready";
   }
 
+  async generateStructuredPlan(prompt) {
+    const provider = AfriAIProviderRegistry.get("ollama");
+    if (!provider) {
+      return { ok: false, code: "AFRIAICOMMAND_OLLAMA_PROVIDER_MISSING" };
+    }
+
+    try {
+      const healthy = await AfriAIProviderHealth.check(provider);
+      if (!healthy) {
+        return { ok: false, code: "AFRIAICOMMAND_OLLAMA_UNAVAILABLE" };
+      }
+      const content = await provider.generate(prompt);
+      if (typeof content !== "string" || !content.trim()) {
+        return { ok: false, code: "AFRIAICOMMAND_OLLAMA_EMPTY_RESPONSE" };
+      }
+      return { ok: true, provider: provider.name || "ollama", content };
+    } catch {
+      return { ok: false, code: "AFRIAICOMMAND_OLLAMA_GENERATION_FAILED" };
+    }
+  }
+
   async ask(message){
 
     const trace =
@@ -129,7 +150,7 @@ AfriAI:
           }
 
           const normalized =
-            AfriAIResponseNormalizer.normalize(reply);
+            AfriAIResponseNormalizer.normalize(reply, { message });
 
           normalized.trace =
             AfriAIExecutionTrace.finish(
