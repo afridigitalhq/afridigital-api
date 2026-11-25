@@ -17,7 +17,6 @@ export function createAfriAICommandRuntime({
   reasoner = prompt => afriAIRuntime.generateStructuredPlan(prompt),
   delegationExecutor = AfriAgentDelegationExecutor
 } = {}) {
-  let executeInternal;
 
   const provider = {
     async execute({ task, context = {} } = {}) {
@@ -96,11 +95,6 @@ export function createAfriAICommandRuntime({
         }
       }
 
-      executeInternal = harnessRuntime.createInternalExecutor({
-        sourceAgentId: AGENT_ID,
-        sourceCapabilityId: CAPABILITY_ID
-      });
-
       return {
         initialized: true,
         agentId: AGENT_ID,
@@ -110,23 +104,19 @@ export function createAfriAICommandRuntime({
       };
     },
 
-    async plan(objective, context = {}) {
-      if (typeof executeInternal !== "function") {
-        throw new Error("AFRIAICOMMAND_INTERNAL_EXECUTOR_UNAVAILABLE");
-      }
-      return executeInternal({
-        agentId: AGENT_ID,
-        task: {
-          capability: CAPABILITY_ID,
-          objective
-        },
-        context
+    async plan(objective) {
+      return planner({
+        objective,
+        agents: identityRegistry.list(),
+        capabilities: capabilityRegistry.list(),
+        requesterAgentId: AGENT_ID,
+        reasoner
       });
     },
 
     // Backward-compatible alias. Planning only; never delegates.
-    async execute(objective, context = {}) {
-      return this.plan(objective, context);
+    async execute(objective) {
+      return this.plan(objective);
     },
 
     // Delegation remains a separate, independently approval-gated operation.

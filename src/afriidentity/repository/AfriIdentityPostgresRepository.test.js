@@ -327,3 +327,49 @@ test("rejects invalid session ID lookup timestamps before database access", asyn
   await assert.rejects(repository.findActiveSessionById(" ", 100), { message: "AFRI_IDENTITY_SESSION_ID_REQUIRED" });
   assert.equal(calls.length, 0);
 });
+
+
+// AUDIT_EVENT_TRANSACTION_CLIENT_TEST
+test('writes audit events through the supplied transaction client instead of the pool', async () => {
+  const poolCalls = [];
+  const clientCalls = [];
+  const pool = {
+    async query(sql, values = []) {
+      poolCalls.push({ sql, values });
+      return { rows: [] };
+    }
+  };
+  const client = {
+    async query(sql, values = []) {
+      clientCalls.push({ sql, values });
+      return {
+        rows: [{
+          event_id: values[0],
+          actor_user_id: values[1],
+          event_type: values[2],
+          subject_user_id: values[3],
+          outcome: values[4],
+          details: JSON.parse(values[5]),
+          created_at: values[6]
+        }]
+      };
+    }
+  };
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  const event = await repository.appendAuditEvent({
+    eventId: 'EVENT-TX-1',
+    eventType: 'AGENT_EXECUTION_GRANT_CREATED',
+    outcome: 'SUCCESS',
+    details: { grantId: 'grant-1', stepCount: 2 },
+    createdAt: 13000,
+    client
+  });
+
+  assert.equal(event.eventId, 'EVENT-TX-1');
+  assert.equal(event.eventType, 'AGENT_EXECUTION_GRANT_CREATED');
+  assert.deepEqual(event.details, { grantId: 'grant-1', stepCount: 2 });
+  assert.equal(clientCalls.length, 1);
+  assert.match(clientCalls[0].sql, /INSERT INTO afri_identity_audit_events/);
+  assert.equal(poolCalls.length, 0);
+});

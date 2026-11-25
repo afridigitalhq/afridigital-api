@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { createAfriAgentDelegationExecutor, SOURCE_AGENT_ID } from "./AfriAgentDelegationExecutor.js";
 import { AfriAgentApprovalAuthority } from "../approval/AfriAgentApprovalAuthority.js";
 import { AfriAgentApprovalMemoryRepository } from "../approval/testing/AfriAgentApprovalMemoryRepository.js";
@@ -38,6 +39,7 @@ function setup({
   const repository = new AfriAgentApprovalMemoryRepository();
   const authority = new AfriAgentApprovalAuthority({
     repository,
+    auditRepository: { async appendAuditEvent() {} },
     authorizeApprover: async () => true,
     clock: () => 10000,
     ttlMs: 5000
@@ -79,6 +81,7 @@ function setup({
   let maxActiveCalls = 0;
   const executionSourceIds = [];
   const executionPayloads = [];
+  const executionContexts = [];
   let targetLookupCount = 0;
   const executor = createAfriAgentDelegationExecutor({
     approvalAuthority: authority,
@@ -109,6 +112,7 @@ function setup({
           assert.ok(agentId);
           executionSourceIds.push(sourceAgentId);
           executionPayloads.push(task?.payload ?? null);
+          executionContexts.push(structuredClone(context));
           assert.equal(context.executionChannel, "INTERNAL_ADMIN");
           assert.equal(context.paymentPolicy, "NO_AUTOMATIC_PAYMENT");
           if (delayMs) await new Promise(resolve => setTimeout(resolve, delayMs));
@@ -130,6 +134,8 @@ function setup({
     getMaxActiveCalls: () => maxActiveCalls,
     getExecutionSourceIds: () => [...executionSourceIds],
     getExecutionPayloads: () => [...executionPayloads],
+    getExecutionContexts: () => structuredClone(executionContexts),
+    repository,
     agents,
     capabilities,
     authorized
@@ -471,4 +477,141 @@ test("contains registry lookup failures and continues independent specialists", 
   assert.equal(result.steps[0].errorCode, "TEST_REGISTRY_LOOKUP_FAILURE");
   assert.equal(result.steps[1].status, "COMPLETED");
   assert.equal(state.getCalls(), 1);
+});
+
+
+test("persists completed grant lifecycle, specialist context, and bounded result hash", async () => {
+  const state = setup({ executionResult: { accepted: true, value: 42 } });
+  const approvalId = await createApprovedPlan(state.authority);
+  const result = await state.executor.execute({
+    requesterId: "USER-1",
+    approvalId,
+    plan: plan()
+  });
+
+  const grant = state.repository.grants.get(result.grantId);
+  const steps = state.repository.grantSteps.get(result.grantId);
+  const serialized = JSON.stringify({ accepted: true, value: 42 });
+  const expectedHash = createHash("sha256").update(serialized, "utf8").digest("hex");
+
+  assert.equal(grant.status, "COMPLETED");
+  assert.equal(steps[0].status, "COMPLETED");
+  assert.equal(steps[0].resultHash, expectedHash);
+  assert.equal(steps[0].resultHash.length, 64);
+  assert.equal(steps[0].result, undefined);
+  assert.deepEqual(state.getExecutionContexts().map(item => ({
+    grantId: item.grantId,
+    stepNumber: item.stepNumber
+  })), [{ grantId: result.grantId, stepNumber: 1 }]);
+});
+
+test("persists failed and skipped steps and fails the grant", async () => {
+  const state = setup({ failOnCall: 1 });
+  const approvedPlan = {
+    ...plan(),
+    steps: [
+      ...plan().steps,
+      {
+        step: 2,
+        agentId: "AGENT-AFRIREA-001",
+        capability: "research.analyze",
+        task: "Continue after prerequisite",
+        dependsOn: [1]
+      }
+    ]
+  };
+  const approvalId = await createApprovedPlan(state.authority, approvedPlan);
+  const result = await state.executor.execute({
+    requesterId: "USER-1",
+    approvalId,
+    plan: approvedPlan
+  });
+
+  const grant = state.repository.grants.get(result.grantId);
+  const steps = state.repository.grantSteps.get(result.grantId);
+  assert.equal(grant.status, "FAILED");
+  assert.deepEqual(steps.map(item => item.status), ["FAILED", "SKIPPED"]);
+  assert.equal(steps[0].resultHash, null);
+});
+
+test("aborts before dispatch when grant claim persistence fails", async () => {
+  const state = setup();
+  const approvalId = await createApprovedPlan(state.authority);
+  state.authority.claimGrantStep = async () => {
+    throw new Error("TEST_CLAIM_STORE_FAILURE");
+  };
+
+  await assert.rejects(
+    state.executor.execute({ requesterId: "USER-1", approvalId, plan: plan() }),
+    { message: "TEST_CLAIM_STORE_FAILURE" }
+  );
+  assert.equal(state.getCalls(), 0);
+  const grantId = [...state.repository.grants.keys()][0];
+  assert.equal(state.repository.grants.get(grantId).status, "ACTIVE");
+  assert.equal(state.repository.grantSteps.get(grantId)[0].status, "PENDING");
+});
+
+test("does not convert grant completion persistence failure into specialist failure", async () => {
+  const state = setup();
+  const approvalId = await createApprovedPlan(state.authority);
+  state.authority.completeGrantStep = async () => {
+    throw new Error("TEST_COMPLETION_STORE_FAILURE");
+  };
+
+  await assert.rejects(
+    state.executor.execute({ requesterId: "USER-1", approvalId, plan: plan() }),
+    { message: "TEST_COMPLETION_STORE_FAILURE" }
+  );
+  assert.equal(state.getCalls(), 1);
+  const grantId = [...state.repository.grants.keys()][0];
+  assert.equal(state.repository.grants.get(grantId).status, "ACTIVE");
+  assert.equal(state.repository.grantSteps.get(grantId)[0].status, "RUNNING");
+});
+
+test("propagates grant failure persistence errors", async () => {
+  const state = setup({ failOnCall: 1 });
+  const approvalId = await createApprovedPlan(state.authority);
+  state.authority.failGrantStep = async () => {
+    throw new Error("TEST_FAILURE_STORE_FAILURE");
+  };
+
+  await assert.rejects(
+    state.executor.execute({ requesterId: "USER-1", approvalId, plan: plan() }),
+    { message: "TEST_FAILURE_STORE_FAILURE" }
+  );
+  const grantId = [...state.repository.grants.keys()][0];
+  assert.equal(state.repository.grantSteps.get(grantId)[0].status, "RUNNING");
+  assert.equal(state.repository.grants.get(grantId).status, "ACTIVE");
+});
+
+test("propagates dependent-step skip persistence errors", async () => {
+  const state = setup({ failOnCall: 1 });
+  const approvedPlan = {
+    ...plan(),
+    steps: [
+      ...plan().steps,
+      {
+        step: 2,
+        agentId: "AGENT-AFRIDEBUG-001",
+        capability: "debug.analyze",
+        task: "Dependent follow-up",
+        dependsOn: [1]
+      }
+    ]
+  };
+  const approvalId = await createApprovedPlan(state.authority, approvedPlan);
+  state.authority.skipGrantStep = async () => {
+    throw new Error("TEST_SKIP_STORE_FAILURE");
+  };
+
+  await assert.rejects(
+    state.executor.execute({ requesterId: "USER-1", approvalId, plan: approvedPlan }),
+    { message: "TEST_SKIP_STORE_FAILURE" }
+  );
+  const grantId = [...state.repository.grants.keys()][0];
+  assert.deepEqual(
+    state.repository.grantSteps.get(grantId).map(item => item.status),
+    ["FAILED", "PENDING"]
+  );
+  assert.equal(state.repository.grants.get(grantId).status, "ACTIVE");
 });

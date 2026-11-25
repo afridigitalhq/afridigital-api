@@ -364,16 +364,38 @@ test("executes internal-only capabilities only through trusted internal authoriz
 
   const executeInternal = AfriAgentHarnessRuntime.createInternalExecutor({
     sourceAgentId: agentId,
-    sourceCapabilityId: capabilityId
+    sourceCapabilityId: capabilityId,
+    receiptVerifier: {
+      async consumeExecutionReceipt({ token, envelope }) {
+        assert.equal(token, "test-execution-receipt");
+        assert.equal(envelope.sourceAgentId, agentId);
+        assert.equal(envelope.targetAgentId, agentId);
+        assert.equal(envelope.capabilityId, capabilityId);
+        assert.equal(envelope.executionChannel, "INTERNAL_ADMIN");
+        assert.equal(envelope.paymentPolicy, "NO_AUTOMATIC_PAYMENT");
+        return { verified: true };
+      }
+    }
   });
   const result = await executeInternal({
     agentId,
-    task: { capability: capabilityId },
+    task: {
+      capability: capabilityId,
+      payload: { objective: "Test internal execution", dependencyResults: {} }
+    },
     context: {
       sourceAgentId: "AGENT-FORGED-SOURCE",
       targetAgentId: "AGENT-FORGED-TARGET",
       executionChannel: "FORGED",
-      paymentPolicy: "AUTO_CHARGE"
+      paymentPolicy: "AUTO_CHARGE",
+      grantId: "grant-test",
+      stepNumber: 1,
+      taskId: "task-test",
+      planObjective: "Test plan objective",
+      planSummary: "Test plan summary",
+      step: 1,
+      dependsOn: [],
+      executionReceipt: "test-execution-receipt"
     }
   });
 
@@ -382,6 +404,74 @@ test("executes internal-only capabilities only through trusted internal authoriz
   assert.equal(received.context.targetAgentId, agentId);
   assert.equal(received.context.executionChannel, "INTERNAL_ADMIN");
   assert.equal(received.context.paymentPolicy, "NO_AUTOMATIC_PAYMENT");
+  assert.equal(Object.hasOwn(received.context, "executionReceipt"), false);
+});
+
+test("rejects internal execution when receipt verification is not explicitly confirmed", async () => {
+  const providerId = "test-provider-receipt-verification";
+  const agentId = "AGENT-HARNESS-RECEIPT-001";
+  const capabilityId = "harness.receipt.execute";
+  let providerCalls = 0;
+
+  AfriAgentHarnessRuntime.registerProvider(providerId, {
+    async execute() {
+      providerCalls += 1;
+      return { ok: true };
+    }
+  });
+
+  AfriAgentIdentityRegistry.register({
+    id: agentId,
+    name: "Receipt Verification Test Agent",
+    organizationId: "afridigital",
+    trustDomain: "INTERNAL",
+    provider: providerId,
+    capabilities: [capabilityId]
+  });
+
+  AfriAgentCapabilityRegistry.register({
+    id: capabilityId,
+    internalOnly: true,
+    handler: async () => ({ ok: true })
+  });
+
+  for (const verification of [false, null, undefined]) {
+    const executeInternal = AfriAgentHarnessRuntime.createInternalExecutor({
+      sourceAgentId: agentId,
+      sourceCapabilityId: capabilityId,
+      receiptVerifier: {
+        async consumeExecutionReceipt() {
+          return verification;
+        }
+      }
+    });
+
+    await assert.rejects(
+      executeInternal({
+        agentId,
+        task: {
+          capability: capabilityId,
+          payload: {
+            objective: "Test receipt verification",
+            dependencyResults: []
+          }
+        },
+        context: {
+          grantId: "grant-receipt-test",
+          stepNumber: 1,
+          taskId: "task-receipt-test",
+          planObjective: "Test plan",
+          planSummary: "Test receipt verification",
+          step: 1,
+          dependsOn: [],
+          executionReceipt: "test-receipt-token"
+        }
+      }),
+      { message: "AFRI_HARNESS_RECEIPT_VERIFICATION_REJECTED" }
+    );
+  }
+
+  assert.equal(providerCalls, 0);
 });
 
 for (const scenario of [

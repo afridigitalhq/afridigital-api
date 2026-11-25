@@ -2,6 +2,7 @@ import express from "express";
 import AfriInternalA2ARequestAuth from "../../../platform/agent/security/AfriInternalA2ARequestAuth.js";
 import AfriAgentProfiles from "../../../platform/agent/identity/AfriAgentProfiles.js";
 import AfriAgentHarnessRuntime from "../../../platform/agent/harness/runtime/AfriAgentHarnessRuntime.js";
+import { getAfriAgentApprovalRuntime } from "../../../platform/agent/harness/approval/AfriAgentApprovalRuntime.js";
 
 const PATH = "/api/a2a/internal/tasks";
 const SOURCE_AGENT_ID = AfriAgentProfiles.afriaicommand.id;
@@ -23,20 +24,26 @@ function safeCode(error) {
 
 export default function internalA2ARoute(app, {
   requestAuth = AfriInternalA2ARequestAuth,
-  harnessRuntime = AfriAgentHarnessRuntime
+  harnessRuntime = AfriAgentHarnessRuntime,
+  approvalRuntimeProvider = getAfriAgentApprovalRuntime
 } = {}) {
   if (!app || typeof app.post !== "function") {
     throw new Error("AFRI_INTERNAL_A2A_ROUTE_APP_INVALID");
   }
   if (!requestAuth || typeof requestAuth.verify !== "function" ||
       typeof requestAuth.isReady !== "function" ||
-      !harnessRuntime || typeof harnessRuntime.createInternalExecutor !== "function") {
+      !harnessRuntime || typeof harnessRuntime.createInternalExecutor !== "function" ||
+      typeof approvalRuntimeProvider !== "function") {
     throw new Error("AFRI_INTERNAL_A2A_ROUTE_DEPENDENCY_INVALID");
   }
 
   const executeInternal = harnessRuntime.createInternalExecutor({
     sourceAgentId: SOURCE_AGENT_ID,
-    sourceCapabilityId: SOURCE_CAPABILITY_ID
+    sourceCapabilityId: SOURCE_CAPABILITY_ID,
+    receiptVerifier: {
+      consumeExecutionReceipt: args =>
+        approvalRuntimeProvider().authority.consumeExecutionReceipt(args)
+    }
   });
 
   app.post(PATH, express.raw({
@@ -124,7 +131,8 @@ export default function internalA2ARoute(app, {
 
     const context = {};
     for (const key of [
-      "taskId", "requestId", "planObjective", "planSummary", "step", "dependsOn"
+      "taskId", "requestId", "planObjective", "planSummary", "step",
+      "stepNumber", "grantId", "dependsOn", "executionReceipt"
     ]) {
       if (Object.hasOwn(body.context, key)) context[key] = body.context[key];
     }

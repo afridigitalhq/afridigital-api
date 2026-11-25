@@ -6,14 +6,23 @@ import {
 
 test("creates PostgreSQL approval authority and injected delegation executor", async () => {
   let schemaCalls = 0;
+  const events = [];
   const pool = {
     async query(sql) {
       schemaCalls++;
+      events.push(`SCHEMA_${schemaCalls}`);
       assert.match(sql, /CREATE TABLE IF NOT EXISTS (afri_agent_approvals|afri_agent_artifacts|afri_agent_artifact_approvals)/);
       return { rows: [] };
     },
     async connect() {
-      return { async query() { return { rows: [] }; }, release() {} };
+      return {
+        async query(sql) {
+          const command = sql.trim().split(/\\s+/)[0].toUpperCase();
+          events.push(command);
+          return { rows: [] };
+        },
+        release() {}
+      };
     }
   };
   const sessionService = {
@@ -22,8 +31,16 @@ test("creates PostgreSQL approval authority and injected delegation executor", a
     }
   };
 
-  const runtime = await createAfriAgentApprovalRuntime({ pool, sessionService });
+  const runtime = await createAfriAgentApprovalRuntime({
+    pool,
+    sessionService,
+    auditRepository: { async appendAuditEvent() {} },
+    executionLeaseMs: 60000
+  });
   assert.equal(schemaCalls, 3);
+  assert.ok(events.indexOf("COMMIT") >= 0);
+  assert.ok(events.indexOf("COMMIT") < events.indexOf("SCHEMA_2"));
+  assert.equal(runtime.authority.executionLeaseMs, 60000);
   assert.equal(typeof runtime.authority.request, "function");
   assert.equal(typeof runtime.authority.approve, "function");
   assert.equal(typeof runtime.authority.reject, "function");

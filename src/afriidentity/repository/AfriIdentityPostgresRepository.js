@@ -292,7 +292,7 @@ export class AfriIdentityPostgresRepository {
 
   async appendAuditEvent({
     eventId, actorUserId = null, eventType, subjectUserId = null,
-    outcome, details = {}, createdAt = Date.now()
+    outcome, details = {}, createdAt = Date.now(), client = null
   } = {}) {
     eventId = requiredText(eventId, "AFRI_IDENTITY_AUDIT_ID_REQUIRED");
     requiredTimestamp(createdAt, "AFRI_IDENTITY_TIMESTAMP_INVALID");
@@ -301,7 +301,11 @@ export class AfriIdentityPostgresRepository {
     eventType = requiredText(eventType, "AFRI_IDENTITY_AUDIT_TYPE_REQUIRED");
     outcome = requiredText(outcome, "AFRI_IDENTITY_AUDIT_OUTCOME_REQUIRED");
     const serializedDetails = validateAuditDetails(details);
-    const result = await this.pool.query(
+    const queryClient = client ?? this.pool;
+    if (!queryClient || typeof queryClient.query !== "function") {
+      throw new Error("AFRI_IDENTITY_AUDIT_CLIENT_INVALID");
+    }
+    const result = await queryClient.query(
       `INSERT INTO afri_identity_audit_events
        (event_id, actor_user_id, event_type, subject_user_id, outcome, details, created_at)
        VALUES ($1, $2, $3, $4, $5, $6::jsonb, $7) RETURNING *`,

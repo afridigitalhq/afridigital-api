@@ -61,7 +61,7 @@ const AfriAgentHarnessRuntime = {
     return invoke({ agent, capability, task, context });
   },
 
-  createInternalExecutor({ sourceAgentId, sourceCapabilityId } = {}) {
+  createInternalExecutor({ sourceAgentId, sourceCapabilityId, receiptVerifier } = {}) {
     if (typeof sourceAgentId !== "string" || !sourceAgentId.trim()) {
       throw new Error("AFRI_HARNESS_SOURCE_AGENT_REQUIRED");
     }
@@ -84,8 +84,36 @@ const AfriAgentHarnessRuntime = {
         })
       );
 
+      if (!receiptVerifier || typeof receiptVerifier.consumeExecutionReceipt !== "function") {
+        throw new Error("AFRI_HARNESS_RECEIPT_VERIFIER_UNAVAILABLE");
+      }
+      const taskId = context.taskId || context.requestId || null;
+      const receiptEnvelope = {
+        sourceAgentId: trustedSourceAgentId,
+        targetAgentId: agentId,
+        capabilityId: task.capability,
+        grantId: context.grantId,
+        stepNumber: context.stepNumber,
+        taskId,
+        planObjective: context.planObjective,
+        planSummary: context.planSummary,
+        step: context.step,
+        objective: task.payload.objective,
+        dependsOn: context.dependsOn,
+        dependencyResults: task.payload.dependencyResults,
+        executionChannel: "INTERNAL_ADMIN",
+        paymentPolicy: "NO_AUTOMATIC_PAYMENT"
+      };
+      const verification = await receiptVerifier.consumeExecutionReceipt({
+        token: context.executionReceipt,
+        envelope: receiptEnvelope
+      });
+      if (verification?.verified !== true) {
+        throw new Error("AFRI_HARNESS_RECEIPT_VERIFICATION_REJECTED");
+      }
+      const { executionReceipt, ...safeContext } = context;
       const executionContext = {
-        ...context,
+        ...safeContext,
         sourceAgentId: trustedSourceAgentId,
         targetAgentId: agentId,
         executionChannel: "INTERNAL_ADMIN",

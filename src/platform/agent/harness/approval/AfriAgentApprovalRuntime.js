@@ -9,12 +9,15 @@ import { AfriAgentArtifactApprovalAuthority } from "../artifacts/AfriAgentArtifa
 let runtime = null;
 let initialization = null;
 
-export async function createAfriAgentApprovalRuntime({ pool, sessionService } = {}) {
+export async function createAfriAgentApprovalRuntime({ pool, sessionService, auditRepository, executionLeaseMs } = {}) {
   if (!pool || typeof pool.query !== "function") {
     throw new Error("AFRI_APPROVAL_POSTGRES_POOL_REQUIRED");
   }
   if (!sessionService || typeof sessionService.verifyPrincipal !== "function") {
     throw new Error("AFRI_APPROVAL_IDENTITY_SERVICE_REQUIRED");
+  }
+  if (!auditRepository || typeof auditRepository.appendAuditEvent !== "function") {
+    throw new Error("AFRI_EXECUTION_GRANT_AUDIT_REPOSITORY_REQUIRED");
   }
 
   const repository = new AfriAgentApprovalPostgresRepository({ pool });
@@ -22,8 +25,12 @@ export async function createAfriAgentApprovalRuntime({ pool, sessionService } = 
 
   const authority = new AfriAgentApprovalAuthority({
     repository,
-    authorizeApprover: createAfriAgentApprovalAuthorizer({ sessionService })
+    auditRepository,
+    authorizeApprover: createAfriAgentApprovalAuthorizer({ sessionService }),
+    ...(executionLeaseMs === undefined ? {} : { executionLeaseMs })
   });
+
+  await authority.recoverExpiredGrantSteps();
 
   const artifactRepository = new AfriAgentArtifactPostgresRepository({ pool });
   await artifactRepository.initialize();
@@ -42,7 +49,7 @@ export async function createAfriAgentApprovalRuntime({ pool, sessionService } = 
   const commandRuntime = createAfriAICommandRuntime({ delegationExecutor });
 
   return Object.freeze({
-    repository, authority, delegationExecutor, commandRuntime, sessionService,
+    repository, authority, delegationExecutor, commandRuntime, sessionService, auditRepository,
     artifactRepository, artifactApprovalRepository, artifactApprovalAuthority
   });
 }

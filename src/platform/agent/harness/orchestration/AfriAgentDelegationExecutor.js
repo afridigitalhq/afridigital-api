@@ -2,6 +2,7 @@ import AfriAgentIdentityRegistry from "../../identity/AfriAgentIdentityRegistry.
 import AfriAgentCapabilityRegistry from "../../registry/AfriAgentCapabilityRegistry.js";
 import AfriInternalA2AHttpClient from "../../security/AfriInternalA2AHttpClient.js";
 import { validateAfriAgentExecutionPlan } from "./AfriAgentExecutionPlan.js";
+import { createHash } from "node:crypto";
 
 const SOURCE_AGENT_ID = "AGENT-AFRIAICOMMAND-001";
 const MAX_STEPS = 12;
@@ -26,7 +27,10 @@ function serializeResult(result, errorCode) {
   if (Buffer.byteLength(serialized, "utf8") > MAX_RESULT_BYTES) {
     fail(errorCode("RESULT_TOO_LARGE"));
   }
-  return JSON.parse(serialized);
+  return {
+    value: JSON.parse(serialized),
+    hash: createHash("sha256").update(serialized, "utf8").digest("hex")
+  };
 }
 
 function safeError(error) {
@@ -67,7 +71,14 @@ export function createAfriAgentDelegationExecutor({
 
   return {
     async execute({ approvalId, requesterId, plan, context = {} } = {}) {
-      if (!approvalAuthority || typeof approvalAuthority.consume !== "function") {
+      if (
+        !approvalAuthority ||
+        typeof approvalAuthority.consumeAndCreateGrant !== "function" ||
+        typeof approvalAuthority.claimGrantStep !== "function" ||
+        typeof approvalAuthority.completeGrantStep !== "function" ||
+        typeof approvalAuthority.failGrantStep !== "function" ||
+        typeof approvalAuthority.skipGrantStep !== "function"
+      ) {
         fail(errorCode("APPROVAL_AUTHORITY_UNAVAILABLE"));
       }
       if (typeof approvalId !== "string" || !approvalId.trim()) {
@@ -141,24 +152,56 @@ export function createAfriAgentDelegationExecutor({
       }
 
       // Consume only after all live authorization checks have passed.
-      await approvalAuthority.consume({
+      const grantResult = await approvalAuthority.consumeAndCreateGrant({
         approvalId: approvalId.trim(),
         sourceAgentId: trustedSourceAgentId,
         requesterId: requesterId.trim(),
         plan
       });
+      const grantId = grantResult.grant.grantId;
 
       const results = Array(validated.steps.length).fill(null);
       const startedAt = new Date().toISOString();
       const pending = new Set(validated.steps.map(step => step.step));
 
+      const skipStep = async (step, reason) => {
+        const transition = await approvalAuthority.skipGrantStep({
+          grantId,
+          stepNumber: step.step,
+          errorCode: reason
+        });
+        if (!transition || transition.status !== "SKIPPED") {
+          fail(errorCode("GRANT_STEP_SKIP_REJECTED"));
+        }
+        results[step.step - 1] = {
+          step: step.step,
+          agentId: step.agentId,
+          capability: step.capability,
+          status: "SKIPPED",
+          errorCode: reason,
+          completedAt: new Date().toISOString()
+        };
+      };
+
       const runStep = async step => {
         const stepStartedAt = new Date().toISOString();
 
+        // Claim errors are persistence/control-plane failures and must abort.
+        const claim = await approvalAuthority.claimGrantStep({
+          grantId,
+          stepNumber: step.step,
+          targetAgentId: step.agentId,
+          capabilityId: step.capability
+        });
+        if (!claim || claim.status !== "RUNNING") {
+          fail(errorCode("GRANT_STEP_CLAIM_REJECTED"));
+        }
+
+        let serializedResult;
         try {
+          // Recheck target identity and capability immediately before dispatch.
           const agent = identityRegistry.get(step.agentId);
           const capability = capabilityRegistry.get(step.capability);
-
           if (
             !agent ||
             agent.status !== "ACTIVE" ||
@@ -184,6 +227,27 @@ export function createAfriAgentDelegationExecutor({
             };
           });
 
+          const taskId = context.taskId || context.requestId || `${grantId}:${step.step}`;
+          const receiptEnvelope = {
+            sourceAgentId: trustedSourceAgentId,
+            targetAgentId: step.agentId,
+            capabilityId: step.capability,
+            grantId,
+            stepNumber: step.step,
+            taskId,
+            planObjective: validated.objective,
+            planSummary: validated.summary,
+            step: step.step,
+            objective: step.task,
+            dependsOn: step.dependsOn,
+            dependencyResults,
+            executionChannel: "INTERNAL_ADMIN",
+            paymentPolicy: "NO_AUTOMATIC_PAYMENT"
+          };
+          if (typeof approvalAuthority.issueExecutionReceipt !== "function") {
+            fail(errorCode("EXECUTION_RECEIPT_ISSUER_UNAVAILABLE"));
+          }
+          const receipt = await approvalAuthority.issueExecutionReceipt({ envelope: receiptEnvelope });
           const result = await internalTaskClient.execute({
             agentId: step.agentId,
             task: {
@@ -198,22 +262,29 @@ export function createAfriAgentDelegationExecutor({
               planObjective: validated.objective,
               planSummary: validated.summary,
               step: step.step,
-              dependsOn: step.dependsOn,
+              stepNumber: step.step,
+              grantId,
+              taskId,
+            executionReceipt: receipt.token,
+            dependsOn: step.dependsOn,
               executionChannel: "INTERNAL_ADMIN",
               paymentPolicy: "NO_AUTOMATIC_PAYMENT"
             }
           });
 
-          results[step.step - 1] = {
-            step: step.step,
-            agentId: step.agentId,
-            capability: step.capability,
-            status: "COMPLETED",
-            startedAt: stepStartedAt,
-            completedAt: new Date().toISOString(),
-            result: serializeResult(result, errorCode)
-          };
+          serializedResult = serializeResult(result, errorCode);
         } catch (error) {
+          // Specialist/auth/result failures are recorded as FAILED.
+          // A failure to persist that transition is deliberately allowed to escape.
+          const code = safeError(error);
+          const transition = await approvalAuthority.failGrantStep({
+            grantId,
+            stepNumber: step.step,
+            errorCode: code
+          });
+          if (!transition || transition.status !== "FAILED") {
+            fail(errorCode("GRANT_STEP_FAILURE_PERSISTENCE_REJECTED"));
+          }
           results[step.step - 1] = {
             step: step.step,
             agentId: step.agentId,
@@ -221,9 +292,30 @@ export function createAfriAgentDelegationExecutor({
             status: "FAILED",
             startedAt: stepStartedAt,
             completedAt: new Date().toISOString(),
-            errorCode: safeError(error)
+            errorCode: code
           };
+          return;
         }
+
+        // Completion persistence is outside the specialist catch boundary.
+        const completion = await approvalAuthority.completeGrantStep({
+          grantId,
+          stepNumber: step.step,
+          resultHash: serializedResult.hash
+        });
+        if (!completion || completion.status !== "COMPLETED") {
+          fail(errorCode("GRANT_STEP_COMPLETION_REJECTED"));
+        }
+
+        results[step.step - 1] = {
+          step: step.step,
+          agentId: step.agentId,
+          capability: step.capability,
+          status: "COMPLETED",
+          startedAt: stepStartedAt,
+          completedAt: new Date().toISOString(),
+          result: serializedResult.value
+        };
       };
 
       while (pending.size > 0) {
@@ -236,13 +328,7 @@ export function createAfriAgentDelegationExecutor({
           const dependencies = step.dependsOn.map(number => results[number - 1]);
 
           if (dependencies.some(dependency => dependency && dependency.status !== "COMPLETED")) {
-            results[step.step - 1] = {
-              step: step.step,
-              agentId: step.agentId,
-              capability: step.capability,
-              status: "SKIPPED",
-              errorCode: errorCode("DEPENDENCY_NOT_COMPLETED")
-            };
+            await skipStep(step, errorCode("DEPENDENCY_NOT_COMPLETED"));
             pending.delete(step.step);
             continue;
           }
@@ -259,22 +345,20 @@ export function createAfriAgentDelegationExecutor({
         if (ready.length === 0) {
           for (const step of validated.steps) {
             if (!pending.has(step.step)) continue;
-            results[step.step - 1] = {
-              step: step.step,
-              agentId: step.agentId,
-              capability: step.capability,
-              status: "SKIPPED",
-              errorCode: errorCode("DEPENDENCY_NOT_COMPLETED")
-            };
+            await skipStep(step, errorCode("DEPENDENCY_NOT_COMPLETED"));
             pending.delete(step.step);
           }
           break;
         }
 
         for (const step of ready) pending.delete(step.step);
-        await Promise.all(ready.map(runStep));
-      }
 
+        // Wait for all dispatched work to settle before propagating a
+        // persistence/control-plane failure from any parallel step.
+        const settled = await Promise.allSettled(ready.map(runStep));
+        const rejected = settled.find(item => item.status === "rejected");
+        if (rejected) throw rejected.reason;
+      }
       results.sort((a, b) => a.step - b.step);
 
       const completed = results.filter(item => item.status === "COMPLETED").length;
@@ -290,6 +374,7 @@ export function createAfriAgentDelegationExecutor({
         service: trustedServiceName,
         status,
         approvalId: approvalId.trim(),
+        grantId,
         planningMode: "AI_STRUCTURED",
         objective: validated.objective,
         summary: validated.summary,

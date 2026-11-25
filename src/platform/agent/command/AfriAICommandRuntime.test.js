@@ -71,21 +71,8 @@ function createFixture({ reasoner } = {}) {
       providers.set(id, provider);
       return { providerId: id, registered: true };
     },
-    createInternalExecutor({ sourceAgentId, sourceCapabilityId }) {
-      assert.equal(sourceAgentId, AGENT_ID);
-      assert.equal(sourceCapabilityId, CAPABILITY_ID);
-      return async request => {
-        assert.equal(request.agentId, AGENT_ID);
-        const provider = providers.get(PROVIDER_ID);
-        assert.ok(provider, "Provider was not registered.");
-        return provider.execute({
-          task: request.task,
-          context: {
-            executionChannel: "INTERNAL_ADMIN",
-            ...request.context
-          }
-        });
-      };
+    createInternalExecutor() {
+      throw new Error("PLANNING_MUST_NOT_CREATE_INTERNAL_EXECUTOR");
     }
   };
 
@@ -156,7 +143,7 @@ test("binds the provider to a pre-registered command identity", () => {
   assert.equal(fixture.identityRegistry.get(AGENT_ID).provider, PROVIDER_ID);
 });
 
-test("plans through the Harness and requires approval before delegation", async () => {
+test("plans directly against live registries without creating an internal executor", async () => {
   const fixture = createFixture();
   fixture.runtime.initialize();
 

@@ -80,7 +80,11 @@ export async function initAfriDigitalBootstrap(server, realtimeGateway, { requir
   }
 
   const approvalRuntime = postgresPool && afriIdentity?.sessionService
-    ? await initializeAfriAgentApprovalRuntime({ pool: postgresPool, sessionService: afriIdentity.sessionService })
+    ? await initializeAfriAgentApprovalRuntime({
+      pool: postgresPool,
+      sessionService: afriIdentity.sessionService,
+      auditRepository: afriIdentity.repository
+    })
     : null;
   if (requireApprovalRuntime && !approvalRuntime) throw new Error("AFRI_PRODUCTION_APPROVAL_RUNTIME_REQUIRED");
   const commandRuntime = approvalRuntime?.commandRuntime || (requireApprovalRuntime ? null : createAfriAICommandRuntime());
