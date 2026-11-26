@@ -39,6 +39,8 @@ test("initializes identity tables and indexes once", async () => {
   ]) assert.match(calls[0].sql, new RegExp(`CREATE TABLE IF NOT EXISTS ${table}`));
   assert.match(calls[0].sql, /CREATE INDEX IF NOT EXISTS idx_afri_human_sessions_user/);
   assert.match(calls[0].sql, /CREATE INDEX IF NOT EXISTS idx_afri_identity_audit_created/);
+  assert.match(calls[0].sql, /CREATE TABLE IF NOT EXISTS afri_identity_login_attempts/);
+  assert.match(calls[0].sql, /CREATE INDEX IF NOT EXISTS idx_afri_identity_login_attempts_updated/);
 });
 
 test("resets failed initialization so it can be retried", async () => {
@@ -372,4 +374,206 @@ test('writes audit events through the supplied transaction client instead of the
   assert.equal(clientCalls.length, 1);
   assert.match(clientCalls[0].sql, /INSERT INTO afri_identity_audit_events/);
   assert.equal(poolCalls.length, 0);
+});
+
+test("creates the initial admin, role, and audit event in one transaction", async () => {
+  const { pool, calls } = createPool(async (sql, values) => {
+    if (sql.includes("SELECT user_id FROM afri_human_users LIMIT 1")) return { rows: [] };
+    if (sql.includes("INSERT INTO afri_human_users")) return { rows: [{
+      user_id: values[0], email: values[1], status: "ACTIVE",
+      created_at: values[3], updated_at: values[3]
+    }] };
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) return { rows: [{
+      event_id: values[0], actor_user_id: values[1], event_type: values[2],
+      subject_user_id: values[3], outcome: values[4],
+      details: JSON.parse(values[5]), created_at: values[6]
+    }] };
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  const user = await repository.createInitialAdminWithAudit({
+    userId: "ADMIN-1", email: "Admin@Example.com",
+    passwordHash: "scrypt$test", eventId: "EVENT-1", now: 1000
+  });
+
+  assert.equal(user.userId, "ADMIN-1");
+  assert.equal(user.email, "admin@example.com");
+  const sql = calls.map(call => call.sql);
+  assert.equal(sql[0], "BEGIN");
+  assert.ok(sql.some(statement => statement.includes("pg_advisory_xact_lock")));
+  assert.ok(sql.some(statement => statement.includes("INSERT INTO afri_human_user_roles")));
+  assert.ok(sql.some(statement => statement.includes("INSERT INTO afri_identity_audit_events")));
+  assert.equal(sql.at(-1), "COMMIT");
+  assert.ok(sql.indexOf(sql.find(statement => statement.includes("INSERT INTO afri_identity_audit_events"))) < sql.indexOf("COMMIT"));
+});
+
+test("rolls back initial-admin creation when its audit insert fails", async () => {
+  const { pool, calls } = createPool(async (sql, values) => {
+    if (sql.includes("SELECT user_id FROM afri_human_users LIMIT 1")) return { rows: [] };
+    if (sql.includes("INSERT INTO afri_human_users")) return { rows: [{
+      user_id: values[0], email: values[1], status: "ACTIVE",
+      created_at: values[3], updated_at: values[3]
+    }] };
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) throw new Error("audit insert failed");
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.createInitialAdminWithAudit({
+      userId: "ADMIN-1", email: "admin@example.com",
+      passwordHash: "scrypt$test", eventId: "EVENT-1", now: 1000
+    }),
+    /audit insert failed/
+  );
+  assert.ok(calls.some(call => call.sql === "ROLLBACK"));
+  assert.ok(!calls.some(call => call.sql === "COMMIT"));
+});
+
+test("creates a session and its login audit event in one transaction", async () => {
+  const { pool, calls } = createPool(async (sql, values) => {
+    if (sql.includes("SELECT user_id FROM afri_human_users WHERE")) {
+      return { rows: [{ user_id: values[0] }] };
+    }
+    if (sql.includes("INSERT INTO afri_human_sessions")) return { rows: [{
+      session_id: values[0], user_id: values[1], token_hash: values[2],
+      created_at: values[3], expires_at: values[4], revoked_at: null
+    }] };
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) return { rows: [{
+      event_id: values[0], actor_user_id: values[1], event_type: values[2],
+      subject_user_id: values[3], outcome: values[4],
+      details: JSON.parse(values[5]), created_at: values[6]
+    }] };
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  const throttleKey = "d".repeat(64);
+  const session = await repository.createSessionWithAudit({
+    sessionId: "SESSION-1", userId: "USER-1", tokenHash: "a".repeat(64),
+    createdAt: 1000, expiresAt: 2000, eventId: "EVENT-LOGIN-1",
+    throttleKey
+  });
+
+  assert.equal(session.sessionId, "SESSION-1");
+  const sql = calls.map(call => call.sql);
+  assert.equal(sql[0], "BEGIN");
+  assert.ok(sql.some(statement => statement.includes("FOR UPDATE")));
+  assert.ok(sql.some(statement => statement.includes("INSERT INTO afri_identity_audit_events")));
+  const throttleDeleteIndex = sql.findIndex(statement =>
+    statement.includes("DELETE FROM afri_identity_login_attempts")
+  );
+  assert.ok(throttleDeleteIndex > 0);
+  assert.ok(throttleDeleteIndex < sql.indexOf("COMMIT"));
+  assert.deepEqual(calls[throttleDeleteIndex].values, [throttleKey]);
+  assert.equal(sql.at(-1), "COMMIT");
+});
+
+test("enforces active login lockouts and protects them in the atomic upsert", async () => {
+  const { pool, calls } = createPool(async () => ({
+    rows: [{ attempt_count: 5, blocked_until: 20000 }]
+  }));
+  const repository = new AfriIdentityPostgresRepository({ pool });
+  const throttleKey = "b".repeat(64);
+
+  const result = await repository.checkLoginThrottle({
+    throttleKey, now: 15000, windowMs: 1000
+  });
+
+  assert.deepEqual(result, {
+    allowed: false, attemptCount: 5, blockedUntil: 20000
+  });
+  assert.match(calls[0].sql, /SELECT attempt_count, blocked_until/);
+
+  await repository.recordLoginFailure({
+    throttleKey, now: 15000, windowMs: 1000, maxAttempts: 5, blockMs: 1000
+  });
+  const upsert = calls.at(-1).sql;
+  assert.equal((upsert.match(/blocked_until IS NULL/g) || []).length, 3);
+  assert.equal((upsert.match(/blocked_until <= \$2/g) || []).length, 3);
+  assert.equal((upsert.match(/window_started_at <= \$2 - \$3/g) || []).length, 3);
+});
+
+
+test("rolls back session creation when its login audit insert fails", async () => {
+  const { pool, calls } = createPool(async (sql, values) => {
+    if (sql.includes("SELECT user_id FROM afri_human_users WHERE")) {
+      return { rows: [{ user_id: values[0] }] };
+    }
+    if (sql.includes("INSERT INTO afri_human_sessions")) {
+      return { rows: [{
+        session_id: values[0], user_id: values[1], token_hash: values[2],
+        created_at: values[3], expires_at: values[4], revoked_at: null
+      }] };
+    }
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) {
+      throw new Error("login audit insert failed");
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.createSessionWithAudit({
+      sessionId: "SESSION-1", userId: "USER-1",
+      tokenHash: "a".repeat(64), createdAt: 1000,
+      expiresAt: 2000, eventId: "EVENT-LOGIN-1"
+    }),
+    /login audit insert failed/
+  );
+  assert.ok(calls.some(call => call.sql === "ROLLBACK"));
+  assert.ok(!calls.some(call => call.sql === "COMMIT"));
+});
+
+test("rolls back session creation when transactional throttle clearing fails", async () => {
+  const { pool, calls } = createPool(async (sql, values) => {
+    if (sql.includes("SELECT user_id FROM afri_human_users WHERE")) {
+      return { rows: [{ user_id: values[0] }] };
+    }
+    if (sql.includes("INSERT INTO afri_human_sessions")) {
+      return { rows: [{
+        session_id: values[0], user_id: values[1], token_hash: values[2],
+        created_at: values[3], expires_at: values[4], revoked_at: null
+      }] };
+    }
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) {
+      return { rows: [{
+        event_id: values[0], actor_user_id: values[1], event_type: values[2],
+        subject_user_id: values[3], outcome: values[4],
+        details: JSON.parse(values[5]), created_at: values[6]
+      }] };
+    }
+    if (sql.includes("DELETE FROM afri_identity_login_attempts")) {
+      throw new Error("throttle clearing failed");
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.createSessionWithAudit({
+      sessionId: "SESSION-2", userId: "USER-1",
+      tokenHash: "e".repeat(64), createdAt: 1000,
+      expiresAt: 2000, eventId: "EVENT-LOGIN-2",
+      throttleKey: "f".repeat(64)
+    }),
+    /throttle clearing failed/
+  );
+
+  const sql = calls.map(call => call.sql);
+  assert.ok(sql.some(statement => statement.includes("INSERT INTO afri_human_sessions")));
+  assert.ok(sql.some(statement => statement.includes("DELETE FROM afri_identity_login_attempts")));
+  assert.ok(sql.includes("ROLLBACK"));
+  assert.ok(!sql.includes("COMMIT"));
+});
+
+test("clears persistent login attempts using the throttle key", async () => {
+  const { pool, calls } = createPool();
+  const repository = new AfriIdentityPostgresRepository({ pool });
+  const throttleKey = "c".repeat(64);
+
+  assert.equal(await repository.clearLoginAttempts({ throttleKey }), true);
+  assert.match(calls[0].sql, /DELETE FROM afri_identity_login_attempts WHERE throttle_key = \$1/);
+  assert.deepEqual(calls[0].values, [throttleKey]);
 });

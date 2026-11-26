@@ -232,3 +232,60 @@ test("rejects an issued principal after its account is suspended", async () => {
   users.get("USER-1").status = "SUSPENDED";
   assert.equal(await service.verifyPrincipal(principal), null);
 });
+
+
+test("bearer middleware and live principal verification enforce current roles together", async () => {
+  const { repository, roles } = fixture();
+  roles.set("USER-1", ["USER", "AFRIAI_DIAGNOSTICS_ADMIN"]);
+  const service = new SessionService({ repository });
+  const created = await service.create("USER-1");
+  const middleware = createAfriIdentityAuthenticationMiddleware({
+    sessionService: service
+  });
+  const req = {
+    headers: { authorization: `Bearer ${created.token}` }
+  };
+  let nextCalled = false;
+
+  await middleware(req, {}, () => {
+    nextCalled = true;
+  });
+
+  assert.equal(nextCalled, true);
+  assert.equal(req.auth.userId, "USER-1");
+
+  const verified = await service.verifyPrincipal(req.auth);
+  assert.ok(verified.roles.includes("AFRIAI_DIAGNOSTICS_ADMIN"));
+
+  roles.set("USER-1", ["USER"]);
+  const reverified = await service.verifyPrincipal(verified);
+  assert.deepEqual(reverified.roles, ["USER"]);
+  assert.equal(reverified.roles.includes("AFRIAI_DIAGNOSTICS_ADMIN"), false);
+});
+
+test("creates a session through the audited repository path when an audit event ID is supplied", async () => {
+  const { repository } = fixture();
+  let auditedInput;
+  repository.createSessionWithAudit = async input => {
+    auditedInput = input;
+    return { sessionId: input.sessionId, expiresAt: input.expiresAt };
+  };
+  const service = new SessionService({
+    repository,
+    clock: () => 100000,
+    ttlMs: 3600000
+  });
+
+  const created = await service.create("USER-1", {
+    auditEventId: "LOGIN-EVENT-1",
+    throttleKey: "d".repeat(64)
+  });
+
+  assert.equal(created.sessionId, auditedInput.sessionId);
+  assert.equal(created.expiresAt, 3700000);
+  assert.equal(auditedInput.userId, "USER-1");
+  assert.equal(auditedInput.eventId, "LOGIN-EVENT-1");
+  assert.equal(auditedInput.throttleKey, "d".repeat(64));
+  assert.match(auditedInput.tokenHash, /^[a-f0-9]{64}$/);
+  assert.notEqual(auditedInput.tokenHash, created.token);
+});

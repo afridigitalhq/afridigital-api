@@ -27,9 +27,14 @@ export class AfriIdentitySessionService {
     this.ttlMs = ttlMs;
   }
 
-  async create(userId) {
+  async create(userId, { auditEventId, throttleKey } = {}) {
     if (typeof userId !== "string" || !userId.trim()) {
       throw new Error("AFRI_IDENTITY_USER_ID_REQUIRED");
+    }
+
+    if (auditEventId !== undefined &&
+        (typeof auditEventId !== "string" || !auditEventId.trim())) {
+      throw new Error("AFRI_IDENTITY_AUDIT_ID_REQUIRED");
     }
 
     const user = await this.repository.findUserById(userId.trim());
@@ -40,14 +45,27 @@ export class AfriIdentitySessionService {
     const token = randomBytes(32).toString("base64url");
     const createdAt = this.clock();
     const expiresAt = createdAt + this.ttlMs;
-
-    const session = await this.repository.createSession({
+    const sessionInput = {
       sessionId: randomUUID(),
       userId: user.userId,
       tokenHash: hashToken(token),
       createdAt,
       expiresAt
-    });
+    };
+
+    let session;
+    if (auditEventId !== undefined) {
+      if (typeof this.repository.createSessionWithAudit !== "function") {
+        throw new Error("AFRI_IDENTITY_AUDIT_SESSION_REPOSITORY_REQUIRED");
+      }
+      session = await this.repository.createSessionWithAudit({
+        ...sessionInput,
+        eventId: auditEventId.trim(),
+        ...(throttleKey === undefined ? {} : { throttleKey })
+      });
+    } else {
+      session = await this.repository.createSession(sessionInput);
+    }
 
     return {
       token,

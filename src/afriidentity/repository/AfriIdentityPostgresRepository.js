@@ -36,6 +36,15 @@ CREATE TABLE IF NOT EXISTS afri_identity_audit_events (
 );
 CREATE INDEX IF NOT EXISTS idx_afri_identity_audit_created
   ON afri_identity_audit_events (created_at);
+CREATE TABLE IF NOT EXISTS afri_identity_login_attempts (
+  throttle_key CHAR(64) PRIMARY KEY,
+  window_started_at BIGINT NOT NULL,
+  attempt_count INTEGER NOT NULL CHECK (attempt_count >= 0),
+  blocked_until BIGINT,
+  updated_at BIGINT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_afri_identity_login_attempts_updated
+  ON afri_identity_login_attempts (updated_at);
 `;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -112,6 +121,209 @@ export class AfriIdentityPostgresRepository {
       this.initialization = null;
       throw error;
     }
+  }
+
+  async createInitialAdminWithAudit({ userId, email, passwordHash, eventId, now = Date.now() } = {}) {
+    userId = requiredText(userId, "AFRI_IDENTITY_USER_ID_REQUIRED");
+    email = requiredText(email, "AFRI_IDENTITY_EMAIL_REQUIRED").toLowerCase();
+    passwordHash = requiredText(passwordHash, "AFRI_IDENTITY_PASSWORD_HASH_REQUIRED");
+    eventId = requiredText(eventId, "AFRI_IDENTITY_AUDIT_ID_REQUIRED");
+    requiredTimestamp(now, "AFRI_IDENTITY_TIMESTAMP_INVALID");
+    if (!EMAIL_PATTERN.test(email)) throw new Error("AFRI_IDENTITY_EMAIL_INVALID");
+    if (passwordHash.length > 512) throw new Error("AFRI_IDENTITY_PASSWORD_HASH_INVALID");
+    if (typeof this.pool.connect !== "function") throw new Error("AFRI_IDENTITY_TRANSACTION_REQUIRED");
+
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+      await client.query(
+        "SELECT pg_advisory_xact_lock(hashtext($1))",
+        ["afri-identity-initial-admin-bootstrap"]
+      );
+      const existing = await client.query("SELECT user_id FROM afri_human_users LIMIT 1");
+      if (existing.rows.length) throw new Error("AFRI_IDENTITY_BOOTSTRAP_ALREADY_COMPLETED");
+
+      const inserted = await client.query(
+        `INSERT INTO afri_human_users
+          (user_id, email, password_hash, status, created_at, updated_at)
+         VALUES ($1, $2, $3, 'ACTIVE', $4, $4) RETURNING *`,
+        [userId, email, passwordHash, now]
+      );
+      const user = mapUser(inserted.rows[0]);
+      await client.query(
+        "INSERT INTO afri_human_user_roles (user_id, role, assigned_at) VALUES ($1, $2, $3)",
+        [userId, "AFRIAI_DIAGNOSTICS_ADMIN", now]
+      );
+      await this.appendAuditEvent({
+        eventId,
+        eventType: "INITIAL_ADMIN_BOOTSTRAPPED",
+        subjectUserId: userId,
+        outcome: "SUCCESS",
+        details: { role: "AFRIAI_DIAGNOSTICS_ADMIN" },
+        createdAt: now,
+        client
+      });
+      await client.query("COMMIT");
+      return user;
+    } catch (error) {
+      await client.query("ROLLBACK").catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+
+  async createSessionWithAudit({ sessionId, userId, tokenHash, createdAt = Date.now(), expiresAt, eventId, throttleKey } = {}) {
+    sessionId = requiredText(sessionId, "AFRI_IDENTITY_SESSION_ID_REQUIRED");
+    userId = requiredText(userId, "AFRI_IDENTITY_USER_ID_REQUIRED");
+    tokenHash = requiredText(tokenHash, "AFRI_IDENTITY_TOKEN_HASH_REQUIRED").toLowerCase();
+    eventId = requiredText(eventId, "AFRI_IDENTITY_AUDIT_ID_REQUIRED");
+    if (!HASH_PATTERN.test(tokenHash)) throw new Error("AFRI_IDENTITY_TOKEN_HASH_INVALID");
+    if (throttleKey !== undefined) {
+      throttleKey = requiredText(throttleKey, "AFRI_IDENTITY_THROTTLE_KEY_REQUIRED").toLowerCase();
+      if (!HASH_PATTERN.test(throttleKey)) throw new Error("AFRI_IDENTITY_THROTTLE_KEY_INVALID");
+    }
+    requiredTimestamp(createdAt, "AFRI_IDENTITY_SESSION_CREATED_AT_INVALID");
+    requiredTimestamp(expiresAt, "AFRI_IDENTITY_SESSION_EXPIRY_INVALID");
+    if (expiresAt <= createdAt) throw new Error("AFRI_IDENTITY_SESSION_EXPIRY_INVALID");
+    if (typeof this.pool.connect !== "function") throw new Error("AFRI_IDENTITY_TRANSACTION_REQUIRED");
+
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+      const user = await client.query(
+        "SELECT user_id FROM afri_human_users WHERE user_id = $1 AND status = $2 FOR UPDATE",
+        [userId, "ACTIVE"]
+      );
+      if (!user.rows.length) throw new Error("AFRI_IDENTITY_USER_NOT_ACTIVE");
+      const result = await client.query(
+        `INSERT INTO afri_human_sessions
+          (session_id, user_id, token_hash, created_at, expires_at)
+         VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+        [sessionId, userId, tokenHash, createdAt, expiresAt]
+      );
+      await this.appendAuditEvent({
+        eventId,
+        actorUserId: userId,
+        eventType: "IDENTITY_LOGIN",
+        subjectUserId: userId,
+        outcome: "SUCCESS",
+        details: {},
+        createdAt,
+        client
+      });
+      if (throttleKey !== undefined) {
+        await client.query(
+          "DELETE FROM afri_identity_login_attempts WHERE throttle_key = $1",
+          [throttleKey]
+        );
+      }
+      await client.query("COMMIT");
+      return mapSession(result.rows[0]);
+    } catch (error) {
+      await client.query("ROLLBACK").catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+
+  async checkLoginThrottle({ throttleKey, now = Date.now(), windowMs = 900000 } = {}) {
+    throttleKey = requiredText(throttleKey, "AFRI_IDENTITY_THROTTLE_KEY_REQUIRED").toLowerCase();
+    if (!HASH_PATTERN.test(throttleKey)) throw new Error("AFRI_IDENTITY_THROTTLE_KEY_INVALID");
+    requiredTimestamp(now, "AFRI_IDENTITY_TIMESTAMP_INVALID");
+    if (!Number.isSafeInteger(windowMs) || windowMs < 1000) {
+      throw new Error("AFRI_IDENTITY_THROTTLE_CONFIG_INVALID");
+    }
+
+    const result = await this.pool.query(
+      `SELECT attempt_count, blocked_until
+       FROM afri_identity_login_attempts
+       WHERE throttle_key = $1`,
+      [throttleKey]
+    );
+    const row = result.rows[0];
+    if (!row) return { allowed: true, attemptCount: 0, blockedUntil: null };
+
+    const blockedUntil = row.blocked_until === null ? null : Number(row.blocked_until);
+    const currentlyBlocked = blockedUntil !== null && blockedUntil > now;
+
+    return {
+      allowed: !currentlyBlocked,
+      attemptCount: Number(row.attempt_count),
+      blockedUntil: currentlyBlocked ? blockedUntil : null
+    };
+  }
+
+  async recordLoginFailure({
+    throttleKey,
+    now = Date.now(),
+    windowMs = 900000,
+    maxAttempts = 5,
+    blockMs = 900000
+  } = {}) {
+    throttleKey = requiredText(throttleKey, "AFRI_IDENTITY_THROTTLE_KEY_REQUIRED").toLowerCase();
+    if (!HASH_PATTERN.test(throttleKey)) throw new Error("AFRI_IDENTITY_THROTTLE_KEY_INVALID");
+    requiredTimestamp(now, "AFRI_IDENTITY_TIMESTAMP_INVALID");
+    if (!Number.isSafeInteger(windowMs) || windowMs < 1000 ||
+        !Number.isSafeInteger(maxAttempts) || maxAttempts < 1 ||
+        !Number.isSafeInteger(blockMs) || blockMs < 1000) {
+      throw new Error("AFRI_IDENTITY_THROTTLE_CONFIG_INVALID");
+    }
+
+    const result = await this.pool.query(
+      `INSERT INTO afri_identity_login_attempts
+        (throttle_key, window_started_at, attempt_count, blocked_until, updated_at)
+       VALUES ($1, $2, 1, NULL, $2)
+       ON CONFLICT (throttle_key) DO UPDATE SET
+         window_started_at = CASE
+           WHEN (afri_identity_login_attempts.blocked_until IS NOT NULL
+                 AND afri_identity_login_attempts.blocked_until <= $2)
+             OR (afri_identity_login_attempts.blocked_until IS NULL
+                 AND afri_identity_login_attempts.window_started_at <= $2 - $3)
+             THEN $2
+           ELSE afri_identity_login_attempts.window_started_at
+         END,
+         attempt_count = CASE
+           WHEN (afri_identity_login_attempts.blocked_until IS NOT NULL
+                 AND afri_identity_login_attempts.blocked_until <= $2)
+             OR (afri_identity_login_attempts.blocked_until IS NULL
+                 AND afri_identity_login_attempts.window_started_at <= $2 - $3)
+             THEN 1
+           ELSE afri_identity_login_attempts.attempt_count + 1
+         END,
+         blocked_until = CASE
+           WHEN (afri_identity_login_attempts.blocked_until IS NOT NULL
+                 AND afri_identity_login_attempts.blocked_until <= $2)
+             OR (afri_identity_login_attempts.blocked_until IS NULL
+                 AND afri_identity_login_attempts.window_started_at <= $2 - $3)
+             THEN NULL
+           WHEN afri_identity_login_attempts.attempt_count + 1 >= $4
+             THEN $2 + $5
+           ELSE NULL
+         END,
+         updated_at = $2
+       RETURNING attempt_count, blocked_until`,
+      [throttleKey, now, windowMs, maxAttempts, blockMs]
+    );
+    const row = result.rows[0];
+    if (!row) throw new Error("AFRI_IDENTITY_THROTTLE_RESULT_MISSING");
+    const blockedUntil = row.blocked_until === null ? null : Number(row.blocked_until);
+    return {
+      allowed: blockedUntil === null || blockedUntil <= now,
+      attemptCount: Number(row.attempt_count),
+      blockedUntil
+    };
+  }
+
+  async clearLoginAttempts({ throttleKey } = {}) {
+    throttleKey = requiredText(throttleKey, "AFRI_IDENTITY_THROTTLE_KEY_REQUIRED").toLowerCase();
+    if (!HASH_PATTERN.test(throttleKey)) throw new Error("AFRI_IDENTITY_THROTTLE_KEY_INVALID");
+    await this.pool.query(
+      "DELETE FROM afri_identity_login_attempts WHERE throttle_key = $1",
+      [throttleKey]
+    );
+    return true;
   }
 
   async createUser({ userId, email, passwordHash, now = Date.now() } = {}) {
