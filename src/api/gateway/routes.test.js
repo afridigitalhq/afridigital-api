@@ -19,7 +19,7 @@ test("gateway registers protected Ollama diagnostics and identity endpoints exac
           }
 
           if (method === "post" &&
-              (path === "/api/identity/bootstrap-admin" || path === "/api/identity/login")) {
+              (path === "/api/identity/bootstrap-admin" || path === "/api/identity/login" || path === "/api/identity/recover-initial-admin")) {
             assert.equal(handlers.length, 1, path + " must have one route handler");
             assert.equal(typeof handlers[0], "function");
           }
@@ -35,6 +35,7 @@ test("gateway registers protected Ollama diagnostics and identity endpoints exac
     "get /api/afriai/ollama-test",
     "get /api/afriai/ollama-debug",
     "post /api/identity/bootstrap-admin",
-    "post /api/identity/login"
+    "post /api/identity/login",
+    "post /api/identity/recover-initial-admin"
   ]) assert.equal(registrations.get(key), 1, `${key} must be registered exactly once`);
 });

@@ -45,6 +45,11 @@ CREATE TABLE IF NOT EXISTS afri_identity_login_attempts (
 );
 CREATE INDEX IF NOT EXISTS idx_afri_identity_login_attempts_updated
   ON afri_identity_login_attempts (updated_at);
+CREATE TABLE IF NOT EXISTS afri_identity_recovery_uses (
+  recovery_key_hash CHAR(64) PRIMARY KEY,
+  created_at BIGINT NOT NULL,
+  consumed_at BIGINT
+);
 `;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -165,6 +170,99 @@ export class AfriIdentityPostgresRepository {
       });
       await client.query("COMMIT");
       return user;
+    } catch (error) {
+      await client.query("ROLLBACK").catch(() => {});
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+
+  async recoverInitialAdminPasswordWithAudit({
+    email, passwordHash, recoveryKeyHash, eventId, now = Date.now()
+  } = {}) {
+    email = requiredText(email, "AFRI_IDENTITY_EMAIL_REQUIRED").toLowerCase();
+    passwordHash = requiredText(passwordHash, "AFRI_IDENTITY_PASSWORD_HASH_REQUIRED");
+    recoveryKeyHash = requiredText(recoveryKeyHash, "AFRI_IDENTITY_RECOVERY_KEY_INVALID").toLowerCase();
+    eventId = requiredText(eventId, "AFRI_IDENTITY_AUDIT_ID_REQUIRED");
+    requiredTimestamp(now, "AFRI_IDENTITY_TIMESTAMP_INVALID");
+
+    if (!EMAIL_PATTERN.test(email)) throw new Error("AFRI_IDENTITY_EMAIL_INVALID");
+    if (passwordHash.length > 512) throw new Error("AFRI_IDENTITY_PASSWORD_HASH_INVALID");
+    if (!HASH_PATTERN.test(recoveryKeyHash)) throw new Error("AFRI_IDENTITY_RECOVERY_KEY_INVALID");
+    if (typeof this.pool.connect !== "function") throw new Error("AFRI_IDENTITY_TRANSACTION_REQUIRED");
+
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+
+      await client.query(
+        `INSERT INTO afri_identity_recovery_uses (recovery_key_hash, created_at)
+         VALUES ($1, $2) ON CONFLICT (recovery_key_hash) DO NOTHING`,
+        [recoveryKeyHash, now]
+      );
+
+      const recoveryUse = await client.query(
+        `SELECT consumed_at FROM afri_identity_recovery_uses
+         WHERE recovery_key_hash = $1 FOR UPDATE`,
+        [recoveryKeyHash]
+      );
+      if (!recoveryUse.rows.length || recoveryUse.rows[0].consumed_at !== null) {
+        throw new Error("AFRI_IDENTITY_RECOVERY_ALREADY_USED");
+      }
+
+      const admin = await client.query(
+        `SELECT u.user_id, u.email
+         FROM afri_human_users u
+         JOIN afri_human_user_roles r ON r.user_id = u.user_id
+         WHERE u.email = $1
+           AND u.status = 'ACTIVE'
+           AND r.role = 'AFRIAI_DIAGNOSTICS_ADMIN'
+         FOR UPDATE OF u, r`,
+        [email]
+      );
+      if (!admin.rows.length) throw new Error("AFRI_IDENTITY_RECOVERY_ADMIN_NOT_FOUND");
+
+      const user = admin.rows[0];
+      const passwordUpdate = await client.query(
+        `UPDATE afri_human_users
+         SET password_hash = $2, updated_at = $3
+         WHERE user_id = $1`,
+        [user.user_id, passwordHash, now]
+      );
+      if (passwordUpdate.rowCount !== 1) {
+        throw new Error("AFRI_IDENTITY_RECOVERY_ADMIN_UPDATE_FAILED");
+      }
+
+      await client.query(
+        `UPDATE afri_human_sessions
+         SET revoked_at = $2
+         WHERE user_id = $1 AND revoked_at IS NULL`,
+        [user.user_id, now]
+      );
+
+      await this.appendAuditEvent({
+        eventId,
+        eventType: "ADMIN_PASSWORD_RECOVERY",
+        subjectUserId: user.user_id,
+        outcome: "SUCCESS",
+        details: { method: "ONE_TIME_RECOVERY_SECRET" },
+        createdAt: now,
+        client
+      });
+
+      const recoveryConsumption = await client.query(
+        `UPDATE afri_identity_recovery_uses
+         SET consumed_at = $2
+         WHERE recovery_key_hash = $1 AND consumed_at IS NULL`,
+        [recoveryKeyHash, now]
+      );
+      if (recoveryConsumption.rowCount !== 1) {
+        throw new Error("AFRI_IDENTITY_RECOVERY_CONSUMPTION_FAILED");
+      }
+
+      await client.query("COMMIT");
+      return { userId: user.user_id, email: user.email };
     } catch (error) {
       await client.query("ROLLBACK").catch(() => {});
       throw error;

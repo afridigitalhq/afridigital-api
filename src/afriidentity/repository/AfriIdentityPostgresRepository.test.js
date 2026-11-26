@@ -35,7 +35,8 @@ test("initializes identity tables and indexes once", async () => {
     "afri_human_users",
     "afri_human_user_roles",
     "afri_human_sessions",
-    "afri_identity_audit_events"
+    "afri_identity_audit_events",
+    "afri_identity_recovery_uses"
   ]) assert.match(calls[0].sql, new RegExp(`CREATE TABLE IF NOT EXISTS ${table}`));
   assert.match(calls[0].sql, /CREATE INDEX IF NOT EXISTS idx_afri_human_sessions_user/);
   assert.match(calls[0].sql, /CREATE INDEX IF NOT EXISTS idx_afri_identity_audit_created/);
@@ -576,4 +577,160 @@ test("clears persistent login attempts using the throttle key", async () => {
   assert.equal(await repository.clearLoginAttempts({ throttleKey }), true);
   assert.match(calls[0].sql, /DELETE FROM afri_identity_login_attempts WHERE throttle_key = \$1/);
   assert.deepEqual(calls[0].values, [throttleKey]);
+});
+
+
+test("recovers an active initial administrator atomically and consumes the recovery key", async () => {
+  const { pool, calls } = createPool(async (sql) => {
+    if (sql.includes("SELECT consumed_at")) {
+      return { rows: [{ consumed_at: null }] };
+    }
+    if (sql.includes("SELECT u.user_id, u.email")) {
+      return { rows: [{ user_id: "ADMIN-1", email: "admin@example.com" }] };
+    }
+    if (sql.includes("UPDATE afri_human_users")) {
+      return { rows: [], rowCount: 1 };
+    }
+    if (sql.includes("UPDATE afri_identity_recovery_uses") && sql.includes("SET consumed_at")) {
+      return { rows: [], rowCount: 1 };
+    }
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) {
+      return { rows: [{
+        event_id: "EVENT-1",
+        actor_user_id: null,
+        event_type: "ADMIN_PASSWORD_RECOVERY",
+        subject_user_id: "ADMIN-1",
+        outcome: "SUCCESS",
+        details: { method: "ONE_TIME_RECOVERY_SECRET" },
+        created_at: 1000
+      }] };
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  const user = await repository.recoverInitialAdminPasswordWithAudit({
+    email: "Admin@Example.com",
+    passwordHash: "scrypt$new-hash",
+    recoveryKeyHash: "a".repeat(64),
+    eventId: "EVENT-1",
+    now: 1000
+  });
+
+  assert.deepEqual(user, { userId: "ADMIN-1", email: "admin@example.com" });
+  const sql = calls.map(call => call.sql).join("\n");
+  assert.match(sql, /INSERT INTO afri_identity_recovery_uses/);
+  assert.match(sql, /SELECT consumed_at[\s\S]*FOR UPDATE/);
+  assert.match(sql, /FOR UPDATE OF u/);
+  assert.match(sql, /SET password_hash = \$2, updated_at = \$3/);
+  assert.match(sql, /UPDATE afri_human_sessions[\s\S]*revoked_at = \$2/);
+  assert.match(sql, /INSERT INTO afri_identity_audit_events/);
+  assert.match(sql, /SET consumed_at = \$2/);
+  assert.equal(calls[0].sql, "BEGIN");
+  assert.equal(calls.at(-1).sql, "COMMIT");
+  assert.equal(calls.some(call => call.sql === "ROLLBACK"), false);
+});
+
+test("rejects a previously consumed recovery key before looking up the administrator", async () => {
+  const { pool, calls } = createPool(async (sql) => {
+    if (sql.includes("SELECT consumed_at")) {
+      return { rows: [{ consumed_at: 900 }] };
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.recoverInitialAdminPasswordWithAudit({
+      email: "admin@example.com",
+      passwordHash: "scrypt$new-hash",
+      recoveryKeyHash: "b".repeat(64),
+      eventId: "EVENT-2",
+      now: 1000
+    }),
+    { message: "AFRI_IDENTITY_RECOVERY_ALREADY_USED" }
+  );
+
+  assert.equal(calls.some(call => call.sql.includes("SELECT u.user_id, u.email")), false);
+  assert.equal(calls.at(-1).sql, "ROLLBACK");
+});
+
+test("rolls back password recovery when the recovery key cannot be consumed", async () => {
+  const { pool, calls } = createPool(async (sql) => {
+    if (sql.includes("SELECT consumed_at")) {
+      return { rows: [{ consumed_at: null }] };
+    }
+    if (sql.includes("SELECT u.user_id, u.email")) {
+      return { rows: [{ user_id: "ADMIN-1", email: "admin@example.com" }] };
+    }
+    if (sql.includes("UPDATE afri_human_users")) {
+      return { rows: [], rowCount: 1 };
+    }
+    if (sql.includes("UPDATE afri_identity_recovery_uses") && sql.includes("SET consumed_at")) {
+      return { rows: [], rowCount: 0 };
+    }
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) {
+      return { rows: [{
+        event_id: "EVENT-4",
+        actor_user_id: null,
+        event_type: "ADMIN_PASSWORD_RECOVERY",
+        subject_user_id: "ADMIN-1",
+        outcome: "SUCCESS",
+        details: { method: "ONE_TIME_RECOVERY_SECRET" },
+        created_at: 1000
+      }] };
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.recoverInitialAdminPasswordWithAudit({
+      email: "admin@example.com",
+      passwordHash: "scrypt$new-hash",
+      recoveryKeyHash: "d".repeat(64),
+      eventId: "EVENT-4",
+      now: 1000
+    }),
+    { message: "AFRI_IDENTITY_RECOVERY_CONSUMPTION_FAILED" }
+  );
+
+  assert.equal(calls.at(-1).sql, "ROLLBACK");
+  assert.equal(calls.some(call => call.sql === "COMMIT"), false);
+});
+
+test("rolls back password recovery when audit insertion fails", async () => {
+  const { pool, calls } = createPool(async (sql) => {
+    if (sql.includes("SELECT consumed_at")) {
+      return { rows: [{ consumed_at: null }] };
+    }
+    if (sql.includes("SELECT u.user_id, u.email")) {
+      return { rows: [{ user_id: "ADMIN-1", email: "admin@example.com" }] };
+    }
+    if (sql.includes("UPDATE afri_human_users")) {
+      return { rows: [], rowCount: 1 };
+    }
+    if (sql.includes("INSERT INTO afri_identity_audit_events")) {
+      throw new Error("audit write failed");
+    }
+    return { rows: [] };
+  });
+  const repository = new AfriIdentityPostgresRepository({ pool });
+
+  await assert.rejects(
+    repository.recoverInitialAdminPasswordWithAudit({
+      email: "admin@example.com",
+      passwordHash: "scrypt$new-hash",
+      recoveryKeyHash: "c".repeat(64),
+      eventId: "EVENT-3",
+      now: 1000
+    }),
+    /audit write failed/
+  );
+
+  const sql = calls.map(call => call.sql).join("\n");
+  assert.match(sql, /UPDATE afri_human_users/);
+  assert.match(sql, /UPDATE afri_human_sessions/);
+  assert.equal(calls.at(-1).sql, "ROLLBACK");
+  assert.equal(calls.some(call => call.sql === "COMMIT"), false);
 });

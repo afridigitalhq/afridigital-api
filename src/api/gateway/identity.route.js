@@ -36,7 +36,8 @@ function bootstrapSecretMatches(supplied, configured) {
 
 export default function identityRoute(app, {
   getIdentityRuntime = getAfriIdentityRuntime,
-  getBootstrapSecret = () => process.env.AFRI_IDENTITY_BOOTSTRAP_SECRET
+  getBootstrapSecret = () => process.env.AFRI_IDENTITY_BOOTSTRAP_SECRET,
+  getRecoverySecret = () => process.env.AFRI_IDENTITY_RECOVERY_SECRET
 } = {}) {
   let dummyHashPromise;
 
@@ -81,6 +82,69 @@ export default function identityRoute(app, {
       }
       if (error?.message === "AFRI_IDENTITY_PASSWORD_INVALID" ||
           error?.message === "AFRI_IDENTITY_EMAIL_INVALID") {
+        return res.status(400).json({ error: "INVALID_REQUEST" });
+      }
+      return res.status(503).json({ error: "IDENTITY_SERVICE_UNAVAILABLE" });
+    }
+  });
+
+
+  app.post("/api/identity/recover-initial-admin", async (req, res) => {
+    const configuredSecret = getRecoverySecret();
+    const suppliedSecret = typeof req.get === "function"
+      ? req.get("x-afri-recovery-secret")
+      : req.headers?.["x-afri-recovery-secret"];
+
+    if (typeof configuredSecret !== "string" ||
+        configuredSecret.length < 43 ||
+        !bootstrapSecretMatches(suppliedSecret, configuredSecret)) {
+      return res.status(404).json({ error: "NOT_FOUND" });
+    }
+
+    if (!validBody(req.body)) {
+      return res.status(400).json({ error: "INVALID_REQUEST" });
+    }
+
+    const email = normalizeEmail(req.body.email);
+    const password = req.body.password;
+    const passwordConfirmation = req.body.passwordConfirmation;
+
+    if (!email ||
+        typeof password !== "string" ||
+        password.length < 12 ||
+        password.length > 1024 ||
+        typeof passwordConfirmation !== "string" ||
+        passwordConfirmation !== password) {
+      return res.status(400).json({ error: "INVALID_REQUEST" });
+    }
+
+    try {
+      const runtime = getIdentityRuntime();
+      const passwordHash = await runtime.passwordService.constructor.hash(password);
+      const recoveryKeyHash = createHash("sha256")
+        .update(configuredSecret, "utf8")
+        .digest("hex");
+
+      const user = await runtime.repository.recoverInitialAdminPasswordWithAudit({
+        email,
+        passwordHash,
+        recoveryKeyHash,
+        eventId: randomUUID()
+      });
+
+      return res.status(200).json({
+        status: "ADMIN_PASSWORD_RECOVERED",
+        user: { userId: user.userId, email: user.email }
+      });
+    } catch (error) {
+      if (error?.message === "AFRI_IDENTITY_RECOVERY_ALREADY_USED") {
+        return res.status(409).json({ error: "RECOVERY_ALREADY_USED" });
+      }
+      if (error?.message === "AFRI_IDENTITY_RECOVERY_ADMIN_NOT_FOUND") {
+        return res.status(404).json({ error: "ADMIN_NOT_FOUND" });
+      }
+      if (error?.message === "AFRI_IDENTITY_EMAIL_INVALID" ||
+          error?.message === "AFRI_IDENTITY_PASSWORD_HASH_INVALID") {
         return res.status(400).json({ error: "INVALID_REQUEST" });
       }
       return res.status(503).json({ error: "IDENTITY_SERVICE_UNAVAILABLE" });

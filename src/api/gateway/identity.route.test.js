@@ -2,7 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import identityRoute from "./identity.route.js";
 
-function setup({ runtime, secret = "test-bootstrap-secret", getIdentityRuntime } = {}) {
+function setup({
+  runtime,
+  secret = "test-bootstrap-secret",
+  recoverySecret = "r".repeat(43),
+  getIdentityRuntime
+} = {}) {
   const handlers = new Map();
   const app = {
     post(path, handler) {
@@ -12,7 +17,8 @@ function setup({ runtime, secret = "test-bootstrap-secret", getIdentityRuntime }
   };
   identityRoute(app, {
     getIdentityRuntime: getIdentityRuntime || (() => runtime),
-    getBootstrapSecret: () => secret
+    getBootstrapSecret: () => secret,
+    getRecoverySecret: () => recoverySecret
   });
   return handlers;
 }
@@ -57,7 +63,111 @@ function passwordService({ valid = true } = {}) {
 test("registers both identity POST handlers", () => {
   const handlers = setup({ runtime: {} });
   assert.equal(typeof handlers.get("/api/identity/bootstrap-admin"), "function");
+  assert.equal(typeof handlers.get("/api/identity/recover-initial-admin"), "function");
   assert.equal(typeof handlers.get("/api/identity/login"), "function");
+});
+
+test("hides recovery endpoint when its secret is invalid", async () => {
+  let runtimeAccessed = false;
+  const handlers = setup({
+    getIdentityRuntime() {
+      runtimeAccessed = true;
+      return {};
+    }
+  });
+  const response = await invoke(handlers.get("/api/identity/recover-initial-admin"), {
+    body: {
+      email: "admin@example.com",
+      password: "new-long-password",
+      passwordConfirmation: "new-long-password"
+    },
+    headers: { "x-afri-recovery-secret": "wrong-secret" }
+  });
+
+  assert.equal(response.statusCode, 404);
+  assert.deepEqual(response.payload, { error: "NOT_FOUND" });
+  assert.equal(runtimeAccessed, false);
+});
+
+test("rejects recovery when password confirmation does not match", async () => {
+  let runtimeAccessed = false;
+  const handlers = setup({
+    getIdentityRuntime() {
+      runtimeAccessed = true;
+      return {};
+    }
+  });
+  const response = await invoke(handlers.get("/api/identity/recover-initial-admin"), {
+    body: {
+      email: "admin@example.com",
+      password: "new-long-password",
+      passwordConfirmation: "different-long-password"
+    },
+    headers: { "x-afri-recovery-secret": "r".repeat(43) }
+  });
+
+  assert.equal(response.statusCode, 400);
+  assert.deepEqual(response.payload, { error: "INVALID_REQUEST" });
+  assert.equal(runtimeAccessed, false);
+});
+
+test("recovers the administrator password without returning password material", async () => {
+  let input;
+  const recoverySecret = "s".repeat(43);
+  const runtime = {
+    passwordService: passwordService(),
+    repository: {
+      async recoverInitialAdminPasswordWithAudit(value) {
+        input = value;
+        return { userId: "ADMIN-1", email: value.email };
+      }
+    }
+  };
+  const handlers = setup({ runtime, recoverySecret });
+  const response = await invoke(handlers.get("/api/identity/recover-initial-admin"), {
+    body: {
+      email: " Admin@Example.com ",
+      password: "a-new-secure-password",
+      passwordConfirmation: "a-new-secure-password"
+    },
+    headers: { "x-afri-recovery-secret": recoverySecret }
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.payload, {
+    status: "ADMIN_PASSWORD_RECOVERED",
+    user: { userId: "ADMIN-1", email: "admin@example.com" }
+  });
+  assert.equal(input.email, "admin@example.com");
+  assert.equal(input.passwordHash, "scrypt$test-hash");
+  assert.match(input.recoveryKeyHash, /^[a-f0-9]{64}$/);
+  assert.notEqual(input.recoveryKeyHash, recoverySecret);
+  assert.match(input.eventId, /^[0-9a-f-]{36}$/i);
+  assert.equal(JSON.stringify(response.payload).includes("scrypt$test-hash"), false);
+});
+
+test("returns conflict when the recovery key has already been consumed", async () => {
+  const runtime = {
+    passwordService: passwordService(),
+    repository: {
+      async recoverInitialAdminPasswordWithAudit() {
+        throw new Error("AFRI_IDENTITY_RECOVERY_ALREADY_USED");
+      }
+    }
+  };
+  const handlers = setup({ runtime });
+  const recoverySecret = "r".repeat(43);
+  const response = await invoke(handlers.get("/api/identity/recover-initial-admin"), {
+    body: {
+      email: "admin@example.com",
+      password: "a-new-secure-password",
+      passwordConfirmation: "a-new-secure-password"
+    },
+    headers: { "x-afri-recovery-secret": recoverySecret }
+  });
+
+  assert.equal(response.statusCode, 409);
+  assert.deepEqual(response.payload, { error: "RECOVERY_ALREADY_USED" });
 });
 
 test("hides bootstrap endpoint when the supplied secret is invalid", async () => {
