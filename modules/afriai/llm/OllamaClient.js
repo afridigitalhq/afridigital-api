@@ -56,7 +56,9 @@ export async function askOllama(prompt,options={}){
     );
     return response.data?.response||"";
   }catch(error){
-    console.log("⚠️ Ollama unavailable:",error.message);
+    const status=Number.isInteger(error?.response?.status)?error.response.status:null;
+    const code=typeof error?.code==="string"&&/^[A-Z0-9_-]{1,64}$/i.test(error.code)?error.code:null;
+    console.log("⚠️ Ollama unavailable:",status===null?"REQUEST_FAILED":`HTTP_${status}`,code?`CODE_${code}`:"");
     return "";
   }
 }
