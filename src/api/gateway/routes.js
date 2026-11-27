@@ -11,6 +11,7 @@ import modulesRoute from "./modules.route.js";
 import socRoute from "./soc.route.js";
 import ollamaTestRoute from "./ollama-test.route.js";
 import ollamaDebugRoute from "./ollama-debug.route.js";
+import ollamaCloudAuthTestRoute from "./ollama-cloud-auth-test.route.js";
 import identityRoute from "./identity.route.js";
 import healthRoute from "./health.route.js";
 import agentPlatformReadinessRoute from "./agent-platform-readiness.route.js";
@@ -32,6 +33,7 @@ export default function registerRoutes(app) {
   internalApprovalRoute(app);
   ollamaTestRoute(app);
   ollamaDebugRoute(app);
+  ollamaCloudAuthTestRoute(app);
   identityRoute(app);
   healthRoute(app);
   agentPlatformReadinessRoute(app);
