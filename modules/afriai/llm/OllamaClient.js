@@ -16,6 +16,22 @@ function endpoint(){
   return OLLAMA_URL||"http://127.0.0.1:11434/api/generate";
 }
 
+function isOllamaCloud(url){
+  try{
+    return new URL(url).hostname==="ollama.com";
+  }catch{
+    return false;
+  }
+}
+
+function cloudChatEndpoint(url){
+  const parsed=new URL(url);
+  parsed.pathname="/api/chat";
+  parsed.search="";
+  parsed.hash="";
+  return parsed.toString();
+}
+
 export function ollamaConfig(){
   return {
     url:endpoint(),
@@ -37,24 +53,31 @@ export async function askOllama(prompt,options={}){
     :DEFAULT_TEMPERATURE;
 
   try{
-    const response=await axios.post(
-      config.url,
-      {
-        model,
-        prompt,
-        stream:false,
-        options:{num_predict:numPredict,temperature},
-        ...(options.responseFormat==="json"?{format:"json"}:{})
-      },
-      {
-        timeout,
-        headers:{
-          ...(OLLAMA_API_KEY?{Authorization:`Bearer ${OLLAMA_API_KEY}`}:{ }),
-          "Content-Type":"application/json"
+    const cloud=isOllamaCloud(config.url);
+    const requestUrl=cloud?cloudChatEndpoint(config.url):config.url;
+    const body=cloud
+      ?{
+          model,
+          messages:[{role:"user",content:prompt}],
+          stream:false,
+          options:{num_predict:numPredict,temperature},
+          ...(options.responseFormat==="json"?{format:"json"}:{})
         }
+      :{
+          model,
+          prompt,
+          stream:false,
+          options:{num_predict:numPredict,temperature},
+          ...(options.responseFormat==="json"?{format:"json"}:{})
+        };
+    const response=await axios.post(requestUrl,body,{
+      timeout,
+      headers:{
+        ...(OLLAMA_API_KEY?{Authorization:`Bearer ${OLLAMA_API_KEY}`}:{ }),
+        "Content-Type":"application/json"
       }
-    );
-    return response.data?.response||"";
+    });
+    return (cloud?response.data?.message?.content:response.data?.response)||"";
   }catch(error){
     const status=Number.isInteger(error?.response?.status)?error.response.status:null;
     const code=typeof error?.code==="string"&&/^[A-Z0-9_-]{1,64}$/i.test(error.code)?error.code:null;

@@ -58,6 +58,35 @@ test("Ollama generation and health checks forward optional Bearer authentication
   }
 });
 
+test("Ollama Cloud uses the chat contract and preserves the configured model",async()=>{
+  const originalPost=axios.post;
+  const envKeys=["OLLAMA_URL","OLLAMA_MODEL","OLLAMA_API_KEY"];
+  const previous=Object.fromEntries(envKeys.map(key=>[key,process.env[key]]));
+  let request;
+  try{
+    process.env.OLLAMA_URL="https://ollama.com/api/generate";
+    process.env.OLLAMA_MODEL="nemotron-3-nano:30b";
+    process.env.OLLAMA_API_KEY="test-cloud-key";
+    axios.post=async(url,body,config)=>{
+      request={url,body,config};
+      return {data:{message:{content:"cloud response"}}};
+    };
+    const {askOllama}=await import("./OllamaClient.js?cloud-chat-test");
+    assert.equal(await askOllama("Test cloud prompt"),"cloud response");
+    assert.equal(request.url,"https://ollama.com/api/chat");
+    assert.equal(request.body.model,"nemotron-3-nano:30b");
+    assert.deepEqual(request.body.messages,[{role:"user",content:"Test cloud prompt"}]);
+    assert.equal(request.body.stream,false);
+    assert.equal(request.config.headers.Authorization,"Bearer test-cloud-key");
+  }finally{
+    axios.post=originalPost;
+    for(const key of envKeys){
+      if(previous[key]===undefined) delete process.env[key];
+      else process.env[key]=previous[key];
+    }
+  }
+});
+
 test("Ollama errors log sanitized HTTP status without exposing secrets or response bodies",async()=>{
   const originalPost=axios.post;
   const originalLog=console.log;
